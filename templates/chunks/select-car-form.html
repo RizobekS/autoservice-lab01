@@ -1,0 +1,36 @@
+{% load redirect_url %}
+{% load static %}
+
+{% csrf_token %}
+{% redirect_url %}
+<div class="start-form-mark choices-plain col-lg-6 col-xl">
+  <div class="select">
+    <select class="ajax-filter-trigger" id="vendor" name="vendor">
+      <option value>Марка</option>
+    </select>
+  </div>
+</div>
+<div class="start-form-model choices-plain col-lg-6 col-xl">
+  <div class="select">
+    <select class="ajax-filter-trigger" id="model" name="model">
+      <option value>Модель</option>
+    </select>
+  </div>
+</div>
+<div class="start-form-year choices-plain col-lg-6 col-xl">
+  <div class="select">
+    <select class="ajax-filter-trigger" id="year" name="year">
+      <option value>Год</option>
+    </select>
+  </div>
+</div>
+<div class="start-form-gen choices-plain col-lg-6 col-xl">
+  <div class="select">
+    <select class="ajax-filter-trigger" id="modification" name="modification">
+      <option value>Модификация</option>
+    </select>
+  </div>
+</div>
+<p class="form-submit col-12 col-lg-6 col-xl-2">
+  <button id="submit-filter" type="button" class="btn btn-small btn-maincolor">Выбрать</button>
+</p>

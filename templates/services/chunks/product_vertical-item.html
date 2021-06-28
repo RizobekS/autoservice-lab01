@@ -1,0 +1,23 @@
+{% load cropping %}
+
+<div class="vertical-item">
+  <div class="item-media">
+    <img src="{% cropped_thumbnail product 'product_thumbnail' %}" width="268" height="118" alt="{{ product.title }}">
+    <div class="media-links">
+      <a class="abs-link" title="" href="{{ product.reverse_url }}"></a>
+    </div>
+  </div>
+  <div class="item-content">
+    <p class="tab-title">
+      <a href="{{ product.reverse_url }}">{{ product.title }}</a>
+    </p>
+    <p class="item-meta">
+      <i class="fa fa-calculator color-main"></i>
+      <b>Цена:</b> {{ product.verbose_price }}
+    </p>
+    <p class="item-meta">
+      <i class="ico-clock-alt color-main"></i>
+      <b>Длительность:</b> {{ product.time_duration }}
+    </p>
+  </div>
+</div>

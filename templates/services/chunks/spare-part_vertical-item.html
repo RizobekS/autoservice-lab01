@@ -1,0 +1,19 @@
+{% load cropping %}
+
+<div class="vertical-item">
+  <div class="item-media">
+    <img src="{% cropped_thumbnail spare_part 'product_thumbnail' %}" width="268" height="118" alt="{{ spare_part.title }}">
+    <div class="media-links">
+      <a class="abs-link" title="" {# href="blog-single-left.html" #}></a>
+    </div>
+  </div>
+  <div class="item-content">
+    <p class="tab-title">
+      <a {# href="blog-single-right.html" #}>{{ spare_part.title }}</a>
+    </p>
+    <p class="item-meta">
+      <i class="fa fa-calculator color-main"></i>
+      <b>Цена:</b> {{ spare_part.verbose_price }}
+    </p>
+  </div>
+</div>

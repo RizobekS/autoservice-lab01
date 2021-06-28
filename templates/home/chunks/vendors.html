@@ -1,0 +1,20 @@
+{% load cropping %}
+
+<section class="partners ls s-py-55 s-py-lg-75" id="partners">
+  <div class="container">
+    <div class="col-12 mb-50">
+      <h3 class="special-heading text-center">Какие<span class="text-gradient">марки</span> мы ремонтируем</h3>
+      <p class="fs-20 color-dark">Мультибрендовый автосервис в Санкт-Петербурге</p>
+      <div class="divider-60 d-none d-lg-block"></div>
+    </div>
+    <ul class="row">
+      {% for item in vendors %}
+        <li class="partners__item col-sm-4 col-md-2 col-6">
+          <a href="{% url 'cars:car' item.url %}">
+            <img src="{% cropped_thumbnail item 'thumbnail_size' %}" alt="Ремонт и обслуживание автомобилей {{ item.name }}">
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>

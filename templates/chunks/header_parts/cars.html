@@ -1,0 +1,28 @@
+<section class="page_title ds s-pt-105 s-pb-50 s-pt-lg-115 s-pb-lg-60">
+  <div class="divider-3 d-none d-lg-block"></div>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-12">
+        <h1 class="bold text-center text-lg-left">{{ page_title }}</h1>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'home:index' %}">Главная</a>
+          </li>
+          {% for breadcrumb in breadcrumbs %}
+            {% if forloop.last %}
+              <li class="breadcrumb-item active">
+                {{ breadcrumb.title }}
+              </li>
+            {% else %}
+              <li class="breadcrumb-item">
+                <a href="{{ breadcrumb.url }}">{{ breadcrumb.title }}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</section>

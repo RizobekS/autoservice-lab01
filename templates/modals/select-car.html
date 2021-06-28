@@ -1,0 +1,30 @@
+<div class="modal fade" id="modalChangeForm" tabindex="-1" role="dialog" aria-labelledby="modalLoginForm" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="row">
+      <div class="col-12">
+        <div class="modal-content">
+          <!-- <div class="modal-header justify-content-center">
+            <h4 class="modal-title">Sign in</h4>
+          </div> -->
+          <div class="modal-header justify-content-center">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span>×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="start-form-modal">
+              <div class="start-form-inner">
+                <div class="start-form__title">Выберите ваш автомобиль</div>
+                <div id="start" class="start d-flex">
+                  <form method="POST" id="startform" class="start-form form-inline" data-ajax-url="{% url 'cars:ajax-filter' %}">
+                    {% include 'chunks/select-car-form.html' %}
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

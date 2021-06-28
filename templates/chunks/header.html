@@ -1,0 +1,375 @@
+{% load static %}
+
+<div class="s-parallax ds bs s-overlay">
+  <!--topline section visible only on small screens|-->
+  <section class="page_toplogo ds s-overlay s-pt-10 s-pb-5 s-py-lg-30">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-12">
+          <div class="d-lg-flex justify-content-lg-end align-items-lg-center">
+            <div class="mr-auto">
+              <!--
+  if you want to display toplogo info on smaller screens
+  than use following CSS classes below:
+  d-sm-flex justify-content-sm-center
+-->
+              <div class="d-none d-lg-flex justify-content-center justify-content-lg-start">
+                <a href="./" class="logo">
+                  <img src="{% static 'images/logo_ow.png' %}" alt="">
+                </a>
+              </div>
+            </div>
+            <!--
+if you want to display toplogo info on smaller screens
+than use following CSS classes below:
+d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
+-->
+            <div class="d-flex justify-lg-content-end meta-icons">
+              <div class="media d-none d-md-flex">
+                <div class="icon-styled color-main fs-20">
+                  <i class="ico-email"></i>
+                </div>
+                <div class="media-body">
+                  <h6>Мы на связи</h6>
+                  <ul class="social">
+                    <li class="social__link  social__link--insta" title="Instagram">
+                      <a href="https://www.instagram.com/autopremium_spb/" class="fa fa-instagram  color-bg-icon rounded-icon"></a>
+                    </li>
+                    <li class="social__link  social__link--vk" title="ВКонтакте">
+                      <a class="fab fa-vk color-bg-icon rounded-icon" href="https://vk.com/euroreparap"></a>
+                    </li>
+                    <li class="social__link  social__link--fb" title="Facebook">
+                      <a href="https://www.facebook.com/autoservice.ap/" class="fa fa-facebook  color-bg-icon rounded-icon"></a>
+                    </li>
+                    <li class="social__link  social__link--whatsapp" title="Whatsapp">
+                      <a href="https://api.whatsapp.com/send?phone=79215980446" class="fab fa-whatsapp color-bg-icon rounded-icon"></a>
+                    </li>
+                    <li class="social__link  social__link--email" title="E-mail">
+                      <a href="mailto:autoservice-ap@yandex.ru" class="far fa-envelope color-bg-icon rounded-icon"></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="media d-none d-md-flex">
+                <div class="icon-styled color-main fs-20">
+                  <i class="ico-phone-call"></i>
+                </div>
+                <div class="media-body">
+                  <h6> Энгельса, 33/1 </h6>
+                  <p class="fw-400">
+                    <a href="tel:+79215980446">+7 (921) 598-04-46</a>
+                  </p>
+                </div>
+              </div>
+              <div class="media d-none d-md-flex">
+                <div class="icon-styled color-main fs-20">
+                  <i class="ico-phone-call"></i>
+                </div>
+                <div class="media-body">
+                  <h6>Хасанская, 5</h6>
+                  <p class="fw-400">
+                    <a href="tel:+79213254042">+7(812) 325-40-42</a>
+                  </p>
+                </div>
+              </div>
+              <div class="d-none d-xl-block">
+                <a href="#" class="btn btn-small btn-outline-maincolor btn-appointment" data-toggle="modal" data-target="#modalRegisterForm" title="Онлайн запись">Онлайн запись</a>
+              </div>
+            </div>
+          </div>
+          <!-- header toggler -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--eof topline-->
+  <!-- header with single Bootstrap column only for navigation and includes. Used with topline and toplogo sections. Menu toggler must be in toplogo section -->
+  <header class="page_header s-py-10 s-py-lg-0 ds ms s-overlay nav-bordered">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="d-lg-none col-11">
+          <a href="./" class="logo">
+            <img src="{% static 'images/logo_ow.png' %}" alt="">
+          </a>
+        </div>
+        <div class="col-xl-12">
+          <div class="nav-wrap">
+            <!-- main nav start -->
+            <nav class="top-nav">
+              <div class="top-nav__header">
+                <ul class="social">
+                  <li class="social__link  social__link--insta" title="Instagram">
+                    <a href="https://www.instagram.com/autopremium_spb/" class="fa fa-instagram  color-bg-icon rounded-icon"></a>
+                  </li>
+                  <li class="social__link  social__link--vk" title="ВКонтакте">
+                    <a class="fab fa-vk color-bg-icon rounded-icon" href="https://vk.com/euroreparap"></a>
+                  </li>
+                  <li class="social__link  social__link--fb" title="Facebook">
+                    <a href="https://www.facebook.com/autoservice.ap/" class="fa fa-facebook  color-bg-icon rounded-icon"></a>
+                  </li>
+                  <li class="social__link  social__link--whatsapp" title="Whatsapp">
+                    <a href="https://api.whatsapp.com/send?phone=79215980446" class="fab fa-whatsapp color-bg-icon rounded-icon"></a>
+                  </li>
+                  <li class="social__link  social__link--email" title="E-mail">
+                    <a href="mailto:autoservice-ap@yandex.ru" class="far fa-envelope color-bg-icon rounded-icon"></a>
+                  </li>
+                </ul>
+              </div>
+              <ul class="nav sf-menu">
+                <li class="active">
+                  <a href="blog-grid.html">Акции</a>
+                </li>
+                <li>
+                  <a href="#">Услуги и цены</a>
+                  <div class="mega-menu">
+                    <ul class="mega-menu-row">
+                      <li class="mega-menu-col">
+                        <a href="services2.html">Ремонт<br>автомобиля</a>
+                        <ul>
+                          <li>
+                            <a href="services3.html">Двигателя</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Подвески</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Электрики</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Трансмиссии</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Тормозной системы</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Топливной системы</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Кузовной ремонт</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="mega-menu-col">
+                        <a href="services2.html">Техническое<br>обслуживание</a>
+                        <ul>
+                          <li>
+                            <a href="services3.html">Замена масла в ДВС</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Замена фильтров</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Замена жидкостей</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Развал-схождение</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Замена тормозных колодок</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Замена ГРМ</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Заправка кондиционера</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="mega-menu-col">
+                        <a href="services2.html">Диагностика<br>автомобиля</a>
+                        <ul>
+                          <li>
+                            <a href="services3.html">Диагностика двигателя</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Диагностика электрики</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Диагностика ЭБУ</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="mega-menu-col">
+                        <a href="services2.html">Другие<br>услуги</a>
+                        <ul>
+                          <li>
+                            <a href="services3.html">Шиномонтаж</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Хранение колес</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Мойка/полировка</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Химчистка салона</a>
+                          </li>
+                          <li>
+                            <a href="services3.html">Чип-тюнинг</a>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div> <!-- eof mega menu -->
+                </li>
+                <!-- eof features -->
+                <li>
+                  <a href="about.html">Запчасти</a>
+                </li>
+                <li>
+                  <a href="about.html">О нас</a>
+                  <ul>
+                    <li>
+                      <a href="services.html">Сертификаты</a>
+                    </li>
+                    <li>
+                      <a href="services2.html">Отзывы</a>
+                    </li>
+                    <li>
+                      <a href="about.html">Галерея работ</a>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="faq.html">База знаний</a>
+                  <ul>
+                    <li>
+                      <a href="faq.html">Вопрос-ответ</a>
+                    </li>
+                    <li>
+                      <a href="faq2.html">Симптомы</a>
+                    </li>
+                  </ul>
+                </li>
+                <!-- contacts -->
+                <li>
+                  <a href="contact.html">Контакты</a>
+                </li>
+                <!-- eof contacts -->
+              </ul>
+              <ul class="top-includes d-xl-block">
+                <li>
+                  <!--modal search-->
+                  <span>
+                                        <a href="#" class="search_modal_button" title="Поиск по сайту">
+                                            <i class="fa fa-search"></i>
+                                            <span class="nav-text d-xl-none">Поиск</span>
+                                        </a>
+                                    </span>
+                </li>
+                <li>
+                  <div class="dropdown shop-card-dropdown">
+                    <a class="dropdown-toggle dropdown-shopping-cart" href="#" role="button" id="dropdown-shopping-cart" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false" title="Ваш гараж">
+                      <i class="fa fa-car"></i>
+                      <span class="badge bg-maincolor">2</span>
+                      <span class="nav-text d-xl-none">Гараж</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right ls" aria-labelledby="dropdown-shopping-cart">
+                      <div class="widget woocommerce widget_shopping_cart">
+                        <div class="widget__header">
+                          <button class="dropdown-close btn btn-plain back fa fa-angle-left d-xl-none"><span>Назад</span></button>
+                          <h4>Мой<span class="text-gradient">гараж</span></h4>
+                        </div>
+                        <div class="widget_shopping_cart_content">
+                          <ul class="product_list_widget">
+                            <li>
+                              <a href="shop-product-right.html">
+                                <img src="{% static 'images/brands_logo/audi_logo.png' %}" alt="">
+                                <span class="product-title fw-500">Audi A4 (B9, 8W) 2019</span>
+                              </a>
+                              <div class="d-flex justify-content-between shop-item">
+                                <p>3.0 TDI 215/3.0 TDI 268</p>
+                                <a href="#" class="remove" aria-label="Remove this item" data-product_id="73" data-product_sku=""><i class="fs-14 ico-trash color-main"></i></a>
+                              </div>
+                            </li>
+                            <li>
+                              <a href="shop-product-right.html">
+                                <img src="{% static 'images/brands_logo/nissan_logo.png' %}" alt="">
+                                <span class="product-title fw-500">Audi A4 (B9, 8W) 2019</span>
+                              </a>
+                              <div class="d-flex justify-content-between shop-item">
+                                <p>3.0 TDI 215/3.0 TDI 268</p>
+                                <a href="#" class="remove" aria-label="Remove this item" data-product_id="73" data-product_sku=""><i class="fs-14 ico-trash color-main"></i></a>
+                              </div>
+                            </li>
+                            <li>
+                              <a href="shop-product-right.html">
+                                <img src="{% static 'images/brands_logo/toyota_logo.png' %}" alt="">
+                                <span class="product-title fw-500">Audi A4 (B9, 8W) 2019</span>
+                              </a>
+                              <div class="d-flex justify-content-between shop-item">
+                                <p>3.0 TDI 215/3.0 TDI 268</p>
+                                <a href="#" class="remove" aria-label="Remove this item" data-product_id="73" data-product_sku=""><i class="fs-14 ico-trash color-main"></i></a>
+                              </div>
+                            </li>
+                            <li>
+                              <a href="shop-product-right.html">
+                                <img src="{% static 'images/brands_logo/audi_logo.png' %}" alt="">
+                                <span class="product-title fw-500">Audi A4 (B9, 8W) 2019</span>
+                              </a>
+                              <div class="d-flex justify-content-between shop-item">
+                                <p>3.0 TDI 215/3.0 TDI 268</p>
+                                <a href="#" class="remove" aria-label="Remove this item" data-product_id="73" data-product_sku=""><i class="fs-14 ico-trash color-main"></i></a>
+                              </div>
+                            </li>
+                            <li>
+                              <a href="shop-product-right.html">
+                                <img src="{% static 'images/brands_logo/nissan_logo.png' %}" alt="">
+                                <span class="product-title fw-500">Audi A4 (B9, 8W) 2019</span>
+                              </a>
+                              <div class="d-flex justify-content-between shop-item">
+                                <p>3.0 TDI 215/3.0 TDI 268</p>
+                                <a href="#" class="remove" aria-label="Remove this item" data-product_id="73" data-product_sku=""><i class="fs-14 ico-trash color-main"></i></a>
+                              </div>
+                            </li>
+                            <li>
+                              <a href="shop-product-right.html">
+                                <img src="{% static 'images/brands_logo/toyota_logo.png' %}" alt="">
+                                <span class="product-title fw-500">Audi A4 (B9, 8W) 2019</span>
+                              </a>
+                              <div class="d-flex justify-content-between shop-item">
+                                <p>3.0 TDI 215/3.0 TDI 268</p>
+                                <a href="#" class="remove" aria-label="Remove this item" data-product_id="73" data-product_sku=""><i class="fs-14 ico-trash color-main"></i></a>
+                              </div>
+                            </li>
+                          </ul>
+                          <p class="woocommerce-mini-cart__buttons buttons">
+                            <a href="shop-checkout.html" class="btn btn-small btn-outline-maincolor button checkout wc-forward">Сохранить</a>
+                            <a href="shop-cart.html" class="btn btn-small btn-maincolor button wc-forward">Очистить</a>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="#" data-toggle="modal" data-target="#modalLoginForm" title="Личный кабинет">
+                    <i class="ico-user-alt"></i>
+                    <span class="nav-text d-xl-none">Личный кабинет</span>
+                  </a>
+                </li>
+              </ul>
+              <div class="top-add">
+                <div class="d-xl-none">
+                  <a href="#" class="btn btn-small btn-outline-maincolor btn-appointment" data-toggle="modal" data-target="#modalRegisterForm" title="Онлайн запись">Онлайн
+                    запись</a>
+                </div>
+              </div>
+            </nav>
+            <!-- eof main nav -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- header toggler -->
+    <span class="toggle_menu"><span></span></span>
+  </header>
+
+  {% if cars %}
+    {% include 'chunks/header_parts/cars.html' %}
+  {% endif %}
+  {% if services %}
+    {% include 'chunks/header_parts/services.html' %}
+  {% endif %}
+</div>

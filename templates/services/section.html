@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load service_url %}
+
+{% load cropping %}
+{% load static %}
+
+{% block modals %}
+  {% if selected_car %}
+    {% include 'modals/select-car.html' %}
+  {% endif %}
+{% endblock %}
+
+{% block main %}
+
+  {% if current_section.level != 1 %}
+    <section class="ls s-pt-60 s-pb-30 s-py-lg-100 s-py-xl-150 c-gutter-60 c-mb-30 c-mb-lg-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7">
+
+            {{ current_section.description| safe }}
+
+            {% if current_section.product_set.count %}
+              <h5>Цены на {{ current_section.title|lower }}</h5>
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Услуга</th>
+                  <th>Стоимость</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in current_section.product_set.all %}
+                  <tr>
+                    <td><a href="{{ item.reverse_url }}">{{ item.title }}</a></td>
+                    <td>{{ item.verbose_price }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            {% endif %}
+
+          </div>
+          <div class="col-md-5 service-tab">
+
+            {% if current_section.product_set.count %}
+              <div id="accordion01" class="accordion ls ms" role="tablist">
+
+                {% for item in current_section.product_set.all %}
+                  <div class="card">
+                    <div class="card-header" role="tab" id="collapse{{ forloop.counter }}_header">
+                      <h6>
+                        <a data-toggle="collapse" href="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
+                          {{ item.title }}
+                        </a>
+                      </h6>
+                    </div>
+
+                    <div id="collapse01" class="collapse show" role="tabpanel" aria-labelledby="collapse{{ forloop.counter }}_header" data-parent="#accordion{{ forloop.counter }}">
+                      <div class="card-body">
+                        <div class="media align-items-center">
+                          <div class="media-left">
+                            <a href="{% service_url item %}">
+                              <img src="{% cropped_thumbnail item 'icon_thumbnail' %}" alt="{{ item.title }}">
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            {{ item.short_description }}
+                            <br>
+                            <a href="{% service_url item %}">Подробнее</a>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+
+              </div>
+            {% endif %}
+
+
+            <div class="my-30 ls ms p-30">
+
+              <h6>Наши автоцентры</h6>
+
+              <p class="icon-inline">
+									<span class="icon-styled color-main">
+										<i class="fa fa-map-marker"></i>
+									</span>
+                <span>Санкт-Петербург, пр. Энгельса 33/1</span>
+              </p>
+
+              <p class="icon-inline">
+									<span class="icon-styled color-main">
+										<i class="fa fa-phone"></i>
+									</span>
+                <a href="tel:+78121231234">+7 (812) 123-12-34</a>
+              </p>
+
+              <p class="icon-inline">
+									<span class="icon-styled color-main">
+										<i class="fa fa-map-marker"></i>
+									</span>
+                <span>Санкт-Петербург, ул. Хасанская 5</span>
+              </p>
+
+              <p class="icon-inline">
+									<span class="icon-styled color-main">
+										<i class="fa fa-phone"></i>
+									</span>
+                <a href="tel:+78121231234">+7 (812) 123-12-34</a>
+              </p>
+
+              <p class="icon-inline">
+									<span class="icon-styled color-main">
+										<i class="fa fa-pencil"></i>
+									</span>
+                <a href="mailto:info@autoservice-ap.ru">info@autoservice-ap.ru</a>
+              </p>
+            </div>
+
+            <div class="ls ms p-30">
+              <h6>Оставить заявку</h6>
+              <div class="form-group has-placeholder">
+                <label for="name">Ваше имя<span class="required">*</span></label>
+                <input type="text" aria-required="true" size="30" value="" name="name" id="name" class="form-control" placeholder="Имя">
+              </div>
+              <div class="form-group has-placeholder">
+                <label for="phone">Телефон<span class="required">*</span></label>
+                <input type="text" aria-required="true" size="30" value="" name="phone" id="phone" class="form-control" placeholder="Телефон">
+              </div>
+              <div class="form-group has-placeholder">
+                <label for="email">email<span class="required">*</span></label>
+                <input type="email" aria-required="true" size="30" value="" name="email" id="email" class="form-control" placeholder="email">
+              </div>
+              <div class="form-group has-placeholder">
+                <label for="message">Сообщение</label>
+                <textarea aria-required="true" rows="3" cols="45" name="message" id="message" class="form-control" placeholder="Сообщение"></textarea>
+              </div>
+              <button type="submit" id="contact_form_submit" name="contact_submit" class="btn btn-maincolor mt-20">Отправить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {% if child_sections %}
+    <section class="ls s-pt-60 s-pb-40 s-pt-lg-100 s-pb-lg-80 s-pt-xl-150 s-pb-xl-130 c-mb-20 c-gutter-20">
+      <div class="container">
+        <div class="row">
+
+          {% for item in child_sections %}
+            <div class="col-md-6 col-12">
+              <div class="icon-box rounded text-center hero-bg">
+                <a href="{% service_url item %}">
+                  <img src="{% cropped_thumbnail item 'card_thumbnail' %}" width="455" height="200" alt="{{ item.title }}">
+                </a>
+                <h6 class="service-title">
+                  <a href="{% service_url item %}">{{ item.title }}</a>
+                </h6>
+                <p>
+                  {{ item.short_description }}
+                </p>
+                <a href="{% service_url item %}" class="service-btn read-more"><span>Подробнее</span></a>
+              </div>
+            </div><!-- .col-* -->
+          {% endfor %}
+
+        </div>
+      </div>
+    </section>
+  {% endif %}
+{% endblock %}
+
+{% block body_scripts %}
+  <script src="{% static 'js/custom/ajax-filter.js' %}"></script>
+{% endblock %}

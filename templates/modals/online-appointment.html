@@ -1,0 +1,47 @@
+<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="modalLoginForm" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span>×</span>
+      </button>
+      <div class="modal-header justify-content-center">
+        <h4 class="modal-title">Онлайн запись</h4>
+      </div>
+      <div class="modal-body">
+        <form action="/" class="form-register row c-gutter-0">
+          <div class="col-11 col-md-6">
+            <div class="form-group has-placeholder form-group--datetime">
+              <input id="datetimepickerRegister" class="form-control" type="text" placeholder="Удобная дата и время">
+            </div>
+          </div>
+          <div class="col-11 col-md-6">
+            <div class="form-group has-placeholder">
+              <label for="name">Имя:</label>
+              <input type="text" class="form-control" id="nameReg" placeholder="Имя" name="name">
+            </div>
+            <div class="form-group has-placeholder">
+              <label for="car">Автомобиль:</label>
+              <input type="text" class="form-control" id="carReg" placeholder="Автомобиль" name="car">
+            </div>
+            <div class="form-group has-placeholder">
+              <label for="phone">Ваш телефон:</label>
+              <input type="text" class="form-control" id="phoneReg" placeholder="Ваш телефон" name="phone">
+            </div>
+            <div class="form-group choices-plain choices-plain--field">
+              <div class="select">
+                <select>
+                  <option value>СТО</option>
+                  <option value="1">Энгельса 33/1</option>
+                  <option value="2">Хасанская 5</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button type="submit" class="btn btn-small btn-maincolor log-btn">Записаться</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

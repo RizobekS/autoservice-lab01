@@ -1,0 +1,51 @@
+{% load service_url %}
+{% load cropping %}
+
+<section class="s-pt-55 s-pb-0 s-pt-lg-145 s-pb-lg-150 ls ms blog-section c-gutter-60" id="blog">
+  <div class="container">
+    <div class="col-12 mb-55">
+      <h3 class="special-heading text-center">Наши<span class="text-gradient">услуги</span></h3>
+      <p class="fs-20 color-dark">Предлагаем лучший сервис по низким ценам</p>
+      <div class="divider-64 d-none d-lg-block"></div>
+    </div>
+    <div class="row justify-content-center c-mb-60 c-mb-lg-0">
+
+
+      {% for item in homepage_services %}
+        <div class="col-lg-4 col-md-6">
+          <article class="vertical-item text-center content-padding post type-post status-publish format-standard has-post-thumbnail bordered ls">
+            <div class="tagcloud">
+              <a href="{% service_url item %}" class="tag-cloud-link">
+                                        <span>
+                                            Акция
+                                        </span>
+              </a>
+            </div>
+            <div class="item-media post-thumbnail">
+              <img src="{% cropped_thumbnail item 'homepage_thumbnail' %}" alt="{{ item.title }}">
+              <div class="media-links">
+                <a class="abs-link" title="" href="{% service_url item %}"></a>
+              </div>
+            </div><!-- .post-thumbnail -->
+            <div class="item-content">
+              <header class="entry-header">
+                <h4 class="entry-title">
+                  <a href="{% service_url item %}" rel="bookmark">
+                    {{ item.title }}
+                  </a>
+                </h4>
+              </header><!-- .entry-header -->
+              <div class="entry-content">
+                {% if item.short_description %}
+                  <p>{{ item.short_description }}</p>
+                {% endif %}
+              </div><!-- .entry-content -->
+            </div><!-- .item-content -->
+          </article><!-- #post-## -->
+        </div>
+      {% endfor %}
+
+
+    </div>
+  </div>
+</section>
