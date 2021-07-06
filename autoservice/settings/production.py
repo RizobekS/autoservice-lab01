@@ -5,7 +5,7 @@ from .common import *
 print(ROOT_URLCONF)
 
 # turn off all debugging
-DEBUG = False
+DEBUG = True
 
 # You will have to determine, which hostnames should be served by Django
 ALLOWED_HOSTS = []
