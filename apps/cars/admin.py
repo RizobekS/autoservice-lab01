@@ -10,6 +10,8 @@ from apps.cars.models import Vendor, Model, Year, Modification
 @admin.register(Vendor)
 class VendorAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_display = ('name', 'url', 'active', 'related_cars')
+    list_filter = ('active',)
+    search_fields = ('name', 'model__name', 'model__year__year', 'model__year__modification__name')
     prepopulated_fields = {'url': ('name',), }
 
 class ModificationNestedInline(NestedStackedInline):
@@ -24,11 +26,12 @@ class YearInline(NestedStackedInline):
 @admin.register(Model)
 class ModelAdmin(NestedModelAdmin):
     list_display = ('__str__', 'url', 'detailed_info')
+    list_filter = ('vendor',)
+    search_fields = ('name', 'vendor__name', 'year__year', 'year__modification__name')
     prepopulated_fields = {'url': ('name',), }
-    inlines = (YearInline, )
+    inlines = (YearInline,)
 
     class Media:
         css = {
-            'all': (static('/css/custom-admin/nested-inlines.css'), )
+            'all': (static('/css/custom-admin/nested-inlines.css'),)
         }
-

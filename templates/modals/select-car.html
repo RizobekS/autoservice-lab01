@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalChangeForm" tabindex="-1" role="dialog" aria-labelledby="modalLoginForm" aria-hidden="true">
+<div class="modal fade" id="modalChangeForm" tabindex="-1" role="dialog" aria-labelledby="modalChangeForm" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="row">
       <div class="col-12">
@@ -16,7 +16,8 @@
               <div class="start-form-inner">
                 <div class="start-form__title">Выберите ваш автомобиль</div>
                 <div id="start" class="start d-flex">
-                  <form method="POST" id="startform" class="start-form form-inline" data-ajax-url="{% url 'cars:ajax-filter' %}">
+                  <form method="POST" id="startform" class="start-form form-inline"
+                        data-ajax-url="{% url 'cars:ajax-filter' %}" {% if redirect_urlpattern_name %}data-redirect-url="{% url redirect_urlpattern_name %}"{% endif %}>
                     {% include 'chunks/select-car-form.html' %}
                   </form>
                 </div>

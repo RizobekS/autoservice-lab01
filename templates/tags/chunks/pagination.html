@@ -1,0 +1,31 @@
+{% load numbers %}
+<nav class="navigation pagination " role="navigation">
+  <h2 class="screen-reader-text">Posts navigation</h2>
+  <div class="nav-links">
+    {% if current_page != page_numbers|first %}
+      <a class="prev page-numbers" href="{% if tag %}{% url 'tags:single' tag.id %}{% else %}{% url 'tags:all' %}{% endif %}?page={{ current_page|sub:1 }}">
+        <i class="fa fa-angle-left"></i>
+        <span class="screen-reader-text">Предыдущая страница</span>
+      </a>
+    {% endif %}
+    {% for n in page_numbers %}
+      {% if n == current_page %}
+        <span class="page-numbers current">
+          <span class="meta-nav screen-reader-text">Страница </span>
+          {{ n }}
+        </span>
+      {% else %}
+        <a class="page-numbers" href="{% if tag %}{% url 'tags:single' tag.id %}{% else %}{% url 'tags:all' %}{% endif %}?page={{ n }}">
+          <span class="meta-nav screen-reader-text">Страница </span>
+          {{ n }}
+        </a>
+      {% endif %}
+    {% endfor %}
+    {% if current_page != page_numbers|last %}
+      <a class="next page-numbers" href="{% if tag %}{% url 'tags:single' tag.id %}{% else %}{% url 'tags:all' %}{% endif %}?page={{ current_page|add:1 }}">
+        <span class="screen-reader-text">Следующая страница</span>
+        <i class="fa fa-angle-right"></i>
+      </a>
+    {% endif %}
+  </div>
+</nav>

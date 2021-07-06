@@ -1,0 +1,11 @@
+{% if comments %}
+  <ol class="comment-list">
+    {% for comment in comments %}
+      <li class="comment">
+
+        {% include 'news/chunks/comments/single-comment.html' %}
+
+      </li>
+    {% endfor %}
+  </ol>
+{% endif %}

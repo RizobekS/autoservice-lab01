@@ -11,22 +11,26 @@
     <div class="row justify-content-center c-mb-60 c-mb-lg-0">
 
 
-      {% for item in homepage_services %}
+      {% for item in products %}
         <div class="col-lg-4 col-md-6">
           <article class="vertical-item text-center content-padding post type-post status-publish format-standard has-post-thumbnail bordered ls">
-            <div class="tagcloud">
-              <a href="{% service_url item %}" class="tag-cloud-link">
-                                        <span>
-                                            Акция
-                                        </span>
-              </a>
-            </div>
+
+
+            {% if item.tag %}
+              <div class="tagcloud">
+                <a href="{# TODO: link #}" class="tag-cloud-link">
+                  <span>{{ item.tag.name }}</span>
+                </a>
+              </div>
+            {% endif %}
+
             <div class="item-media post-thumbnail">
-              <img src="{% cropped_thumbnail item 'homepage_thumbnail' %}" alt="{{ item.title }}">
+              <img src="{% cropped_thumbnail item 'thumbnail_348x236' %}" alt="{{ item.title }}">
               <div class="media-links">
                 <a class="abs-link" title="" href="{% service_url item %}"></a>
               </div>
             </div><!-- .post-thumbnail -->
+
             <div class="item-content">
               <header class="entry-header">
                 <h4 class="entry-title">
@@ -41,6 +45,8 @@
                 {% endif %}
               </div><!-- .entry-content -->
             </div><!-- .item-content -->
+
+
           </article><!-- #post-## -->
         </div>
       {% endfor %}

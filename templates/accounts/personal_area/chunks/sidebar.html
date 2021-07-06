@@ -1,0 +1,19 @@
+<nav class="woocommerce-MyAccount-navigation hero-bg p-60">
+  <ul>
+    <li {% if menu_item.is_index %}class="is-active"{% endif %}>
+      <a href="{% url 'accounts:pa:index' %}">Главная</a>
+    </li>
+    <li {% if menu_item.is_orders %}class="is-active"{% endif %}>
+      <a href="shop-account-orders.html">Записи на сервис</a>
+    </li>
+    <li {% if menu_item.is_garage %}class="is-active"{% endif %}>
+      <a href="{% url 'accounts:pa:garage' %}">Мой гараж</a>
+    </li>
+    <li {% if menu_item.is_personal_data %}class="is-active"{% endif %}>
+      <a href="{% url 'accounts:pa:edit' %}">Личные данные</a>
+    </li>
+    <li>
+      <a href="{% url 'accounts:logout' %}">Выйти</a>
+    </li>
+  </ul>
+</nav>

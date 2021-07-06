@@ -44,6 +44,13 @@
   <div class="preloader_image"></div>
 </div>
 
+{% if not request.user.is_authenticated %}
+  {% load login_modal %}
+  {% login_modal %}
+{% endif %}
+
+{% include 'modals/online-appointment.html' %}
+
 {% block modals %}
 {% endblock %}
 
@@ -52,7 +59,9 @@
   <div id="box_wrapper">
     <!-- template sections -->
 
-    {% include 'chunks/header.html' %}
+    {% block header %}
+      {% include 'chunks/header/base.html' %}
+    {% endblock %}
 
 
     {% block main %}
@@ -68,6 +77,7 @@
 <script src="{% static 'js/compressed.js' %}"></script>
 <script src="{% static 'js/utils.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/custom/ajax-remove-car-modal.js' %}"></script>
 <!-- Google Map Script -->
 <!--     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0pr5xCHpaTGv12l73IExOHDJisBP2FK4&callback=initGoogleMap"></script> -->
 

@@ -1,0 +1,13 @@
+<div class="widget widget_tag_cloud">
+
+  <h5 class="widget-title">Тэги</h5>
+
+  <div class="tagcloud">
+    {% for tag in tags %}
+      <a href="{# TODO: link #}" class="tag-cloud-link">
+        <span>{{ tag.name }}</span>
+      </a>
+    {% endfor %}
+  </div>
+
+</div>

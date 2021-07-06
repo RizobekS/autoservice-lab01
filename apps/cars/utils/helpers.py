@@ -1,7 +1,7 @@
 from django.urls import reverse
 
 from apps.cars.models import CarFilter
-from utils.types import Breadcrumb
+from utils.breadcrumbs.types import Breadcrumb
 
 
 def car_breadcrumbs(car_filter: CarFilter) -> list:

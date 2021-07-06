@@ -1,0 +1,35 @@
+{% load strings %}
+<section class="ls ms contact-section text-center text-md-left">
+  <div class="row align-items-center c-gutter-0">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-xs-12">
+      <div class="animate page_map animated scaleAppear" data-animation="scaleAppear" id="map">
+      </div>
+      <!--.col-* -->
+    </div>
+    <div class="col-xl-3 col-md-6 col-10 animate" data-animation="moveFromRight">
+      <div class="divider-55 d-md-none"></div>
+      <div class="item-content content-left-padding">
+        <h3 class="special-heading">Наши<span class="text-gradient">СТО</span></h3>
+        <p>Приглашаем посетить наши сервисные центры<br>с удобными парковками и зонами ожидания.</p>
+        <h6 class="fw-700">Санкт-Петербург</h6>
+        {% for item in navbar_branches %}
+          <div class="media side-icon-box">
+            <div class="icon-styled color-main">
+              <i class="fa fa-map-marker"></i>
+            </div>
+            <p class="media-body">{{ item.address }}</p>
+          </div>
+          <div class="media side-icon-box">
+            <div class="icon-styled color-main">
+              <i class="fa fa-phone"></i>
+            </div>
+            <p class="media-body"><a href="tel:{{ item.phone|extract_phone }}">{{ item.phone }}</a></p>
+          </div>
+        {% endfor %}
+        <a href="contact.html" class="btn btn-small btn-outline-maincolor">Связаться с нами</a>
+      </div>
+      <div class="divider-60 d-md-none"></div>
+    </div>
+    <!--.col-* -->
+  </div>
+</section>

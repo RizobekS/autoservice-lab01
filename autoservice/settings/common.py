@@ -1,8 +1,8 @@
 # Python imports
-from os.path import abspath, basename, dirname, join, normpath
-from easy_thumbnails.conf import Settings as thumbnail_settings
 import sys
+from os.path import abspath, basename, dirname, join, normpath
 
+from easy_thumbnails.conf import Settings as thumbnail_settings
 
 # ##### PATH CONFIGURATION ################################
 
@@ -18,8 +18,9 @@ SITE_NAME = basename(DJANGO_ROOT)
 # add apps/ to the Python path
 sys.path.append(normpath(join(PROJECT_ROOT, 'apps')))
 
-
 # ##### APPLICATION CONFIGURATION #########################
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Apps
 INSTALLED_APPS = [
@@ -42,6 +43,14 @@ INSTALLED_APPS = [
     'apps.cars',
     'apps.services',
     'apps.accounts',
+    'apps.masters',
+    'apps.news',
+    'apps.tags',
+    'apps.promotions',
+    'apps.settings',
+
+    # Utils
+    'utils',
 
     # Package apps
     'ckeditor',  # Ckeditor
@@ -78,7 +87,9 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.template.context_processors.request',
-                'django.contrib.messages.context_processors.messages'
+                'django.contrib.messages.context_processors.messages',
+                'utils.context_processors.menu_data',
+                'apps.settings.context_processors.static_info'
             ],
         },
     },
@@ -92,7 +103,7 @@ USE_L10N = True
 # Authentication
 AUTH_USER_MODEL = 'accounts.User'
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
     'apps.accounts.backends.CaseInsensitiveModelBackend',
 )
 
@@ -104,10 +115,9 @@ SECRET_FILE = normpath(join(PROJECT_ROOT, 'run', 'SECRET.key'))
 
 # Error notification emails
 ADMINS = (
-    ('your name', 'your_name@example.com'),
+    ('Алкамян Давид', 'bydev2001@gmail.com'),
 )
 MANAGERS = ADMINS
-
 
 # ##### DJANGO RUNNING CONFIGURATION ######################
 
@@ -115,7 +125,12 @@ MANAGERS = ADMINS
 WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
 
 # the root URL configuration
-ROOT_URLCONF = '%s.urls' % SITE_NAME
+ROOT_URLCONF = 'autoservice.urls'
+
+# adjust the minimal login
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'accounts:pa:index'
+LOGOUT_REDIRECT_URL = 'home:index'
 
 # Static dirs, root and URL
 STATICFILES_DIRS = [

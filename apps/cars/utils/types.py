@@ -1,6 +1,5 @@
 from apps.cars.models import Vendor, Year, Modification, Model, CarFilter
-from apps.cars.utils.mixins import CarFilterUtilsMixin
-from utils.helpers import exists_or_404
+from utils.shortcuts import exists_or_404
 
 
 class CarUrls:
@@ -25,12 +24,12 @@ class CarUrls:
                     value = value and Modification.objects.filter(id=self.modification).exists()
         return value
 
-    def save(self) -> CarFilter:
+    def save(self, request) -> CarFilter:
         """
             Save to database as CarFilter
         """
-
-        kwargs = {}
+        car_filter = None
+        kwargs = {'model': None, 'year': None, 'modification': None}
 
         obj = Vendor.objects.filter(url__exact=self.vendor)
         kwargs['vendor'] = exists_or_404(obj)
@@ -49,36 +48,9 @@ class CarUrls:
                 if self.modification:
                     obj = Modification.objects.filter(id=self.modification, year=kwargs['year'])
                     kwargs['modification'] = exists_or_404(obj)
-
-        return CarFilter.objects.create(**kwargs)
-
-
-# class Car(CarFilterUtilsMixin):
-#     """
-#     The same as CarFilter from .models, but supports partial filling and does not stored in database.
-#     """
-#     __slots__ = ('vendor', 'model', 'year', 'modification')
-#
-#     def __init__(self, vendor=None, model=None, year=None, modification=None, urls: CarUrls = None):
-#         if urls:
-#             self.vendor, self.model, self.year, self.modification = None, None, None, None
-#
-#             obj = Vendor.objects.filter(url__exact=urls.vendor)
-#             self.vendor = exists_or_404(obj)
-#
-#             # Get Model object
-#             if urls.model:
-#                 obj = Model.objects.filter(url__exact=urls.model, vendor=self.vendor)
-#                 self.model = exists_or_404(obj)
-#
-#                 # Get Year object
-#                 if urls.year:
-#                     obj = Year.objects.filter(year=urls.year, model=self.model)
-#                     self.year = exists_or_404(obj)
-#
-#                     # Get Modification object
-#                     if urls.modification:
-#                         obj = Modification.objects.filter(id=urls.modification, year=self.year)
-#                         self.modification = exists_or_404(obj)
-#         else:
-#             self.vendor, self.model, self.year, self.modification = vendor, model, year, modification
+                    if request.user.is_authenticated:
+                        kwargs['user'] = request.user
+                        car_filter, created = CarFilter.objects.get_or_create(**kwargs)
+        if car_filter is None:
+            car_filter = CarFilter.objects.create(**kwargs)
+        return car_filter

@@ -1,8 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 
+from utils.car_filter import set_car_filter
 from .models import *
-from utils.helpers import set_car_filter, get_car_filter
 from .utils.helpers import car_page_title, car_breadcrumbs
 from .utils.types import CarUrls
 from ..services.models import Section, Product
@@ -10,8 +10,8 @@ from ..services.models import Section, Product
 
 def car_view(request, urls: CarUrls):
     # Get Vendor object
-    car_filter = urls.save()
-    set_car_filter(request, car_filter, True)
+    car_filter = urls.save(request)
+    set_car_filter(request, car_filter)
 
     context = {
         'service_page_title': car_page_title(car_filter),
@@ -19,7 +19,6 @@ def car_view(request, urls: CarUrls):
         'page_title': car_page_title(car_filter),
         'breadcrumbs': car_breadcrumbs(car_filter),
         'car': car_filter,
-        'cars': True,  # Is used to include proper header parts
     }
 
     # Only for vendor-model and higher level pages
@@ -32,7 +31,7 @@ def car_view(request, urls: CarUrls):
                 kwargs['cars__year'] = car_filter.year
                 if car_filter.modification:
                     kwargs['cars'] = car_filter.modification
-        print('Product kwargs:', kwargs)
+        # print('Product kwargs:', kwargs)
 
         products = list(Product.objects.filter(active=True, **kwargs))
         root_sections = {}
@@ -68,24 +67,22 @@ def ajax_filter(request):
     year = Year.objects.filter(id=year_id, model=model).first()
     modification = Modification.objects.filter(id=modification_id, year=year).first()
     if vendor and model and year and modification:
-        car_filter = CarFilter.objects.create(vendor=vendor, model=model, year=year, modification=modification)
-        set_car_filter(request, car_filter, True)
+        if request.user.is_authenticated:
+            car_filter, created = CarFilter.objects.get_or_create(user=request.user, vendor=vendor, model=model, year=year, modification=modification)
+            # if not created:  # Update last_used if it is not new car_filter
+            #     car_filter.save(update_fields=['last_used'])
+        else:
+            car_filter = CarFilter.objects.create(vendor=vendor, model=model, year=year, modification=modification)
+        set_car_filter(request, car_filter)
 
         # Construct reverse url according to url_args[] and view_name hidden fields values and selected car
+        viewname = request.POST.get('view_name')
         args = request.POST.getlist('url_args[]')
         args.append(car_filter.url_args())
-        url = reverse(request.POST.get('view_name'), args=args)
+        url = reverse(viewname, args=args)
 
     else:
         url = reverse('home:index')
-
-        # # Try to prepopulate form with information from session
-        # car_filter = get_car_filter(request)
-        # if car_filter:
-        #     vendor = car_filter.vendor if car_filter.vendor else vendor
-        #     model = car_filter.model if car_filter.model else model
-        #     year = car_filter.year if car_filter.year else year
-        #     modification = car_filter.modification if car_filter.modification else modification
 
     # Retrieve options
     vendor_set = [{'value': item.id, 'label': item.name, 'selected': vendor == item} for item in Vendor.objects.all()]

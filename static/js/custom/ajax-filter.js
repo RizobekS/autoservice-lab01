@@ -31,7 +31,12 @@ $(function () {
             }
             // Redirect to specified url
             if (complete) {
-                window.location.href = url;
+                // data-redirect-url attribute is more important than generated url
+                let attr_url = $form.attr('data-redirect-url');
+                if (attr_url)
+                    window.location.href = attr_url;
+                else
+                    window.location.href = url;
             }
         });
 

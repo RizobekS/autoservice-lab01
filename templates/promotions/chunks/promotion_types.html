@@ -1,0 +1,12 @@
+<div class="widget widget_categories">
+
+  <h5 class="widget-title">Типы акции</h5>
+
+  <ul>
+    {% for item in promotion.tags.all %}
+      <li class="cat-item">
+        <a class="active" href="{# TODO: link #}">{{ item.name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>

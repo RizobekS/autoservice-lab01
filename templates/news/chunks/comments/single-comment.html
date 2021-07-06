@@ -1,0 +1,43 @@
+{% load string_time_delta %}
+
+<article id="{{ comment.tag_id }}" class="comment-body ml-0">
+  <footer class="comment-meta">
+    {% comment %}<div class="comment-author vcard">
+              <img alt="" src="images/team/comments-04.jpg">
+            </div>{% endcomment %}
+    <!-- .comment-author -->
+    <div class="comment-name d-block d-md-flex justify-content-between">
+      <b class="fn">
+        <a rel="nofollow" class="url fw-500">{{ comment.author.get_full_name }}</a>
+      </b>
+      <span class="comment-metadata d-block links-grey"><a href="#"><i class="fs-14 color-main ico-clock-alt"></i>
+          {{ comment.date|time_delta }}
+      </a></span>
+      <!-- .comment-metadata -->
+    </div>
+  </footer>
+  <!-- .comment-meta -->
+  <div class="comment-content">
+    <p>
+      {{ comment.text }}
+    </p>
+  </div>
+  {% if comment.level < 5 %}
+    <div class="reply">
+      <a href="#" rel="nofollow" data-reply-id="{{ comment.id }}" class="reply-button color-main fw-500"
+         aria-label="Ответ на комментарий пользователя {{ comment.author.get_full_name }}">Ответить</a>
+    </div>
+  {% endif %}
+</article>
+
+{% if comment.child_comments %}
+  <ol class="children">
+    {% for comment in comment.child_comments.all %}
+
+      <li class="comment">
+        {% include 'news/chunks/comments/single-comment.html' %}
+      </li>
+
+    {% endfor %}
+  </ol>
+{% endif %}

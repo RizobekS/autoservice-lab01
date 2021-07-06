@@ -3,19 +3,17 @@ from django.contrib.admin import display
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-
 from django.utils.safestring import mark_safe
 from django_cleanup.signals import cleanup_pre_delete
-from image_cropping import ImageRatioField
 
+from apps.cars.utils.car_filter_mixin import CarFilterUtilsMixin
+from apps.cars.utils.managers import LastAccessedManager
 from apps.cars.utils.thumbnails import delete_old_thumbnails
-from apps.cars.utils.mixins import CarFilterUtilsMixin
 from apps.cars.utils.validators import validate_double_slash_url
 from autoservice.settings.common import AUTH_USER_MODEL
 
 
 class CarFilter(models.Model, CarFilterUtilsMixin):
-    # TODO: Change foreign key when personal area is implemented
     user = models.ForeignKey(to=AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
 
     vendor = models.ForeignKey(verbose_name='Производитель', to='Vendor', on_delete=models.DO_NOTHING)
@@ -24,6 +22,8 @@ class CarFilter(models.Model, CarFilterUtilsMixin):
     modification = models.ForeignKey(verbose_name='Модификация', to='Modification', on_delete=models.DO_NOTHING, null=True, blank=True)
 
     last_used = models.DateTimeField('Время последнего использования', auto_now=True)
+
+    objects = LastAccessedManager()
 
     def __str__(self):
         return f'Filter #{self.id} {f" - {self.user} : " if self.user else ":"} {self.modification}'
@@ -35,6 +35,9 @@ class CarFilter(models.Model, CarFilterUtilsMixin):
         return bool(self.vendor) and bool(self.model) and bool(self.year) and bool(self.modification)
 
     class Meta:
+        unique_together = ('user', 'vendor', 'model', 'year', 'modification')
+        get_latest_by = 'last_used'
+        ordering = ['-last_used']
         verbose_name = 'Сохранённый ММП'
         verbose_name_plural = 'Сохранённые ММП'
 
@@ -44,7 +47,6 @@ class Vendor(models.Model):
     url = AutoSlugField(verbose_name='URL производителя', validators=[validate_double_slash_url], help_text='Заполняется на основе поля "Название"', populate_from='name',
                         unique=True, editable=True)
     logo = models.ImageField('Логотип', help_text="Возможность обрезки появится после сохранения", upload_to='vendor_logos')
-    thumbnail_size = ImageRatioField(verbose_name="Обрезка изображения для превью", image_field='logo', size="512x512", free_crop=True)
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления', default=True)
 
     def __str__(self):

@@ -1,0 +1,42 @@
+{% load cropping %}
+
+<div class="col-xl-4 col-md-6">
+  <article style="overflow: visible!important;" class="cover-image ds bs s-overlay post type-post status-publish format-status has-post-thumbnail">
+    {% if tag %}
+      {% include 'chunks/corner-tag.html' %}
+    {% elif item.tags.count %}
+      {% include 'chunks/corner-tag.html' with tag=item.tags.first %}
+    {% endif %}
+
+    <div class="post-thumbnail">
+      <a href="{% url 'news:article' item.url %}">
+        <img src="{% cropped_thumbnail item 'thumbnail' %}" alt="{{ item.title }}">
+      </a>
+    </div><!-- .post-thumbnail -->
+
+    <header class="entry-header">
+      <div class="entry-meta">
+        <h6 class="author vcard fw-700">
+          <span class="screen-reader-text">Автор </span>
+          <a class="url fn n" href="{% url 'news:article' item.url %}">{{ item.author.name }}</a>
+        </h6>
+      </div>
+      <h4 class="entry-title">
+        <a href="{% url 'news:article' item.url %}" rel="bookmark">
+          {{ item.title }}
+        </a>
+      </h4>
+      <!-- .entry-meta -->
+    </header>
+    <!-- .entry-header -->
+
+    <div class="entry-content">
+      <p>{{ item.short_description }}</p>
+      <p class="social-icons with-border">
+        <span><a href="{{ facebook }}" class="fa fa-facebook border-icon rounded-icon" title="facebook"></a></span>
+        <span><a href="{{ telegram }}" class="fa fa-paper-plane border-icon rounded-icon" title="telegram"></a></span>
+        <span><a href="{{ instagram }}" class="fa fa-instagram border-icon rounded-icon" title="instagram"></a></span>
+      </p>
+    </div><!-- .entry-content -->
+  </article><!-- #post-## -->
+</div>

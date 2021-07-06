@@ -1,0 +1,3 @@
+Для вашего аккаунта ({{ user.get_full_name }}) на сайте {{ site_name }} был запрошен сброс пароля.
+Ссылка на сброс пароля: {{ protocol }}://{{ domain }}{% url 'accounts:password:new-password' uidb64=uid token=token %}
+Если вы считаете, что это ошибка - просто проигнорируйте это сообщение.

@@ -3,16 +3,17 @@
 {% load cropping %}
 
 {% for section in sections %}
+  {% cycle 1 2 as oddity %}
   <section class="ls ms s-pt-5 s-pb-3 s-pt-md-50 s-pb-md-45 s-py-lg-140 c-mb-40 c-mb-md-0 side-section text-center text-md-left">
     <div class="divider-5"></div>
-    <div class="cover-image s-cover-left"></div><!-- half image background element -->
+    <div class="cover-image {% if oddity == 2 %}s-cover-right{% else %}s-cover-left{% endif %}"></div><!-- half image background element -->
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
-          <img src="{% cropped_thumbnail section 'vendor_page_thumbnail' %}" alt="{{ section.title }}">
+        <div class="col-md-6 {% if oddity == 2 %}order-1 order-md-2{% endif %}">
+          <img src="{% cropped_thumbnail section 'thumbnail_960x585' %}" alt="{{ section.title }}">
         </div>
-        <div class="col-md-6">
-          <div class="service-content content-left-padding">
+        <div class="col-md-6 {% if oddity == 2 %}order-2 order-md-1{% endif %}">
+          <div class="service-content {% if oddity == 2 %}content-right-padding{% else %}content-left-padding{% endif %}">
             <h3 class="special-heading">{{ section.title }}<span class="text-gradient">{{ car.full_name }}</span></h3>
 
             {{ section.description| safe }}

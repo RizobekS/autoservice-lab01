@@ -1,11 +1,20 @@
 # for now fetch the development settings only
-from .development import *
+
 
 # turn off all debugging
 DEBUG = False
 
 # You will have to determine, which hostnames should be served by Django
 ALLOWED_HOSTS = []
+
+# Email sending
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = False
+EMAIL_HOST = str(environ.get("EMAIL_HOST"))
+EMAIL_PORT = 587
+EMAIL_HOST_USER = str(environ.get("EMAIL_HOST_USER"))
+EMAIL_HOST_PASSWORD = str(environ.get("EMAIL_HOST_PASSWORD"))
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # ##### SECURITY CONFIGURATION ############################
 

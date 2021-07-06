@@ -10,6 +10,10 @@
   {% endif %}
 {% endblock %}
 
+{% block header %}
+  {% include 'chunks/header/title-filter.html' %}
+{% endblock %}
+
 {% block main %}
 
   {% if current_section.level != 1 %}
@@ -61,7 +65,7 @@
                         <div class="media align-items-center">
                           <div class="media-left">
                             <a href="{% service_url item %}">
-                              <img src="{% cropped_thumbnail item 'icon_thumbnail' %}" alt="{{ item.title }}">
+                              <img src="{% cropped_thumbnail item 'thumbnail_80x80' %}" alt="{{ item.title }}">
                             </a>
                           </div>
                           <div class="media-body">
@@ -155,7 +159,7 @@
             <div class="col-md-6 col-12">
               <div class="icon-box rounded text-center hero-bg">
                 <a href="{% service_url item %}">
-                  <img src="{% cropped_thumbnail item 'card_thumbnail' %}" width="455" height="200" alt="{{ item.title }}">
+                  <img src="{% cropped_thumbnail item 'thumbnail_455x200' %}" width="455" height="200" alt="{{ item.title }}">
                 </a>
                 <h6 class="service-title">
                   <a href="{% service_url item %}">{{ item.title }}</a>

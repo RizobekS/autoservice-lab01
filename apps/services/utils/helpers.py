@@ -4,8 +4,9 @@ from django.http import HttpRequest
 from django.urls import reverse
 
 from apps.services.models import Section, Product
-from utils.helpers import get_car_filter
-from utils.types import Breadcrumb
+from utils.breadcrumbs.types import Breadcrumb
+from utils.car_filter import get_car_filter
+
 
 def service_url(request: HttpRequest, obj: Union[Section, Product], skip_car=False) -> str:
     if isinstance(obj, Section):
@@ -29,12 +30,13 @@ def service_breadcrumbs(request, obj: Union[Section, Product]) -> list:
     section = obj if isinstance(obj, Section) else obj.section
     viewname = 'services:section'
 
-    args = (section.url, )
+    args = (section.url,)
     breadcrumbs = [Breadcrumb(section.title, reverse(viewname, args=args))]
-    while section.parent_section:
-        section = section.parent_section
-        args = (section.url, )
-        bc = Breadcrumb(section.title, reverse(viewname, args=args))
+    temp_section = section
+    while temp_section.parent_section:
+        temp_section = temp_section.parent_section
+        args = (temp_section.url,)
+        bc = Breadcrumb(temp_section.title, reverse(viewname, args=args))
         breadcrumbs.append(bc)
     breadcrumbs = breadcrumbs[::-1]
 

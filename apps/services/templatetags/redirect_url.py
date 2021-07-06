@@ -18,8 +18,8 @@ def redirect_url(context: dict):
         raise ValueError('Usage of redirect_url template tag requires request in context')
 
     resolver: ResolverMatch = request.resolver_match
-
     html = []
+    CAR_SUFFIX = '_car'
 
     # Redirect to section/product with given car values
     if 'services' in resolver.namespaces:
@@ -27,9 +27,9 @@ def redirect_url(context: dict):
             html.append(hidden_field_tag('url_args[]', resolver.kwargs.get('section_url')))
         if resolver.kwargs.get('product_url'):
             html.append(hidden_field_tag('url_args[]', resolver.kwargs.get('product_url')))
-        html.append(hidden_field_tag('view_name', resolver.view_name))
+        view_name = resolver.view_name if resolver.view_name.endswith(CAR_SUFFIX) else resolver.view_name + CAR_SUFFIX
     else:
         view_name = 'cars:car'
-        html.append(hidden_field_tag('view_name', view_name))
+    html.append(hidden_field_tag('view_name', view_name))
 
     return mark_safe('\n'.join(html))

@@ -9,7 +9,6 @@
 
 {% block modals %}
   {% include 'modals/search.html' %}
-  {% include 'modals/login.html' %}
   {% include 'modals/online-appointment.html' %}
 {% endblock %}
 
@@ -17,9 +16,9 @@
   <section class="page_slider ds">
     <div class="ds social-flex d-none d-lg-block">
       <p class="social-icons with-border">
-        <span><a href="https://www.facebook.com/" class="fa fa-facebook border-icon rounded-icon" title="facebook"></a></span>
-        <span><a href="https://telegram.org/" class="fa fa-paper-plane border-icon rounded-icon" title="telegram"></a></span>
-        <span><a href="https://www.instagram.com/" class="fa fa-instagram border-icon rounded-icon" title="instagram"></a></span>
+        <span><a href="{{ facebook }}" class="fa fa-facebook border-icon rounded-icon" title="facebook"></a></span>
+        <span><a href="{{ telegram }}" class="fa fa-paper-plane border-icon rounded-icon" title="telegram"></a></span>
+        <span><a href="{{ instagram }}" class="fa fa-instagram border-icon rounded-icon" title="instagram"></a></span>
       </p>
     </div>
     <div class="container">
@@ -77,154 +76,14 @@
       </ul>
     </div> <!-- eof flexslider -->
   </section>
+
   <section class="ds s-pt-60 s-pt-md-5 s-pb-0 s-pb-md-15 s-pb-lg-150 choose-us-section c-gutter-10 overflow-visible" id="choose-us">
     <div class="container">
-      <div class="row plan-content c-mt-0 c-mt-lg-10 c-mt-xl-0">
-        <div class="col-xl-3 col-md-6">
-          <div class="pricing-plan plan1 cs">
-            <div class="plan-name">
-              <h5 class="text-uppercase">
-                ТО по фиксированной цене
-              </h5>
-            </div>
-            <div class="plan-description"></div>
-            <div class="price-wrap color-main2">
-              <span class="plan-price">4 990</span>
-              <span class="plan-sign">₽</span>
-            </div>
-            <div class="plan-features">
-              <ul>
-                <li><i class="ico-check fs-12 fw-900"></i>Мойка кузова
-                <li><i class="ico-check fs-12 fw-900"></i>Замена масла и фильтров</li>
-                <li><i class="ico-check fs-12 fw-900"></i>Осмотр автомобиля</li>
-              </ul>
-            </div>
-            <div><a href="contact.html" class="btn btn-small btn-outline-maincolor">Подробнее</a></div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-          <div class="pricing-plan plan2 cs">
-            <div class="plan-name">
-              <h5 class="text-uppercase">
-                Electronics Diagnostic
-              </h5>
-            </div>
-            <div class="plan-description">
-              <h6 class="fw-300 text-uppercase">
-                Start from
-              </h6>
-            </div>
-            <div class="price-wrap color-main2">
-              <span class="plan-price">109</span>
-              <span class="plan-sign">$</span>
-            </div>
-            <div class="plan-features">
-              <ul>
-                <li><i class="ico-check fs-12 fw-900"></i>9 x car wash</li>
-                <li><i class="ico-check fs-12 fw-900"></i>2 x lights check</li>
-                <li><i class="ico-check fs-12 fw-900"></i>2 x tires replacement</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-          <div class="pricing-plan plan3 cs">
-            <div class="plan-name">
-              <h5 class="text-uppercase">
-                Painting Works
-              </h5>
-            </div>
-            <div class="plan-description">
-              <h6 class="fw-300 text-uppercase">
-                Start from
-              </h6>
-            </div>
-            <div class="price-wrap color-main2">
-              <span class="plan-price">159</span>
-              <span class="plan-sign">$</span>
-            </div>
-            <div class="plan-features">
-              <ul>
-                <li><i class="ico-check fs-12 fw-900"></i>12 x car wash</li>
-                <li><i class="ico-check fs-12 fw-900"></i>3 x lights check</li>
-                <li><i class="ico-check fs-12 fw-900"></i>3 x tires replacement</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-md-6">
-          <div class="pricing-plan plan4 cs">
-            <div class="plan-name">
-              <h5 class="text-uppercase">
-                Collision Repair
-              </h5>
-            </div>
-            <div class="plan-description">
-              <h6 class="fw-300 text-uppercase">
-                Start from
-              </h6>
-            </div>
-            <div class="price-wrap color-main2">
-              <span class="plan-price">199</span>
-              <span class="plan-sign">$</span>
-            </div>
-            <div class="plan-features">
-              <ul>
-                <li><i class="ico-check fs-12 fw-900"></i>15 x car wash</li>
-                <li><i class="ico-check fs-12 fw-900"></i>4 x lights check</li>
-                <li><i class="ico-check fs-12 fw-900"></i>4 x tires replacement</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="divider-145 d-none d-lg-block"></div>
-      </div>
-      <div class="row c-mb-45 c-mb-lg-0">
-        <div class="divider-40 d-block d-lg-none"></div>
-        <div class="offset-lg-2 col-lg-8 item-content text-center">
-          <h3 class="special-heading text-center">Почему<span class="text-gradient">выбирают</span> нас?</h3>
-          <p class="fs-20 color-dark">Высокое качество обслуживания автомобилей по доступным ценам</p>
-          <div class="divider-60 d-none d-lg-block"></div>
-          <p>EUROREPAR "Авто Премиум" является отдельным подразделением по обслуживанию постгарантийных автомобилей любых марок, входящим в группу компаний «Авто Премиум».</p>
-          <p>Мы являемся официальными партнерами широкой сети сервисных центров EUROREPAR CAR SERVICE, объединяющей более 1 400 сервисных центров во Франции и 3200 сервисных
-            центров в Европе.</p>
-          <div class="row text-left c-gutter-60">
-            <div class="divider-35"></div>
-            <div class="col-md-4">
-              <div class="icon-box text-center">
-                <div class="icon-styled color-main2 fs-40">
-                  <i class="ico-mechanic"></i>
-                </div>
-                <p>
-                  Любые виды ремотных работ по низким ценам
-                </p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="icon-box text-center">
-                <div class="icon-styled color-main2 fs-40">
-                  <i class="ico-breakdown"></i>
-                </div>
-                <p>
-                  Профессионально оборудованные сервисные посты
-                </p>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="icon-box text-center">
-                <div class="icon-styled color-main2 fs-40">
-                  <i class="ico-car-wash"></i>
-                </div>
-                <p>
-                  Комплексная мойка, химчистка и полировка
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% include 'home/chunks/promotions.html' %}
+      {% include 'home/chunks/why-us.html' %}
     </div>
   </section>
+
 
   {% include 'home/chunks/services.html' %}
 
@@ -307,100 +166,10 @@
       </div>
     </div>
   </section>
-  <section class="ls s-pt-55 s-pb-30 s-pt-lg-145 s-pb-lg-120" id="team">
-    <div class="container">
-      <div class="col-12 mb-50">
-        <h3 class="special-heading text-center">Наша<span class="text-gradient">команда</span></h3>
-        <p class="fs-20 color-dark">Только сертифицированные мастера</p>
-        <div class="divider-60 d-none d-lg-block"></div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="owl-carousel" data-autoplay="false" data-loop="true" data-responsive-lg="3" data-responsive-md="2" data-responsive-sm="2" data-nav="false"
-               data-dots="false" data-margin="60">
-            <div class="vertical-item content-padding text-center overflow-hidden">
-              <div class="item-media">
-                <img src="{% static 'images/team/01.jpg' %}" alt="">
-              </div>
-              <div class="item-content">
-                <h6 class="team-name fw-700">Melvin C. Williams</h6>
-                <p>
-                  AutoDoc Manager
-                </p>
-              </div>
-            </div>
-            <div class="vertical-item content-padding text-center overflow-hidden">
-              <div class="item-media">
-                <img src="{% static 'images/team/01.jpg' %}" alt="">
-              </div>
-              <div class="item-content">
-                <h6 class="team-name fw-700">Melvin C. Williams</h6>
-                <p>
-                  AutoDoc Manager
-                </p>
-              </div>
-            </div>
-            <div class="vertical-item content-padding text-center overflow-hidden">
-              <div class="item-media">
-                <img src="{% static 'images/team/01.jpg' %}" alt="">
-              </div>
-              <div class="item-content">
-                <h6 class="team-name fw-700">Melvin C. Williams</h6>
-                <p>
-                  AutoDoc Manager
-                </p>
-              </div>
-            </div>
-          </div><!-- .team-carousel -->
-        </div>
-        <div class="divider-2"></div>
-      </div>
-    </div>
-  </section>
-  <section class="ls ms contact-section text-center text-md-left">
-    <div class="row align-items-center c-gutter-0">
-      <div class="col-xl-6 col-lg-6 col-md-6 col-xs-12">
-        <div class="animate page_map animated scaleAppear" data-animation="scaleAppear" id="map">
-        </div>
-        <!--.col-* -->
-      </div>
-      <div class="col-xl-3 col-md-6 col-10 animate" data-animation="moveFromRight">
-        <div class="divider-55 d-md-none"></div>
-        <div class="item-content content-left-padding">
-          <h3 class="special-heading">Наши<span class="text-gradient">СТО</span></h3>
-          <p>Приглашаем посетить наши сервисные центры<br>с удобными парковками и зонами ожидания.</p>
-          <h6 class="fw-700">Санкт-Петербург</h6>
-          <div class="media side-icon-box">
-            <div class="icon-styled color-main">
-              <i class="fa fa-map-marker"></i>
-            </div>
-            <p class="media-body">пр. Энгельса 33/1</p>
-          </div>
-          <div class="media side-icon-box">
-            <div class="icon-styled color-main">
-              <i class="fa fa-phone"></i>
-            </div>
-            <p class="media-body"><a href="tel:+79215980446">+7 (921) 598-04-46</a></p>
-          </div>
-          <div class="media side-icon-box">
-            <div class="icon-styled color-main">
-              <i class="fa fa-map-marker"></i>
-            </div>
-            <p class="media-body">ул. Хасанская 5</p>
-          </div>
-          <div class="media side-icon-box">
-            <div class="icon-styled color-main">
-              <i class="fa fa-phone"></i>
-            </div>
-            <p class="media-body"><a href="tel:+78123254042">+7 (812) 325-40-42</a></p>
-          </div>
-          <a href="contact.html" class="btn btn-small btn-outline-maincolor">Связаться с нами</a>
-        </div>
-        <div class="divider-60 d-md-none"></div>
-      </div>
-      <!--.col-* -->
-    </div>
-  </section>
+
+  {% include 'home/chunks/team.html' %}
+
+  {% include 'home/chunks/our-branches.html' %}
 {% endblock %}
 
 {% block body_scripts %}

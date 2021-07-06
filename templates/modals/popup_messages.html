@@ -1,10 +1,13 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="messages_modal">
-  <div class="fw-messages-wrap ls p-normal">
-    <!-- Uncomment this UL with LI to show messages in modal popup to your user: -->
-    <!--
-    <ul class="list-unstyled">
-        <li>Message To User</li>
-    </ul>
--->
-  </div>
-</div><!-- eof .modal -->
+{#{% if messages %}#}
+{#  <div class="modal fade" tabindex="-1" role="dialog" id="messages_modal">#}
+{#    <div class="fw-messages-wrap ls p-normal">#}
+{##}
+{#      <ul class="list-unstyled">#}
+{#        {% for message in messages %}#}
+{#          <li class="{{ message.tags }}">{{ message|safe }}</li>#}
+{#        {% endfor %}#}
+{#      </ul>#}
+{##}
+{#    </div>#}
+{#  </div><!-- eof .modal -->#}
+{#{% endif %}#}

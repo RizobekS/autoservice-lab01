@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load string_time_delta %}
+
+{% block header %}
+  {% include 'chunks/header/title.html' %}
+{% endblock %}
+
+{% block main %}
+  <section class="ls s-py-60 s-py-lg-100 s-py-xl-150 c-gutter-70">
+    <div class="container">
+      <div class="row">
+        <main class="col-lg-7 col-xl-8">
+          <article class="vertical-item post single-post type-post status-publish format-standard has-post-thumbnail">
+
+            <!-- .post-thumbnail -->
+            <div class="item-media post-thumbnail">
+              <img src="{{ article.image.url }}" alt="{{ article.title }}">
+            </div>
+
+
+            {% include 'chunks/aside/social_buttons.html' %}
+
+            <div class="item-content">
+              <div class="entry-content">
+
+                {{ article.text| safe }}
+
+              </div>
+              <!-- .entry-content -->
+              <footer class="entry-footer">
+                <div class="entry-meta">
+											<span class="byline links-grey">
+												{% if article.author %}
+                          <span class="author vcard"><i class="fs-14 color-main ico-user"></i>
+                            <a class="url fn n">{{ article.author.name }}</a>
+                          </span>
+                        {% endif %}
+                        <span class="posted-on">
+													<a>
+														<i class="fs-14 color-main ico-clock-alt"></i>
+														{{ article.date|time_delta }}
+													</a>
+												</span>
+												<span class="like-count"> {# TODO: Осуществить лайки #}
+													<a id="like" href="{% url 'news:like' article.url %}">
+														<i class="fs-14 fw-900 color-main fa {% if liked %}fa-heart{% else %}fa-heart-o{% endif %}"></i>
+														{{ article.like_set.count }}
+													</a>
+												</span>
+												<span class="comment-count">
+													<a href="#comments">
+														<i class="fs-14 color-main ico-comments-alt"></i>
+														{{ article.comment_set.count }}
+													</a>
+												</span>
+											</span>
+                </div>
+                <!-- .entry-meta -->
+              </footer>
+              <!-- .entry-footer -->
+              <hr>
+            </div>
+            <!-- .item-content -->
+          </article>
+
+
+          <div id="comments" class="post-comments comments-area rounded">
+            <h4 id="reply-title" class="fw-700 comment-reply-title">Оставить<span class="text-gradient">комментарий</span></h4>
+
+            <div id="respond" class="comment-respond ls d-flex">
+              {% include 'news/chunks/comments/comment-form.html' %}
+            </div>
+
+            {% include 'news/chunks/comments/comment-list.html' %}
+          </div>
+
+
+        </main>
+
+        <aside class="col-lg-5 col-xl-4">
+          {% include 'news/chunks/author.html' %}
+          {% include 'chunks/aside/tags.html' with tags=article.tags.all %}
+          {# {% include 'chunks/aside/instagram.html' %} #}
+          {% include 'news/chunks/latest_articles.html' %}
+        </aside>
+      </div>
+
+    </div>
+  </section>
+{% endblock %}
+
+{% block body_scripts %}
+  <script src="{% static 'js/custom/comment-reply.js' %}"></script>
+  <script src="{% static 'js/custom/ajax-like.js' %}"></script>
+{% endblock %}

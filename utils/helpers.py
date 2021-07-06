@@ -1,64 +1,47 @@
 from pathlib import Path
-from typing import Optional
+from typing import Any
 
-from django.http import Http404, HttpRequest
 from django.templatetags.static import static
-
-from apps.cars.models import CarFilter
+from django.utils.safestring import mark_safe
 
 ADMIN_EXAMPLES_ROOT = Path('images') / 'admin-examples'
+
 
 def admin_example(image_name: str, name: str = 'Посмотреть'):
     link = static(str(ADMIN_EXAMPLES_ROOT / image_name))
     return link_tag(link, name, True, 'font-weight: bold; text-decoration: underline;')
 
-def link_tag(link: str, name: str = None, target_blank=False, style=''):
+
+def link_tag(link: str, name: Any = None, target_blank=False, style=''):
     target_blank = 'target="_blank"' if target_blank else ''
     style = f'style="{style}"' if style else style
     return f'<a {target_blank} href="{link}" {style}>{name if name else link}</a>'
 
+
+def link_tag_safe(link: str, name: Any = None, target_blank=False, style=''):
+    return mark_safe(link_tag(link=link, name=name, target_blank=target_blank, style=style))
+
+
 def hidden_field_tag(name: str, url: str) -> str:
     return f'<input type="hidden" name="{name}" value="{url}"/>'
+
 
 def format_price(number: float, currency: str = None) -> str:
     decimal, fractional = str(number).split('.')
     decimal = decimal[::-1]
     price = " ".join([decimal[i:i + 3] for i in range(0, len(decimal), 3)])[::-1]
-    price = f'{price}.{fractional}'
+    price = f'{price}.{fractional}' if fractional is not '0' else str(price)
     return f'{price}{currency}' if currency else price
 
 
-def exists_or_404(query_set):
-    if query_set.exists():
-        return query_set.first()
+def get_ending(number, options):
+    if len(options) != 3:
+        raise ValueError(f'3 options required, got {len(options)} instead')
+    number = str(number)
+    last_char = int(number[-1:])
+    if last_char == 1 and number[-2:] != '11':
+        return f"{number} {options[0]}"
+    elif 2 <= last_char <= 4 and number[-2:] != "12" and number[-2:] != "13" and number[-2:] != "14":
+        return f"{number} {options[1]}"
     else:
-        raise Http404()
-
-
-_FILTER_HASH = 'car_filter'
-
-def get_car_filter(request: HttpRequest) -> Optional[CarFilter]:
-    """
-        Returns CarFilter object saved in session if it exists and None otherwise
-    """
-    filter_id = request.session.get(_FILTER_HASH, None)
-    if filter_id is None:
-        return None
-    car_filter = CarFilter.objects.filter(id=filter_id)
-    return car_filter.first() if car_filter.exists() else None
-
-def set_car_filter(request: HttpRequest, filter_obj: CarFilter, delete_old: bool = False) -> None:
-    """
-        Deletes previous CarFilter object if it exists, sets the new one and returns it back
-    """
-    if delete_old and _FILTER_HASH in request.session:
-        CarFilter.objects.filter(id=request.session[_FILTER_HASH]).delete()
-    request.session[_FILTER_HASH] = filter_obj.id
-
-def remove_car_filter(request: HttpRequest):
-    """
-        Deletes current CarFilter object if it exists
-    """
-    if _FILTER_HASH in request.session:
-        CarFilter.objects.filter(id=request.session[_FILTER_HASH]).delete()
-        del request.session[_FILTER_HASH]
+        return f"{number} {options[2]}"
