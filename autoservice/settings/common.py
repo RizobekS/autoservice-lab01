@@ -133,6 +133,9 @@ LOGIN_REDIRECT_URL = 'accounts:pa:index'
 LOGOUT_REDIRECT_URL = 'home:index'
 
 # Static dirs, root and URL
+STATICFILES_DIRS = [
+    join(PROJECT_ROOT, 'static'),
+]
 STATIC_ROOT = join(PROJECT_ROOT, 'run', 'static')
 STATIC_URL = '/static/'
 
