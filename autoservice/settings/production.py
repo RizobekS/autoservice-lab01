@@ -1,11 +1,22 @@
-# for now fetch the development settings only
-
+from os import environ
 
 # turn off all debugging
 DEBUG = False
 
 # You will have to determine, which hostnames should be served by Django
 ALLOWED_HOSTS = []
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': str(environ.get("DB_NAME")),
+        'USER': str(environ.get("DB_USER")),
+        'PASSWORD': str(environ.get("DB_PASSWORD")),
+        'HOST': 'localhost',
+        'PORT': '',
+        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
+    }
+}
 
 # Email sending
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -28,15 +39,15 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # SESSION_COOKIE_AGE = 1209600
 
 # validates passwords (very low security, but hey...)
-# AUTH_PASSWORD_VALIDATORS = [
-#    { 'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
-#    { 'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
-#    { 'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
-#    { 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
-# ]
+AUTH_PASSWORD_VALIDATORS = [
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
+]
 
 # the email address, these error notifications to admins come from
-# SERVER_EMAIL = 'root@localhost'
+# SERVER_EMAIL = str(environ.get('SERVER_MAIL'))
 
 # how many days a password reset should work. I'd say even one day is too long
-# PASSWORD_RESET_TIMEOUT_DAYS = 1
+PASSWORD_RESET_TIMEOUT_DAYS = 1

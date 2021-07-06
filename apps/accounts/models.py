@@ -19,8 +19,8 @@ class UserManager(BaseUserManager):
     def create_user(self, email, first_name, password1, **other_fields):
         return self._create_user(email, first_name, password1, save=True, **other_fields)
 
-    def create_superuser(self, email, first_name, password1, **other_fields):
-        user = self._create_user(email, first_name, password1, save=False, **other_fields)
+    def create_superuser(self, email, first_name, password, **other_fields):
+        user = self._create_user(email, first_name, password, save=False, **other_fields)
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
