@@ -971,6 +971,7 @@
                 shouldSort: false,
             });
         }
+        window.choices = choices;
 
 
     }
