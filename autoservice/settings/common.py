@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'apps.news',
     'apps.tags',
     'apps.promotions',
-    'apps.settings',
+    'apps.site_settings',
 
     # Utils
     'utils',
@@ -89,7 +89,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
                 'utils.context_processors.menu_data',
-                'apps.settings.context_processors.static_info'
+                'apps.site_settings.context_processors.static_info'
             ],
         },
     },

@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from .models import StaticInformation, Branch, EmailReceiver
+from apps.site_settings.models import EmailReceiver, Branch, StaticInformation
 
+admin.site.site_header = 'EuroRepar - Админ панель'
 
-# admin.site.site_header = 'ATБ - Админ панель'
 
 @admin.register(StaticInformation)
 class StaticInformationAdmin(admin.ModelAdmin):

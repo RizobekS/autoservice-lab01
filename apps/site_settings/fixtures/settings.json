@@ -1,6 +1,6 @@
 [
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 1,
     "fields": {
       "name": "���������",
@@ -10,7 +10,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 2,
     "fields": {
       "name": "���������",
@@ -20,7 +20,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 3,
     "fields": {
       "name": "Facebook",
@@ -30,7 +30,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 4,
     "fields": {
       "name": "Whatsapp",
@@ -40,7 +40,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 5,
     "fields": {
       "name": "��. ����� (� ����� � � ������)",
@@ -50,7 +50,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 6,
     "fields": {
       "name": "����� (� ������)",
@@ -60,7 +60,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 7,
     "fields": {
       "name": "���. ����� (� ������)",
@@ -70,7 +70,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 8,
     "fields": {
       "name": "�������� �����",
@@ -80,7 +80,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 9,
     "fields": {
       "name": "��������",

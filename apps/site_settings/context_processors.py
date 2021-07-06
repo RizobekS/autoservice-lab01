@@ -1,5 +1,5 @@
 from apps.cars.models import CarFilter
-from apps.settings.models import StaticInformation, Branch
+from apps.site_settings.models import StaticInformation, Branch
 from utils.car_filter import get_car_filter
 
 
