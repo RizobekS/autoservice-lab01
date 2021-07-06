@@ -1,5 +1,9 @@
 from os import environ
 
+from .common import *
+
+print(ROOT_URLCONF)
+
 # turn off all debugging
 DEBUG = False
 
