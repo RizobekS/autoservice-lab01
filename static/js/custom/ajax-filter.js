@@ -4,6 +4,7 @@ $(function () {
     let choices = {};
 
     if ($form.length) {
+        console.log(window.choices);
         // Map choices[] indexes to Choices object
         for (let i = 0; i < window.choices.length; i++) {
             let id = window.choices[i].passedElement.element.id;
