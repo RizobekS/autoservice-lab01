@@ -6,6 +6,10 @@ from .common import *
 
 DEBUG = True
 
+STATICFILES_DIRS = [
+    join(PROJECT_ROOT, 'static'),
+]
+
 # Allow all hosts during development
 ALLOWED_HOSTS = ['*']
 
