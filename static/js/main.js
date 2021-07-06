@@ -1000,7 +1000,6 @@ function documentReadyInit() {
           shouldSort: false,
         });
       }
-      window.choices = choices;
 
     //datetime picker init
     var inline = false;
