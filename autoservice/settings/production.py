@@ -8,7 +8,7 @@ print(ROOT_URLCONF)
 DEBUG = True
 
 # You will have to determine, which hostnames should be served by Django
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['autoservice.david-showcase.uz']
 
 DATABASES = {
     'default': {
