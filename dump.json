@@ -7263,7 +7263,7 @@
     }
   },
   {
-    "model": "settings.emailreceiver",
+    "model": "site_settings.emailreceiver",
     "pk": 1,
     "fields": {
       "name": "�����",
@@ -7272,7 +7272,7 @@
     }
   },
   {
-    "model": "settings.emailreceiver",
+    "model": "site_settings.emailreceiver",
     "pk": 2,
     "fields": {
       "name": null,
@@ -7281,7 +7281,7 @@
     }
   },
   {
-    "model": "settings.emailreceiver",
+    "model": "site_settings.emailreceiver",
     "pk": 3,
     "fields": {
       "name": "�����",
@@ -7290,7 +7290,7 @@
     }
   },
   {
-    "model": "settings.branch",
+    "model": "site_settings.branch",
     "pk": 1,
     "fields": {
       "name": "������ �1",
@@ -7300,7 +7300,7 @@
     }
   },
   {
-    "model": "settings.branch",
+    "model": "site_settings.branch",
     "pk": 2,
     "fields": {
       "name": "������ �2",
@@ -7310,7 +7310,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 1,
     "fields": {
       "name": "���������",
@@ -7320,7 +7320,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 2,
     "fields": {
       "name": "���������",
@@ -7330,7 +7330,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 3,
     "fields": {
       "name": "Facebook",
@@ -7340,7 +7340,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 4,
     "fields": {
       "name": "Whatsapp",
@@ -7350,7 +7350,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 5,
     "fields": {
       "name": "��. ����� (� ����� � � ������)",
@@ -7360,7 +7360,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 6,
     "fields": {
       "name": "����� (� ������)",
@@ -7370,7 +7370,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 7,
     "fields": {
       "name": "���. ����� (� ������)",
@@ -7380,7 +7380,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 8,
     "fields": {
       "name": "�������� �����",
@@ -7390,7 +7390,7 @@
     }
   },
   {
-    "model": "settings.staticinformation",
+    "model": "site_settings.staticinformation",
     "pk": 9,
     "fields": {
       "name": "��������",
