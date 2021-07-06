@@ -13,12 +13,15 @@ ALLOWED_HOSTS = ['autoservice.david-showcase.uz']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': str(environ.get("DB_NAME")),
-        'USER': str(environ.get("DB_USER")),
-        'PASSWORD': str(environ.get("DB_PASSWORD")),
+        # 'NAME': str(environ.get("DB_NAME")),
+        # 'USER': str(environ.get("DB_USER")),
+        # 'PASSWORD': str(environ.get("DB_PASSWORD")),
+        'NAME': 'h36959c_autoservice',
+        'USER': 'h36959c_autoservice',
+        'PASSWORD': 'Tj*HQzoswW+L',
         'HOST': 'localhost',
         'PORT': '',
-        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
+        # 'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
 
