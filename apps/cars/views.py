@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from utils.car_filter import set_car_filter
+from utils.car_filter import set_car_filter, get_car_filter
 from .models import *
 from .utils.helpers import car_page_title, car_breadcrumbs
 from .utils.types import CarUrls
@@ -69,11 +69,18 @@ def ajax_filter(request):
     model = Model.objects.filter(id=model_id, vendor=vendor).first()
     year = Year.objects.filter(id=year_id, model=model).first()
     modification = Modification.objects.filter(id=modification_id, year=year).first()
+
+    # Try to apply car_filter's values if form is empty
+    car_filter = get_car_filter(request)
+    if car_filter and not vendor and not model and not year and not modification:
+        vendor = car_filter.vendor
+        model = car_filter.model
+        year = car_filter.year
+        modification = car_filter.modification
+
     if vendor and model and year and modification:
         if request.user.is_authenticated:
             car_filter, created = CarFilter.objects.get_or_create(user=request.user, vendor=vendor, model=model, year=year, modification=modification)
-            # if not created:  # Update last_used if it is not new car_filter
-            #     car_filter.save(update_fields=['last_used'])
         else:
             car_filter = CarFilter.objects.create(vendor=vendor, model=model, year=year, modification=modification)
         set_car_filter(request, car_filter)
@@ -94,10 +101,10 @@ def ajax_filter(request):
     modification_set = [{'value': item.id, 'label': item.name, 'selected': modification == item} for item in Modification.objects.filter(year=year)] if year else []
 
     # Insert model names at the beginning
-    vendor_set.insert(0, {'label': Vendor._meta.verbose_name, 'selected': not vendor, 'placeholder': True})
-    model_set.insert(0, {'label': Model._meta.verbose_name, 'selected': not model, 'placeholder': True})
-    year_set.insert(0, {'label': Year._meta.verbose_name, 'selected': not year, 'placeholder': True})
-    modification_set.insert(0, {'label': Modification._meta.verbose_name, 'selected': not modification, 'placeholder': True})
+    vendor_set.insert(0, {'value': '', 'label': Vendor._meta.verbose_name, 'selected': not vendor, 'placeholder': True})
+    model_set.insert(0, {'value': '', 'label': Model._meta.verbose_name, 'selected': not model, 'placeholder': True})
+    year_set.insert(0, {'value': '', 'label': Year._meta.verbose_name, 'selected': not year, 'placeholder': True})
+    modification_set.insert(0, {'value': '', 'label': Modification._meta.verbose_name, 'selected': not modification, 'placeholder': True})
 
     data = {
         'vendor': vendor_set,

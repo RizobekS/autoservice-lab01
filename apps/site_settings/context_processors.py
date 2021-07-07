@@ -1,4 +1,5 @@
 from apps.cars.models import CarFilter
+from apps.services.models import Section
 from apps.site_settings.models import StaticInformation, Branch
 from utils.car_filter import get_car_filter
 
@@ -16,3 +17,7 @@ def static_info(request):
     context['garage_cars_count'] = len(context['garage_cars'])
 
     return context
+
+
+def menu_data(request):
+    return {'menu_root_sections': Section.objects.filter(active=True, parent_section=None)}

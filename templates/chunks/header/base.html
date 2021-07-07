@@ -118,14 +118,16 @@ d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
                   <a href="#">Услуги и цены</a>
                   <div class="mega-menu">
                     <ul class="mega-menu-row">
-                      {% for service, products in menu_root_sections.items %}
+                      {% for section in menu_root_sections %}
                         <li class="mega-menu-col">
-                          <a href="{% service_url service %}">{{ service.title|break_words }}</a>
-                          <ul>{% for product in products %}
-                            <li>
-                              <a href="{% service_url product %}">{{ product.title }}</a>
-                            </li>
-                          {% endfor %}</ul>
+                          <a href="{% service_url section %}">{{ section.title|break_words }}</a>
+                          <ul>
+                            {% for item in section.menu_set %}
+                              <li>
+                                <a href="{% service_url item %}">{{ item.title }}</a>
+                              </li>
+                            {% endfor %}
+                          </ul>
                         </li>
                       {% endfor %}
                     </ul>

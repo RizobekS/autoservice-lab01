@@ -7,8 +7,9 @@ from .models import *
 
 @admin.register(Section)
 class SectionAdmin(ImageCroppingMixin, admin.ModelAdmin):
-    list_display = ('title', 'url', 'active', 'parent_section', 'verbose_level', 'child_products')
-    list_filter = ('active', 'parent_section')
+    list_display = ('title', 'url', 'active', 'parent_section', 'verbose_level', 'child_products', 'show_at_homepage')
+    list_editable = ('show_at_homepage',)
+    list_filter = ('active', 'show_at_homepage', 'parent_section')
     search_fields = ('title', 'url', 'title_dative', 'short_description', 'description')
 
     readonly_fields = ('child_products', 'child_sections')
@@ -39,14 +40,14 @@ class ProductAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_filter = ('active', 'fixed_price', 'show_at_homepage', 'section', 'tag')
     search_fields = ('title', 'url', 'section', 'price', 'time_duration', 'cars', 'short_description', 'description')
 
-    filter_horizontal = ('spare_parts', 'cars')
+    filter_horizontal = ('spare_parts', 'cars', 'similar_products')
     prepopulated_fields = {'url': ('title',), }
 
     save_on_top = True
 
     fieldsets = (
         (None, {
-            'fields': (('title', 'url'), 'active', 'show_at_homepage', 'tag', 'section', ('price', 'fixed_price'), 'time_duration', 'spare_parts', 'cars')
+            'fields': (('title', 'url'), 'active', 'show_at_homepage', 'tag', 'section', ('price', 'fixed_price'), 'time_duration', 'spare_parts', 'cars', 'similar_products')
         }),
         ('Текст', {
             'fields': ('short_description', 'description'),

@@ -88,7 +88,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
-                'utils.context_processors.menu_data',
+                'apps.site_settings.context_processors.menu_data',
                 'apps.site_settings.context_processors.static_info'
             ],
         },
@@ -143,10 +143,11 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = join(PROJECT_ROOT, 'run', 'media')
 MEDIA_URL = '/media/'
 
+# Maximum number of fields in single POST/GET
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 30000
 
 # ##### DEBUG CONFIGURATION ###############################
 DEBUG = False
-
 
 # Grab the SECRET KEY
 try:

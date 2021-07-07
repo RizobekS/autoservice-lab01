@@ -16,10 +16,10 @@ from autoservice.settings.common import AUTH_USER_MODEL
 class CarFilter(models.Model, CarFilterUtilsMixin):
     user = models.ForeignKey(to=AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
 
-    vendor = models.ForeignKey(verbose_name='Производитель', to='Vendor', on_delete=models.DO_NOTHING)
-    model = models.ForeignKey(verbose_name='Модель', to='Model', on_delete=models.DO_NOTHING, null=True, blank=True)
-    year = models.ForeignKey(verbose_name='Год', to='Year', on_delete=models.DO_NOTHING, null=True, blank=True)
-    modification = models.ForeignKey(verbose_name='Модификация', to='Modification', on_delete=models.DO_NOTHING, null=True, blank=True)
+    vendor = models.ForeignKey(verbose_name='Производитель', to='Vendor', on_delete=models.CASCADE)
+    model = models.ForeignKey(verbose_name='Модель', to='Model', on_delete=models.CASCADE, null=True, blank=True)
+    year = models.ForeignKey(verbose_name='Год', to='Year', on_delete=models.CASCADE, null=True, blank=True)
+    modification = models.ForeignKey(verbose_name='Модификация', to='Modification', on_delete=models.CASCADE, null=True, blank=True)
 
     last_used = models.DateTimeField('Время последнего использования', auto_now=True)
 
@@ -85,7 +85,7 @@ class Model(models.Model):
     name = models.CharField('Название модели', max_length=200)
     url = AutoSlugField(verbose_name='URL модели', validators=[validate_double_slash_url], help_text='Заполняется на основе поля "Название"', populate_from='name', editable=True)
 
-    vendor = models.ForeignKey(verbose_name='Производитель', to='Vendor', on_delete=models.PROTECT)
+    vendor = models.ForeignKey(verbose_name='Производитель', to='Vendor', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'{self.vendor.name} - {self.name}'

@@ -40,7 +40,7 @@ class SectionsMixin(ContextMixin):
     sections_additional_kwargs: dict = {}
 
     def get_sections(self) -> List[Section]:
-        sections = Product.objects.filter(active=True, **self.sections_additional_kwargs)
+        sections = Section.objects.filter(active=True, **self.sections_additional_kwargs)
         return sections[:self.sections_max] if self.sections_max else sections
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:

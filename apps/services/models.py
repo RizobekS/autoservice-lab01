@@ -16,6 +16,7 @@ class Section(models.Model):
                         validators=[validate_double_slash_url], populate_from='title', unique=True, editable=True)
     title_dative = models.CharField('Название раздела в Дательном падеже', help_text=TITLE_DATIVE_HELP_TEXT, max_length=255)
     active = models.BooleanField('Активно', help_text=ACTIVE_HELP_TEXT, default=True)
+    show_at_homepage = models.BooleanField('Отображать на главной', help_text='В блоке "Наши услуги"', default=False)
     short_description = models.CharField('Краткое описание', max_length=255)
     description = models.TextField('Содержание', help_text=DESCRIPTION_HELP_TEXT)
     parent_section = models.ForeignKey(verbose_name='Родительский раздел', to='Section', help_text='Оставьте поле пустым, если данный раздел - корневой',
@@ -59,6 +60,16 @@ class Section(models.Model):
         else:
             return f'{self.level()} уровня'
 
+    def active_product_set(self):
+        return self.product_set.filter(active=True)
+
+    def active_section_set(self):
+        return self.section_set.filter(active=True)
+
+    def menu_set(self):
+        section_set = self.active_section_set()
+        return section_set if section_set.count() else self.active_product_set()
+
     def meta_context(self):
         return {'section': self.title}
 
@@ -79,10 +90,13 @@ class Product(models.Model):
 
     active = models.BooleanField('Активно', help_text=ACTIVE_HELP_TEXT, default=True)
     section = models.ForeignKey(verbose_name='Родительский раздел', to='Section', on_delete=models.RESTRICT)
-    show_at_homepage = models.BooleanField('Отображать на главной', help_text='В блоке услуг/товаров', default=False)
+    show_at_homepage = models.BooleanField('Отображать на главной', help_text='В блоке "Наши услуги"', default=False)
     spare_parts = models.ManyToManyField(verbose_name='Запчасти', to='SparePart', blank=True)
     cars = models.ManyToManyField(verbose_name='Машины, подходящие под данный товар/услугу', to='cars.Modification', blank=True)
     tag = models.ForeignKey(verbose_name='Тег', to=Tag, on_delete=models.SET_NULL, null=True, blank=True)
+
+    similar_products = models.ManyToManyField(verbose_name='Похожие услуги', help_text='Выводятся когда пользователь попал на услугу, которая не поддерживается его авто.',
+                                              to='Product', blank=True)
 
     image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to='services/products')
     thumbnail_1960x600 = ImageRatioField(verbose_name='Обрезка изображения (1920x600)', help_text='Для фона заголовка страницы', image_field='image', size='1920x600')

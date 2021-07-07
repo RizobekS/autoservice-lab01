@@ -45,9 +45,10 @@ $(function () {
         $form.on('change', '.ajax-filter-trigger', {}, ajax);
 
         // Set 'No choices text'
-        choices['model'].config.noChoicesText = 'Укажите Марку';
-        choices['year'].config.noChoicesText = 'Укажите Модель';
-        choices['modification'].config.noChoicesText = 'Укажите Год выпуска';
+        // choices['vendor'].config.noChoicesText = 'Укажите Марку';
+        // choices['model'].config.noChoicesText = 'Укажите Модель';
+        // choices['year'].config.noChoicesText = 'Укажите Год выпуска';
+        // choices['modification'].config.noChoicesText = 'Укажите Модификацию';
 
         function ajax(e) {
             const AJAX_URL = $form.attr('data-ajax-url'), METHOD = $form.attr('method');
@@ -64,10 +65,10 @@ $(function () {
                 contentType: false,
                 processData: false,
                 success: function (data) {
-                    choices['vendor'].setChoices(data['vendor'], 'value', 'label', true);
-                    choices['model'].setChoices(data['model'], 'value', 'label', true);
-                    choices['year'].setChoices(data['year'], 'value', 'label', true);
-                    choices['modification'].setChoices(data['modification'], 'value', 'label', true);
+                    choices['vendor'].clearStore().setChoices(data['vendor'], 'value', 'label', true);
+                    choices['model'].clearStore().setChoices(data['model'], 'value', 'label', true);
+                    choices['year'].clearStore().setChoices(data['year'], 'value', 'label', true);
+                    choices['modification'].clearStore().setChoices(data['modification'], 'value', 'label', true);
                     if (data['url'])
                         url = data['url'];
                 },

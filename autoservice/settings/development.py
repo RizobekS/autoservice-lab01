@@ -21,6 +21,6 @@ EMAIL_FILE_PATH = join(PROJECT_ROOT, 'emails')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': join(PROJECT_ROOT, 'run', 'dev.sqlite3'),
+        'NAME': join(r'C:\Users\David\Desktop\temp', 'dev.sqlite3'),
     }
 }

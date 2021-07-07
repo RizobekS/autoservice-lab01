@@ -4,10 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView as BaseLoginView, \
     PasswordResetView as BasePasswordResetView, \
     PasswordResetConfirmView as BasePasswordResetConfirmView, \
-    PasswordResetDoneView as BasePasswordResetDoneView
-from django.http import HttpRequest, Http404
+    PasswordResetDoneView as BasePasswordResetDoneView, redirect_to_login
+from django.http import HttpRequest, Http404, HttpResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import FormView, TemplateView
@@ -19,7 +19,7 @@ from apps.cars.models import CarFilter
 from utils.breadcrumbs.mixins import PageTitleMixin
 from utils.breadcrumbs.types import Breadcrumb
 from utils.breadcrumbs.utils import reverse_bc
-from utils.car_filter import get_car_filter
+from utils.car_filter import get_car_filter, remove_car_filter
 
 
 class RegisterView(FormView):
@@ -89,7 +89,6 @@ class PersonalAreaIndex(TemplateView, PersonalAreaMixin):
     template_name = 'accounts/personal_area/index.html'
 
 
-@method_decorator(login_required, name='dispatch')
 class PersonalAreaGarage(View, PersonalAreaMixin):
     menu = MenuItem.GARAGE
     template_name = 'accounts/personal_area/garage.html'
@@ -97,19 +96,25 @@ class PersonalAreaGarage(View, PersonalAreaMixin):
 
     def get(self, request, id=None):
         if id:
-            self.remove_from_garage(id)
+            return self.remove_from_garage(request, id)
 
+        redirect_to_login(reverse('accounts:pa:garage'))
         context = {
             'car_filters': CarFilter.objects.filter(user=request.user),
         }
 
         return render(request, self.template_name, self.get_context_data(**context))
 
-    def remove_from_garage(self, id):
-        carfilter = CarFilter.objects.filter(id=id, user=self.request.user)
-        if carfilter.exists():
-            carfilter.delete()
-            messages.success(self.request, f'Автомобиль {carfilter} был успешно удалён ✔', extra_tags='text-success')
+    def remove_from_garage(self, request, id):
+        if self.request.user.is_authenticated:
+            carfilter = CarFilter.objects.filter(id=id, user=self.request.user)
+            if carfilter.exists():
+                carfilter.delete()
+                messages.success(self.request, f'Автомобиль {carfilter} был успешно удалён ✔', extra_tags='text-success')
+            return self.get(request)  # call get() again, but without id (because it is already removed)
+        else:  # For not authenticated user
+            remove_car_filter(self.request)
+            return HttpResponse(status=200)
 
 
 @method_decorator(login_required, name='dispatch')
