@@ -1,7 +1,7 @@
-from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 
 from apps.promotions.models import Promotion
+from utils.widgets import CKEditorUploadingWidget, CKEditorWidget
 
 
 class PromotionAdminForm(forms.ModelForm):
@@ -10,7 +10,7 @@ class PromotionAdminForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'style': 'width: 400px;'}),
             'url': forms.TextInput(attrs={'style': 'width: 400px;'}),
-            'short_description': CKEditorUploadingWidget(),
+            'short_description': CKEditorWidget(),
             'text': CKEditorUploadingWidget(),
         }
         model = Promotion

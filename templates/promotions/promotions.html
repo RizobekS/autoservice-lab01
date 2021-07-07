@@ -19,7 +19,7 @@
 
                   {% if item.tags.exists %}{% with item.tags.first as tag %}
                     <div class="tagcloud">
-                      <a href="{# TODO: link #}" class="tag-cloud-link"><span>{{ tag.name }}</span></a>
+                      <a href="{% url 'tags:single' tag.url %}" class="tag-cloud-link"><span>{{ tag.name }}</span></a>
                     </div>
                   {% endwith %}{% endif %}
 

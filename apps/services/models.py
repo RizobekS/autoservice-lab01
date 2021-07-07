@@ -59,6 +59,9 @@ class Section(models.Model):
         else:
             return f'{self.level()} уровня'
 
+    def meta_context(self):
+        return {'section': self.title}
+
     class Meta:
         verbose_name = 'Раздел'
         verbose_name_plural = 'Разделы'
@@ -102,6 +105,9 @@ class Product(models.Model):
         while section.parent_section:
             section = section.parent_section
         return section
+
+    def meta_context(self):
+        return {'section': self.section.title, 'product': self.title}
 
     class Meta:
         verbose_name = 'Товар/Услуга'

@@ -5,7 +5,7 @@ from apps.tags.models import Tag
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    list_display = ('name', 'url', 'article_string', 'promotions_string')
+    list_display = ('name', 'url', 'article_string', 'promotions_string', 'product_string')
     search_fields = ('name', 'url')
 
     prepopulated_fields = {'url': ('name',), }

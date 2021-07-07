@@ -6,6 +6,7 @@ from .models import *
 from .utils.helpers import car_page_title, car_breadcrumbs
 from .utils.types import CarUrls
 from ..services.models import Section, Product
+from ..site_settings.utils.mixins import MetaTagsRenderer
 
 
 def car_view(request, urls: CarUrls):
@@ -20,6 +21,8 @@ def car_view(request, urls: CarUrls):
         'breadcrumbs': car_breadcrumbs(car_filter),
         'car': car_filter,
     }
+    meta_tags = MetaTagsRenderer('cars:car', car_filter.meta_context())
+    context.update(meta_tags.as_context())
 
     # Only for vendor-model and higher level pages
     if car_filter.model:

@@ -1,5 +1,6 @@
 $(function () {
     const $form = $('form#startform');
+    const $submit_button = $('button#submit-filter');
     let url;
     let choices = {};
 
@@ -18,7 +19,7 @@ $(function () {
             }
         }
 
-        $('button#submit-filter').on('click', function () {
+        $submit_button.on('click', function () {
             let complete = true;
 
             // Show dropdown of unselected field
@@ -53,6 +54,7 @@ $(function () {
 
             // console.log('fired');
             let data = new FormData($form[0]);
+            $submit_button.attr('disabled', 'true');
             $.ajax({
                 url: AJAX_URL,
                 type: METHOD,
@@ -72,7 +74,10 @@ $(function () {
                 error: function (data) {
                     console.log("Something went wrong");
                     console.log(data);
-                }
+                },
+                complete: function () {
+                    $submit_button.removeAttr('disabled');
+                },
             });
         }
 

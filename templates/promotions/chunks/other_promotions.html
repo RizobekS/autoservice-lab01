@@ -12,13 +12,13 @@
       {% for item in other_promotions %}
 
         <li class="media align-items-center">
-          <a class="media-image" href="{# TODO: link #}">
+          <a class="media-image" href="{% url 'promotions:promotion' item.url %}">
             <img src="{% cropped_thumbnail item 'icon_thumbnail' %}" alt="{{ item.title }}">
           </a>
 
           {% if item.tags.exists %}{% with item.tags.first as tag %}
             <div class="tagcloud sticky-tag">
-              <a href="{# TODO: link #}" class="tag-cloud-link"><span>{{ tag.name }}</span></a>
+              <a href="{% url 'tags:single' tag.url %}" class="tag-cloud-link"><span>{{ tag.name }}</span></a>
             </div>
           {% endwith %}{% endif %}
 

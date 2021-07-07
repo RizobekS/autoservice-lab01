@@ -18,7 +18,7 @@
 
             {% if item.tag %}
               <div class="tagcloud">
-                <a href="{# TODO: link #}" class="tag-cloud-link">
+                <a href="{% url 'tags:single' item.tag.url %}" class="tag-cloud-link">
                   <span>{{ item.tag.name }}</span>
                 </a>
               </div>

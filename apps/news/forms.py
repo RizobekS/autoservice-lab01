@@ -1,7 +1,7 @@
-from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 
 from apps.news.models import Article, Comment
+from utils.widgets import CKEditorUploadingWidget
 
 
 class ArticleAdminForm(forms.ModelForm):

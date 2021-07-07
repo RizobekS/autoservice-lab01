@@ -18,6 +18,10 @@ class Tag(models.Model):
     def promotions_string(self):
         return f'({self.promotion_set.count()}) {" ,  ".join(item.title for item in self.promotion_set.all())}'
 
+    @display(description='Товары/Услуги')
+    def product_string(self):
+        return f'({self.product_set.count()}) {" ,  ".join(item.title for item in self.product_set.all())}'
+
     class Meta:
         verbose_name = "Тэг"
         verbose_name_plural = "Тэги"

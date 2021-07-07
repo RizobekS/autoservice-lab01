@@ -34,6 +34,9 @@ class CarFilter(models.Model, CarFilterUtilsMixin):
     def is_full(self) -> bool:
         return bool(self.vendor) and bool(self.model) and bool(self.year) and bool(self.modification)
 
+    def meta_context(self):
+        return self.existing_attributes()[-1].meta_context()
+
     class Meta:
         unique_together = ('user', 'vendor', 'model', 'year', 'modification')
         get_latest_by = 'last_used'
@@ -44,7 +47,7 @@ class CarFilter(models.Model, CarFilterUtilsMixin):
 
 class Vendor(models.Model):
     name = models.CharField('Название', max_length=200)
-    url = AutoSlugField(verbose_name='URL производителя', validators=[validate_double_slash_url], help_text='Заполняется на основе поля "Название"', populate_from='name',
+    url = AutoSlugField(verbose_name='URL марки', validators=[validate_double_slash_url], help_text='Заполняется на основе поля "Название"', populate_from='name',
                         unique=True, editable=True)
     logo = models.ImageField('Логотип', help_text="Возможность обрезки появится после сохранения", upload_to='vendor_logos')
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления', default=True)
@@ -60,7 +63,7 @@ class Vendor(models.Model):
         return reverse('cars:car', args=(self.url_args(), ))
 
     def url_args(self):
-        return (self.url, )
+        return (self.url,)
 
     @display(description='Связанные модели')
     def related_cars(self):
@@ -69,6 +72,9 @@ class Vendor(models.Model):
             return f'Модели ({self.model_set.count()})'
         else:
             return ', '.join([car.name for car in cars.all()])
+
+    def meta_context(self):
+        return {'vendor': self.name}
 
     class Meta:
         verbose_name = 'Марка'
@@ -101,6 +107,9 @@ class Model(models.Model):
             return f'{years.count()} разных годов выпуска'
         else:
             return mark_safe(', '.join([f'{year.year} <span style="color: grey">({year.modification_set.count()})</span>' for year in years.all()]))
+
+    def meta_context(self):
+        return {'vendor': self.vendor.name, 'model': self.name}
 
     class Meta:
         verbose_name = 'Модель'
@@ -135,6 +144,9 @@ class Year(models.Model):
     def name(self):
         return str(self.year)
 
+    def meta_context(self):
+        return {'vendor': self.model.vendor.name, 'model': self.model.name, 'year': self.name}
+
     class Meta:
         verbose_name = 'Год выпуска'
         verbose_name_plural = 'Года выпуска'
@@ -153,7 +165,7 @@ class Modification(models.Model):
 
     @property
     def reverse_url(self):
-        return reverse('cars:car', args=(self.url_args(), ))
+        return reverse('cars:car', args=(self.url_args(),))
 
     def url_args(self):
         return self.year.model.vendor.url, self.year.model.url, self.year.url, self.url
@@ -162,6 +174,9 @@ class Modification(models.Model):
     @property
     def url(self):
         return str(self.id)
+
+    def meta_context(self):
+        return {'vendor': self.year.model.vendor.name, 'model': self.year.model.name, 'year': self.year.name, 'modification': self.name}
 
     class Meta:
         verbose_name = 'Модификация'

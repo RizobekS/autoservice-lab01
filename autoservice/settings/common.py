@@ -178,10 +178,12 @@ CKEDITOR_CONFIGS = {
         'skin': 'moono',
         'toolbar': 'full',
         'height': 300,
-        'width': "100%",
+        'width': '100%',
         'image2_disableResizer': True,
-        'extraAllowedContent': '*(*)',
+
+        'removePlugins': 'stylesheetparser',
         'allowedContent': True,
+
         'extraPlugins': ','.join((
             'uploadimage',
             'autolink',

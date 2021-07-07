@@ -5,6 +5,7 @@ from django import template
 from apps.masters.models import Master
 from apps.news.models import Article
 from apps.promotions.models import Promotion
+from apps.services.models import Product
 
 register = template.Library()
 
@@ -20,6 +21,8 @@ def template_name(obj: Union[Article, Promotion, Master]) -> str:
         name = 'article.html'
     elif isinstance(obj, Promotion):
         name = 'promotion.html'
+    elif isinstance(obj, Product):
+        name = 'product.html'
     elif isinstance(obj, list):
         name = 'master.html'
     else:

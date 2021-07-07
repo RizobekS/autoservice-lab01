@@ -5,6 +5,7 @@ from utils.shortcuts import exists_or_404
 from .models import Section, Product
 from .utils.helpers import service_breadcrumbs, service_page_title
 from ..cars.utils.types import CarUrls
+from ..site_settings.utils.mixins import MetaTagsRenderer
 
 
 def section_view(request, section_url: str, urls: CarUrls = None):
@@ -35,6 +36,11 @@ def section_view(request, section_url: str, urls: CarUrls = None):
         'breadcrumbs': breadcrumbs,
         'bg_object': current_section,
     }
+    meta_context = current_section.meta_context()
+    if car_filter:
+        meta_context.update(car_filter.meta_context())
+    meta_tag = MetaTagsRenderer(meta_tags_key='services:section_car' if car_filter else 'services:section', meta_context=meta_context)
+    context.update(meta_tag.as_context())
 
     return render(request, 'services/section.html', context)
 
@@ -67,6 +73,10 @@ def product_view(request, section_url: str, product_url: str, urls: CarUrls = No
         'breadcrumbs': breadcrumbs,
         'bg_object': product,
     }
+    meta_context = product.meta_context()
+    if car_filter:
+        meta_context.update(car_filter.meta_context())
+    meta_tag = MetaTagsRenderer(meta_tags_key='services:product_car' if car_filter else 'services:product', meta_context=meta_context)
+    context.update(meta_tag.as_context())
 
     return render(request, 'services/product.html', context)
-

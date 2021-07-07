@@ -1,28 +1,8 @@
 from django.contrib.admin import display
 from django.db import models
+from django.utils.safestring import mark_safe
 
 from apps.services.utils.help_text import ACTIVE_HELP_TEXT
-
-
-# class Page(models.Model):
-#     name = models.CharField('Имя страницы (из urls.py)', max_length=200, unique=True)
-#     template_name = models.CharField('Путь к шаблону', max_length=200, null=True, blank=True)
-#     parent_page = models.ForeignKey(verbose_name='Следует после (в хлебных крошках)', to='Page', on_delete=models.DO_NOTHING, null=True, blank=True)
-#     sorting = models.PositiveIntegerField('Порядок отображения в меню', default=0, blank=False, null=False)
-#     title = models.CharField('Заголовок страницы', max_length=200)
-#     show_in_menu = models.BooleanField('Показывать в меню', default=False)
-#     menu_name = models.CharField('Название в меню', help_text='Оставьте пустым, чтобы использовать заголовок страницы', max_length=200, null=True, blank=True)
-#     meta_description = models.CharField('Описание (мета-тег)', help_text='Необязательно. Используется для SEO.', max_length=1000, null=True, blank=True)
-#     meta_keywords = models.CharField('Ключевые слова (мета-тег)', help_text='Необязательно. Используется для SEO.', max_length=500, null=True, blank=True)
-#     meta_robots = models.CharField('Robots (мета-тег)', help_text='Необязательно. Используется для SEO.', max_length=500, null=True, blank=True)
-#
-#     def __str__(self):
-#         return self.title
-#
-#     class Meta:
-#         ordering = ['sorting']
-#         verbose_name = 'Настройки страницы'
-#         verbose_name_plural = 'Настройки страниц'
 
 
 class EmailReceiver(models.Model):
@@ -68,3 +48,23 @@ class StaticInformation(models.Model):
     class Meta:
         verbose_name = 'Статическая информация'
         verbose_name_plural = 'Статическая информация'
+
+
+class MetaTag(models.Model):
+    page = models.CharField('Страница', max_length=120)
+    key = models.CharField('Ключ', max_length=50, unique=True)
+    variables = models.TextField('Доступные переменные', null=True, blank=True)
+    description = models.TextField('Meta description', blank=True)
+    keywords = models.TextField('Meta keywords', blank=True)
+    robots = models.TextField('Meta robots', blank=True)
+
+    def __str__(self):
+        return f'Мета-теги для {self.page}'
+
+    @display(description='Доступные переменные')
+    def variables_safe(self):
+        return mark_safe(self.variables.replace('{{', '<b>{{').replace('}}', '}}</b>'))
+
+    class Meta:
+        verbose_name = 'Мета-теги'
+        verbose_name_plural = 'Мета-теги'

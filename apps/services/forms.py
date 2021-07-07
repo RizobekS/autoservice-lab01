@@ -1,6 +1,6 @@
-from ckeditor.widgets import CKEditorWidget
-from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
+
+from utils.widgets import CKEditorUploadingWidget
 from .models import *
 
 
@@ -22,7 +22,6 @@ class ProductAdminForm(forms.ModelForm):
 
         widgets = {
             'description': CKEditorUploadingWidget(),
-            'favourite_text': CKEditorWidget(),
             'short_description': forms.Textarea(attrs={"style": "width: 400px; height: 68px;"}),
         }
 

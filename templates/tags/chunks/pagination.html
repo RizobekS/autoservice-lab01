@@ -3,7 +3,7 @@
   <h2 class="screen-reader-text">Posts navigation</h2>
   <div class="nav-links">
     {% if current_page != page_numbers|first %}
-      <a class="prev page-numbers" href="{% if tag %}{% url 'tags:single' tag.id %}{% else %}{% url 'tags:all' %}{% endif %}?page={{ current_page|sub:1 }}">
+      <a class="prev page-numbers" href="{% if tag %}{% url 'tags:single' tag.url %}{% else %}{% url 'tags:all' %}{% endif %}?page={{ current_page|sub:1 }}">
         <i class="fa fa-angle-left"></i>
         <span class="screen-reader-text">Предыдущая страница</span>
       </a>
@@ -15,14 +15,14 @@
           {{ n }}
         </span>
       {% else %}
-        <a class="page-numbers" href="{% if tag %}{% url 'tags:single' tag.id %}{% else %}{% url 'tags:all' %}{% endif %}?page={{ n }}">
+        <a class="page-numbers" href="{% if tag %}{% url 'tags:single' tag.url %}{% else %}{% url 'tags:all' %}{% endif %}?page={{ n }}">
           <span class="meta-nav screen-reader-text">Страница </span>
           {{ n }}
         </a>
       {% endif %}
     {% endfor %}
     {% if current_page != page_numbers|last %}
-      <a class="next page-numbers" href="{% if tag %}{% url 'tags:single' tag.id %}{% else %}{% url 'tags:all' %}{% endif %}?page={{ current_page|add:1 }}">
+      <a class="next page-numbers" href="{% if tag %}{% url 'tags:single' tag.url %}{% else %}{% url 'tags:all' %}{% endif %}?page={{ current_page|add:1 }}">
         <span class="screen-reader-text">Следующая страница</span>
         <i class="fa fa-angle-right"></i>
       </a>

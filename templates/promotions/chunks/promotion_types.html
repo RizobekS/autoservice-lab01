@@ -5,7 +5,7 @@
   <ul>
     {% for item in promotion.tags.all %}
       <li class="cat-item">
-        <a class="active" href="{# TODO: link #}">{{ item.name }}</a>
+        <a class="active" href="{% url 'tags:single' item.url %}">{{ item.name }}</a>
       </li>
     {% endfor %}
   </ul>

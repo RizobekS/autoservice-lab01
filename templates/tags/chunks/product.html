@@ -1,0 +1,36 @@
+{% load service_url %}
+{% load cropping %}
+<div class="col-xl-4 col-md-6">
+  <article class="text-center content-padding vertical-item post type-post status-publish format-standard has-post-thumbnail ls ms">
+
+    {% if tag %}
+      {% include 'chunks/corner-tag.html' %}
+    {% elif item.tag %}
+      {% include 'chunks/corner-tag.html' with tag=item.tag %}
+    {% endif %}
+
+    <div class="item-media post-thumbnail">
+      <a href="{% service_url item %}">
+        <img src="{% cropped_thumbnail item 'thumbnail_960x585' %}" alt="{{ item.title }}">
+      </a>
+    </div><!-- .post-thumbnail -->
+
+    <div class="item-content">
+      <header class="entry-header">
+        <h4 class="entry-title">
+          <a href="{% service_url item %}" rel="bookmark">
+            {{ item.title }}
+          </a>
+        </h4>
+      </header>
+      <!-- .entry-header -->
+      <div class="entry-content">
+        {{ item.short_description| safe }}
+      </div><!-- .entry-content -->
+      <div class="more-button">
+        <a href="{% service_url item %}" class="btn btn-small btn-outline-maincolor">Подробнее</a>
+      </div>
+    </div><!-- .item-content -->
+
+  </article><!-- #post-## -->
+</div>

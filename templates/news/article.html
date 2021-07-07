@@ -42,7 +42,7 @@
 														{{ article.date|time_delta }}
 													</a>
 												</span>
-												<span class="like-count"> {# TODO: Осуществить лайки #}
+												<span class="like-count">
 													<a id="like" href="{% url 'news:like' article.url %}">
 														<i class="fs-14 fw-900 color-main fa {% if liked %}fa-heart{% else %}fa-heart-o{% endif %}"></i>
 														{{ article.like_set.count }}
