@@ -1,0 +1,113 @@
+[
+  {
+    "model": "masters.position",
+    "pk": 1,
+    "fields": {
+      "name": "Редактор"
+    }
+  },
+  {
+    "model": "masters.position",
+    "pk": 2,
+    "fields": {
+      "name": "Автомеханик"
+    }
+  },
+  {
+    "model": "masters.position",
+    "pk": 3,
+    "fields": {
+      "name": "Менеджер по работе с клиентами"
+    }
+  },
+  {
+    "model": "masters.position",
+    "pk": 4,
+    "fields": {
+      "name": "Менеджен по закупкам"
+    }
+  },
+  {
+    "model": "masters.position",
+    "pk": 5,
+    "fields": {
+      "name": "Директор Филиала #1"
+    }
+  },
+  {
+    "model": "masters.master",
+    "pk": 1,
+    "fields": {
+      "name": "Юрий Дудь",
+      "show_at_homepage": true,
+      "active": true,
+      "credo": "Сколько ... ты ... зарабатываешь?",
+      "image": "masters/dud1_czxVvj5.jpg",
+      "thumbnail": "122,0,578,455",
+      "positions": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "masters.master",
+    "pk": 2,
+    "fields": {
+      "name": "Михаил Бекрень",
+      "show_at_homepage": true,
+      "active": true,
+      "credo": "Praesent congue erat at massa. Phasellus dolor. Sed augue ipsum, egestas nec, vestibulum et, malesuada adipiscing, dui. Fusce fermentum. Fusce fermentum odio nec arcu.",
+      "image": "masters/01.jpg",
+      "thumbnail": "4,0,346,343",
+      "positions": [
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "masters.master",
+    "pk": 3,
+    "fields": {
+      "name": "Дмитрий Шульгин",
+      "show_at_homepage": true,
+      "active": true,
+      "credo": "Etiam iaculis nunc ac metus. Praesent vestibulum dapibus nibh. Nulla neque dolor, sagittis eget, iaculis quis, molestie non, velit. Aenean imperdiet. Praesent egestas tristique nibh.",
+      "image": "masters/02.jpg",
+      "thumbnail": "4,0,346,343",
+      "positions": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "masters.master",
+    "pk": 4,
+    "fields": {
+      "name": "Петр Самойлов",
+      "show_at_homepage": true,
+      "active": true,
+      "credo": "Duis vel nibh at velit scelerisque suscipit. Duis vel nibh at velit scelerisque suscipit. Curabitur suscipit suscipit tellus. Sed a libero.",
+      "image": "masters/07.jpg",
+      "thumbnail": "0,0,500,500",
+      "positions": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "masters.master",
+    "pk": 5,
+    "fields": {
+      "name": "Кирилл Игнатьев",
+      "show_at_homepage": true,
+      "active": true,
+      "credo": "Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Curabitur nisi. Maecenas ullamcorper, dui et placerat feugiat, eros pede varius nisi, condimentum viverra felis nunc et lorem. Aenean commodo ligula eget dolor. Aliquam erat volutpat.",
+      "image": "masters/04.jpg",
+      "thumbnail": "4,0,347,343",
+      "positions": [
+        5
+      ]
+    }
+  }
+]

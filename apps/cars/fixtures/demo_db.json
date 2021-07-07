@@ -5,7 +5,17 @@
     "fields": {
       "name": "Jaguar",
       "url": "jaguar",
-      "logo": "",
+      "logo": "vendor_logos/212cf0d49176f4125d03a4779d91e259_rHv1pAO.png",
+      "active": true
+    }
+  },
+  {
+    "model": "cars.vendor",
+    "pk": 2,
+    "fields": {
+      "name": "BMW",
+      "url": "bmw",
+      "logo": "vendor_logos/bmw_logo_3znO3bI.png",
       "active": true
     }
   },
@@ -142,6 +152,15 @@
       "name": "XK/XKR II (X150)",
       "url": "xkxkr-ii-x150",
       "vendor": 1
+    }
+  },
+  {
+    "model": "cars.model",
+    "pk": 16,
+    "fields": {
+      "name": "X2",
+      "url": "x2",
+      "vendor": 2
     }
   },
   {
@@ -1086,6 +1105,14 @@
     "fields": {
       "year": 2015,
       "model": 15
+    }
+  },
+  {
+    "model": "cars.year",
+    "pk": 119,
+    "fields": {
+      "year": 2020,
+      "model": 16
     }
   },
   {
@@ -3950,6 +3977,30 @@
     "fields": {
       "name": "5.0i R-S",
       "year": 118
+    }
+  },
+  {
+    "model": "cars.modification",
+    "pk": 359,
+    "fields": {
+      "name": "sDrive18i",
+      "year": 119
+    }
+  },
+  {
+    "model": "cars.modification",
+    "pk": 360,
+    "fields": {
+      "name": "xDrive20i",
+      "year": 119
+    }
+  },
+  {
+    "model": "cars.modification",
+    "pk": 361,
+    "fields": {
+      "name": "xDrive18d",
+      "year": 119
     }
   }
 ]

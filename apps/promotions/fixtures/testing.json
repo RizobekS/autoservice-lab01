@@ -1,0 +1,68 @@
+[
+  {
+    "model": "promotions.promotion",
+    "pk": 1,
+    "fields": {
+      "title": "ТО по фиксированной цене",
+      "url": "to-po-fiksirovannoj-cene",
+      "active": true,
+      "date": "2021-07-06",
+      "show_at_homepage": true,
+      "fixed_price": true,
+      "price": 4990.0,
+      "short_description": "<ul>\r\n\t<li><i class=\"ico-check fs-12 fw-900\"></i>Мойка кузова</li>\r\n\t<li><i class=\"ico-check fs-12 fw-900\"></i>Замена масла и фильтров</li>\r\n\t<li><i class=\"ico-check fs-12 fw-900\"></i>Осмотр автомобиля</li>\r\n</ul>",
+      "text": "<p>Praesent adipiscing. Praesent ac sem eget est egestas volutpat. Cras risus ipsum, faucibus ut, ullamcorper id, varius ac, leo. Praesent metus tellus, elementum eu, semper a, adipiscing nec, purus. Nam commodo suscipit quam.</p>\r\n\r\n<p><em>Pellentesque posuere. Cras ultricies mi eu turpis hendrerit fringilla. Fusce pharetra convallis urna. Pellentesque ut neque. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</em></p>\r\n\r\n<p><strong>Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Nulla porta dolor. Ut id nisl quis enim dignissim sagittis. Etiam imperdiet imperdiet orci. Curabitur nisi.</strong></p>\r\n\r\n<p><s>Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Etiam ultricies nisi vel augue. Phasellus blandit leo ut odio. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Fusce fermentum odio nec arcu.</s></p>\r\n\r\n<p>Etiam rhoncus. Praesent metus tellus, elementum eu, semper a, adipiscing nec, purus. In auctor lobortis lacus. Cras dapibus. Quisque rutrum.</p>",
+      "image": "articles/09.jpg",
+      "thumbnail": "0,164,1450,815",
+      "icon_thumbnail": "232,0,1218,984",
+      "tags": [
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "model": "promotions.promotion",
+    "pk": 2,
+    "fields": {
+      "title": "Диагностика Электроники",
+      "url": "diagnostika-elektroniki",
+      "active": true,
+      "date": "2021-07-06",
+      "show_at_homepage": true,
+      "fixed_price": false,
+      "price": 1090.0,
+      "short_description": "<ul>\r\n\t<li><i class=\"ico-check fs-12 fw-900\"></i>9 x car wash</li>\r\n\t<li><i class=\"ico-check fs-12 fw-900\"></i>2 x lights check</li>\r\n\t<li><i class=\"ico-check fs-12 fw-900\"></i>2 x tires replacement</li>\r\n</ul>",
+      "text": "<p>Duis lobortis massa imperdiet quam. Aenean commodo ligula eget dolor. Integer tincidunt.. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>\r\n\r\n<p><em>Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Etiam iaculis nunc ac metus. Praesent ac massa at ligula laoreet iaculis. Phasellus magna. Quisque id odio.</em></p>\r\n\r\n<p><strong>Phasellus viverra nulla ut metus varius laoreet. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Ut varius tincidunt libero. Etiam ut purus mattis mauris sodales aliquam. Fusce egestas elit eget lorem.</strong></p>\r\n\r\n<p><strong>Proin pretium, leo ac pellentesque mollis, felis nunc ultrices eros, sed gravida augu</strong>e augue mollis justo. Nunc nec neque. Sed hendrerit. Morbi nec metus. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam.</p>\r\n\r\n<p>Vestibulum volutpat pretium libero. Aenean viverra rhoncus pede. Mauris sollicitudin fermentum libero. Nunc nonummy metus. Praesent nec nisl a purus blandit viverra.</p>",
+      "image": "articles/10.jpg",
+      "thumbnail": "0,164,1450,815",
+      "icon_thumbnail": "232,0,1218,984",
+      "tags": [
+        2,
+        4
+      ]
+    }
+  },
+  {
+    "model": "promotions.promotion",
+    "pk": 3,
+    "fields": {
+      "title": "Покрасочные работы",
+      "url": "pokrasochnye-raboty",
+      "active": true,
+      "date": "2021-07-07",
+      "show_at_homepage": true,
+      "fixed_price": true,
+      "price": 1590.0,
+      "short_description": "<ul>\r\n\t<li><i class=\"ico-check fs-12 fw-900\"></i>12 x car wash</li>\r\n\t<li><i class=\"ico-check fs-12 fw-900\"></i>3 x lights check</li>\r\n\t<li><i class=\"ico-check fs-12 fw-900\"></i>3 x tires replacement</li>\r\n</ul>",
+      "text": "<p>Sed in libero ut nibh placerat accumsan. Quisque rutrum. Cras risus ipsum, faucibus ut, ullamcorper id, varius ac, leo. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Maecenas malesuada.</p>\r\n\r\n<p>In dui magna, posuere eget, vestibulum et, tempor auctor, justo. Aenean imperdiet. Praesent metus tellus, elementum eu, semper a, adipiscing nec, purus. Praesent ac sem eget est egestas volutpat. Nulla porta dolor.</p>\r\n\r\n<p>Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. Fusce commodo aliquam arcu. Nullam sagittis. Donec sodales sagittis magna. Praesent porttitor, nulla vitae posuere iaculis, arcu nisl dignissim dolor, a pretium mi sem ut ipsum.</p>\r\n\r\n<p>Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Donec interdum, metus et hendrerit aliquet, dolor diam sagittis ligula, eget egestas libero turpis vel mi. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Phasellus accumsan cursus velit. Aliquam lobortis.</p>\r\n\r\n<p>Vivamus aliquet elit ac nisl. Maecenas egestas arcu quis ligula mattis placerat. Donec posuere vulputate arcu. Sed libero. Ut non enim eleifend felis pretium feugiat.</p>",
+      "image": "articles/vitamin.jpg",
+      "thumbnail": "0,150,1000,600",
+      "icon_thumbnail": "125,0,875,750",
+      "tags": [
+        2,
+        6
+      ]
+    }
+  }
+]
