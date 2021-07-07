@@ -21,7 +21,7 @@ class Promotion(models.Model):
     short_description = models.CharField('Краткое описание (до 500 символов)', max_length=500)
     text = models.TextField('Контент')
 
-    image = models.ImageField('Изображение акции', help_text='Возможность обрезки появится после сохранения', upload_to='articles/')
+    image = models.ImageField('Изображение акции', help_text='Возможность обрезки появится после сохранения', upload_to='promotions/')
     thumbnail = ImageRatioField(verbose_name='Обрезка изображения для страницы списка акций', image_field='image', size='800x360')
     icon_thumbnail = ImageRatioField(verbose_name='Обрезка изображения для списка "Другие акции" (100x100)', image_field='image', size='100x100')
 

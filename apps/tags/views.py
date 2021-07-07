@@ -22,19 +22,19 @@ class TagsListView(View, PageTitleMixin):
 
     max_pages = 1  # Maximum possible pages
 
-    remainder = 0
+    articles_per_page = 4
+    promotions_per_page = 4
+    products_per_page = 4
+    MASTERS_PER_PAGE = 4
 
     def get(self, request, tag=None):
-        ARTICLES_PER_PAGE = 2
-        PROMOTIONS_PER_PAGE = 2
-        PRODUCTS_PER_PAGE = 2
-        MASTERS_PER_PAGE = 4
+        self._count_overheads()
 
-        articles = self._get_slice(Article.objects.filter(status='published', **{'tags__url': tag} if tag else {}), ARTICLES_PER_PAGE)
-        promotions = self._get_slice(Promotion.objects.filter(active=True, **{'tags__url': tag} if tag else {}), PROMOTIONS_PER_PAGE)
-        products = self._get_slice(Product.objects.filter(active=True, **{'tag__url': tag} if tag else {}), PRODUCTS_PER_PAGE)
+        articles = self._get_slice(Article.objects.filter(status='published', **{'tags__url': tag} if tag else {}), self.articles_per_page)
+        promotions = self._get_slice(Promotion.objects.filter(active=True, **{'tags__url': tag} if tag else {}), self.promotions_per_page)
+        products = self._get_slice(Product.objects.filter(active=True, **{'tag__url': tag} if tag else {}), self.products_per_page)
         masters_count = Master.objects.filter(active=True).count()
-        masters = list(Master.objects.filter(active=True, id__in=[randint(1, masters_count) for item in range(0, 20)])[:MASTERS_PER_PAGE])
+        masters = list(Master.objects.filter(active=True, id__in=[randint(1, masters_count) for item in range(0, 20)])[:self.MASTERS_PER_PAGE])
 
         mix = articles + promotions + products + [masters]
         shuffle(mix)
@@ -60,14 +60,27 @@ class TagsListView(View, PageTitleMixin):
 
     def _get_slice(self, query_set: QuerySet, per_page: int):
         page = self._get_page() - 1
-        per_page += self.remainder  # Append previous number of missing pages
         self._update_maximum(query_set.count() / per_page)
-        _slice = list(query_set[page * per_page: (page + 1) * per_page])
-        self.remainder = max(per_page - len(_slice), 0)  # Count number of missing items
-        return _slice
+        return list(query_set[page * per_page: (page + 1) * per_page])
 
     def _get_page(self):
         return int(self.request.GET.get('page', 1))
 
     def _update_maximum(self, new):
         self.max_pages = max(ceil(new), self.max_pages)
+
+    def _count_overheads(self):  # If one of models cannot return enough results, other models compensate the lackness
+        page = self._get_page() + 1
+        article = max(page * self.articles_per_page - Article.objects.filter(status='published').count(), 0)
+        promotion = max(page * self.promotions_per_page - Promotion.objects.filter(active=True).count(), 0)
+        product = max(page * self.products_per_page - Product.objects.filter(active=True).count(), 0)
+        overhead = article + promotion + product
+        available = []
+        if article == 0:
+            available.append(self.articles_per_page)
+        if promotion == 0:
+            available.append(self.promotions_per_page)
+        if product == 0:
+            available.append(self.products_per_page)
+        for item in available:
+            item += overhead // len(available)
