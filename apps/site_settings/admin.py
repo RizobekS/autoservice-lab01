@@ -10,13 +10,13 @@ class StaticInformationAdmin(admin.ModelAdmin):
     list_display = ('name', 'add_to_context', 'value', 'key')
     list_editable = ('value',)
 
-    # readonly_fields = ('name', 'add_to_context', 'key')
+    readonly_fields = ('name', 'add_to_context', 'key')
 
-    # def has_add_permission(self, request):
-    #     return False
-    #
-    # def has_delete_permission(self, request, obj=None):
-    #     return False
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 class EmailReceiverInlineAdmin(admin.StackedInline):
@@ -33,13 +33,13 @@ class BranchAdmin(admin.ModelAdmin):
 @admin.register(CEOSetting)
 class CEOSettingAdmin(admin.ModelAdmin):
     list_display = ('page', 'title', 'key', 'variables_safe', 'description', 'keywords', 'robots')
-    list_editable = ('title',)
+    # list_editable = ('title',)
     search_fields = ('page', 'title', 'key', 'description', 'keywords', 'robots')
-    readonly_fields = ('variables_safe',)  # 'page', 'key'
+    readonly_fields = ('variables_safe', 'page', 'key')
     fields = ('title', ('page', 'key'), 'variables', 'description', 'keywords', 'robots')
 
-    # def has_add_permission(self, request):
-    #     return False
-    #
-    # def has_delete_permission(self, request, obj=None):
-    #     return False
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
