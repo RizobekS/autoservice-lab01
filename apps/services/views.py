@@ -1,82 +1,116 @@
-from django.shortcuts import render
+from typing import List
 
-from utils.car_filter import set_car_filter, remove_car_filter
-from utils.shortcuts import exists_or_404
+from django.views.generic import DetailView
+from image_cropping.templatetags.cropping import cropped_thumbnail
+
+from apps.cars.utils.mixins import CarFilterPageSettingsMixin
+from utils.breadcrumbs.types import Breadcrumb
 from .models import Section, Product
-from .utils.helpers import service_breadcrumbs, service_page_title
-from ..cars.utils.types import CarUrls
-from ..site_settings.utils.mixins import MetaTagsRenderer
+from .utils.helpers import service_url
+from .utils.mixins import ProductsMixin, SectionsMixin, SingleSectionMixin
 
 
-def section_view(request, section_url: str, urls: CarUrls = None):
-    # Find current section
-    current_section = Section.objects.filter(url=section_url, active=True)
-    current_section: Section = exists_or_404(current_section)
+class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSettingsMixin):
+    # #### DetailView ####
+    template_name = 'services/section.html'
+    queryset = Section.objects.filter(active=True)
+    slug_field = 'url'
+    slug_url_kwarg = 'section_url'
+    context_object_name = 'current_section'
+    object: Section = None  # for typehints
 
-    # Retrieve child sections
-    child_sections = Section.objects.filter(active=True, parent_section=current_section)
+    # #### SectionsMixin and ProductsMixin ####
 
-    # Renew car filter if urls provided or try to get existing one
-    if urls:
-        car_filter = urls.save(request)
-        set_car_filter(request, car_filter)
-    else:
-        remove_car_filter(request)
-        car_filter = None
+    sections_context_name = 'child_sections'
+    products_context_name = 'child_products'
 
-    # Render breadcrumbs
-    breadcrumbs = service_breadcrumbs(request, current_section)
+    def get_sections_queryset(self):
+        return Section.objects.filter(parent_section=self.object)
 
-    context = {
-        'current_section': current_section,
-        'child_sections': child_sections if child_sections.exists() else None,
+    def get_products_queryset(self):
+        return Product.objects.filter(section=self.object)
 
-        'page_title': service_page_title(request, current_section),
-        'selected_car': car_filter and car_filter.is_full(),
-        'breadcrumbs': breadcrumbs,
-        'bg_object': current_section,
-    }
-    meta_context = current_section.meta_context()
-    if car_filter:
-        meta_context.update(car_filter.meta_context())
-    meta_tag = MetaTagsRenderer(meta_tags_key='services:section_car' if car_filter else 'services:section', meta_context=meta_context)
-    context.update(meta_tag.as_context())
+    # #### CarFilterPageSettingsMixin ####
 
-    return render(request, 'services/section.html', context)
+    viewname = 'services:section'
+    viewname_suffix = '_car'
+
+    def get_initial_breadcrumbs(self) -> List[Breadcrumb]:
+        breadcrumbs = []
+        section = self.object.parent_section
+        while section:
+            breadcrumbs.append(Breadcrumb(section.title, service_url(self.request, section, True)))
+            section = section.parent_section
+        return breadcrumbs[::-1]
+
+    def get_current_breadcrumb(self):
+        return [Breadcrumb(self.object.title, service_url(self.request, self.object, True))]
+
+    def get_ceo_context(self):
+        context = super().get_ceo_context()
+        context['section'] = self.object.title
+        return context
+
+    def get_context_data(self, **kwargs):
+        kwargs.update({
+            'image_url': cropped_thumbnail(None, self.object, 'thumbnail_1960x600'),
+            'image_alt': self.object.title,
+        })
+        return super().get_context_data(**kwargs)
 
 
-def product_view(request, section_url: str, product_url: str, urls: CarUrls = None):
-    # Find current section and product
-    current_section = Section.objects.filter(url=section_url, active=True)
-    current_section: Section = exists_or_404(current_section, f'Section with url={section_url} does not exist')
-    product = Product.objects.filter(url=product_url, active=True, section=current_section)
-    product: Product = exists_or_404(product, f'Product with url={product_url} and section={current_section} does not exist')
+class ProductView(DetailView, SingleSectionMixin, ProductsMixin, CarFilterPageSettingsMixin):
+    # #### DetailView ####
+    template_name = 'services/product.html'
+    queryset = Product.objects.filter(active=True)
+    slug_field = 'url'
+    slug_url_kwarg = 'product_url'
+    context_object_name = 'product'
+    object: Product = None  # for typehints
 
-    # Renew car filter if urls provided or try to get existing one
-    if urls:
-        car_filter = urls.save(request)
-        set_car_filter(request, car_filter)
-    else:
-        remove_car_filter(request)
-        car_filter = None
+    # #### ProductsMixin ####
 
-    # Render breadcrumbs
-    breadcrumbs = service_breadcrumbs(request, product)
+    products_context_name = 'other_products'
 
-    context = {
-        'product': product,
-        'current_section': current_section,
-        'other_products': current_section.product_set.exclude(id=product.id),
+    def get_products_queryset(self):
+        return Product.objects.filter(section_id=self.object.section.id).exclude(id=self.object.id)
 
-        'page_title': service_page_title(request, product),
-        'selected_car': car_filter and car_filter.is_full(),
-        'breadcrumbs': breadcrumbs,
-        'bg_object': product,
-    }
-    meta_context = product.meta_context()
-    if car_filter:
-        meta_context.update(car_filter.meta_context())
-    meta_tag = MetaTagsRenderer(meta_tags_key='services:product_car' if car_filter else 'services:product', meta_context=meta_context)
-    context.update(meta_tag.as_context())
+    # #### CarFilterPageSettingsMixin ####
 
-    return render(request, 'services/product.html', context)
+    viewname = 'services:section'
+
+    def get_initial_breadcrumbs(self) -> List[Breadcrumb]:
+        breadcrumbs = []
+        section = self.object.section
+        while section:
+            breadcrumbs.append(Breadcrumb(section.title, service_url(self.request, section, True)))
+            section = section.parent_section
+        return breadcrumbs[::-1]
+
+    def get_current_breadcrumb(self):
+        return [Breadcrumb(self.object.title, service_url(self.request, self.object, True))]
+
+    def get_ceo_context(self):
+        context = super().get_ceo_context()
+        context.update({
+            'section': self.object.section.title,
+            'product': self.object.title
+        })
+        return context
+
+    def get_context_data(self, **kwargs):
+        kwargs.update({
+            'image_url': cropped_thumbnail(None, self.object, 'thumbnail_1960x600'),
+            'image_alt': self.object.title,
+        })
+        return super().get_context_data(**kwargs)
+
+    # Check whether product suits the product
+    # def get(self, *args, **kwargs):
+    #     self.car_filter = self.get_car_filter()
+    #     self.object = self.get_object()
+    #
+    #     if self.car_filter.modification.id in self.object.cars:
+    #         return super().get(*args, **kwargs)
+    #     else:
+    #         return redirect() TODO: redirect to page incompatible.html

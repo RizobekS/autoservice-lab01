@@ -40,7 +40,7 @@ class StaticInformation(models.Model):
     name = models.CharField('Название', max_length=200)
     add_to_context = models.BooleanField('Добавлять в контекст', default=True)
     key = models.CharField('Ключ', max_length=200)
-    value = models.CharField('Значение', max_length=500)
+    value = models.CharField('Значение', max_length=500, blank=True)
 
     def __str__(self):
         return self.name
@@ -50,8 +50,9 @@ class StaticInformation(models.Model):
         verbose_name_plural = 'Статическая информация'
 
 
-class MetaTag(models.Model):
-    page = models.CharField('Страница', max_length=120)
+class CEOSetting(models.Model):
+    title = models.CharField('Заголовок', help_text='Содержимое тега title. Так-же поддерживает переменные.', max_length=200, blank=True)
+    page = models.CharField('Описание страницы', max_length=120)
     key = models.CharField('Ключ', max_length=50, unique=True)
     variables = models.TextField('Доступные переменные', null=True, blank=True)
     description = models.TextField('Meta description', blank=True)
@@ -66,5 +67,5 @@ class MetaTag(models.Model):
         return mark_safe(self.variables.replace('{{', '<b>{{').replace('}}', '}}</b>'))
 
     class Meta:
-        verbose_name = 'Мета-теги'
-        verbose_name_plural = 'Мета-теги'
+        verbose_name = 'CEO настройка'
+        verbose_name_plural = 'CEO настройки'

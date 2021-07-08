@@ -16,17 +16,18 @@ from apps.accounts.forms import RegistrationForm, AuthenticationForm, PasswordCh
 from apps.accounts.models import User
 from apps.accounts.utils.mixins import PersonalAreaMixin, MenuItem
 from apps.cars.models import CarFilter
-from utils.breadcrumbs.mixins import PageTitleMixin
 from utils.breadcrumbs.types import Breadcrumb
 from utils.breadcrumbs.utils import reverse_bc
 from utils.car_filter import get_car_filter, remove_car_filter
+from utils.mixins import PageSettingsMixin
 
 
-class RegisterView(FormView):
+class RegisterView(FormView, PageSettingsMixin):
     template_name = 'accounts/register.html'
     form_class = RegistrationForm
     success_url = reverse_lazy('home:index')
-    page_title = 'Регистрация'
+
+    viewname = 'accounts:register'
 
     def form_valid(self, form):
         user = User.objects.create_user(**form.cleaned_data)
@@ -36,12 +37,11 @@ class RegisterView(FormView):
         return super().form_valid(form)
 
 
-class LoginView(BaseLoginView, PageTitleMixin):
+class LoginView(BaseLoginView, PageSettingsMixin):
     template_name = 'accounts/login.html'
     authentication_form = AuthenticationForm
 
     viewname = 'accounts:login'
-    page_title = 'Вход'
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -51,7 +51,7 @@ class LoginView(BaseLoginView, PageTitleMixin):
         return response
 
 
-class PasswordResetView(BasePasswordResetView, PageTitleMixin):
+class PasswordResetView(BasePasswordResetView, PageSettingsMixin):
     template_name = 'accounts/password_reset/reset_password.html'
     success_url = reverse_lazy('accounts:password:done')
     form_class = PasswordResetForm
@@ -61,23 +61,26 @@ class PasswordResetView(BasePasswordResetView, PageTitleMixin):
 
     initial_breadcrumbs = [reverse_bc(LoginView)]
     viewname = 'accounts:password:reset'
-    page_title = 'Сброс пароля'
 
 
-class PasswordResetDoneView(BasePasswordResetDoneView, PageTitleMixin):
+class PasswordResetDoneView(BasePasswordResetDoneView, PageSettingsMixin):
     template_name = 'accounts/password_reset/reset_done.html'
 
     initial_breadcrumbs = [reverse_bc(LoginView)]
-    page_title = PasswordResetView.page_title
+    viewname = 'accounts:password:done'
 
 
-class PasswordResetConfirmView(BasePasswordResetConfirmView, PageTitleMixin):
+class PasswordResetConfirmView(BasePasswordResetConfirmView, PageSettingsMixin):
     template_name = 'accounts/password_reset/reset_password.html'
     success_url = reverse_lazy('accounts:login')
     form_class = NewPasswordForm
 
     initial_breadcrumbs = [reverse_bc(LoginView), reverse_bc(PasswordResetView)]
-    page_title = 'Новый пароль'
+    viewname = 'accounts:password:new-password'
+
+    def form_valid(self, form):
+        messages.success(self.request, '✔ Новый пароль успешно создан!<br/>Войдите в аккаунт с новым паролем.', extra_tags='text-success')
+        return super().form_valid(form)
 
 
 # ####### PERSONAL AREA #########
@@ -88,11 +91,14 @@ class PersonalAreaIndex(TemplateView, PersonalAreaMixin):
     menu = MenuItem.INDEX
     template_name = 'accounts/personal_area/index.html'
 
+    def get_current_breadcrumb(self):
+        return []
+
 
 class PersonalAreaGarage(View, PersonalAreaMixin):
     menu = MenuItem.GARAGE
     template_name = 'accounts/personal_area/garage.html'
-    extra_breadcrumbs = Breadcrumb('Гараж', reverse_lazy('accounts:pa:garage'))
+    current_breadcrumb = Breadcrumb('Гараж', reverse_lazy('accounts:pa:garage'))
 
     def get(self, request, id=None):
         if id:
@@ -126,7 +132,7 @@ class PersonalAreaEdit(View, PersonalAreaMixin):
 
     menu = MenuItem.PERSONAL_DATA
     template_name = 'accounts/personal_area/edit.html'
-    extra_breadcrumbs = Breadcrumb('Редактировать профиль', reverse_lazy('accounts:pa:edit'))
+    current_breadcrumb = Breadcrumb('Редактировать профиль', reverse_lazy('accounts:pa:edit'))
 
     def get(self, request: HttpRequest):
         context = {

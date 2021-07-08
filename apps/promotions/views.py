@@ -1,21 +1,21 @@
 from typing import Any, Dict
 
+from django.urls import reverse
 from django.views.generic import DetailView, TemplateView
 
 from apps.promotions.models import Promotion
 from apps.promotions.utils.mixins import PromotionsMixin
-from apps.site_settings.utils.mixins import MetaTagsMixin
-from utils.breadcrumbs.mixins import PageTitleMixin
+from utils.breadcrumbs.types import Breadcrumb
 from utils.breadcrumbs.utils import reverse_bc
+from utils.mixins import PageSettingsMixin
 
 
-class PromotionListView(TemplateView, PromotionsMixin, PageTitleMixin, MetaTagsMixin):
+class PromotionListView(TemplateView, PromotionsMixin, PageSettingsMixin):
     template_name = 'promotions/promotions.html'
-    page_title = 'Акции'
     viewname = 'promotions:list'
 
 
-class PromotionView(DetailView, PromotionsMixin, PageTitleMixin, MetaTagsMixin):
+class PromotionView(DetailView, PromotionsMixin, PageSettingsMixin):
     # DetailView
     template_name = 'promotions/promotion.html'
     model = Promotion
@@ -27,20 +27,16 @@ class PromotionView(DetailView, PromotionsMixin, PageTitleMixin, MetaTagsMixin):
     promotions_max = 5
     promotions_context_name = 'other_promotions'
 
-    # MetaTagsMixin
-    meta_tags_key = 'promotions:promotion'
-
-    # PageTitleMixin
+    # PageSettingsMixin
+    viewname = 'promotions:promotion'
     initial_breadcrumbs = [reverse_bc(PromotionListView)]
+
+    def get_current_breadcrumb(self):
+        return [Breadcrumb(self.object.title, reverse('promotions:promotion', args=(self.object.url,)))]
+
+    def get_ceo_context(self) -> Dict[str, Any]:
+        return {'promotion': self.get_object().title}
 
     # PromotionsMixin
     def get_promotions_exclude_kwargs(self) -> Dict[str, Any]:
         return {'id': self.object.id}
-
-    # PageTitleMixin
-    def get_page_title(self):
-        return self.object.title
-
-    # MetaTagsMixin
-    def get_meta_context(self) -> Dict[str, Any]:
-        return {'promotion': self.get_page_title()}

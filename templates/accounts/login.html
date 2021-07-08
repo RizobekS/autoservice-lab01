@@ -3,52 +3,54 @@
 {% load errors %}
 
 {% block header %}
-  {% include 'chunks/header/title.html' %}
+    {% include 'chunks/header/title.html' %}
 {% endblock %}
 
 {% block main %}
-  <section class="ls s-pt-60 s-pb-50 s-pt-lg-100 s-pb-lg-90 s-pt-xl-150 s-pb-xl-140">
-    <div class="container">
-      <div class="row">
-        <main class="col-lg-12">
-          <article>
-            <!-- .entry-header -->
-            <div class="entry-content">
-              <div class="woocommerce">
+    <section class="ls s-pt-60 s-pb-50 s-pt-lg-100 s-pb-lg-90 s-pt-xl-150 s-pb-xl-140">
+        <div class="container">
+            <div class="row">
+                <main class="col-lg-12">
+                    <article>
+                        <!-- .entry-header -->
+                        <div class="entry-content">
+                            <div class="woocommerce">
 
-                <form class="woocomerce-form woocommerce-form-login login" method="POST">
-                  {% csrf_token %}
-                  {% hidden_next_field %}
+                                <form class="woocomerce-form woocommerce-form-login login" method="POST">
+                                    {% csrf_token %}
+                                    {% hidden_next_field %}
 
-                  {% non_field_errors form %}
+                                    {% non_field_errors form %}
+                                    {% for message in messages %}<p class="{{ message.extra_tags }} text-center">{{ message| safe }}</p>{% endfor %}
 
-                  {% for field in form %}
-                    <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
-                      <label for="{{ field.auto_id }}">{{ field.label }} {% if field.field.required %}<span class="required">*</span>{% endif %}</label>
-                      {{ field }}
-                      {% field_errors field %}
-                    </p>
-                  {% endfor %}
+                                    {% for field in form %}
+                                        <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                                            <label for="{{ field.auto_id }}">{{ field.label }} {% if field.field.required %}<span class="required">*</span>{% endif %}</label>
+                                            {{ field }}
+                                            {% field_errors field %}
+                                        </p>
+                                    {% endfor %}
 
-                  <div class="divider-20"></div>
-                  <p class="form-row text-center">
-                    <button type="submit" class="woocommerce-Button btn btn-maincolor">Отправить</button>
-                  </p>
-                  <p class="woocommerce-LostPassword lost_password text-center">
-                    <a href="{% url 'accounts:password:reset' %}">Забыли пароль?</a>
-                  </p>
+                                    <div class="divider-20"></div>
+                                    <p class="form-row text-center">
+                                        <button type="submit" class="woocommerce-Button btn btn-maincolor">Отправить</button>
+                                    </p>
+                                    <p class="woocommerce-LostPassword lost_password text-center">
+                                        <a href="{% url 'accounts:register' %}">Нет аккаунта?</a>
+                                        <a class="ml-4" href="{% url 'accounts:password:reset' %}">Забыли пароль?</a>
+                                    </p>
 
-                </form>
-              </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- .entry-content -->
+                    </article>
+
+
+                </main>
             </div>
-            <!-- .entry-content -->
-          </article>
 
-
-        </main>
-      </div>
-
-    </div>
-    <div class="divider-3"></div>
-  </section>
+        </div>
+        <div class="divider-3"></div>
+    </section>
 {% endblock %}

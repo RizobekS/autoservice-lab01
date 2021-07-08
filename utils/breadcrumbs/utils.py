@@ -1,25 +1,33 @@
 from typing import Type
 
-from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse_lazy
 
-from utils.breadcrumbs.mixins import PageTitleMixin
+from apps.site_settings.models import CEOSetting
 from utils.breadcrumbs.types import Breadcrumb
+from utils.mixins import PageSettingsMixin
 
 
-def reverse_bc(view: Type[PageTitleMixin], url: str = None) -> Breadcrumb:
+def reverse_bc(view: Type[PageSettingsMixin] = None, viewname: str = None, **kwargs) -> Breadcrumb:
     """
         Constructs Breadcrumb object using information from view,
-        which must be subclass of PageTitleMixin and implement page_title and viewname attributes
+        which must be subclass of PageSettingsMixin and implement page_title and viewname attributes
 
-    :param view: must be a subclass of PageTitleMixin
-    :param url: optional. If specified, used instead of view.viewname
+    :param view: Used to obtain viewname
+    :param viewname: Used to find corresponding CEOSetting to construct breadcrumb
+    :param kwargs: additional keyword arguments for constructing reverse url
     :return: Breadcrumb
     """
-    if not hasattr(view, 'page_title') or (not hasattr(view, 'viewname') or url):
-        raise ImproperlyConfigured('view argument must be a subclass of PageTitleMixin')
-
-    if view.page_title and (url or view.viewname):
-        return Breadcrumb(view.page_title, reverse_lazy(view.viewname) if not url else url)
+    if hasattr(view, 'viewname'):
+        viewname = view.viewname
+    elif viewname:
+        pass
     else:
-        raise ImproperlyConfigured('view argument must implement both page_title and viewname or implement page_title and pass url')
+        print('''ImproperlyConfigured('Either viewname or view must be correctly set')''')
+        # raise ImproperlyConfigured('Either viewname or view must be correctly set')
+
+    ceo_obj = CEOSetting.objects.filter(key=viewname).first()
+    if ceo_obj is None:
+        print('''ImproperlyConfigured(f'CEOSetting with key="{viewname}" does not exist')''')
+        # raise ImproperlyConfigured(f'CEOSetting with key="{viewname}" does not exist')
+    else:
+        return Breadcrumb(ceo_obj.title, reverse_lazy(ceo_obj.key, kwargs=kwargs))

@@ -71,7 +71,7 @@ class Section(models.Model):
         section_set = self.active_section_set()
         return section_set if section_set.count() else self.active_product_set()
 
-    def meta_context(self):
+    def ceo_context(self):
         return {'section': self.title}
 
     class Meta:
@@ -82,7 +82,7 @@ class Section(models.Model):
 class Product(models.Model):
     title = models.CharField('Название товара/услуги', max_length=255)
     url = AutoSlugField(verbose_name='URL товара/услуги', help_text='Заполняется на основе поля "Название товара/услуги"', populate_from='title', unique=True, editable=True)
-    time_duration = models.CharField('Длительность выполнения', help_text='Заполняется текстом (пример: "2 часа")', max_length=63)
+    time_duration = models.CharField('Длительность выполнения', help_text='Заполняется текстом (пример: "2 часа")', max_length=63, null=True, blank=True)
     fixed_price = models.BooleanField('Фиксированная цена', help_text='Не фикскированная цена будет отображаться как "от 990₽"', default=False)
     price = models.FloatField('Цена за работу (₽)')
 
@@ -121,7 +121,7 @@ class Product(models.Model):
             section = section.parent_section
         return section
 
-    def meta_context(self):
+    def ceo_context(self):
         return {'section': self.section.title, 'product': self.title}
 
     class Meta:

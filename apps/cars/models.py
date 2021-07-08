@@ -2,7 +2,6 @@ from autoslug import AutoSlugField
 from django.contrib.admin import display
 from django.contrib.auth.models import User
 from django.db import models
-from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django_cleanup.signals import cleanup_pre_delete
 
@@ -34,8 +33,8 @@ class CarFilter(models.Model, CarFilterUtilsMixin):
     def is_full(self) -> bool:
         return bool(self.vendor) and bool(self.model) and bool(self.year) and bool(self.modification)
 
-    def meta_context(self):
-        return self.existing_attributes()[-1].meta_context()
+    def ceo_context(self):
+        return self.existing_attributes()[-1].ceo_context()
 
     class Meta:
         unique_together = ('user', 'vendor', 'model', 'year', 'modification')
@@ -58,10 +57,6 @@ class Vendor(models.Model):
     def __repr__(self):
         return f'Vendor(name="{self.name}", logo="{self.logo}")'
 
-    @property
-    def reverse_url(self):
-        return reverse('cars:car', args=(self.url_args(), ))
-
     def url_args(self):
         return (self.url,)
 
@@ -73,7 +68,7 @@ class Vendor(models.Model):
         else:
             return ', '.join([car.name for car in cars.all()])
 
-    def meta_context(self):
+    def ceo_context(self):
         return {'vendor': self.name}
 
     class Meta:
@@ -93,10 +88,6 @@ class Model(models.Model):
     def __repr__(self):
         return f'Model(name="{self.name}", vendor="{self.vendor.name}")'
 
-    @property
-    def reverse_url(self):
-        return reverse('cars:car', args=(self.url_args(), ))
-
     def url_args(self):
         return self.vendor.url, self.url
 
@@ -108,7 +99,7 @@ class Model(models.Model):
         else:
             return mark_safe(', '.join([f'{year.year} <span style="color: grey">({year.modification_set.count()})</span>' for year in years.all()]))
 
-    def meta_context(self):
+    def ceo_context(self):
         return {'vendor': self.vendor.name, 'model': self.name}
 
     class Meta:
@@ -127,10 +118,6 @@ class Year(models.Model):
     def __repr__(self):
         return f'Year(year="{self.year}", model="{self.model.name}", vendor="{self.model.vendor.name}")'
 
-    @property
-    def reverse_url(self):
-        return reverse('cars:car', args=(self.url_args(), ))
-
     def url_args(self):
         return self.model.vendor.url, self.model.url, self.url
 
@@ -144,7 +131,7 @@ class Year(models.Model):
     def name(self):
         return str(self.year)
 
-    def meta_context(self):
+    def ceo_context(self):
         return {'vendor': self.model.vendor.name, 'model': self.model.name, 'year': self.name}
 
     class Meta:
@@ -163,10 +150,6 @@ class Modification(models.Model):
     def __repr__(self):
         return f'Modification(name="{self.name}", year="{self.year.year}", model="{self.year.model.name}", vendor="{self.year.model.vendor.name}")'
 
-    @property
-    def reverse_url(self):
-        return reverse('cars:car', args=(self.url_args(),))
-
     def url_args(self):
         return self.year.model.vendor.url, self.year.model.url, self.year.url, self.url
 
@@ -175,7 +158,7 @@ class Modification(models.Model):
     def url(self):
         return str(self.id)
 
-    def meta_context(self):
+    def ceo_context(self):
         return {'vendor': self.year.model.vendor.name, 'model': self.year.model.name, 'year': self.year.name, 'modification': self.name}
 
     class Meta:

@@ -11,7 +11,6 @@ class OptimizedManyToManyField(models.ManyToManyField):
     """
         Default ManyToManyField is overridden to substitute OptimizedModelMultipleChoiceField instead of ModelMultipleChoiceField
     """
-
     def formfield(self, *, using=None, **kwargs):
         defaults = {
             'form_class': OptimizedModelMultipleChoiceField,
@@ -25,7 +24,6 @@ class OptimizedModelChoiceIterator(ModelChoiceIterator):
         Queryset lookup that ModelChoiceIterator performs is too slow in case of cars app (~24 seconds to retrieve all names),
         that is why OptimizedModelChoiceIterator exists (~6 seconds to retrieve all names)
     """
-
     def __iter__(self):
         start = default_timer()
 

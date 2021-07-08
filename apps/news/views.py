@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
@@ -11,19 +11,19 @@ from django.views.generic.edit import FormView
 from apps.news.forms import CommentForm
 from apps.news.models import Article, Like
 from apps.news.utils.mixins import LatestArticlesMixin, CommentsMixin
-from apps.site_settings.utils.mixins import MetaTagsMixin
-from utils.breadcrumbs.mixins import PageTitleMixin
 from utils.breadcrumbs.types import Breadcrumb
+from utils.breadcrumbs.utils import reverse_bc
+from utils.mixins import PageSettingsMixin
 
 
-# class ArticleListView(ListView, LatestArticlesMixin, PageTitleMixin):
+# class ArticleListView(ListView, LatestArticlesMixin, PageSettingsMixin):
 #     template_name = 'promotions/promotions.html'
 #     page_title = 'Блог'
 #
 #     queryset = Article.objects.filter(status='published')
 
 
-class ArticleView(DetailView, FormView, PageTitleMixin, LatestArticlesMixin, CommentsMixin, MetaTagsMixin):
+class ArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, CommentsMixin):
     model = Article
     slug_field = 'url'
     slug_url_kwarg = 'article_url'
@@ -35,19 +35,16 @@ class ArticleView(DetailView, FormView, PageTitleMixin, LatestArticlesMixin, Com
     def get_context_data(self, **kwargs):
         return super().get_context_data(liked=Like.objects.filter(article=self.get_object(), session_id=self.request.session.session_key).exists(), **kwargs)
 
-    # #### MetaTagsMixin ####
+    # #### PageSettingsMixin ####
 
-    meta_tags_key = 'news:article'
+    viewname = 'news:article'
+    initial_breadcrumbs = [reverse_bc(viewname='tags:all')]
 
-    def get_meta_context(self) -> Dict[str, Any]:
-        return {'article': self.get_page_title()}
+    def get_current_breadcrumb(self) -> List[Breadcrumb]:
+        return [Breadcrumb(self.object.title, reverse_lazy('news:article', args=(self.object.url,)))]
 
-    # #### PageTitleMixin ####
-
-    initial_breadcrumbs = [Breadcrumb('Теги', reverse_lazy('tags:all'))]
-
-    def get_page_title(self):
-        return self.get_object().title
+    def get_ceo_context(self) -> Dict[str, Any]:
+        return {'article': self.object.title}
 
     # #### FormMixin (FormView) ####
 

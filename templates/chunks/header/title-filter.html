@@ -1,22 +1,23 @@
 {% extends 'chunks/header/base.html' %}
+{% load static %}
 {% load cropping %}
 
 {# Required template variables: page_title, breadcrumbs, selected_car, current_section #}
 
 {% block page_title %}
-  <section class="page_title {% if not selected_car %}page_title--w-form{% endif %} ds s-pt-105 s-pb-50 s-pt-lg-115 s-pb-lg-60">
-    <div class="page_toplogo_img">
-      <img src="{% cropped_thumbnail bg_object 'thumbnail_1960x600' %}" alt="{{ bg_object.title }}"/>
-    </div>
-    <div class="divider-0 d-none d-lg-block"></div>
-    <div class="container">
+    <section class="page_title {% if not selected_car %}page_title--w-form{% endif %} ds s-pt-105 s-pb-50 s-pt-lg-115 s-pb-lg-60">
+        <div class="page_toplogo_img">
+            <img src="{% if image_url %}{{ image_url }}{% else %}{% static 'img/title-bg.jpg' %}{% endif %}" alt="{{ image_alt }}"/>
+        </div>
+        <div class="divider-0 d-none d-lg-block"></div>
+        <div class="container">
 
-      {% if selected_car %}
+            {% if selected_car %}
 
 
-        <div class="row align-items-start">
-          <h1 class="bold text-center text-lg-left col-12 col-lg-9">{{ page_title }}</h1>
-          <div class="btn-choose-mark col-auto col-lg-3 ">
+                <div class="row align-items-start">
+                    <h1 class="bold text-center text-lg-left col-12 col-lg-9">{{ page_title }}</h1>
+                    <div class="btn-choose-mark col-auto col-lg-3 ">
             <button class="btn btn-small btn-primary" data-toggle="modal" data-target="#modalChangeForm" title="Сменить выбор">Сменить выбор</button>
           </div>
           <div class="col-12">

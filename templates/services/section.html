@@ -3,6 +3,7 @@
 
 {% load cropping %}
 {% load static %}
+{% load shortcuts %}
 
 {% block modals %}
   {% if selected_car %}
@@ -16,7 +17,7 @@
 
 {% block main %}
 
-  {% if current_section.level != 1 %}
+    {% if child_products %}
     <section class="ls s-pt-60 s-pb-30 s-py-lg-100 s-py-xl-150 c-gutter-60 c-mb-30 c-mb-lg-0">
       <div class="container">
         <div class="row">
@@ -24,59 +25,63 @@
 
             {{ current_section.description| safe }}
 
-            {% if current_section.product_set.count %}
+              {% if child_products %}
               <h5>Цены на {{ current_section.title|lower }}</h5>
-              <table class="table table-striped">
-                <thead>
-                <tr>
-                  <th>Услуга</th>
-                  <th>Стоимость</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for item in current_section.product_set.all %}
-                  <tr>
-                    <td><a href="{{ item.reverse_url }}">{{ item.title }}</a></td>
-                    <td>{{ item.verbose_price }}</td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-              </table>
-            {% endif %}
+                  <table class="table table-striped">
+                      <thead>
+                      <tr>
+                          <th>Услуга</th>
+                          <th>Стоимость</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {% for item in child_products %}
+                          <tr>
+                              <td><a href="{% service_url item %}">{{ item.title }}</a></td>
+                              <td>{{ item.verbose_price }}</td>
+                          </tr>
+                      {% endfor %}
+                      </tbody>
+                  </table>
+              {% endif %}
 
           </div>
-          <div class="col-md-5 service-tab">
 
-            {% if current_section.product_set.count %}
-              <div id="accordion01" class="accordion ls ms" role="tablist">
+            <div class="col-md-5 service-tab">
 
-                {% for item in current_section.product_set.all %}
-                  <div class="card">
-                    <div class="card-header" role="tab" id="collapse{{ forloop.counter }}_header">
-                      <h6>
-                        <a data-toggle="collapse" href="#collapse{{ forloop.counter }}" aria-expanded="true" aria-controls="collapse{{ forloop.counter }}">
-                          {{ item.title }}
-                        </a>
-                      </h6>
-                    </div>
+                {% if child_products %}
+                    <div id="accordion01" class="accordion ls ms" role="tablist">
 
-                    <div id="collapse01" class="collapse show" role="tabpanel" aria-labelledby="collapse{{ forloop.counter }}_header" data-parent="#accordion{{ forloop.counter }}">
-                      <div class="card-body">
-                        <div class="media align-items-center">
-                          <div class="media-left">
-                            <a href="{% service_url item %}">
-                              <img src="{% cropped_thumbnail item 'thumbnail_80x80' %}" alt="{{ item.title }}">
-                            </a>
-                          </div>
-                          <div class="media-body">
-                            {{ item.short_description }}
-                            <br>
+                        {% for item in child_products %}
+                            <div class="card">
+
+                                <div class="card-header" role="tab" id="collapse{{ forloop.counter }}_header">
+                                    <h6>
+                                        <a {% choose forloop.first '' 'class="collapsed"' %} data-toggle="collapse" href="#collapse{{ forloop.counter }}"
+                                                                                             aria-expanded="{% choose forloop.first 'true' 'false' %}"
+                                                                                             aria-controls="collapse{{ forloop.counter }}">
+                                            {{ item.title }}
+                                        </a>
+                                    </h6>
+                                </div>
+                                <div id="collapse{{ forloop.counter }}" class="collapse {% choose forloop.first 'show' %}" role="tabpanel"
+                                     aria-labelledby="collapse{{ forloop.counter }}_header" data-parent="#accordion01">
+                                    <div class="card-body">
+                                        <div class="media align-items-center">
+                                            <div class="media-left">
+                                                <a href="{% service_url item %}">
+                                                    <img src="{% cropped_thumbnail item 'thumbnail_80x80' %}" alt="{{ item.title }}">
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                {{ item.short_description }}
+                                                <br>
                             <a href="{% service_url item %}">Подробнее</a>
                           </div>
                         </div>
-
                       </div>
                     </div>
+
                   </div>
                 {% endfor %}
 
@@ -84,45 +89,7 @@
             {% endif %}
 
 
-            <div class="my-30 ls ms p-30">
-
-              <h6>Наши автоцентры</h6>
-
-              <p class="icon-inline">
-									<span class="icon-styled color-main">
-										<i class="fa fa-map-marker"></i>
-									</span>
-                <span>Санкт-Петербург, пр. Энгельса 33/1</span>
-              </p>
-
-              <p class="icon-inline">
-									<span class="icon-styled color-main">
-										<i class="fa fa-phone"></i>
-									</span>
-                <a href="tel:+78121231234">+7 (812) 123-12-34</a>
-              </p>
-
-              <p class="icon-inline">
-									<span class="icon-styled color-main">
-										<i class="fa fa-map-marker"></i>
-									</span>
-                <span>Санкт-Петербург, ул. Хасанская 5</span>
-              </p>
-
-              <p class="icon-inline">
-									<span class="icon-styled color-main">
-										<i class="fa fa-phone"></i>
-									</span>
-                <a href="tel:+78121231234">+7 (812) 123-12-34</a>
-              </p>
-
-              <p class="icon-inline">
-									<span class="icon-styled color-main">
-										<i class="fa fa-pencil"></i>
-									</span>
-                <a href="mailto:info@autoservice-ap.ru">info@autoservice-ap.ru</a>
-              </p>
-            </div>
+                {% include 'services/chunks/branches.html' %}
 
             <div class="ls ms p-30">
               <h6>Оставить заявку</h6>

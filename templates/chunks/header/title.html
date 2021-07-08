@@ -1,27 +1,28 @@
 {% extends 'chunks/header/base.html' %}
+{% load static %}
 
 {# Required template variables: page_title, breadcrumbs #}
 {# Optional template variables: image_url, image_alt #}
 
 {% block page_title %}
-  <section class="page_title ds s-pt-105 s-pb-50 s-pt-lg-115 s-pb-lg-60">
-    {% if image_url %}
-      <div class="page_toplogo_img">
-        <img src="{{ image_url }}" alt="{{ image_alt }}"/>
-      </div>
-      <div class="divider-0 d-none d-lg-block"></div>
-    {% else %}
-      <div class="divider-3 d-none d-lg-block"></div>
-    {% endif %}
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h1 class="bold text-center text-lg-left">{{ page_title }}</h1>
-          <ol class="breadcrumb">
-            {% include 'chunks/header/chunks/breadcrumbs.html' %}
-          </ol>
+    <section class="page_title ds s-pt-105 s-pb-50 s-pt-lg-115 s-pb-lg-60">
+        {% if no_background_image %}
+            <div class="divider-3 d-none d-lg-block"></div>
+        {% else %}
+            <div class="page_toplogo_img">
+                <img src="{% if image_url %}{{ image_url }}{% else %}{% static 'img/title-bg.jpg' %}{% endif %}" alt="{{ image_alt }}"/>
+            </div>
+            <div class="divider-0 d-none d-lg-block"></div>
+        {% endif %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="bold text-center text-lg-left">{{ page_title }}</h1>
+                    <ol class="breadcrumb">
+                        {% include 'chunks/header/chunks/breadcrumbs.html' %}
+                    </ol>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 {% endblock %}

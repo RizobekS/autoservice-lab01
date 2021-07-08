@@ -6,7 +6,7 @@ from utils.car_filter import get_car_filter
 
 def static_info(request):
     context = {item.key: item.value for item in StaticInformation.objects.filter(add_to_context=True)}
-    context['navbar_branches'] = Branch.objects.filter(active=True).order_by('-id')[:2]
+    context['navbar_branches'] = Branch.objects.filter(active=True).order_by('-id')
 
     if request.user.is_authenticated:
         query_set = CarFilter.objects.filter(user=request.user)

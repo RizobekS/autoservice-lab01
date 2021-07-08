@@ -155,9 +155,10 @@
     }
   },
   {
-    "model": "site_settings.metatag",
+    "model": "site_settings.ceosetting",
     "pk": 1,
     "fields": {
+      "title": "",
       "page": "Главная",
       "key": "home:index",
       "variables": "",
@@ -167,9 +168,10 @@
     }
   },
   {
-    "model": "site_settings.metatag",
+    "model": "site_settings.ceosetting",
     "pk": 2,
     "fields": {
+      "title": "",
       "page": "Страница машины",
       "key": "cars:car",
       "variables": "{{vendor}} - название производителя ,   {{model}} - название модели ,   {{year}} - год выпуска ,   {{modification}} - название модификации  <i>(если переменная недоступна - вместо неё будет пустая строка)</i>",
@@ -179,9 +181,10 @@
     }
   },
   {
-    "model": "site_settings.metatag",
+    "model": "site_settings.ceosetting",
     "pk": 3,
     "fields": {
+      "title": "",
       "page": "Страница раздела с выбранной машиной",
       "key": "services:section_car",
       "variables": "{{section}} - название текущего раздела ,  {{vendor}} - название производителя ,   {{model}} - название модели ,   {{year}} - год выпуска ,   {{modification}} - название модификации  <i>(если переменная недоступна - вместо неё будет пустая строка)</i>",
@@ -191,9 +194,10 @@
     }
   },
   {
-    "model": "site_settings.metatag",
+    "model": "site_settings.ceosetting",
     "pk": 4,
     "fields": {
+      "title": "",
       "page": "Страница раздела",
       "key": "services:section",
       "variables": "{{section}} - название текущего раздела",
@@ -203,9 +207,10 @@
     }
   },
   {
-    "model": "site_settings.metatag",
+    "model": "site_settings.ceosetting",
     "pk": 5,
     "fields": {
+      "title": "",
       "page": "Страница товара/услуги с выбранной машиной",
       "key": "services:product_car",
       "variables": "{{section}} - заголовок родительского раздела ,   {{product}} - название товара/услуги ,   {{vendor}} - название производителя ,   {{model}} - название модели ,   {{year}} - год выпуска ,   {{modification}} - название модификации  <i>(если переменная недоступна - вместо неё будет пустая строка)</i>",
@@ -215,9 +220,10 @@
     }
   },
   {
-    "model": "site_settings.metatag",
+    "model": "site_settings.ceosetting",
     "pk": 6,
     "fields": {
+      "title": "",
       "page": "Страница товара/услуги",
       "key": "services:product",
       "variables": "{{section}} - заголовок родительского раздела ,   {{product}} - название товара/услуги",
@@ -227,9 +233,10 @@
     }
   },
   {
-    "model": "site_settings.metatag",
+    "model": "site_settings.ceosetting",
     "pk": 7,
     "fields": {
+      "title": "",
       "page": "Список всех акций",
       "key": "promotions:list",
       "variables": "",
@@ -239,9 +246,10 @@
     }
   },
   {
-    "model": "site_settings.metatag",
+    "model": "site_settings.ceosetting",
     "pk": 8,
     "fields": {
+      "title": "",
       "page": "Акция",
       "key": "promotions:promotion",
       "variables": "{{promotion}} - название акции",
@@ -251,9 +259,10 @@
     }
   },
   {
-    "model": "site_settings.metatag",
+    "model": "site_settings.ceosetting",
     "pk": 9,
     "fields": {
+      "title": "",
       "page": "Статья",
       "key": "news:article",
       "variables": "{{article}} - заголовок статьи",
@@ -263,9 +272,10 @@
     }
   },
   {
-    "model": "site_settings.metatag",
+    "model": "site_settings.ceosetting",
     "pk": 10,
     "fields": {
+      "title": "",
       "page": "Страница тегов",
       "key": "tags:all",
       "variables": "",
@@ -275,9 +285,10 @@
     }
   },
   {
-    "model": "site_settings.metatag",
+    "model": "site_settings.ceosetting",
     "pk": 11,
     "fields": {
+      "title": "",
       "page": "Страница тега",
       "key": "tags:single",
       "variables": "{{tag}} - название тега",

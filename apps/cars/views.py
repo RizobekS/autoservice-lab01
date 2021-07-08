@@ -1,12 +1,60 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 from utils.car_filter import set_car_filter, get_car_filter
 from .models import *
 from .utils.helpers import car_page_title, car_breadcrumbs
+from .utils.mixins import CarFilterPageSettingsMixin
 from .utils.types import CarUrls
 from ..services.models import Section, Product
-from ..site_settings.utils.mixins import MetaTagsRenderer
+from ..site_settings.utils.mixins import CEORenderer
+
+
+class CarView(TemplateView, CarFilterPageSettingsMixin):
+    template_name = 'cars/car.html'
+
+    # #### CarFilterPageSettingsMixin ####
+
+    viewname = 'cars:car'
+    car_filter_context_name = 'car'
+
+    def get_current_breadcrumb(self):
+        return []
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if self.car_filter.model:  # Only for cars with model selected (and higher)
+            extra_context = self._root_section_products()
+        else:  # Only for vendors
+            extra_context = self._root_sections()
+
+        context.update(extra_context)
+        return context
+
+    def _root_section_products(self):
+        kwargs = {'cars__year__model__vendor': self.car_filter.vendor,
+                  'cars__year__model': self.car_filter.model}
+        if self.car_filter.year:
+            kwargs['cars__year'] = self.car_filter.year
+            if self.car_filter.modification:
+                kwargs['cars'] = self.car_filter.modification
+
+        products = list(Product.objects.filter(active=True, **kwargs))
+        root_sections = {}
+        for product in products:
+            root = product.root_section()
+            if root in root_sections and len(root_sections[root]) <= 5:
+                root_sections[root].add(product)
+            else:
+                root_sections[root] = {product}  # Creating set
+
+        return {'root_sections': root_sections}
+
+    @staticmethod
+    def _root_sections():
+        return {'sections': Section.objects.filter(active=True, parent_section=None)}
 
 
 def car_view(request, urls: CarUrls):
@@ -15,14 +63,14 @@ def car_view(request, urls: CarUrls):
     set_car_filter(request, car_filter)
 
     context = {
-        'service_page_title': car_page_title(car_filter),
+        # 'service_page_title': car_page_title(car_filter),
 
         'page_title': car_page_title(car_filter),
         'breadcrumbs': car_breadcrumbs(car_filter),
         'car': car_filter,
     }
-    meta_tags = MetaTagsRenderer('cars:car', car_filter.meta_context())
-    context.update(meta_tags.as_context())
+    ceo_tags = CEORenderer(ceo_key='cars:car', ceo_context=car_filter.ceo_context())
+    context.update(ceo_tags.as_context())
 
     # Only for vendor-model and higher level pages
     if car_filter.model:

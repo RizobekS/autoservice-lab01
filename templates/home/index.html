@@ -21,34 +21,28 @@
         <span><a href="{{ instagram }}" class="fa fa-instagram border-icon rounded-icon" title="instagram"></a></span>
       </p>
     </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="intro_layers_wrapper text-center text-xl-left">
-            <div class="intro_layers">
-              <div class="divider-20 d-none d-lg-block d-xl-none"></div>
-              <div class="intro_layer" data-animation="fadeInDown">
-                <h2 class="text-uppercase intro_featured_word">
-                  <span class="color-main">Ремонт</span>
-                  <span class="flex-gradient">
-                                                <span id="typed-strings">
-                                                    <span>автомобилей</span>
-                                                    <span>микроавтобусов</span>
-                                                    <span>минивэнов</span>
-                                                </span>
-                                                <span id="typed"></span>
-                                            </span>
-                </h2>
-              </div>
-              <div class="intro_layer" data-animation="fadeInDown">
-                <h2 class="text-uppercase intro_featured_word">
-                  выберите марку и модель
-                </h2>
-              </div>
-              <div class="intro_layer start-form-main" data-animation="fadeInDown">
-                <div id="start" class="start d-flex row">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12">
+                  <div class="intro_layers_wrapper text-center text-xl-left">
+                      <div class="intro_layers">
+                          <div class="divider-20 d-none d-lg-block d-xl-none"></div>
+                          <div class="intro_layer" data-animation="fadeInDown">
+                              <h2 class="text-uppercase intro_featured_word">
+                                  <span class="color-main">Ремонт</span>
+                                  <span class="flex-gradient"><span id="typed-strings"><span>автомобилей</span><span>микроавтобусов</span><span>минивэнов</span></span><span
+                                          id="typed"></span></span>
+                              </h2>
+                          </div>
+                          <div class="intro_layer" data-animation="fadeInDown">
+                              <h2 class="text-uppercase intro_featured_word">
+                                  выберите марку и модель
+                              </h2>
+                          </div>
+                          <div class="intro_layer start-form-main" data-animation="fadeInDown">
+                              <div id="start" class="start d-flex row">
 
-                  <form method="POST" id="startform" class="start-form form-inline" data-ajax-url="{% url 'cars:ajax-filter' %}">
+                                  <form method="POST" id="startform" class="start-form form-inline" data-ajax-url="{% url 'cars:ajax-filter' %}">
                     {% include 'chunks/select-car-form.html' %}
                   </form>
 
