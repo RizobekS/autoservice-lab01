@@ -67,5 +67,5 @@ class SparePartAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_filter = ('fixed_price',)
     search_fields = ('title', 'url', 'price')
 
-    fields = ('title', 'url', 'image', 'product_thumbnail', ('price', 'fixed_price'))
+    fields = ('title', 'url', 'image', 'thumbnail_268x118', ('price', 'fixed_price'))
     prepopulated_fields = {'url': ('title',), }
