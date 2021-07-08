@@ -1,7 +1,7 @@
 from django import forms
 
 from utils.widgets import CKEditorUploadingWidget
-from .models import *
+from .models import Section, Product
 
 
 class SectionAdminForm(forms.ModelForm):

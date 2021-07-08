@@ -85,7 +85,7 @@ class Model(models.Model):
     name = models.CharField('Название модели', max_length=200)
     url = AutoSlugField(verbose_name='URL модели', validators=[validate_double_slash_url], help_text='Заполняется на основе поля "Название"', populate_from='name', editable=True)
 
-    vendor = models.ForeignKey(verbose_name='Производитель', to='Vendor', on_delete=models.CASCADE)
+    vendor = models.ForeignKey(verbose_name='Производитель', to='Vendor', on_delete=models.CASCADE)  # TODO: change to on_delete=models.RESTRICT after final release
 
     def __str__(self):
         return f'{self.vendor.name} - {self.name}'
@@ -122,7 +122,7 @@ class Year(models.Model):
     model = models.ForeignKey(verbose_name='Модель', to='Model', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.model} - {self.year}'
+        return f'{self.model.vendor.name} - {self.model.name} - {self.year}'
 
     def __repr__(self):
         return f'Year(year="{self.year}", model="{self.model.name}", vendor="{self.model.vendor.name}")'
@@ -158,7 +158,7 @@ class Modification(models.Model):
     year = models.ForeignKey(verbose_name='Года выпуска', to='Year', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.year} - {self.name}'
+        return f'{self.year.model.vendor.name} - {self.year.model.name} - {self.year.name} - {self.name}'
 
     def __repr__(self):
         return f'Modification(name="{self.name}", year="{self.year.year}", model="{self.year.model.name}", vendor="{self.year.model.vendor.name}")'

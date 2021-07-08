@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 from image_cropping import ImageRatioField
 
 from apps.cars.utils.validators import validate_double_slash_url
+from apps.services.utils.fields import OptimizedManyToManyField
 from apps.services.utils.help_text import DESCRIPTION_HELP_TEXT, TITLE_DATIVE_HELP_TEXT, ACTIVE_HELP_TEXT, VENDOR_PAGE_THUMBNAIL_HELP_TEXT
 from apps.tags.models import Tag
 from utils.helpers import format_price
@@ -92,11 +93,11 @@ class Product(models.Model):
     section = models.ForeignKey(verbose_name='Родительский раздел', to='Section', on_delete=models.RESTRICT)
     show_at_homepage = models.BooleanField('Отображать на главной', help_text='В блоке "Наши услуги"', default=False)
     spare_parts = models.ManyToManyField(verbose_name='Запчасти', to='SparePart', blank=True)
-    cars = models.ManyToManyField(verbose_name='Машины, подходящие под данный товар/услугу', to='cars.Modification', blank=True)
+    cars = OptimizedManyToManyField(verbose_name='Машины, подходящие под данный товар/услугу', to='cars.Modification', blank=True)
     tag = models.ForeignKey(verbose_name='Тег', to=Tag, on_delete=models.SET_NULL, null=True, blank=True)
 
     similar_products = models.ManyToManyField(verbose_name='Похожие услуги', help_text='Выводятся когда пользователь попал на услугу, которая не поддерживается его авто.',
-                                              to='Product', blank=True)
+                                              to='self', blank=True)
 
     image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to='services/products')
     thumbnail_1960x600 = ImageRatioField(verbose_name='Обрезка изображения (1920x600)', help_text='Для фона заголовка страницы', image_field='image', size='1920x600')
@@ -133,7 +134,7 @@ class SparePart(models.Model):
     url = AutoSlugField(verbose_name='URL раздела', help_text='Заполняется на основе поля "Название запчасти"', populate_from='title', unique=True, editable=True)
 
     image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to='services/spare_parts')
-    product_thumbnail = ImageRatioField(verbose_name='Обрезка изображения для картинки запчасти на странице услуги/товара (268x118)', image_field='image', size='268x118')
+    thumbnail_268x118 = ImageRatioField(verbose_name='Обрезка изображения для картинки запчасти на странице услуги/товара (268x118)', image_field='image', size='268x118')
 
     price = models.FloatField('Цена за запчасть (₽)')
     fixed_price = models.BooleanField('Фиксированная цена', help_text='Не фикскированная цена будет отображаться как "от 990 руб."', default=False)
