@@ -1,8 +1,10 @@
 from django.contrib import admin
 from django.contrib import messages
+from django.urls import reverse
 from django.utils.translation import ngettext
 from image_cropping import ImageCroppingMixin
 
+from utils.helpers import link_tag_safe
 from .forms import ArticleAdminForm
 from .models import *
 
@@ -52,22 +54,22 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('admin_title', 'author_link', 'article_link', 'reply_to_link', 'deepcount', 'date', 'visible')
     list_filter = ('visible', 'date', 'article', 'author')
 
-    @display(description='')
+    @admin.display(description='')
     def admin_title(self, obj):
         return f'Комментарий #{obj.id}'
 
-    @display(description='Автор')
+    @admin.display(description='Автор')
     def author_link(self, obj):
         author: User = obj.author
         url = reverse("admin:%s_%s_change" % ('accounts', 'user'), args=(author.id,))
         return link_tag_safe(url, author.get_full_name(), True)
 
-    @display(description='Статья')
+    @admin.display(description='Статья')
     def article_link(self, obj):
         url = reverse("admin:%s_%s_change" % ('news', 'article'), args=(obj.article.id,))
         return link_tag_safe(url, obj.article.title, True)
 
-    @display(description='Ответ на комментарий')
+    @admin.display(description='Ответ на комментарий')
     def reply_to_link(self, obj):
         if self.reply_to:
             url = reverse("admin:%s_%s_change" % ('news', 'comment'), args=(obj.reply_to.id,))
@@ -75,7 +77,7 @@ class CommentAdmin(admin.ModelAdmin):
         else:
             return None
 
-    @display(description='Дочерних комментариев')
+    @admin.display(description='Дочерних комментариев')
     def deepcount(self, obj):
         overall = obj.child_comments.count()
         for item in obj.child_comments:
