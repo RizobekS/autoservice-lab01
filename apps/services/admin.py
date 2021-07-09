@@ -7,7 +7,7 @@ from .models import *
 
 @admin.register(Section)
 class SectionAdmin(ImageCroppingMixin, admin.ModelAdmin):
-    list_display = ('title', 'url', 'active', 'parent_section', 'verbose_level', 'child_products', 'show_at_homepage')
+    list_display = ('title', 'url', 'active', 'parent_section', 'child_products', 'show_at_homepage')
     list_editable = ('show_at_homepage',)
     list_filter = ('active', 'show_at_homepage', 'parent_section')
     search_fields = ('title', 'url', 'title_dative', 'short_description', 'description')
@@ -26,11 +26,38 @@ class SectionAdmin(ImageCroppingMixin, admin.ModelAdmin):
             'classes': ('wide',)
         }),
         ('Изображения', {
-            'fields': ('image', 'thumbnail_1960x600', 'thumbnail_960x585', 'thumbnail_455x200', 'thumbnail_348x236', 'thumbnail_268x118', 'thumbnail_80x80')
+            'fields': ('image', 'thumbnail_1960x600', 'thumbnail_960x585', 'thumbnail_455x200', 'thumbnail_348x236', 'thumbnail_268x118', 'thumbnail_80x80'),
         }),
     )
 
     form = SectionAdminForm
+
+    def get_fieldsets(self, request, obj=None):
+        if obj is not None:
+            self.fieldsets[2][1]['classes'] = ('collapse',)
+        return self.fieldsets
+
+    @display(description='Дочерние товары/услуги')
+    def child_products(self, obj) -> str:
+        child_products = obj.product_set.filter(active=True)
+        return mark_safe(f'<span style="margin-right: 60px">({child_products.count()}) {", ".join(section.title for section in child_products.all())}</span>')
+
+    @display(description='Дочерние разделы')
+    def child_sections(self, obj) -> str:
+        section_set = obj.section_set.filter(active=True)
+        return mark_safe(f'<span style="margin-right: 60px">({section_set.count()}) {", ".join(section.title for section in section_set.all())}</span>')
+
+    # @display(description='Уровень раздела')
+    # def verbose_level(self, obj) -> str:
+    #     if obj.is_root():
+    #         return 'Корневой'
+    #     else:
+    #         return f'{obj.level()} уровня'
+
+    class Media:
+        css = {
+            'all': ('css/custom-admin/accordion.css',)
+        }
 
 
 @admin.register(Product)

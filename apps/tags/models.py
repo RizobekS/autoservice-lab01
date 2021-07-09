@@ -1,5 +1,4 @@
 from autoslug import AutoSlugField
-from django.contrib.admin import display
 from django.db import models
 
 
@@ -9,18 +8,6 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-
-    @display(description='Статьи')
-    def article_string(self):
-        return f'({self.article_set.count()}) {" ,  ".join(item.title for item in self.article_set.all())}'
-
-    @display(description='Акции')
-    def promotions_string(self):
-        return f'({self.promotion_set.count()}) {" ,  ".join(item.title for item in self.promotion_set.all())}'
-
-    @display(description='Товары/Услуги')
-    def product_string(self):
-        return f'({self.product_set.count()}) {" ,  ".join(item.title for item in self.product_set.all())}'
 
     class Meta:
         verbose_name = "Тэг"

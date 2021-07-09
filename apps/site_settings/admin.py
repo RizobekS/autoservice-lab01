@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from apps.site_settings.models import EmailReceiver, Branch, StaticInformation, CEOSetting
 
@@ -23,11 +24,16 @@ class EmailReceiverInlineAdmin(admin.StackedInline):
     extra = 1
     model = EmailReceiver
 
+
 @admin.register(Branch)
 class BranchAdmin(admin.ModelAdmin):
     list_display = ('name', 'active', 'address', 'phone', 'receivers_string')
 
     inlines = (EmailReceiverInlineAdmin,)
+
+    @admin.display(description='Получатели эл. сообщений')
+    def receivers_string(self, obj):
+        return f'({obj.emailreceiver_set.count()}) {" ,  ".join(item.email for item in obj.emailreceiver_set.all())}'
 
 
 @admin.register(CEOSetting)
@@ -43,3 +49,7 @@ class CEOSettingAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return False
+
+    @admin.display(description='Доступные переменные')
+    def variables_safe(self, obj):
+        return mark_safe(obj.variables.replace('{{', '<b>{{').replace('}}', '}}</b>'))

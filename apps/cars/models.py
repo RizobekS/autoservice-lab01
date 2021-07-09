@@ -1,8 +1,6 @@
 from autoslug import AutoSlugField
-from django.contrib.admin import display
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils.safestring import mark_safe
 from django_cleanup.signals import cleanup_pre_delete
 
 from apps.cars.utils.car_filter_mixin import CarFilterUtilsMixin
@@ -60,14 +58,6 @@ class Vendor(models.Model):
     def url_args(self):
         return (self.url,)
 
-    @display(description='Связанные модели')
-    def related_cars(self):
-        cars = self.model_set
-        if self.model_set.count() > 4:
-            return f'Модели ({self.model_set.count()})'
-        else:
-            return ', '.join([car.name for car in cars.all()])
-
     def ceo_context(self):
         return {'vendor': self.name}
 
@@ -90,14 +80,6 @@ class Model(models.Model):
 
     def url_args(self):
         return self.vendor.url, self.url
-
-    @display(description='Года выпуска')
-    def detailed_info(self):
-        years = self.year_set
-        if years.count() > 6:
-            return f'{years.count()} разных годов выпуска'
-        else:
-            return mark_safe(', '.join([f'{year.year} <span style="color: grey">({year.modification_set.count()})</span>' for year in years.all()]))
 
     def ceo_context(self):
         return {'vendor': self.vendor.name, 'model': self.name}

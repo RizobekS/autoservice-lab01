@@ -1,7 +1,6 @@
 from autoslug import AutoSlugField
 from django.contrib.admin import display
 from django.db import models
-from django.utils.safestring import mark_safe
 from image_cropping import ImageRatioField
 
 from apps.cars.utils.validators import validate_double_slash_url
@@ -43,23 +42,6 @@ class Section(models.Model):
             obj = obj.parent_section
             counter += 1
         return counter
-
-    @display(description='Дочерние товары/услуги')
-    def child_products(self) -> str:
-        child_products = self.product_set
-        return mark_safe(f'<span style="margin-right: 60px">({child_products.count()}) {", ".join(section.title for section in child_products.all())}</span>')
-
-    @display(description='Дочерние разделы')
-    def child_sections(self) -> str:
-        section_set = self.section_set
-        return mark_safe(f'<span style="margin-right: 60px">({section_set.count()}) {", ".join(section.title for section in section_set.all())}</span>')
-
-    @display(description='Уровень раздела')
-    def verbose_level(self) -> str:
-        if self.is_root():
-            return 'Корневой'
-        else:
-            return f'{self.level()} уровня'
 
     def active_product_set(self):
         return self.product_set.filter(active=True)
@@ -144,7 +126,8 @@ class SparePart(models.Model):
 
     @display(description='Цена')
     def verbose_price(self):
-        return f'От {self.price}₽' if self.fixed_price else f'{self.price}₽'
+        price = format_price(self.price, '₽')
+        return f'{price}' if self.fixed_price else f'От {price}'
 
     class Meta:
         verbose_name = 'Запчасть'

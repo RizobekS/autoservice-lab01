@@ -28,10 +28,6 @@ class Promotion(models.Model):
     def __str__(self):
         return self.title
 
-    @display(description='Тэги')
-    def tag_string(self):
-        return ', '.join(item.name for item in self.tags.all())
-
     @display(description='Цена')
     def verbose_price(self):
         price = format_price(self.price, '₽')

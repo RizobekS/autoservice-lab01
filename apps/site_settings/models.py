@@ -1,6 +1,4 @@
-from django.contrib.admin import display
 from django.db import models
-from django.utils.safestring import mark_safe
 
 from apps.services.utils.help_text import ACTIVE_HELP_TEXT
 
@@ -26,10 +24,6 @@ class Branch(models.Model):
 
     def __str__(self):
         return self.name
-
-    @display(description='Получатели эл. сообщений')
-    def receivers_string(self):
-        return f'({self.emailreceiver_set.count()}) {" ,  ".join(item.email for item in self.emailreceiver_set.all())}'
 
     class Meta:
         verbose_name = 'Филиал'
@@ -61,10 +55,6 @@ class CEOSetting(models.Model):
 
     def __str__(self):
         return f'Мета-теги для {self.page}'
-
-    @display(description='Доступные переменные')
-    def variables_safe(self):
-        return mark_safe(self.variables.replace('{{', '<b>{{').replace('}}', '}}</b>'))
 
     class Meta:
         verbose_name = 'CEO настройка'

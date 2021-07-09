@@ -24,19 +24,23 @@ class ArticleAdmin(ImageCroppingMixin, admin.ModelAdmin):
     )
     form = ArticleAdminForm
 
-    @display(description='Опубликовать')
+    @admin.display(description='Тэги')
+    def tag_string(self, obj):
+        return ', '.join(item.name for item in obj.tags.all())
+
+    @admin.display(description='Опубликовать')
     def make_published(self, request, queryset):
         updated = queryset.update(status='published')
         self.message_user(request, ngettext('%d статья была успешно опубликована.', '%d статей были успешно опубликованы.',
                                             updated) % updated, messages.SUCCESS)
 
-    @display(description='Перевести в режим ожидания')
+    @admin.display(description='Перевести в режим ожидания')
     def make_pending(self, request, queryset):
         updated = queryset.update(status='pending')
         self.message_user(request, ngettext('%d статья была успешно переведена в режим ожидания.', '%d статей были успешно переведены в режим ожидания.',
                                             updated) % updated, messages.SUCCESS)
 
-    @display(description='Перевести в режим редактирования')
+    @admin.display(description='Перевести в режим редактирования')
     def make_editing(self, request, queryset):
         updated = queryset.update(status='editing')
         self.message_user(request, ngettext('%d статья была успешно переведена в режим редактирования.', '%d статей были успешно переведены в режим редактирования.',
@@ -47,3 +51,33 @@ class ArticleAdmin(ImageCroppingMixin, admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('admin_title', 'author_link', 'article_link', 'reply_to_link', 'deepcount', 'date', 'visible')
     list_filter = ('visible', 'date', 'article', 'author')
+
+    @display(description='')
+    def admin_title(self, obj):
+        return f'Комментарий #{obj.id}'
+
+    @display(description='Автор')
+    def author_link(self, obj):
+        author: User = obj.author
+        url = reverse("admin:%s_%s_change" % ('accounts', 'user'), args=(author.id,))
+        return link_tag_safe(url, author.get_full_name(), True)
+
+    @display(description='Статья')
+    def article_link(self, obj):
+        url = reverse("admin:%s_%s_change" % ('news', 'article'), args=(obj.article.id,))
+        return link_tag_safe(url, obj.article.title, True)
+
+    @display(description='Ответ на комментарий')
+    def reply_to_link(self, obj):
+        if self.reply_to:
+            url = reverse("admin:%s_%s_change" % ('news', 'comment'), args=(obj.reply_to.id,))
+            return link_tag_safe(url, str(obj.reply_to), True)
+        else:
+            return None
+
+    @display(description='Дочерних комментариев')
+    def deepcount(self, obj):
+        overall = obj.child_comments.count()
+        for item in obj.child_comments:
+            overall += item.deepcount()
+        return overall

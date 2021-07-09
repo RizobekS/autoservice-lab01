@@ -1,13 +1,10 @@
 from autoslug import AutoSlugField
-from django.contrib.admin import display
 from django.contrib.sessions.models import Session
 from django.db import models
-from django.urls import reverse
 from image_cropping import ImageRatioField
 
 from apps.tags.models import Tag
 from autoservice.settings.common import AUTH_USER_MODEL
-from utils.helpers import link_tag_safe
 from ..accounts.models import User
 from ..masters.models import Master
 
@@ -34,10 +31,6 @@ class Article(models.Model):
 
     def active(self):
         return self.status == 'published'
-
-    @display(description='Тэги')
-    def tag_string(self):
-        return ', '.join(item.name for item in self.tags.all())
 
     class Meta:
         ordering = ('-date',)
@@ -78,36 +71,6 @@ class Comment(models.Model):
         while item.reply_to:
             item, counter = item.reply_to, counter + 1
         return counter
-
-    @display(description='Дочерних комментариев')
-    def deepcount(self):
-        overall = self.child_comments.count()
-        for item in self.child_comments:
-            overall += item.deepcount()
-        return overall
-
-    @display(description='')
-    def admin_title(self):
-        return f'Комментарий #{self.id}'
-
-    @display(description='Автор')
-    def author_link(self):
-        author: User = self.author
-        url = reverse("admin:%s_%s_change" % ('accounts', 'user'), args=(author.id,))
-        return link_tag_safe(url, author.get_full_name(), True)
-
-    @display(description='Статья')
-    def article_link(self):
-        url = reverse("admin:%s_%s_change" % ('news', 'article'), args=(self.article.id,))
-        return link_tag_safe(url, self.article.title, True)
-
-    @display(description='Ответ на комментарий')
-    def reply_to_link(self):
-        if self.reply_to:
-            url = reverse("admin:%s_%s_change" % ('news', 'comment'), args=(self.reply_to.id,))
-            return link_tag_safe(url, str(self.reply_to), True)
-        else:
-            return None
 
     class Meta:
         ordering = ('-date',)

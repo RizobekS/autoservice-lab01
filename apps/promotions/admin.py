@@ -24,12 +24,16 @@ class PromotionAdmin(ImageCroppingMixin, admin.ModelAdmin):
     )
     form = PromotionAdminForm
 
-    @display(description='Деактивировать')
+    @admin.display(description='Тэги')
+    def tag_string(self, obj):
+        return ', '.join(item.name for item in obj.tags.all())
+
+    @admin.display(description='Деактивировать')
     def deactivate(self, request, queryset):
         updated = queryset.update(active=False)
         self.message_user(request, ngettext('%d акция была успешно деактивирована.', '%d акции были успешно деактивированы.', updated) % updated, messages.SUCCESS)
 
-    @display(description='Активировать')
+    @admin.display(description='Активировать')
     def activate(self, request, queryset):
         updated = queryset.update(active=True)
         self.message_user(request, ngettext('%d акция была успешно активирована.', '%d акции были успешно активированы.', updated) % updated, messages.SUCCESS)
