@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 from image_cropping import ImageCroppingMixin
 
 from .forms import SectionAdminForm, ProductAdminForm
