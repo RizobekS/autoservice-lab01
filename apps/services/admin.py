@@ -48,14 +48,8 @@ class SectionAdmin(ImageCroppingMixin, admin.ModelAdmin):
         section_set = obj.section_set.filter(active=True)
         return mark_safe(f'<span style="margin-right: 60px">({section_set.count()}) {", ".join(section.title for section in section_set.all())}</span>')
 
-    # @display(description='Уровень раздела')
-    # def verbose_level(self, obj) -> str:
-    #     if obj.is_root():
-    #         return 'Корневой'
-    #     else:
-    #         return f'{obj.level()} уровня'
-
     class Media:
+        js = ('js/custom/admin/copy-event-listeners.js',)
         css = {
             'all': ('css/custom-admin/accordion.css',)
         }

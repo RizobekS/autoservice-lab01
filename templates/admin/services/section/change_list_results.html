@@ -15,7 +15,7 @@
 
                 <div class="tab-content">
                     <div class="results">
-                        <table id="result_list">
+                        <table {% if forloop.first %}id="result_list"{% else %}class="result_list"{% endif %}>
                             <thead>
                             <tr>
                                 {% for header in result_headers %}
