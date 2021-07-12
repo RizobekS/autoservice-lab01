@@ -29,6 +29,9 @@ INSTALLED_APPS = [
     'image_cropping',  # Image cropping widget
     'nested_inline',  # Inlines inside inlines
 
+    # Custom apps
+    'apps.services',
+
     # Default apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,7 +44,6 @@ INSTALLED_APPS = [
     # Custom apps
     'apps.home',
     'apps.cars',
-    'apps.services',
     'apps.accounts',
     'apps.masters',
     'apps.news',

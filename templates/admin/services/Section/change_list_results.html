@@ -11,7 +11,7 @@
         {% for level, sections in results|sort_by_level %}
             <div class="tab">
                 <input class="tab-toggle" type="checkbox" id="chck{{ level }}">
-                <label class="tab-label" for="chck{{ level }}">Разделы {{ level }} уровня</label>
+                <label class="tab-label" for="chck{{ level }}">{% if forloop.first %}Корневые разделы{% else %}Разделы {{ level }} уровня{% endif %}</label>
 
                 <div class="tab-content">
                     <div class="results">

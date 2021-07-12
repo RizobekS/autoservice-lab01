@@ -11,7 +11,12 @@
 .tab {
     width: 100%;
     overflow: hidden;
-    margin-top: 10px;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--hairline-color);
+}
+
+.tab:last-child {
+    border: 0;
 }
 
 .tab-label {
