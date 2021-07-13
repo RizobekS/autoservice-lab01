@@ -8,6 +8,7 @@ from .models import *
 
 @admin.register(Section)
 class SectionAdmin(ImageCroppingMixin, admin.ModelAdmin):
+    list_per_page = 400
     list_display = ('title', 'url', 'active', 'parent_section', 'child_products', 'show_at_homepage')
     list_editable = ('show_at_homepage',)
     list_filter = ('active', 'show_at_homepage', 'parent_section')
