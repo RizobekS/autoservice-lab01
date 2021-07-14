@@ -5,9 +5,16 @@ from .views import *
 
 app_name = 'accounts'
 
+appointment_urlpatterns = [
+    path('new/', SubmitAppointmentView.as_view(), name='new'),
+    path('', AppointmentListView.as_view(), name='list')
+]
+
 personal_area_urlpatterns = [
+
     path('', PersonalAreaIndex.as_view(), name='index'),
     path('garage/', PersonalAreaGarage.as_view(), name='garage'),
+    path('appointments/', include((appointment_urlpatterns, 'appointment'), namespace='appointment')),
     path('edit/<int:id>/', PersonalAreaGarage.as_view(), name='remove_from_garage'),
     path('edit/', PersonalAreaEdit.as_view(), name='edit'),
 ]

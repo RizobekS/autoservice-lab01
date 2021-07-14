@@ -10,10 +10,10 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView, TemplateView, ListView
 
-from apps.accounts.forms import RegistrationForm, AuthenticationForm, PasswordChangeForm, ProfileEditForm, PasswordResetForm, NewPasswordForm
-from apps.accounts.models import User
+from apps.accounts.forms import RegistrationForm, AuthenticationForm, PasswordChangeForm, ProfileEditForm, PasswordResetForm, NewPasswordForm, AppointmentForm
+from apps.accounts.models import User, Appointment
 from apps.accounts.utils.mixins import PersonalAreaMixin, MenuItem
 from apps.cars.models import CarFilter
 from utils.breadcrumbs.types import Breadcrumb
@@ -83,6 +83,21 @@ class PasswordResetConfirmView(BasePasswordResetConfirmView, PageSettingsMixin):
         return super().form_valid(form)
 
 
+@method_decorator(login_required, name='dispatch')
+class SubmitAppointmentView(View):
+
+    def post(self, request):
+        data = self.request.POST.copy()
+        data['user'] = self.request.user.id if self.request.user.is_authenticated else None
+        form = AppointmentForm(data=data)
+        if form.is_valid():
+            form.send_mail(self.request)
+            form.save()
+            return redirect('accounts:pa:appointment:list')
+        else:
+            return redirect(request.path_info)
+
+
 # ####### PERSONAL AREA #########
 
 
@@ -95,6 +110,17 @@ class PersonalAreaIndex(TemplateView, PersonalAreaMixin):
         return []
 
 
+@method_decorator(login_required, name='dispatch')
+class AppointmentListView(ListView, PersonalAreaMixin):
+    menu = MenuItem.ORDERS
+    template_name = 'accounts/personal_area/appointment_list.html'
+    current_breadcrumb = Breadcrumb('Записи на сервис', reverse_lazy('accounts:pa:appointment:list'))
+
+    def get_queryset(self):
+        return Appointment.objects.filter(user=self.request.user)
+
+
+@method_decorator(login_required, name='dispatch')
 class PersonalAreaGarage(View, PersonalAreaMixin):
     menu = MenuItem.GARAGE
     template_name = 'accounts/personal_area/garage.html'

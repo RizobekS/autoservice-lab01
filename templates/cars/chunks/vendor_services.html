@@ -1,9 +1,7 @@
-{% load service_url %}
-{% load static %}
-{% load cropping %}
+{% load service_url static cropping %}
 
 {% for section in sections %}
-  {% cycle 1 2 as oddity %}
+    {% cycle 1 2 as oddity silent %}
   <section class="ls ms s-pt-5 s-pb-3 s-pt-md-50 s-pb-md-45 s-py-lg-140 c-mb-40 c-mb-md-0 side-section text-center text-md-left">
     <div class="divider-5"></div>
     <div class="cover-image {% if oddity == 2 %}s-cover-right{% else %}s-cover-left{% endif %}"></div><!-- half image background element -->

@@ -2,6 +2,8 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from autoservice.settings.common import AUTH_USER_MODEL
+
 
 class UserManager(BaseUserManager):
     def _create_user(self, email, first_name, raw_password, save=False, last_name=None, middle_name=None, **other_fields):
@@ -61,3 +63,27 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
+
+class Appointment(models.Model):
+    CHOICES = (('pending', 'Ожидает подтверждения'),
+               ('confirmed', 'Подтверждена'),
+               ('completed', 'Услуга оказана'))
+
+    user = models.ForeignKey(verbose_name='Пользователь', to=AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+
+    full_name = models.CharField('Полное имя', max_length=200)
+    car = models.CharField('Автомобиль', max_length=400)
+    phone = models.CharField('Телефон', max_length=20)
+    branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.DO_NOTHING)
+    datetime = models.DateTimeField('Время')
+
+    status = models.CharField('Статус', max_length=20, choices=CHOICES, default='pending')
+
+    def __str__(self):
+        return f'Заявка от {self.full_name}, {self.datetime.strftime("%m/%d/%Y, %H:%M")}'
+
+    class Meta:
+        ordering = ['-datetime']
+        verbose_name = 'Заявка'
+        verbose_name_plural = 'Заявки'

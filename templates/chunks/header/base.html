@@ -1,7 +1,4 @@
-{% load menu_utils %}
-{% load strings %}
-{% load service_url %}
-{% load static %}
+{% load shortcuts menu_utils strings service_url static %}
 
 <div {# {% if not image_url %} style="background-image: url('{% static 'img/title-bg.jpg' %}')"{% endif %} #}
         class="{# {% if not blur %}header_absolute{% endif %} #} s-parallax ds bs s-overlay">
@@ -59,26 +56,27 @@ d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
                   <div class="icon-styled color-main fs-20">
                     <i class="ico-phone-call"></i>
                   </div>
-                  <div class="media-body">
-                    <h6> {{ item.address }} </h6>
-                    <p class="fw-400">
-                      <a href="tel:{{ item.phone|extract_phone }}">{{ item.phone }}</a>
-                    </p>
-                  </div>
+                    <div class="media-body">
+                        <h6> {{ item.address }} </h6>
+                        <p class="fw-400">
+                            <a href="tel:{{ item.phone|extract_phone }}">{{ item.phone }}</a>
+                        </p>
+                    </div>
                 </div>
-              {% endfor %}
-              <div class="d-none d-xl-block">
-                <a href="#" class="btn btn-small btn-outline-maincolor btn-appointment" data-toggle="modal" data-target="#modalRegisterForm" title="Онлайн запись">Онлайн запись</a>
-              </div>
+                {% endfor %}
+                <div class="d-none d-xl-block">
+                    <a href="#" class="btn btn-small btn-outline-maincolor btn-appointment" data-toggle="modal"
+                       data-target="{% choose user.is_authenticated '#modalRegisterForm' '#modalLoginForm' %}" title="Онлайн запись">Онлайн запись</a>
+                </div>
             </div>
-          </div>
-          <!-- header toggler -->
+                    </div>
+                    <!-- header toggler -->
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
-  <!--eof topline-->
-  <!-- header with single Bootstrap column only for navigation and includes. Used with topline and toplogo sections. Menu toggler must be in toplogo section -->
+    </section>
+    <!--eof topline-->
+    <!-- header with single Bootstrap column only for navigation and includes. Used with topline and toplogo sections. Menu toggler must be in toplogo section -->
   <header class="page_header s-py-10 s-py-lg-0 ds ms s-overlay nav-bordered">
     <div class="container">
       <div class="row align-items-center">
@@ -196,26 +194,26 @@ d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
                       <span class="nav-text d-xl-none">Личный кабинет</span>
                     </a>
                   {% else %}
-                    <a data-toggle="modal" data-target="#modalLoginForm" title="Войти"><i class="ico-user-alt"></i>
-                      <span class="nav-text d-xl-none">Войти</span>
-                    </a>
+                      <a data-toggle="modal" data-target="#modalLoginForm" title="Войти"><i class="ico-user-alt"></i>
+                          <span class="nav-text d-xl-none">Войти</span>
+                      </a>
                   {% endif %}
                 </li>
               </ul>
-              <div class="top-add">
-                <div class="d-xl-none">
-                  <a href="#" class="btn btn-small btn-outline-maincolor btn-appointment" data-toggle="modal" data-target="#modalRegisterForm" title="Онлайн запись">Онлайн
-                    запись</a>
+                <div class="top-add">
+                    <div class="d-xl-none">
+                        <a href="#" class="btn btn-small btn-outline-maincolor btn-appointment" data-toggle="modal"
+                           data-target="{% choose user.is_authenticated '#modalRegisterForm' '#modalLoginForm' %}" title="Онлайн запись">Онлайн запись</a>
+                    </div>
                 </div>
-              </div>
             </nav>
-            <!-- eof main nav -->
+              <!-- eof main nav -->
           </div>
         </div>
       </div>
     </div>
-    <!-- header toggler -->
-    <span class="toggle_menu"><span></span></span>
+      <!-- header toggler -->
+      <span class="toggle_menu"><span></span></span>
   </header>
 
   {% block page_title %}

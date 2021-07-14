@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext as _
 
-from .models import User
+from .models import User, Appointment
 
 
 @admin.register(User)
@@ -15,3 +15,9 @@ class CustomUserAdmin(UserAdmin):
         }),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
     )
+
+
+@admin.register(Appointment)
+class AppointmentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'car', 'phone', 'branch', 'status', 'datetime')
+    list_editable = ('status',)
