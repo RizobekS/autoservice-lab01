@@ -18,3 +18,4 @@ coverage_html
 
 # Do not track development email backend output
 emails
+!templates/emails
