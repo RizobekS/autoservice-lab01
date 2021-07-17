@@ -1,0 +1,12 @@
+{% load guess_url %}
+
+{% if query %}
+    {% for result in object_list %}
+        <p>
+            {# TODO: обновить вёрстку #}
+            <a href="{% guess_url result.object %}">{{ result.object.title }}</a>
+        </p>
+    {% empty %}
+        <p>По вашему запросу ничего не найдено.</p>
+    {% endfor %}
+{% endif %}

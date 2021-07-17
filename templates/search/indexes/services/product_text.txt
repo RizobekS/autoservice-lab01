@@ -1,0 +1,7 @@
+{{ object.title }}
+{{ object.section.title }}
+{{ object.time_duration }}
+{{ object.price }}
+{{ object.short_description }}
+{{ object.description }}
+{{ object.tag }}

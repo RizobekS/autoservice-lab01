@@ -1,0 +1,5 @@
+{{ object.title }}
+{% if object.parent_section %}{{ object.parent_section.name }}{% endif %}
+{{ object.title_dative }}
+{{ object.short_description }}
+{{ object.description }}

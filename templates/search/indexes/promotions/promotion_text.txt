@@ -1,0 +1,6 @@
+{{ object.title }}
+{{ object.date }}
+{{ object.tag_string }}
+{{ object.price }}
+{{ object.short_description }}
+{{ object.text }}

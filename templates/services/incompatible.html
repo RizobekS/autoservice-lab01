@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load service_url %}
+
+{% load cropping %}
+{% load static %}
+
+{% block modals %}
+    {% if selected_car %}
+        {% include 'modals/select-car.html' %}
+    {% endif %}
+{% endblock %}
+
+{% block header %}
+    {% include 'chunks/header/title-filter.html' %}
+{% endblock %}
+
+{% block main %}
+
+    <section class="ls s-pt-50 s-pb-20 s-pt-lg-100 s-pb-lg-90 s-pt-xl-150 s-pb-xl-140 c-gutter-60 c-mb-30 c-mb-lg-0 service-single">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-7 col-lg-8">
+
+
+                    {{ product.description| safe }}
+
+
+                    <h5 class="special-heading">Contact Us<span class="text-gradient">Now</span></h5>
+                    <div class="divider-50 d-none d-xl-block"></div>
+                    <form class="contact-form c-mb-10 c-mb-md-20 c-gutter-20" method="post" action="/">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group has-placeholder">
+                                    <label for="name">Full Name </label>
+                                    <i class="fa fa-user color-main"></i>
+                                    <input type="text" aria-required="true" size="30" value="" name="name" id="name" class="form-control" placeholder="Full Name"
+                                           style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group has-placeholder">
+                                    <label for="phone">Phone Number</label>
+                                    <i class="fa fa-phone color-main"></i>
+                                    <input type="text" aria-required="true" size="30" value="" name="phone" id="phone" class="form-control" placeholder="Phone Number">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group has-placeholder">
+                                    <label for="email">Email address</label>
+                                    <i class="fa fa-envelope color-main"></i>
+                                    <input type="email" aria-required="true" size="30" value="" name="email" id="email" class="form-control" placeholder="E-mail">
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12">
+
+                                <div class="textarea form-group has-placeholder">
+                                    <label for="message">Message</label>
+                                    <i class="fa fa-edit color-main"></i>
+                                    <textarea aria-required="true" rows="6" cols="45" name="message" id="message" class="form-control" placeholder="Your Message"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 text-center text-md-left mt-30">
+
+                                <div class="form-group">
+                                    <button type="submit" id="contact_form_submit" name="contact_submit" class="btn btn-maincolor"><span>Submit</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="divider-40 d-lg-none"></div>
+                    </form>
+
+                </div>
+                <div class="col-md-5 col-lg-4">
+
+                    <div class="widget widget_post_tabs small-tabs">
+                        <h5 class="widget-title">Стоимость работ</h5>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active show" href="#widget-tab4" role="tab" data-toggle="tab" aria-selected="true">Работа</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#widget-tab5" role="tab" data-toggle="tab" aria-selected="false">Работа+запчасти</a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content top-color-border no-border">
+                            <div class="tab-pane fade in active show" id="widget-tab4">
+
+                                {% include 'services/chunks/product_vertical-item.html' %}
+
+                            </div><!-- eof tab -->
+                            <div class="tab-pane fade" id="widget-tab5">
+
+                                {% include 'services/chunks/product_vertical-item.html' %}
+
+                                {% for spare_part in product.spare_parts.all %}
+                                    {% include 'services/chunks/spare-part_vertical-item.html' %}
+                                {% endfor %}
+                            </div><!-- eof tab -->
+                        </div><!-- eof tab-content -->
+                    </div>
+
+                    {% if other_products %}
+                        <h6 class="widget-title">Другие работы<br>по {{ current_section.title_dative }}</h6>
+
+                        <div class="ls ms widget-service">
+                            {% for item in other_products %}
+                                <a href="{% service_url item %}" class="mb-20 icon-inline">
+									<span class="icon-styled color-main fs-40">
+										<i class="ico-tow-truck"></i>
+									</span>
+                                    <span class="fw-500 color-dark">{{ item.title }}</span>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                </div><!-- .col-* -->
+            </div>
+            <div class="divider-3"></div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block body_scripts %}
+    <script src="{% static 'js/custom/ajax-filter.js' %}"></script>
+{% endblock %}
