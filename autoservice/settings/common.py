@@ -51,11 +51,13 @@ INSTALLED_APPS = [
 
     # Utils
     'utils',
+    'apps.search',
 
     # Package apps
     'ckeditor',  # Ckeditor
     'ckeditor_uploader',  # Ckeditor with file upload
     'django_cleanup.apps.CleanupConfig',  # Deletes old images
+    'haystack',  # Search API
 ]
 
 # Middlewares
@@ -107,7 +109,6 @@ AUTHENTICATION_BACKENDS = (
     'apps.accounts.backends.CaseInsensitiveModelBackend',
 )
 
-
 # ##### SECURITY CONFIGURATION ############################
 
 # The required SECRET_KEY is fetched at the end of this file
@@ -155,6 +156,7 @@ try:
 except IOError:
     try:
         from django.utils.crypto import get_random_string
+
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!$%&()=+-_'
         SECRET_KEY = get_random_string(50, chars)
         with open(SECRET_FILE, 'w') as f:
@@ -162,15 +164,13 @@ except IOError:
     except IOError:
         raise Exception('Could not open %s for writing!' % SECRET_FILE)
 
-
 # ##### PACKAGE CONFIGURATIONS ############################
 
 
 # Image cropping
 THUMBNAIL_PROCESSORS = (
-    'image_cropping.thumbnail_processors.crop_corners',
-) + thumbnail_settings.THUMBNAIL_PROCESSORS
-
+                           'image_cropping.thumbnail_processors.crop_corners',
+                       ) + thumbnail_settings.THUMBNAIL_PROCESSORS
 
 # CKEditor
 CKEDITOR_UPLOAD_PATH = 'editor_images'
@@ -195,3 +195,12 @@ CKEDITOR_CONFIGS = {
         )),
     },
 }
+
+# Haystack
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': join(PROJECT_ROOT, 'apps', 'search', 'whoosh_index'),
+    },
+}
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

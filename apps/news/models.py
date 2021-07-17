@@ -1,4 +1,5 @@
 from autoslug import AutoSlugField
+from django.contrib.admin import display
 from django.contrib.sessions.models import Session
 from django.db import models
 from image_cropping import ImageRatioField
@@ -31,6 +32,10 @@ class Article(models.Model):
 
     def active(self):
         return self.status == 'published'
+
+    @display(description='Тэги')
+    def tag_string(self, obj):
+        return ', '.join(item.name for item in obj.tags.all())
 
     class Meta:
         ordering = ('-date',)

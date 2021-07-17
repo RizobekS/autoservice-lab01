@@ -53,6 +53,7 @@
 {% else %}
     {% appointment_modal %}
 {% endif %}
+{% include 'modals/search.html' %}
 
 
 {% block modals %}
@@ -82,6 +83,7 @@
 <script src="{% static 'js/utils.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 <script src="{% static 'js/custom/ajax-remove-car-modal.js' %}"></script>
+<script src="{% static 'js/custom/ajax-search.js' %}"></script>
 <!-- Google Map Script -->
 <!--     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0pr5xCHpaTGv12l73IExOHDJisBP2FK4&callback=initGoogleMap"></script> -->
 

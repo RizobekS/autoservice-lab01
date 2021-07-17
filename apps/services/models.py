@@ -41,7 +41,6 @@ class Section(models.Model):
         while obj.parent_section:
             obj = obj.parent_section
             counter += 1
-        print(counter)
         return counter
 
     def active_product_set(self):

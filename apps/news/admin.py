@@ -26,10 +26,6 @@ class ArticleAdmin(ImageCroppingMixin, admin.ModelAdmin):
     )
     form = ArticleAdminForm
 
-    @admin.display(description='Тэги')
-    def tag_string(self, obj):
-        return ', '.join(item.name for item in obj.tags.all())
-
     @admin.display(description='Опубликовать')
     def make_published(self, request, queryset):
         updated = queryset.update(status='published')

@@ -896,49 +896,49 @@ function documentReadyInit() {
 
 
     //search modal
-    $(".search_modal_button").on('click', function(e){
+    $(".search_modal_button").on('click', function (e) {
         e.preventDefault();
         $('#search_modal').modal('show').find('input').first().focus();
     });
+    /* Overridden for Django */
     //search form processing - not need in WP
-    $('form.searchform, form.search-form').on('submit', function( e ){
-
-        e.preventDefault();
-        var $form = $(this);
-        var $searchModal = $('#search_modal');
-        $searchModal.find('div.searchform-respond').remove();
-
-        //checking on empty values
-        $($form).find('[type="text"], [type="search"]').each(function(index) {
-            var $thisField = $(this);
-            if (!$thisField.val().length) {
-                $thisField
-                    .addClass('invalid')
-                    .on('focus', function(){
-                        $thisField.removeClass('invalid')
-                    });
-            }
-        });
-        //if one of form fields is empty - exit
-        if ($form.find('[type="text"]').hasClass('invalid')) {
-            return;
-        }
-
-        $searchModal.modal('show');
-        //sending form data to PHP server if fields are not empty
-        var request = $form.serialize();
-        var ajax = jQuery.post( "search.php", request )
-            .done(function( data ) {
-                $searchModal.append('<div class="searchform-respond">'+data+'</div>');
-            })
-            .fail(function( data ) {
-                $searchModal.append('<div class="searchform-respond">Search cannot be done. You need PHP server to search.</div>');
-
-            })
-    });
+    // $('form.searchform, form.search-form').on('submit', function( e ){
+    //
+    //     e.preventDefault();
+    //     var $form = $(this);
+    //     var $searchModal = $('#search_modal');
+    //     $searchModal.find('div.searchform-respond').remove();
+    //
+    //     //checking on empty values
+    //     $($form).find('[type="text"], [type="search"]').each(function(index) {
+    //         var $thisField = $(this);
+    //         if (!$thisField.val().length) {
+    //             $thisField
+    //                 .addClass('invalid')
+    //                 .on('focus', function(){
+    //                     $thisField.removeClass('invalid')
+    //                 });
+    //         }
+    //     });
+    //     //if one of form fields is empty - exit
+    //     if ($form.find('[type="text"]').hasClass('invalid')) {
+    //         return;
+    //     }
+    //
+    //     $searchModal.modal('show');
+    //     //sending form data to PHP server if fields are not empty
+    //     var request = $form.serialize();
+    //     var ajax = jQuery.post( "search.php", request )
+    //         .done(function( data ) {
+    //             $searchModal.append('<div class="searchform-respond">'+data+'</div>');
+    //         })
+    //         .fail(function( data ) {
+    //             $searchModal.append('<div class="searchform-respond">Search cannot be done. You need PHP server to search.</div>');
+    //         })
+    // });
 
     //MailChimp subscribe form processing
-    $('.signup').on('submit', function( e ) {
+    $('.signup').on('submit', function (e) {
         e.preventDefault();
         var $form = $(this);
         // update user interface

@@ -33,6 +33,10 @@ class Promotion(models.Model):
         price = format_price(self.price, '₽')
         return f'{price}' if self.fixed_price else f'От {price}'
 
+    @display(description='Тэги')
+    def tag_string(self, obj):
+        return ', '.join(item.name for item in obj.tags.all())
+
     class Meta:
         ordering = ('-date',)
         verbose_name = 'Акция'

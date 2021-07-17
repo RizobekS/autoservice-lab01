@@ -24,10 +24,6 @@ class PromotionAdmin(ImageCroppingMixin, admin.ModelAdmin):
     )
     form = PromotionAdminForm
 
-    @admin.display(description='Тэги')
-    def tag_string(self, obj):
-        return ', '.join(item.name for item in obj.tags.all())
-
     @admin.display(description='Деактивировать')
     def deactivate(self, request, queryset):
         updated = queryset.update(active=False)

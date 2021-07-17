@@ -9,6 +9,7 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from haystack.generic_views import SearchView
 
 urlpatterns = [
     path('', include('apps.home.urls', namespace='home')),
@@ -21,6 +22,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
 
+    url(r'^search/$', SearchView.as_view(), name='haystack_search'),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
