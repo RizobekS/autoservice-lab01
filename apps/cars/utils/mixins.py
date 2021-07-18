@@ -56,7 +56,7 @@ class CarFilterPageSettingsMixin(PageSettingsMixin):
             return self.car_filter
 
         if hasattr(self, 'kwargs') and hasattr(self, 'request'):
-            urls = self.kwargs.get()
+            urls = self.kwargs.get('urls')
             if urls:
                 car_filter = urls.save(self.request)
                 set_car_filter(self.request, car_filter)
