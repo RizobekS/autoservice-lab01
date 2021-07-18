@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='appointment',
             name='user',
-            field=models.ForeignKey(default=0, on_delete=django.db.models.deletion.DO_NOTHING, to='accounts.user', verbose_name='Пользователь'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.DO_NOTHING, to='accounts.user', verbose_name='Пользователь'),
             preserve_default=False,
         ),
     ]
