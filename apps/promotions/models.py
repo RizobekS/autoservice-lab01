@@ -34,8 +34,8 @@ class Promotion(models.Model):
         return f'{price}' if self.fixed_price else f'От {price}'
 
     @display(description='Тэги')
-    def tag_string(self, obj):
-        return ', '.join(item.name for item in obj.tags.all())
+    def tag_string(self):
+        return ', '.join(item.name for item in self.tags.all())
 
     class Meta:
         ordering = ('-date',)

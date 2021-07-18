@@ -34,8 +34,8 @@ class Article(models.Model):
         return self.status == 'published'
 
     @display(description='Тэги')
-    def tag_string(self, obj):
-        return ', '.join(item.name for item in obj.tags.all())
+    def tag_string(self):
+        return ', '.join(item.name for item in self.tags.all())
 
     class Meta:
         ordering = ('-date',)
