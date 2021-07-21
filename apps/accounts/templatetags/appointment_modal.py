@@ -12,7 +12,7 @@ def appointment_modal(context):
     if request is None:
         raise ValueError('Usage of appointment_modal template tag requires request in context')
 
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.carfilter_set.exists():
         car = request.user.carfilter_set.latest()
     else:
         car = get_car_filter(request)

@@ -1,30 +1,33 @@
 <div class="dropdown-menu dropdown-menu-right ls" aria-labelledby="dropdown-shopping-cart">
-  <div class="widget woocommerce widget_shopping_cart">
-    <div class="widget__header">
-      <button class="dropdown-close btn btn-plain back fa fa-angle-left d-xl-none"><span>Назад</span></button>
-      <h4>Мой<span class="text-gradient">гараж</span></h4>
+    <div class="widget woocommerce widget_shopping_cart">
+        <div class="widget__header">
+            <button class="dropdown-close btn btn-plain back fa fa-angle-left d-xl-none"><span>Назад</span></button>
+            <h4>Мой<span class="text-gradient">гараж</span></h4>
+        </div>
+        <div class="widget_shopping_cart_content">
+            <ul class="product_list_widget">
+                {% for item in garage_cars %}
+                    <li class="garage_modal_item">
+                        <a href="{% url 'cars:car' item.url_args %}">
+                            <img src="{{ item.vendor.logo.url }}" alt="{{ item.vendor.name }}">
+                            <span class="product-title fw-500">{{ item.vendor.name }} {{ item.model.name }} - {{ item.year.name }}</span>
+                        </a>
+                        <div class="d-flex justify-content-between shop-item">
+                            <p>{{ item.modification.name }}</p>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'accounts:pa:remove_from_garage' item.id %}" class="remove" aria-label="Удалить эту запись"><i
+                                        class="fs-14 ico-trash color-main"></i></a>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p class="woocommerce-mini-cart__buttons buttons">
+                <a href="{% url 'accounts:pa:garage' %}" class="btn btn-small btn-outline-maincolor button checkout wc-forward">Посмотреть все</a>
+                {% if not user.is_authenticated %}
+                    <a href="#" data-toggle="modal" data-target="#modalLoginForm" class="btn btn-small btn-maincolor button wc-forward">Сохранить</a>
+                {% endif %}
+            </p>
+        </div>
     </div>
-    <div class="widget_shopping_cart_content">
-      <ul class="product_list_widget">
-        {% for item in garage_cars %}
-          <li class="garage_modal_item">
-            <a href="{% url 'cars:car' item.url_args %}">
-              <img src="{{ item.vendor.logo.url }}" alt="{{ item.vendor.name }}">
-              <span class="product-title fw-500">{{ item.vendor.name }} {{ item.model.name }} - {{ item.year.name }}</span>
-            </a>
-            <div class="d-flex justify-content-between shop-item">
-              <p>{{ item.modification.name }}</p>
-              <a href="{% url 'accounts:pa:remove_from_garage' item.id %}" class="remove" aria-label="Удалить эту запись"><i class="fs-14 ico-trash color-main"></i></a>
-            </div>
-          </li>
-        {% endfor %}
-      </ul>
-      <p class="woocommerce-mini-cart__buttons buttons">
-        <a href="{% url 'accounts:pa:garage' %}" class="btn btn-small btn-outline-maincolor button checkout wc-forward">Посмотреть все</a>
-        {% if not user.is_authenticated %}
-          <a href="#" data-toggle="modal" data-target="#modalLoginForm" class="btn btn-small btn-maincolor button wc-forward">Сохранить</a>
-        {% endif %}
-      </p>
-    </div>
-  </div>
 </div>
