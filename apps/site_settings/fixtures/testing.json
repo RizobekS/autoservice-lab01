@@ -175,6 +175,26 @@
     }
   },
   {
+    "model": "site_settings.staticinformation",
+    "pk": 12,
+    "fields": {
+      "name": "Время работы",
+      "add_to_context": true,
+      "key": "schedule",
+      "value": "Пн-Вс с 09:00 до 21:00"
+    }
+  },
+  {
+    "model": "site_settings.staticinformation",
+    "pk": 13,
+    "fields": {
+      "name": "Ссылка на Яндекс карту",
+      "add_to_context": true,
+      "key": "map_link",
+      "value": "https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=e470ae02-a4b8-471a-bde6-d4a12def6e51"
+    }
+  },
+  {
     "model": "site_settings.ceosetting",
     "pk": 1,
     "fields": {
@@ -415,6 +435,45 @@
       "title": "База знаний",
       "page": "Страница базы знаний",
       "key": "knowledge_base:list",
+      "variables": "",
+      "description": "",
+      "keywords": "",
+      "robots": ""
+    }
+  },
+  {
+    "model": "site_settings.ceosetting",
+    "pk": 20,
+    "fields": {
+      "title": "Сертификаты",
+      "page": "Статическая страница сертификатов",
+      "key": "static:certificates",
+      "variables": "",
+      "description": "",
+      "keywords": "",
+      "robots": ""
+    }
+  },
+  {
+    "model": "site_settings.ceosetting",
+    "pk": 21,
+    "fields": {
+      "title": "Отзывы",
+      "page": "Статическая страница отзывов",
+      "key": "static:reviews",
+      "variables": "",
+      "description": "",
+      "keywords": "",
+      "robots": ""
+    }
+  },
+  {
+    "model": "site_settings.ceosetting",
+    "pk": 22,
+    "fields": {
+      "title": "Свяжитесь с нами",
+      "page": "Страница контактов",
+      "key": "contacts:contacts",
       "variables": "",
       "description": "",
       "keywords": "",

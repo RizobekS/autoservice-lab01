@@ -3,13 +3,19 @@
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
 """
-# Django imports
 from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from haystack.generic_views import SearchView
+
+from utils.views import StaticPageView
+
+static_urlpatterns = [
+    path('certificates/', StaticPageView.as_view(template_name='static/certificates.html', viewname='static:certificates'), name='certificates'),
+    path('reviews/', StaticPageView.as_view(template_name='static/reviews.html', viewname='static:reviews'), name='reviews'),
+]
 
 urlpatterns = [
     path('', include('apps.home.urls', namespace='home')),
@@ -20,6 +26,9 @@ urlpatterns = [
     path('account/', include('apps.accounts.urls', namespace='accounts')),
     path('tags/', include('apps.tags.urls', namespace='tags')),
     path('knowledge-base/', include('apps.knowledge_base.urls', namespace='knowledge_base')),
+    path('', include('apps.contacts.urls', namespace='contacts')),
+
+    path('', include((static_urlpatterns, 'static'), namespace='static')),
 
     path('admin/', admin.site.urls),
 

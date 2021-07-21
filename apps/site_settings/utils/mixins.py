@@ -1,10 +1,11 @@
 from typing import Any, Dict
 
 from django.core.exceptions import ImproperlyConfigured
+from django.db.models import QuerySet
 from django.template import Template, Context
 from django.views.generic.base import ContextMixin
 
-from apps.site_settings.models import CEOSetting
+from apps.site_settings.models import CEOSetting, Branch
 
 
 class CEORenderer:
@@ -81,3 +82,27 @@ class CEOMixin(ContextMixin, CEORenderer):
     def get_context_data(self, **kwargs):
         kwargs.update(self.as_context())
         return super().get_context_data(**kwargs)
+
+
+class BranchesMixin(ContextMixin):
+    """
+        Adds list of branches into your context
+
+        branches_context_name: str - context name of variable to hold branch list. Defaults to 'branches'
+        branches_max: int - maximum number of branches. Defaults to infinity
+        branches_queryset: QuerySet - queryset to retrieve branches from. Defaults to Branch.objects
+    """
+    branches_context_name: str = 'branches'
+    branches_max: int = None
+    branches_queryset: QuerySet = Branch.objects
+
+    def get_branch_queryset(self):
+        return self.branches_queryset
+
+    def get_branch_list(self):
+        queryset = self.get_branch_queryset()
+        queryset = queryset.filter(active=True)
+        return queryset[:self.branches_max] if self.branches_max else queryset
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**{self.branches_context_name: self.get_branch_list()}, **kwargs)

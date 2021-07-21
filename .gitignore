@@ -17,5 +17,4 @@ coverage_html
 *.todo
 
 # Do not track development email backend output
-emails
-!templates/emails
+/emails

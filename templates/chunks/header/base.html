@@ -135,33 +135,33 @@ d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
                   <li>
                       <a href="about.html">Запчасти</a>
                   </li>
-                <li>
-                  <a href="about.html">О нас</a>
-                  <ul>
-                    <li>
-                      <a href="services.html">Сертификаты</a>
-                    </li>
-                      <li>
-                          <a href="services2.html">Отзывы</a>
-                      </li>
-                      <li>
-                          <a href="about.html">Галерея работ</a>
-                      </li>
-                  </ul>
-                </li>
+                  <li>
+                      <a href="{% url 'static:certificates' %}">О нас</a>
+                      <ul>
+                          <li>
+                              <a href="{% url 'static:certificates' %}">Сертификаты</a>
+                          </li>
+                          <li>
+                              <a href="{% url 'static:reviews' %}">Отзывы</a>
+                          </li>
+                          <li>
+                              <a href="about.html">Галерея работ</a>
+                          </li>
+                      </ul>
+                  </li>
                   <li>
                       <a href="{% url 'knowledge_base:list' %}">База знаний</a>
                   </li>
                   <!-- contacts -->
                   <li>
-                      <a href="contact.html">Контакты</a>
+                      <a href="{% url 'contacts:contacts' %}">Контакты</a>
                   </li>
                   <!-- eof contacts -->
               </ul>
                 <ul class="top-includes d-xl-block">
                     <li>
                         <!--modal search-->
-                  <span>
+                        <span>
                                         <a href="#" class="search_modal_button" title="Поиск по сайту">
                                             <i class="fa fa-search"></i>
                                             <span class="nav-text d-xl-none">Поиск</span>

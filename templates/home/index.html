@@ -3,17 +3,17 @@
 {% load static cropping %}
 
 {% block head_scripts %}
-  <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=e470ae02-a4b8-471a-bde6-d4a12def6e51" type="text/javascript"></script>
+    <script src="{{ map_link }}" type="text/javascript"></script>
 {% endblock %}
 
 {% block main %}
-  <section class="page_slider ds">
-    <div class="ds social-flex d-none d-lg-block">
-      <p class="social-icons with-border">
-        <span><a href="{{ facebook }}" class="fa fa-facebook border-icon rounded-icon" title="facebook"></a></span>
-        <span><a href="{{ telegram }}" class="fa fa-paper-plane border-icon rounded-icon" title="telegram"></a></span>
-        <span><a href="{{ instagram }}" class="fa fa-instagram border-icon rounded-icon" title="instagram"></a></span>
-      </p>
+    <section class="page_slider ds">
+        <div class="ds social-flex d-none d-lg-block">
+            <p class="social-icons with-border">
+                <span><a href="{{ facebook }}" class="fa fa-facebook border-icon rounded-icon" title="facebook"></a></span>
+                <span><a href="{{ telegram }}" class="fa fa-paper-plane border-icon rounded-icon" title="telegram"></a></span>
+                <span><a href="{{ instagram }}" class="fa fa-instagram border-icon rounded-icon" title="instagram"></a></span>
+            </p>
     </div>
       <div class="container">
           <div class="row">

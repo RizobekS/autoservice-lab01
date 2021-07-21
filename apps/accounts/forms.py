@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 
 from apps.accounts.models import User, Appointment
+from apps.site_settings.models import StaticInformation
 from utils.shortcuts import add_attrs
 
 
@@ -108,10 +109,10 @@ class AppointmentForm(forms.ModelForm):
         if not self.is_valid():
             raise ValueError('The form must be valid to send mails')
         branch = self.cleaned_data.get('branch')
-        site_name = get_current_site(request).name
+        site_name = StaticInformation.objects.get(key='site_name')
         send_mail(
-            render_to_string('emails/appointment/subject.html', context={'site_name': site_name}),
-            render_to_string('emails/appointment/body.html', context={'site_name': site_name, **self.cleaned_data}),
+            render_to_string('accounts/emails/appointment/subject.html', context={'site_name': site_name.value}),
+            render_to_string('accounts/emails/appointment/body.html', context={'site_name': site_name.value, **self.cleaned_data}),
             DEFAULT_FROM_EMAIL,
             list(branch.emailreceiver_set.all()),
             fail_silently=True

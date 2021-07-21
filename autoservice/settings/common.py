@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'apps.promotions',
     'apps.site_settings',
     'apps.knowledge_base',
+    'apps.contacts',
 
     # Utils
     'utils',
