@@ -24,7 +24,7 @@ class Article(models.Model):
     date = models.DateTimeField("Дата создания")
 
     image = models.ImageField('Изображение статьи', help_text='Возможность обрезки появится после сохранения', upload_to='articles/')
-    thumbnail = ImageRatioField(verbose_name='Обрезка изображения для страницы списка новостей', image_field='image', size='800x360')
+    thumbnail = ImageRatioField(verbose_name='Обрезка изображения для страницы списка новостей (800x360)', image_field='image', size='800x360')
     icon_thumbnail = ImageRatioField(verbose_name='Обрезка изображения для списка "Последние записи" (100x100)', image_field='image', size='100x100')
 
     def __str__(self):

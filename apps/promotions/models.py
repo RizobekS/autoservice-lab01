@@ -22,7 +22,7 @@ class Promotion(models.Model):
     text = models.TextField('Контент')
 
     image = models.ImageField('Изображение акции', help_text='Возможность обрезки появится после сохранения', upload_to='promotions/')
-    thumbnail = ImageRatioField(verbose_name='Обрезка изображения для страницы списка акций', image_field='image', size='800x360')
+    thumbnail = ImageRatioField(verbose_name='Обрезка изображения для страницы списка акций (800x360)', image_field='image', size='800x360')
     icon_thumbnail = ImageRatioField(verbose_name='Обрезка изображения для списка "Другие акции" (100x100)', image_field='image', size='100x100')
 
     def __str__(self):
