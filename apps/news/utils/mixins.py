@@ -12,8 +12,10 @@ class LatestArticlesMixin(ContextMixin):
         Tries to exclude current record if object variable is found
 
         max_articles: int - Number of Articles to retrieve, 10 by default
+        context_name_articles: str - name of article list variable in context
     """
-    max_articles = 10
+    max_articles: int = 10
+    context_name_articles: str = 'latest_articles'
 
     def get_latest_articles(self) -> List[Article]:
         if hasattr(self, 'object'):
@@ -25,7 +27,7 @@ class LatestArticlesMixin(ContextMixin):
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context['latest_articles'] = self.get_latest_articles()
+        context[self.context_name_articles] = self.get_latest_articles()
         return context
 
 
