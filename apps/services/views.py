@@ -8,6 +8,7 @@ from utils.breadcrumbs.types import Breadcrumb
 from .models import Section, Product
 from .utils.helpers import service_url
 from .utils.mixins import ProductsMixin, SectionsMixin, SingleSectionMixin
+from ..site_settings.models import StaticInformation
 
 
 class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSettingsMixin):
@@ -77,7 +78,7 @@ class ProductView(DetailView, SingleSectionMixin, ProductsMixin, CarFilterPageSe
 
     # #### CarFilterPageSettingsMixin ####
 
-    viewname = 'services:section'
+    viewname = 'services:product'
 
     def get_initial_breadcrumbs(self) -> List[Breadcrumb]:
         breadcrumbs = []
@@ -102,6 +103,9 @@ class ProductView(DetailView, SingleSectionMixin, ProductsMixin, CarFilterPageSe
         kwargs.update({
             'image_url': cropped_thumbnail(None, self.object, 'thumbnail_1960x600'),
             'image_alt': self.object.title,
+            'happy_clients': StaticInformation.objects.get(key='advantages__happy_clients').value,
+            'orders': StaticInformation.objects.get(key='advantages__orders').value,
+            'positive_reviews': StaticInformation.objects.get(key='advantages__positive_reviews').value,
         })
         return super().get_context_data(**kwargs)
 

@@ -1,0 +1,35 @@
+<div class="widget widget_post_tabs small-tabs">
+
+    <h5 class="widget-title">Стоимость работ</h5>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active show" href="#widget-tab4" role="tab" data-toggle="tab" aria-selected="true">Работа</a>
+        </li>
+        {% if product.spare_parts.exists %}
+            <li class="nav-item">
+                <a class="nav-link" href="#widget-tab5" role="tab" data-toggle="tab" aria-selected="false">Работа+запчасти</a>
+            </li>
+        {% endif %}
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content top-color-border no-border">
+        <div class="tab-pane fade in active show" id="widget-tab4">
+
+            {% include 'services/chunks/blocks/product_vertical-item.html' %}
+
+        </div><!-- eof tab -->
+        {% if product.spare_parts.exists %}
+            <div class="tab-pane fade" id="widget-tab5">
+
+                {% include 'services/chunks/blocks/product_vertical-item.html' %}
+                {% for spare_part in product.spare_parts.all %}
+                    {% include 'services/chunks/blocks/spare-part_vertical-item.html' %}
+                {% endfor %}
+
+            </div>{% endif %}
+    </div><!-- eof tab-content -->
+
+</div>

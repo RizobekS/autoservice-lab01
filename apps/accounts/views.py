@@ -168,7 +168,7 @@ class PersonalAreaEdit(View, PersonalAreaMixin):
 
         return render(request, self.template_name, self.get_context_data(**context))
 
-    def post(self, request: HttpRequest):
+    def post(self, request):
         action = request.POST.get('action')
         if not action:
             raise Http404('No action field')

@@ -87,8 +87,9 @@
                                 <div class="col-sm-12">
                                     <div class="form-group has-placeholder">
                                         <label for="name">Имя </label>
-                                        <input type="text" aria-required="true" size="30" value="{{ form.name.value|default_if_none:'' }}" name="{{ form.name.name }}" id="name"
-                                               class="form-control" placeholder="Имя">
+                                        <input type="text" aria-required="true"
+                                               size="{{ form.fields.name.max_length|default_if_none:'' }}" maxlength="{{ form.fields.name.max_length|default_if_none:'' }}"
+                                               value="{{ form.name.value|default_if_none:'' }}" name="{{ form.name.name }}" id="name" class="form-control" placeholder="Имя">
                                         {% field_errors form.name %}
                                     </div>
                                 </div>
@@ -97,16 +98,17 @@
                                 <div class="col-sm-12">
                                     <div class="form-group has-placeholder">
                                         <label for="email">Email</label>
-                                        <input type="email" aria-required="true" size="30" value="{{ form.email.value|default_if_none:'' }}" name="{{ form.email.name }}" id="email"
-                                               class="form-control" placeholder="Email">
+                                        <input type="email" aria-required="true"
+                                               size="{{ form.fields.email.max_length|default_if_none:'' }}" maxlength="{{ form.fields.email.max_length|default_if_none:'' }}"
+                                               value="{{ form.email.value|default_if_none:'' }}" name="{{ form.email.name }}" id="email" class="form-control" placeholder="Email">
                                         {% field_errors form.email %}
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group has-placeholder textarea">
                                         <label for="message">Сообщение</label>
-                                        <textarea aria-required="true" rows="4" cols="45" name="{{ form.text.name }}" id="message" class="form-control"
-                                                  placeholder="Сообщение">{{ form.text.value|default_if_none:'' }}</textarea>
+                                        <textarea aria-required="true" rows="4" cols="45" name="{{ form.text.name }}" id="message" class="form-control" placeholder="Сообщение"
+                                                  maxlength="{{ form.fields.text.max_length|default_if_none:'' }}">{{ form.text.value|default_if_none:'' }}</textarea>
                                         {% field_errors form.message %}
                                     </div>
                                 </div>

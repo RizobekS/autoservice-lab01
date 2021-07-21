@@ -1,0 +1,17 @@
+{% load service_url %}
+{% if other_products %}
+    <h6 class="widget-title">Другие работы<br>по {{ current_section.title_dative }}</h6>
+
+    <div class="ls ms widget-service">
+        <a class="mb-20 icon-inline">
+            <span class="icon-styled color-main fs-40"><i class="ico-tow-truck"></i></span>
+            <span class="fw-500 color-dark">{{ product.title }}</span>
+        </a>
+        {% for item in other_products %}
+            <a href="{% service_url item %}" class="mb-20 icon-inline">
+                <span class="icon-styled color-main fs-40"><i class="ico-tow-truck"></i></span>
+                <span class="fw-500 color-dark">{{ item.title }}</span>
+            </a>
+        {% endfor %}
+    </div>
+{% endif %}
