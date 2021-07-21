@@ -3,7 +3,7 @@
     "model": "site_settings.emailreceiver",
     "pk": 1,
     "fields": {
-      "name": "Давид",
+      "name": "�����",
       "email": "bydev2001@gmail.com",
       "foreign_key": 1
     }
@@ -12,7 +12,7 @@
     "model": "site_settings.emailreceiver",
     "pk": 2,
     "fields": {
-      "name": "Ахмад",
+      "name": "�����",
       "email": "ada_170301@mail.ru",
       "foreign_key": 1
     }
@@ -21,7 +21,7 @@
     "model": "site_settings.emailreceiver",
     "pk": 3,
     "fields": {
-      "name": "Давид",
+      "name": "�����",
       "email": "bydev2001@gmail.com",
       "foreign_key": 2
     }
@@ -30,7 +30,7 @@
     "model": "site_settings.emailreceiver",
     "pk": 4,
     "fields": {
-      "name": "Ахмад",
+      "name": "�����",
       "email": "ada_170301@mail.ru",
       "foreign_key": 2
     }
@@ -39,7 +39,7 @@
     "model": "site_settings.emailreceiver",
     "pk": 5,
     "fields": {
-      "name": "Пример",
+      "name": "������",
       "email": "exampe@example.com",
       "foreign_key": 2
     }
@@ -48,9 +48,9 @@
     "model": "site_settings.branch",
     "pk": 1,
     "fields": {
-      "name": "Филиал #1",
+      "name": "������ #1",
       "active": true,
-      "address": "Энгельса, 33/1",
+      "address": "��������, 33/1",
       "phone": "+7 (921) 598-04-46"
     }
   },
@@ -58,9 +58,9 @@
     "model": "site_settings.branch",
     "pk": 2,
     "fields": {
-      "name": "Филиал #2",
+      "name": "������ #2",
       "active": true,
-      "address": "Хасанская, 5",
+      "address": "���������, 5",
       "phone": "+7(812) 325-40-42"
     }
   },
@@ -68,7 +68,7 @@
     "model": "site_settings.staticinformation",
     "pk": 1,
     "fields": {
-      "name": "Эл. почта (в шапке и в футере)",
+      "name": "��. ����� (� ����� � � ������)",
       "add_to_context": true,
       "key": "email",
       "value": "example@example.com"
@@ -78,7 +78,7 @@
     "model": "site_settings.staticinformation",
     "pk": 2,
     "fields": {
-      "name": "Инстаграм",
+      "name": "���������",
       "add_to_context": true,
       "key": "instagram",
       "value": "https://www.instagram.com/"
@@ -98,7 +98,7 @@
     "model": "site_settings.staticinformation",
     "pk": 4,
     "fields": {
-      "name": "ВКонтакте",
+      "name": "���������",
       "add_to_context": true,
       "key": "vk",
       "value": "https://vk.com/feed"
@@ -118,7 +118,7 @@
     "model": "site_settings.staticinformation",
     "pk": 6,
     "fields": {
-      "name": "Телеграм",
+      "name": "��������",
       "add_to_context": true,
       "key": "telegram",
       "value": "https://xn--80affa3aj0al.xn--80asehdb/#/login"
@@ -128,7 +128,7 @@
     "model": "site_settings.staticinformation",
     "pk": 7,
     "fields": {
-      "name": "Тел. номер (в футере)",
+      "name": "���. ����� (� ������)",
       "add_to_context": true,
       "key": "phone",
       "value": "+7 (812) 123-56-78"
@@ -138,17 +138,17 @@
     "model": "site_settings.staticinformation",
     "pk": 8,
     "fields": {
-      "name": "Название сайта",
+      "name": "�������� �����",
       "add_to_context": true,
       "key": "site_name",
-      "value": "Автосервис"
+      "value": "����������"
     }
   },
   {
     "model": "site_settings.staticinformation",
     "pk": 9,
     "fields": {
-      "name": "Адрес (в футере)",
+      "name": "����� (� ������)",
       "add_to_context": true,
       "key": "address",
       "value": "2688 Simpson Avenue Harrisburg, PA 17109"
@@ -158,7 +158,7 @@
     "model": "site_settings.staticinformation",
     "pk": 10,
     "fields": {
-      "name": "Суффикс тега title (только внутри тега title)",
+      "name": "������� ���� title (������ ������ ���� title)",
       "add_to_context": true,
       "key": "title_suffix",
       "value": ""
@@ -168,7 +168,7 @@
     "model": "site_settings.staticinformation",
     "pk": 11,
     "fields": {
-      "name": "Префикс тега title (только внутри тега title)",
+      "name": "������� ���� title (������ ������ ���� title)",
       "add_to_context": true,
       "key": "title_prefix",
       "value": ""
@@ -178,8 +178,8 @@
     "model": "site_settings.ceosetting",
     "pk": 1,
     "fields": {
-      "title": "Домашняя страница",
-      "page": "Главная",
+      "title": "�������� ��������",
+      "page": "�������",
       "key": "home:index",
       "variables": "",
       "description": "",
@@ -191,10 +191,10 @@
     "model": "site_settings.ceosetting",
     "pk": 2,
     "fields": {
-      "title": "Услуги для {{vendor}} {{model}} {{year}} {{modification}}",
-      "page": "Страница машины",
+      "title": "������ ��� {{vendor}} {{model}} {{year}} {{modification}}",
+      "page": "�������� ������",
       "key": "cars:car",
-      "variables": "{{vendor}} - название производителя ,   {{model}} - название модели ,   {{year}} - год выпуска ,   {{modification}} - название модификации  <i>(если переменная недоступна - вместо неё будет пустая строка)</i>",
+      "variables": "{{vendor}} - �������� ������������� ,   {{model}} - �������� ������ ,   {{year}} - ��� ������� ,   {{modification}} - �������� �����������  <i>(���� ���������� ���������� - ������ �� ����� ������ ������)</i>",
       "description": "",
       "keywords": "",
       "robots": ""
@@ -205,9 +205,9 @@
     "pk": 3,
     "fields": {
       "title": "{{section}} {{vendor}} {{model}}",
-      "page": "Страница раздела с выбранной машиной",
+      "page": "�������� ������� � ��������� �������",
       "key": "services:section_car",
-      "variables": "{{section}} - название текущего раздела ,  {{vendor}} - название производителя ,   {{model}} - название модели ,   {{year}} - год выпуска ,   {{modification}} - название модификации  <i>(если переменная недоступна - вместо неё будет пустая строка)</i>",
+      "variables": "{{section}} - �������� �������� ������� ,  {{vendor}} - �������� ������������� ,   {{model}} - �������� ������ ,   {{year}} - ��� ������� ,   {{modification}} - �������� �����������  <i>(���� ���������� ���������� - ������ �� ����� ������ ������)</i>",
       "description": "",
       "keywords": "",
       "robots": ""
@@ -218,9 +218,9 @@
     "pk": 4,
     "fields": {
       "title": "{{section}}",
-      "page": "Страница раздела",
+      "page": "�������� �������",
       "key": "services:section",
-      "variables": "{{section}} - название текущего раздела",
+      "variables": "{{section}} - �������� �������� �������",
       "description": "",
       "keywords": "",
       "robots": ""
@@ -230,10 +230,10 @@
     "model": "site_settings.ceosetting",
     "pk": 5,
     "fields": {
-      "title": "{{product}} для {{vendor}} {{model}}",
-      "page": "Страница товара/услуги с выбранной машиной",
+      "title": "{{product}} ��� {{vendor}} {{model}}",
+      "page": "�������� ������/������ � ��������� �������",
       "key": "services:product_car",
-      "variables": "{{section}} - заголовок родительского раздела ,   {{product}} - название товара/услуги ,   {{vendor}} - название производителя ,   {{model}} - название модели ,   {{year}} - год выпуска ,   {{modification}} - название модификации  <i>(если переменная недоступна - вместо неё будет пустая строка)</i>",
+      "variables": "{{section}} - ��������� ������������� ������� ,   {{product}} - �������� ������/������ ,   {{vendor}} - �������� ������������� ,   {{model}} - �������� ������ ,   {{year}} - ��� ������� ,   {{modification}} - �������� �����������  <i>(���� ���������� ���������� - ������ �� ����� ������ ������)</i>",
       "description": "",
       "keywords": "",
       "robots": ""
@@ -244,9 +244,9 @@
     "pk": 6,
     "fields": {
       "title": "{{product}}",
-      "page": "Страница товара/услуги",
+      "page": "�������� ������/������",
       "key": "services:product",
-      "variables": "{{section}} - заголовок родительского раздела ,   {{product}} - название товара/услуги",
+      "variables": "{{section}} - ��������� ������������� ������� ,   {{product}} - �������� ������/������",
       "description": "",
       "keywords": "",
       "robots": ""
@@ -256,8 +256,8 @@
     "model": "site_settings.ceosetting",
     "pk": 7,
     "fields": {
-      "title": "Акции",
-      "page": "Список всех акций",
+      "title": "�����",
+      "page": "������ ���� �����",
       "key": "promotions:list",
       "variables": "",
       "description": "",
@@ -269,10 +269,10 @@
     "model": "site_settings.ceosetting",
     "pk": 8,
     "fields": {
-      "title": "Акция -- {{promotion}}",
-      "page": "Акция",
+      "title": "����� -- {{promotion}}",
+      "page": "�����",
       "key": "promotions:promotion",
-      "variables": "{{promotion}} - название акции",
+      "variables": "{{promotion}} - �������� �����",
       "description": "",
       "keywords": "",
       "robots": ""
@@ -282,10 +282,10 @@
     "model": "site_settings.ceosetting",
     "pk": 9,
     "fields": {
-      "title": "Статья -- {{article}}",
-      "page": "Статья",
+      "title": "������ -- {{article}}",
+      "page": "������",
       "key": "news:article",
-      "variables": "{{article}} - заголовок статьи",
+      "variables": "{{article}} - ��������� ������",
       "description": "",
       "keywords": "",
       "robots": ""
@@ -295,8 +295,8 @@
     "model": "site_settings.ceosetting",
     "pk": 10,
     "fields": {
-      "title": "Теги",
-      "page": "Страница тегов",
+      "title": "����",
+      "page": "�������� �����",
       "key": "tags:all",
       "variables": "",
       "description": "",
@@ -308,10 +308,10 @@
     "model": "site_settings.ceosetting",
     "pk": 11,
     "fields": {
-      "title": "Тег -- {{tag}}",
-      "page": "Страница тега",
+      "title": "��� -- {{tag}}",
+      "page": "�������� ����",
       "key": "tags:single",
-      "variables": "{{tag}} - название тега",
+      "variables": "{{tag}} - �������� ����",
       "description": "",
       "keywords": "",
       "robots": ""
@@ -321,8 +321,8 @@
     "model": "site_settings.ceosetting",
     "pk": 12,
     "fields": {
-      "title": "Вход",
-      "page": "Страница входа в аккаунт",
+      "title": "����",
+      "page": "�������� ����� � �������",
       "key": "accounts:login",
       "variables": "",
       "description": "",
@@ -334,8 +334,8 @@
     "model": "site_settings.ceosetting",
     "pk": 13,
     "fields": {
-      "title": "Регистрация",
-      "page": "Страница регистрации аккаунта пользователя",
+      "title": "�����������",
+      "page": "�������� ����������� �������� ������������",
       "key": "accounts:register",
       "variables": "",
       "description": "",
@@ -347,8 +347,8 @@
     "model": "site_settings.ceosetting",
     "pk": 14,
     "fields": {
-      "title": "Сброс пароля",
-      "page": "Сброс пароля пользователя",
+      "title": "����� ������",
+      "page": "����� ������ ������������",
       "key": "accounts:password:reset",
       "variables": "",
       "description": "",
@@ -360,8 +360,8 @@
     "model": "site_settings.ceosetting",
     "pk": 15,
     "fields": {
-      "title": "Сброс пароля",
-      "page": "Сброс пароля выполнен (ссылка отправлена на эл.почту)",
+      "title": "����� ������",
+      "page": "����� ������ �������� (������ ���������� �� ��.�����)",
       "key": "accounts:password:done",
       "variables": "",
       "description": "",
@@ -373,9 +373,48 @@
     "model": "site_settings.ceosetting",
     "pk": 16,
     "fields": {
-      "title": "Новый пароль",
-      "page": "Страница создания нового пароля при сбросе",
+      "title": "����� ������",
+      "page": "�������� �������� ������ ������ ��� ������",
       "key": "accounts:password:new-password",
+      "variables": "",
+      "description": "",
+      "keywords": "",
+      "robots": ""
+    }
+  },
+  {
+    "model": "site_settings.ceosetting",
+    "pk": 17,
+    "fields": {
+      "title": "{{title}}",
+      "page": "�������� ����������� �������",
+      "key": "knowledge_base:answered-question",
+      "variables": "{{title}} - ��������� ������� ,  {{answer}} - ����� (��� html �����)",
+      "description": "",
+      "keywords": "",
+      "robots": ""
+    }
+  },
+  {
+    "model": "site_settings.ceosetting",
+    "pk": 18,
+    "fields": {
+      "title": "{{title}}",
+      "page": "�������� ��������",
+      "key": "knowledge_base:symptom",
+      "variables": "{{title}} - ��������� �������� ,  {{answer}} - ����� (��� html �����)",
+      "description": "",
+      "keywords": "",
+      "robots": ""
+    }
+  },
+  {
+    "model": "site_settings.ceosetting",
+    "pk": 19,
+    "fields": {
+      "title": "���� ������",
+      "page": "�������� ���� ������",
+      "key": "knowledge_base:list",
       "variables": "",
       "description": "",
       "keywords": "",

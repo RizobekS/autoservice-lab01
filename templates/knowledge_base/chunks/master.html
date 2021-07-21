@@ -1,0 +1,14 @@
+{% load cropping %}
+<div class="widget widget_author_bio ls ms text-center">
+    <div class="item-media">
+        <img src="{% cropped_thumbnail master 'thumbnail' %}" alt="{{ master.name }}">
+    </div>
+    <div class="item-content mt-25">
+        <h6 class="fw-700 mb-10">
+            {{ master.name }}
+        </h6>
+        <p>
+            Отвечает {{ master.position_string }}<br>{{ branch.name }}
+        </p>
+    </div>
+</div>

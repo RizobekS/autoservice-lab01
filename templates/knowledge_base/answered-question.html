@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    {% include 'chunks/header/title.html' %}
+{% endblock %}
+
+{% block main %}
+
+    <section class="ls s-pt-55 s-pb-60 s-pt-lg-95 s-pb-lg-100 s-pt-xl-145 s-pb-xl-150">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-lg-3">
+
+                    {% include 'knowledge_base/chunks/master.html' with master=faq_entry.master %}
+                    {% include 'knowledge_base/chunks/tags.html' with tags=faq_entry.tags %}
+                    {% include 'knowledge_base/chunks/related.html' with reverse_viewname='knowledge_base:answered-question' %}
+
+                </div>
+                <div class="col-lg-9">
+                    {% for message in messages %}<p class="{{ message.extra_tags }} mb-0 mt-3">{{ message| safe }}</p>{% endfor %}
+                    <h3 class="special-heading"><span class="text-gradient">Вопрос</span> {{ faq_entry.title }}</h3>
+                    <div class="divider-40"></div>
+                    <div class="accordion" id="accordion01" role="tablist">
+                        <div class="card">
+
+
+                            <div id="collapse01" class="collapse show" role="tabpanel" aria-labelledby="collapse01_header" data-parent="#accordion01">
+                                <div class="card-body">
+
+                                    {{ faq_entry.answer| safe }}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% include 'knowledge_base/chunks/ask-form.html' %}
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

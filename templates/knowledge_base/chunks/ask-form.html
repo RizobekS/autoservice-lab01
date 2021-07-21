@@ -1,0 +1,36 @@
+{% load errors %}
+<div id="comments" class="post-comments comments-area rounded">
+    <h4 id="reply-title" class="fw-700 comment-reply-title">Задать<span class="text-gradient">свой вопрос</span></h4>
+
+    <div id="respond" class="comment-respond ls d-flex">
+        <form method="POST" id="commentform" class="comment-form" novalidate="">
+
+            {% csrf_token %}
+            {% non_field_errors form %}
+
+            <div class="comment-form-author form-group has-placeholder">
+                <label for="author">Имя</label>
+                <input class="form-control" id="author" name="{{ form.asking_name.name }}" type="text" value="" size="30"
+                       maxlength="{{ form.fields.asking_name.max_length }}" aria-required="true" required="required" placeholder="Ваше имя">
+                {% field_errors form.asking_name %}
+            </div>
+            <p class="comment-form-email form-group has-placeholder">
+                <label for="email">Email</label>
+                <input class="form-control" id="email" name="{{ form.asking_email.name }}" type="email" value="" size="30"
+                       maxlength="{{ form.fields.asking_email.max_length }}" aria-required="true" required="required" placeholder="Ваш email">
+                {% field_errors form.asking_email %}
+            </p>
+
+            <p class="comment-form-comment form-group has-placeholder">
+                <label for="comment">Суть вопроса</label>
+                <textarea class="form-control" id="comment" name="{{ form.question.name }}" cols="45" rows="8" maxlength="{{ form.fields.question.max_length }}"
+                          aria-required="true" required="required"
+                          placeholder="Суть вопроса"></textarea>
+                {% field_errors form.question %}
+            </p>
+            <p class="form-submit">
+                <button type="submit" class="btn btn-small btn-maincolor">Отправить</button>
+            </p>
+        </form>
+    </div>
+</div>

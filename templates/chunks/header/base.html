@@ -141,34 +141,26 @@ d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
                     <li>
                       <a href="services.html">Сертификаты</a>
                     </li>
-                    <li>
-                      <a href="services2.html">Отзывы</a>
-                    </li>
-                    <li>
-                      <a href="about.html">Галерея работ</a>
-                    </li>
+                      <li>
+                          <a href="services2.html">Отзывы</a>
+                      </li>
+                      <li>
+                          <a href="about.html">Галерея работ</a>
+                      </li>
                   </ul>
                 </li>
-                <li>
-                  <a href="faq.html">База знаний</a>
-                  <ul>
-                    <li>
-                      <a href="faq.html">Вопрос-ответ</a>
-                    </li>
-                    <li>
-                      <a href="faq2.html">Симптомы</a>
-                    </li>
-                  </ul>
-                </li>
-                <!-- contacts -->
-                <li>
-                  <a href="contact.html">Контакты</a>
-                </li>
-                <!-- eof contacts -->
+                  <li>
+                      <a href="{% url 'knowledge_base:list' %}">База знаний</a>
+                  </li>
+                  <!-- contacts -->
+                  <li>
+                      <a href="contact.html">Контакты</a>
+                  </li>
+                  <!-- eof contacts -->
               </ul>
-              <ul class="top-includes d-xl-block">
-                <li>
-                  <!--modal search-->
+                <ul class="top-includes d-xl-block">
+                    <li>
+                        <!--modal search-->
                   <span>
                                         <a href="#" class="search_modal_button" title="Поиск по сайту">
                                             <i class="fa fa-search"></i>

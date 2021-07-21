@@ -19,6 +19,7 @@ urlpatterns = [
     path('specials/', include('apps.promotions.urls', namespace='promotions')),
     path('account/', include('apps.accounts.urls', namespace='accounts')),
     path('tags/', include('apps.tags.urls', namespace='tags')),
+    path('knowledge-base/', include('apps.knowledge_base.urls', namespace='knowledge_base')),
 
     path('admin/', admin.site.urls),
 

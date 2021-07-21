@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'apps.tags',
     'apps.promotions',
     'apps.site_settings',
+    'apps.knowledge_base',
 
     # Utils
     'utils',

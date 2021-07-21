@@ -1,0 +1,187 @@
+[
+  {
+    "model": "knowledge_base.faqentry",
+    "pk": 1,
+    "fields": {
+      "title": "�urabitur ligula sapien tincidunt non",
+      "url": "curabitur-ligula-sapien-tincidunt-non",
+      "answered": true,
+      "question": "Curabitur ligula sapien tincidunt non Praesent ut ligula non mi varius sagittis. Cras varius. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. In ac felis quis tortor malesuada pretium. Etiam ultricies nisi vel augue.",
+      "answer": "<p>Fusce risus nisl, viverra et, tempor et, pretium in, sapien. Curabitur ullamcorper ultricies nisi. Morbi mattis ullamcorper velit. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Vestibulum rutrum, mi nec elementum vehicula, eros quam gravida nisl, id fringilla neque ante vel mi.</p>",
+      "date": "2021-07-18T16:47:57",
+      "asking_name": "Alex",
+      "asking_email": null,
+      "master": 2,
+      "branch": 1,
+      "tags": [
+        4,
+        7,
+        8
+      ]
+    }
+  },
+  {
+    "model": "knowledge_base.faqentry",
+    "pk": 2,
+    "fields": {
+      "title": "�onec mi odio faucibus at",
+      "url": "donec-mi-odio-faucibus-at",
+      "answered": true,
+      "question": "Donec mi odio faucibus at",
+      "answer": "<p>Aenean viverra rhoncus pede. Praesent egestas neque eu enim. Vestibulum volutpat pretium libero. Phasellus ullamcorper ipsum rutrum nunc. Sed aliquam ultrices mauris.</p>",
+      "date": "2021-07-18T17:11:32",
+      "asking_name": "Alex",
+      "asking_email": null,
+      "master": 5,
+      "branch": 1,
+      "tags": [
+        3,
+        4,
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "model": "knowledge_base.faqentry",
+    "pk": 3,
+    "fields": {
+      "title": "�uspendisse faucibus, nunc et pellenftesque egestas",
+      "url": "suspendisse-faucibus-nunc-et-pellentesque-egestas",
+      "answered": true,
+      "question": "Suspendisse faucibus, nunc et pellentesque egestas",
+      "answer": "<p>Phasellus nec sem in justo pellentesque facilisis. Nulla sit amet est. Nam at tortor in tellus interdum sagittis. Nulla facilisi. Nulla facilisi.</p>\r\n\r\n<p>Ut tincidunt tincidunt erat. Nunc nec neque. Aliquam eu nunc. Curabitur suscipit suscipit tellus. In ac felis quis tortor malesuada pretium.</p>\r\n\r\n<p>Maecenas malesuada. Etiam vitae tortor. Phasellus gravida semper nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Ut varius tincidunt libero.</p>\r\n\r\n<p>Etiam feugiat lorem non metus. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. Quisque malesuada placerat nisl. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Aenean vulputate eleifend tellus.</p>\r\n\r\n<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue, elit erat euismod orci, ac placerat dolor lectus quis orci. Ut non enim eleifend felis pretium feugiat. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a orci. Maecenas ullamcorper, dui et placerat feugiat, eros pede varius nisi, condimentum viverra felis nunc et lorem. Cras non dolor.</p>",
+      "date": "2021-07-19T21:29:12",
+      "asking_name": "Alex",
+      "asking_email": null,
+      "master": 4,
+      "branch": 1,
+      "tags": [
+        3,
+        4
+      ]
+    }
+  },
+  {
+    "model": "knowledge_base.faqentry",
+    "pk": 15,
+    "fields": {
+      "title": "�ellentesque habitant morbi tristique",
+      "url": "pellentesque-habitant-morbi-tristique",
+      "answered": true,
+      "question": "��� �� ��� ��?",
+      "answer": "<p>Nullam accumsan lorem in dui. Etiam sit amet orci eget eros faucibus tincidunt. Morbi mollis tellus ac sapien. Cras risus ipsum, faucibus ut, ullamcorper id, varius ac, leo. Phasellus ullamcorper ipsum rutrum nunc.</p>\r\n\r\n<p>Curabitur a felis in nunc fringilla tristique. Vestibulum rutrum, mi nec elementum vehicula, eros quam gravida nisl, id fringilla neque ante vel mi.. Praesent adipiscing. Phasellus magna.</p>\r\n\r\n<p>Praesent turpis. Morbi vestibulum volutpat enim. Curabitur nisi. Phasellus magna. Praesent adipiscing.</p>\r\n\r\n<p>Praesent adipiscing. Sed fringilla mauris sit amet nibh. Curabitur vestibulum aliquam leo. In ac felis quis tortor malesuada pretium. Fusce pharetra convallis urna.</p>\r\n\r\n<p>Nullam cursus lacinia erat. Aenean massa. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Sed magna purus, fermentum eu, tincidunt eu, varius ut, felis. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros.</p>",
+      "date": "2021-07-19T21:32:01",
+      "asking_name": "������� ���������",
+      "asking_email": null,
+      "master": 4,
+      "branch": 1,
+      "tags": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "knowledge_base.faqentry",
+    "pk": 16,
+    "fields": {
+      "title": null,
+      "url": null,
+      "answered": false,
+      "question": "��� ����� ������������ �������?",
+      "answer": null,
+      "date": null,
+      "asking_name": "������� ���������",
+      "asking_email": "zamorsky@gmail.com",
+      "master": null,
+      "branch": null,
+      "tags": []
+    }
+  },
+  {
+    "model": "knowledge_base.faqentry",
+    "pk": 17,
+    "fields": {
+      "title": null,
+      "url": null,
+      "answered": false,
+      "question": "Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Fusce a quam. In ut quam vitae odio lacinia tincidunt. Praesent nonummy mi in odio. Fusce fermentum odio nec arcu?",
+      "answer": null,
+      "date": null,
+      "asking_name": "��������� �����",
+      "asking_email": "shmel@gmail.com",
+      "master": null,
+      "branch": null,
+      "tags": []
+    }
+  },
+  {
+    "model": "knowledge_base.faqentry",
+    "pk": 18,
+    "fields": {
+      "title": null,
+      "url": null,
+      "answered": false,
+      "question": "123",
+      "answer": null,
+      "date": null,
+      "asking_name": "��������� �����",
+      "asking_email": "zamorsky@gmail.com",
+      "master": null,
+      "branch": null,
+      "tags": []
+    }
+  },
+  {
+    "model": "knowledge_base.symptom",
+    "pk": 1,
+    "fields": {
+      "title": "������������� � ������ ����� ������",
+      "url": "potreskivanie-v-zadnej-chasti-mashiny",
+      "active": true,
+      "answer": "<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce id purus. Aenean viverra rhoncus pede. Vestibulum eu odio. Phasellus leo dolor, tempus non, auctor et, hendrerit quis, nisi. Nam adipiscing.</p>\r\n\r\n<p><u>Cras risus ipsum, faucibus ut, ullamcorper id, varius ac, leo. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. Quisque rutrum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In hac habitasse platea dictumst.</u></p>\r\n\r\n<p><u>Praesent ac massa at ligula laoreet iaculis. Nam at tortor in tellus interdum sagittis. Quisque malesuada</u> placerat nisl. In consectetuer turpis ut velit. Aliquam erat volutpat.</p>\r\n\r\n<p>Integer tincidunt. Nullam cursus lacinia erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue, elit erat euismod orci, ac placerat dolor lectus quis orci. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a orci. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero.</p>",
+      "date": "2021-07-20T03:51:00",
+      "master": 3,
+      "branch": 1,
+      "tags": [
+        7
+      ]
+    }
+  },
+  {
+    "model": "knowledge_base.symptom",
+    "pk": 2,
+    "fields": {
+      "title": "��� � ������� ��������� ������",
+      "url": "shum-v-oblasti-perednego-kolesa",
+      "active": true,
+      "answer": "<p>Praesent ac massa at ligula laoreet iaculis. Ut non enim eleifend felis pretium feugiat. Quisque libero metus, condimentum nec, tempor a, commodo mollis, magna. Nullam accumsan lorem in dui. Aenean massa.</p>\r\n\r\n<p><em><strong>Aenean viverra rhoncus pede. Phasellus volutpat, metus eget egestas mollis, lacus lacus blandit dui, id egestas quam mauris ut lacus. In ac felis quis tortor malesuada pretium. Nulla facilisi. Sed augue ipsum, egestas nec, vestibulum et, malesuada adipiscing, dui.</strong></em></p>\r\n\r\n<p><strong>&nbsp;Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Nullam dictum felis eu pede mollis pretium. Praesent porttitor, nulla vitae posuere iaculis, arcu nisl dignissim dolor, a pretium mi sem ut ipsum. Sed a libero.</strong></p>\r\n\r\n<p>In ac felis quis tortor malesuada pretium. Fusce ac felis sit amet ligula pharetra condimentum. Curabitur suscipit suscipit tellus. Sed fringilla mauris sit amet nibh. Morbi vestibulum volutpat enim.</p>",
+      "date": "2021-07-20T05:21:49",
+      "master": 3,
+      "branch": 1,
+      "tags": [
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "model": "knowledge_base.symptom",
+    "pk": 3,
+    "fields": {
+      "title": "Etiam feugiat lorem non metus",
+      "url": "etiam-feugiat-lorem-non-metus",
+      "active": true,
+      "answer": "<p>Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. Nulla sit amet est. Praesent nec nisl a purus blandit viverra. Praesent metus tellus, elementum eu, semper a, adipiscing nec, purus.</p>\r\n\r\n<p>Praesent porttitor, nulla vitae posuere iaculis, arcu nisl dignissim dolor, a pretium mi sem ut ipsum. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Nulla sit amet est. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Nunc interdum lacus sit amet orci.</p>\r\n\r\n<p>Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Vestibulum turpis sem, aliquet eget, lobortis pellentesque, rutrum eu, nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Nam pretium turpis et arcu. Praesent congue erat at massa.</p>\r\n\r\n<p>Fusce fermentum odio nec arcu. Donec interdum, metus et hendrerit aliquet, dolor diam sagittis ligula, eget egestas libero turpis vel mi. Donec posuere vulputate arcu. Duis vel nibh at velit scelerisque suscipit. Cras sagittis.</p>\r\n\r\n<p>Vestibulum eu odio. Praesent egestas tristique nibh. Vivamus elementum semper nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce id purus. Praesent blandit laoreet nibh.</p>",
+      "date": "2021-07-20T11:08:01",
+      "master": 2,
+      "branch": 1,
+      "tags": [
+        6,
+        7,
+        8,
+        9
+      ]
+    }
+  }
+]
