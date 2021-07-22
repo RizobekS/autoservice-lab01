@@ -105,7 +105,7 @@ class PasswordChangeForm(BasePasswordChangeForm):
 
 
 class AppointmentForm(forms.ModelForm):
-    def send_mail(self, request):
+    def send_mail(self):
         if not self.is_valid():
             raise ValueError('The form must be valid to send mails')
         branch = self.cleaned_data.get('branch')
@@ -122,3 +122,19 @@ class AppointmentForm(forms.ModelForm):
         fields = ('user', 'full_name', 'car', 'phone', 'branch', 'datetime')
 
         model = Appointment
+
+# class TextualAppointmentForm(forms.ModelForm):
+#     def send_mail(self):
+#         # TODO: NOT READY!
+#         if not self.is_valid():
+#             raise ValueError('The form must be valid to send mails')
+#
+#         site_name = StaticInformation.objects.get(key='site_name')
+#         receiver = StaticInformation.objects.get(key='email')
+#         return send_mail(
+#             render_to_string('contacts/emails/subject.txt', context={'site_name': site_name.value}),
+#             render_to_string('contacts/emails/body.txt', context={'site_name': site_name.value, **self.cleaned_data}),
+#             DEFAULT_FROM_EMAIL,
+#             [receiver.value],
+#             fail_silently=True
+#         )
