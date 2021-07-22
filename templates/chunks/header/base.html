@@ -66,7 +66,7 @@ d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
                 {% endfor %}
                 <div class="d-none d-xl-block">
                     <a href="#" class="btn btn-small btn-outline-maincolor btn-appointment" data-toggle="modal"
-                       data-target="{% choose user.is_authenticated '#modalRegisterForm' '#modalLoginForm' %}" title="Онлайн запись">Онлайн запись</a>
+                       data-target="{{ user.is_authenticated|yesno:'#modalRegisterForm,#modalLoginForm' }}" title="Онлайн запись">Онлайн запись</a>
                 </div>
             </div>
                     </div>
@@ -191,11 +191,11 @@ d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
                       </a>
                   {% endif %}
                 </li>
-              </ul>
+                </ul>
                 <div class="top-add">
                     <div class="d-xl-none">
                         <a href="#" class="btn btn-small btn-outline-maincolor btn-appointment" data-toggle="modal"
-                           data-target="{% choose user.is_authenticated '#modalRegisterForm' '#modalLoginForm' %}" title="Онлайн запись">Онлайн запись</a>
+                           data-target="{{ user.is_authenticated|yesno:'#modalRegisterForm,#modalLoginForm' }}" title="Онлайн запись">Онлайн запись</a>
                     </div>
                 </div>
             </nav>

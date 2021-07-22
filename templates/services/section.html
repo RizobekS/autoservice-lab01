@@ -57,14 +57,14 @@
 
                                 <div class="card-header" role="tab" id="collapse{{ forloop.counter }}_header">
                                     <h6>
-                                        <a {% choose forloop.first '' 'class="collapsed"' %} data-toggle="collapse" href="#collapse{{ forloop.counter }}"
-                                                                                             aria-expanded="{% choose forloop.first 'true' 'false' %}"
-                                                                                             aria-controls="collapse{{ forloop.counter }}">
+                                        <a {% if forloop.first %}class="collapsed"{% endif %} data-toggle="collapse" href="#collapse{{ forloop.counter }}"
+                                           aria-expanded="{{ forloop.first|yesno:"true,false" }}"
+                                           aria-controls="collapse{{ forloop.counter }}">
                                             {{ item.title }}
                                         </a>
                                     </h6>
                                 </div>
-                                <div id="collapse{{ forloop.counter }}" class="collapse {% choose forloop.first 'show' %}" role="tabpanel"
+                                <div id="collapse{{ forloop.counter }}" class="collapse {% if forloop.first %}show{% endif %}" role="tabpanel"
                                      aria-labelledby="collapse{{ forloop.counter }}_header" data-parent="#accordion01">
                                     <div class="card-body">
                                         <div class="media align-items-center">

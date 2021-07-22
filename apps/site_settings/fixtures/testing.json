@@ -293,7 +293,7 @@
     "model": "site_settings.ceosetting",
     "pk": 6,
     "fields": {
-      "title": "{{product}} {{section}}",
+      "title": "{{product}}",
       "page": "Страница товара/услуги",
       "key": "services:product",
       "variables": "{{section}} - заголовок родительского раздела ,   {{product}} - название товара/услуги",

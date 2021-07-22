@@ -18,3 +18,6 @@ coverage_html
 
 # Do not track development email backend output
 /emails
+
+# Do not track Whoosh search indexes
+/apps/search/whoosh_index
