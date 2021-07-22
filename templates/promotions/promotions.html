@@ -7,27 +7,27 @@
 
 {% block main %}
 
-  <section class="ls s-pt-60 s-pb-0 s-pt-lg-100 s-pb-lg-40 s-pt-xl-150 s-pb-xl-90">
-    <div class="container">
-      <div class="row c-mb-30">
-        <main class="offset-lg-1 col-lg-10">
-          <div class="row isotope-wrapper masonry-layout">
-            {% for item in promotions %}
-              <div class="col-xl-4 col-md-6">
-                <article class="text-center content-padding vertical-item post type-post status-publish format-standard has-post-thumbnail ls ms">
+    <section class="ls s-pt-60 s-pb-0 s-pt-lg-100 s-pb-lg-40 s-pt-xl-150 s-pb-xl-90">
+        <div class="container">
+            <div class="row c-mb-30">
+                <main class="offset-lg-1 col-lg-10">
+                    <div class="row isotope-wrapper masonry-layout">
+                        {% for item in promotions %}
+                            <div class="col-xl-4 col-md-6">
+                                <article class="text-center content-padding vertical-item post type-post status-publish format-standard has-post-thumbnail ls ms">
 
 
-                  {% if item.tags.exists %}{% with item.tags.first as tag %}
-                    <div class="tagcloud">
-                      <a href="{% url 'tags:single' tag.url %}" class="tag-cloud-link"><span>{{ tag.name }}</span></a>
-                    </div>
-                  {% endwith %}{% endif %}
+                                    {% if item.tags.exists %}{% with tag=item.tags.first %}
+                                        <div class="tagcloud">
+                                            <a href="{% url 'tags:single' tag.url %}" class="tag-cloud-link"><span>{{ tag.name }}</span></a>
+                                        </div>
+                                    {% endwith %}{% endif %}
 
-                  <div class="item-media post-thumbnail">
-                    <a href="{% url 'promotions:promotion' item.url %}">
-                      <img src="{% cropped_thumbnail item 'thumbnail' %}" alt="{{ item.title }}">
-                    </a>
-                  </div>
+                                    <div class="item-media post-thumbnail">
+                                        <a href="{% url 'promotions:promotion' item.url %}">
+                                            <img src="{% cropped_thumbnail item 'thumbnail' %}" alt="{{ item.title }}">
+                                        </a>
+                                    </div>
 
                   <div class="item-content">
                     <header class="entry-header">
