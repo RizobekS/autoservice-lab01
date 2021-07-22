@@ -195,6 +195,36 @@
     }
   },
   {
+    "model": "site_settings.staticinformation",
+    "pk": 14,
+    "fields": {
+      "name": "Наши преимущества -- Довольных клиентов",
+      "add_to_context": true,
+      "key": "advantages__happy_clients",
+      "value": "1489"
+    }
+  },
+  {
+    "model": "site_settings.staticinformation",
+    "pk": 15,
+    "fields": {
+      "name": "Наши преимущества -- Заказ-нарядов",
+      "add_to_context": true,
+      "key": "advantages__orders",
+      "value": "1773"
+    }
+  },
+  {
+    "model": "site_settings.staticinformation",
+    "pk": 16,
+    "fields": {
+      "name": "Наши преимущества -- Положительных отзывов (в процентах)",
+      "add_to_context": true,
+      "key": "advantages__positive_reviews",
+      "value": "99"
+    }
+  },
+  {
     "model": "site_settings.ceosetting",
     "pk": 1,
     "fields": {
@@ -263,7 +293,7 @@
     "model": "site_settings.ceosetting",
     "pk": 6,
     "fields": {
-      "title": "{{product}}",
+      "title": "{{product}} {{section}}",
       "page": "Страница товара/услуги",
       "key": "services:product",
       "variables": "{{section}} - заголовок родительского раздела ,   {{product}} - название товара/услуги",
