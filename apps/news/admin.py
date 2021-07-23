@@ -4,9 +4,10 @@ from django.urls import reverse
 from django.utils.translation import ngettext
 from image_cropping import ImageCroppingMixin
 
+from utils.admin_actions import clone
 from utils.helpers import link_tag_safe
 from .forms import ArticleAdminForm
-from .models import *
+from .models import Article, Comment
 
 
 @admin.register(Article)
@@ -15,7 +16,7 @@ class ArticleAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_editable = ('status',)
     list_filter = ('status', 'date', 'tags', 'author')
     search_fields = ('title', 'short_description', 'text', 'status', 'author__name')
-    actions = ('make_published', 'make_pending', 'make_editing')
+    actions = ('make_published', 'make_pending', 'make_editing', clone)
 
     prepopulated_fields = {'url': ('title',), }
     autocomplete_fields = ('tags',)
@@ -56,7 +57,7 @@ class CommentAdmin(admin.ModelAdmin):
 
     @admin.display(description='Автор')
     def author_link(self, obj):
-        author: User = obj.author
+        author = obj.author
         url = reverse("admin:%s_%s_change" % ('accounts', 'user'), args=(author.id,))
         return link_tag_safe(url, author.get_full_name(), True)
 

@@ -1,8 +1,8 @@
 from django.contrib import admin
-from django.utils.html import strip_tags
 
 from apps.knowledge_base.forms import FaqEntryAdminForm
 from apps.knowledge_base.models import FaqEntry, Symptom
+from utils.admin_actions import clone
 
 
 @admin.register(FaqEntry)
@@ -10,6 +10,7 @@ class FaqEntryAdmin(admin.ModelAdmin):
     list_display = ('title_or_question', 'url', 'asking_name', 'tag_string', 'answered')
     list_filter = ('title', 'answered', 'master', 'tags', 'branch')
     search_fields = ('question', 'answer', 'asking_name', 'asking_email')
+    actions = (clone,)
 
     prepopulated_fields = {'url': ('title',), }
     fields = (('title', 'url'), 'answer', ('asking_name', 'asking_email'), 'question', 'answered', 'tags', 'master', 'branch', 'date')
@@ -30,6 +31,7 @@ class SymptomAdmin(admin.ModelAdmin):
     list_display = ('title', 'url', 'tag_string', 'active')
     list_filter = ('active', 'master', 'tags', 'branch')
     search_fields = ('title', 'answer')
+    actions = (clone,)
 
     prepopulated_fields = {'url': ('title',), }
     fields = (('title', 'url'), 'active', 'answer', 'tags', 'master', 'branch', 'date')

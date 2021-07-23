@@ -5,6 +5,7 @@ from image_cropping import ImageCroppingMixin
 from nested_inline.admin import NestedModelAdmin, NestedStackedInline
 
 from apps.cars.models import Vendor, Model, Year, Modification
+from utils.admin_actions import activate, deactivate, clone
 
 
 @admin.register(Vendor)
@@ -13,6 +14,7 @@ class VendorAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_filter = ('active',)
     search_fields = ('name', 'model__name', 'model__year__year', 'model__year__modification__name')
     prepopulated_fields = {'url': ('name',), }
+    actions = (activate, deactivate, clone)
 
     @admin.display(description='Связанные модели')
     def related_cars(self, obj):

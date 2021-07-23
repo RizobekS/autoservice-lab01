@@ -2,8 +2,9 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 from image_cropping import ImageCroppingMixin
 
+from utils.admin_actions import clone, deactivate, activate
 from .forms import SectionAdminForm, ProductAdminForm
-from .models import *
+from .models import Section, Product, SparePart
 
 
 @admin.register(Section)
@@ -16,6 +17,7 @@ class SectionAdmin(ImageCroppingMixin, admin.ModelAdmin):
 
     readonly_fields = ('child_products', 'child_sections')
     prepopulated_fields = {'url': ('title',), }
+    actions = (activate, deactivate, clone)
 
     save_on_top = True
 
@@ -39,12 +41,12 @@ class SectionAdmin(ImageCroppingMixin, admin.ModelAdmin):
             self.fieldsets[2][1]['classes'] = ('collapse',)
         return self.fieldsets
 
-    @display(description='Дочерние товары/услуги')
+    @admin.display(description='Дочерние товары/услуги')
     def child_products(self, obj) -> str:
         child_products = obj.product_set.filter(active=True)
         return mark_safe(f'<span style="margin-right: 60px">({child_products.count()}) {", ".join(section.title for section in child_products.all())}</span>')
 
-    @display(description='Дочерние разделы')
+    @admin.display(description='Дочерние разделы')
     def child_sections(self, obj) -> str:
         section_set = obj.section_set.filter(active=True)
         return mark_safe(f'<span style="margin-right: 60px">({section_set.count()}) {", ".join(section.title for section in section_set.all())}</span>')
@@ -65,6 +67,7 @@ class ProductAdmin(ImageCroppingMixin, admin.ModelAdmin):
 
     filter_horizontal = ('spare_parts', 'cars', 'similar_products')
     prepopulated_fields = {'url': ('title',), }
+    actions = (activate, deactivate, clone)
 
     save_on_top = True
 
@@ -89,6 +92,7 @@ class SparePartAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_display = ('title', 'url', 'verbose_price')
     list_filter = ('fixed_price',)
     search_fields = ('title', 'url', 'price')
+    actions = (clone,)
 
     fields = ('title', 'url', 'image', 'thumbnail_268x118', ('price', 'fixed_price'))
     prepopulated_fields = {'url': ('title',), }

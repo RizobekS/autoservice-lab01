@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 from apps.site_settings.models import EmailReceiver, Branch, StaticInformation, CEOSetting
+from utils.admin_actions import activate, deactivate, clone
 
 admin.site.site_header = 'EuroRepar - Админ панель'
 
@@ -28,6 +29,8 @@ class EmailReceiverInlineAdmin(admin.StackedInline):
 @admin.register(Branch)
 class BranchAdmin(admin.ModelAdmin):
     list_display = ('name', 'active', 'address', 'phone', 'receivers_string')
+    list_filter = ('active',)
+    actions = (activate, deactivate, clone)
 
     inlines = (EmailReceiverInlineAdmin,)
 
