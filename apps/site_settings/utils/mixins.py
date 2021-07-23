@@ -29,7 +29,7 @@ class CEORenderer:
         text = getattr(ceo_object, field_name)
 
         if text and ceo_object.variables:
-            template = Template(text)
+            template = Template(f'{{% autoescape off %}}{text}{{% endautoescape %}}')
             return template.render(Context(self.get_ceo_context())).strip()
         else:
             return text.strip()
