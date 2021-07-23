@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block header %}
-  {% include 'chunks/header/title.html' with no_background_image=True %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
 {% endblock %}
 
+
+{% block header %}
+    {% include 'chunks/header/title.html' with no_background_image=True %}
+{% endblock %}
+
+
+
 {% block main %}
-  <section class="ls s-pt-55 s-pb-20 s-pb-md-60 s-py-xl-145 c-gutter-60">
+    <section class="ls s-pt-55 s-pb-20 s-pb-md-60 s-py-xl-145 c-gutter-60">
     <div class="container">
       <div class="col-12">
         <h3 class="special-heading text-center">Почему<span class="text-gradient">выбирают</span> нас?</h3>

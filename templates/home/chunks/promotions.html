@@ -1,4 +1,6 @@
 <div class="row plan-content c-mt-0 c-mt-lg-10 c-mt-xl-0">
+
+
     {% for item in promotions %}
         <div class="col-xl-3 col-md-6">
             <div class="pricing-plan plan{{ forloop.counter }} cs">
@@ -16,7 +18,7 @@
                 </div>
 
                 <div class="plan-features">
-                    {{ item.short_description| safe }}
+                    {{ item.homepage_description| safe }}
                 </div>
 
                 <div><a href="{% url 'promotions:promotion' item.url %}" class="btn btn-small btn-outline-maincolor">Подробнее</a></div>
@@ -25,5 +27,7 @@
             </div>
         </div>
     {% endfor %}
+
+
     <div class="divider-145 d-none d-lg-block"></div>
 </div>

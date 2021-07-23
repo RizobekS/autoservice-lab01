@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
-{% load field_tags errors %}
+{% load static field_tags errors %}
 
-{% block header %}
-  {% include 'chunks/header/title.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
+    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
 {% endblock %}
 
+
+{% block header %}
+    {% include 'chunks/header/title.html' %}
+{% endblock %}
+
+
+
 {% block main %}
-  <section class="ls s-pt-60 s-pb-50 s-pt-lg-100 s-pb-lg-90 s-pt-xl-150 s-pb-xl-140">
+    <section class="ls s-pt-60 s-pb-50 s-pt-lg-100 s-pb-lg-90 s-pt-xl-150 s-pb-xl-140">
     <div class="container">
       <div class="row">
         <main class="col-lg-12">

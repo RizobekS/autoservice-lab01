@@ -26,10 +26,13 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/animations.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
-    <link rel="stylesheet" href="{% static 'css/utils.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
-    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
-    {% block links %}{% endblock %}
+
+    {% block links %}
+        <link rel="stylesheet" href="{% static 'css/utils.css' %}">
+        <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
+        <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
+    {% endblock %}
+
     {% block head_scripts %}{% endblock %}
     <script src="{% static 'js/vendor/modernizr-2.6.2.min.js' %}"></script>
     <!--[if lt IE 9]>

@@ -1,12 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load cropping %}
 
-{% block header %}
-  {% include 'chunks/header/title.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
 {% endblock %}
 
-{% block main %}
 
+{% block header %}
+    {% include 'chunks/header/title.html' %}
+{% endblock %}
+
+
+
+{% block main %}
     <section class="ls s-pt-60 s-pb-0 s-pt-lg-100 s-pb-lg-40 s-pt-xl-150 s-pb-xl-90">
         <div class="container">
             <div class="row c-mb-30">
@@ -50,5 +58,4 @@
       </div>
     </div>
   </section>
-
 {% endblock %}
