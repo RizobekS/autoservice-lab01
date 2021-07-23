@@ -5,7 +5,7 @@ from django.utils.translation import ngettext
 from image_cropping import ImageCroppingMixin
 
 from utils.admin_actions import clone
-from utils.helpers import link_tag_safe
+from utils.helpers import admin_reverse
 from .forms import ArticleAdminForm
 from .models import Article, Comment
 
@@ -57,26 +57,21 @@ class CommentAdmin(admin.ModelAdmin):
 
     @admin.display(description='Автор')
     def author_link(self, obj):
-        author = obj.author
-        url = reverse("admin:%s_%s_change" % ('accounts', 'user'), args=(author.id,))
-        return link_tag_safe(url, author.get_full_name(), True)
+        return admin_reverse(obj.author, obj.author.get_full_name())
 
     @admin.display(description='Статья')
     def article_link(self, obj):
-        url = reverse("admin:%s_%s_change" % ('news', 'article'), args=(obj.article.id,))
-        return link_tag_safe(url, obj.article.title, True)
+        return admin_reverse(obj.article, obj.article.title)
 
     @admin.display(description='Ответ на комментарий')
     def reply_to_link(self, obj):
-        if self.reply_to:
-            url = reverse("admin:%s_%s_change" % ('news', 'comment'), args=(obj.reply_to.id,))
-            return link_tag_safe(url, str(obj.reply_to), True)
-        else:
-            return None
+        return admin_reverse(obj.reply_to, str(obj.reply_to)) if obj.reply_to else None
 
     @admin.display(description='Дочерних комментариев')
     def deepcount(self, obj):
         overall = obj.child_comments.count()
         for item in obj.child_comments:
             overall += item.deepcount()
+            if overall >= 5:
+                return '>5'
         return overall

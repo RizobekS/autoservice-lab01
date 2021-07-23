@@ -1,5 +1,6 @@
 {{ object.title }}
 {{ object.date }}
+{{ object.category_string }}
 {{ object.tag_string }}
 {{ object.price }}
 {{ object.short_description }}

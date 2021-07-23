@@ -1,12 +1,14 @@
-<div class="widget widget_categories">
+{% if promotion.categories.exists %}
+    <div class="widget widget_categories">
 
-  <h5 class="widget-title">Типы акции</h5>
+        <h5 class="widget-title">Типы акции</h5>
 
-  <ul>
-    {% for item in promotion.tags.all %}
-      <li class="cat-item">
-        <a class="active" href="{% url 'tags:single' item.url %}">{{ item.name }}</a>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
+        <ul>
+            {% for item in promotion.categories.all %}
+                <li class="cat-item">
+                    <a class="active" href="{% url 'promotions:category' item.url %}">{{ item.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

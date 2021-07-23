@@ -509,5 +509,18 @@
       "keywords": "",
       "robots": ""
     }
+  },
+  {
+    "model": "site_settings.ceosetting",
+    "pk": 23,
+    "fields": {
+      "title": "Категория -- {{category}}",
+      "page": "Список акций с выбранной категорией",
+      "key": "promotions:category",
+      "variables": "{{category}} - Название категории",
+      "description": "",
+      "keywords": "",
+      "robots": ""
+    }
   }
 ]

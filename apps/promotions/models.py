@@ -7,19 +7,33 @@ from apps.tags.models import Tag
 from utils.helpers import format_price
 
 
+class Category(models.Model):
+    name = models.CharField('Название категории', max_length=500)
+    url = AutoSlugField(verbose_name='URL категории', unique=True, populate_from='title', editable=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
+
 class Promotion(models.Model):
     title = models.CharField('Название акции', max_length=500)
     url = AutoSlugField(verbose_name='URL акции', unique=True, populate_from='title', editable=True)
 
     tags = models.ManyToManyField(verbose_name='Тэги', to=Tag, blank=True)
+    categories = models.ManyToManyField(verbose_name='Категории (Типы)', to=Category, blank=True)
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления. Неактивные акции не отображаются нигде, кроме админ панели', default=True)
     date = models.DateField("Дата")
-    show_at_homepage = models.BooleanField('Отображать на главной', default=False)
     fixed_price = models.BooleanField('Фиксированная цена', help_text='Фикс. цена: "990₽", НЕ фикс. цена: "от 990₽"', default=False)
     price = models.FloatField('Цена за работу (₽)')
-
     short_description = models.CharField('Краткое описание (до 500 символов)', max_length=500)
     text = models.TextField('Контент')
+
+    show_at_homepage = models.BooleanField('Отображать на главной', default=False)
+    homepage_description = models.CharField('Краткое описание для главной страницы (до 500 символов)', max_length=500, blank=True)
 
     image = models.ImageField('Изображение акции', help_text='Возможность обрезки появится после сохранения', upload_to='promotions/')
     thumbnail = ImageRatioField(verbose_name='Обрезка изображения для страницы списка акций (800x360)', image_field='image', size='800x360')
@@ -32,6 +46,10 @@ class Promotion(models.Model):
     def verbose_price(self):
         price = format_price(self.price, '₽')
         return f'{price}' if self.fixed_price else f'От {price}'
+
+    @display(description='Категории')
+    def category_string(self):
+        return ', '.join(item.name for item in self.categories.all())
 
     @display(description='Тэги')
     def tag_string(self):

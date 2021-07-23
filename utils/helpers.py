@@ -1,10 +1,22 @@
 from pathlib import Path
 from typing import Any
 
+from django.db.models import Model
 from django.templatetags.static import static
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 ADMIN_EXAMPLES_ROOT = Path('images') / 'admin-examples'
+
+
+def admin_reverse(instance: Model, link_name: str = None):
+    """
+        Returns html link to admin change page of an item
+    """
+    if not isinstance(instance, Model):
+        raise ValueError('Instance must inherit from models.Model')
+    url = reverse("admin:%s_%s_change" % (instance._meta.model._meta.app_label, instance._meta.model_name), args=(instance.pk,))
+    return link_tag_safe(url, link_name, target_blank=True)
 
 
 def admin_example(image_name: str, name: str = 'Посмотреть'):
