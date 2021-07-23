@@ -1,4 +1,3 @@
-
 from django.contrib import admin
 from django.templatetags.static import static
 from django.utils.safestring import mark_safe
@@ -34,6 +33,7 @@ class YearInline(NestedStackedInline):
     inlines = (ModificationNestedInline,)
     extra = 1
 
+
 @admin.register(Model)
 class ModelAdmin(NestedModelAdmin):
     list_display = ('__str__', 'url', 'detailed_info')
@@ -42,15 +42,15 @@ class ModelAdmin(NestedModelAdmin):
     prepopulated_fields = {'url': ('name',), }
     inlines = (YearInline,)
 
-    class Media:
-        css = {
-            'all': (static('/css/custom-admin/nested-inlines.css'),)
-        }
-
     @admin.display(description='Года выпуска')
-    def detailed_info(self):
-        years = self.year_set
+    def detailed_info(self, obj):
+        years = obj.year_set
         if years.count() > 6:
             return f'{years.count()} разных годов выпуска'
         else:
             return mark_safe(', '.join([f'{year.year} <span style="color: grey">({year.modification_set.count()})</span>' for year in years.all()]))
+
+    class Media:
+        css = {
+            'all': (static('/css/custom-admin/nested-inlines.css'),)
+        }
