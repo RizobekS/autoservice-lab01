@@ -3,83 +3,83 @@
 {% load string_time_delta %}
 
 {% block header %}
-  {% include 'chunks/header/title.html' %}
+    {% include 'chunks/header/title.html' %}
 {% endblock %}
 
 {% block main %}
-  <section class="ls s-py-60 s-py-lg-100 s-py-xl-150 c-gutter-60">
-    <div class="container">
-      <div class="row">
+    <section class="ls s-py-60 s-py-lg-100 s-py-xl-150 c-gutter-60">
+        <div class="container">
+            <div class="row">
 
-        <main class="col-lg-7 col-xl-8">
-          <article class="vertical-item post type-event status-publish format-standard has-post-thumbnail events-post single-post">
+                <main class="col-lg-7 col-xl-8">
+                    <article class="vertical-item post type-event status-publish format-standard has-post-thumbnail events-post single-post">
 
 
-            <div class="item-media post-thumbnail rounded-top">
-              <img src="{{ promotion.image.url }}" alt="{{ promotion.title }}">
+                        <div class="item-media post-thumbnail rounded-top">
+                            <img src="{{ promotion.image.url }}" alt="{{ promotion.title }}">
+                        </div>
+
+                        {% include 'chunks/aside/social_buttons.html' %}
+
+                        <div class="item-content">
+                            <div class="divider-7"></div>
+                            <div class="entry-meta item-meta color-darkgrey mb-20">
+                                <i class="fa fa-calendar color-main"></i> <span>{{ promotion.date|date_delta }}</span>
+                            </div>
+                            <!-- .entry-meta -->
+                            <hr>
+
+                            <div class="entry-content">
+
+                                {{ promotion.text|safe }}
+
+                            </div>
+                            <!-- .entry-content -->
+
+                        </div>
+                        <!-- .item-content -->
+                    </article>
+
+
+                    <div id="comments" class="post-comments comments-area rounded">
+                        <h4 id="reply-title" class="fw-700 comment-reply-title">Оставить<span class="text-gradient">заявку</span></h4>
+
+                        <div id="respond" class="comment-respond ls d-flex">
+                            <form action="/" method="post" id="commentform" class="comment-form" novalidate="">
+                                <div class="comment-form-author form-group has-placeholder">
+                                    <label for="author">Имя</label>
+                                    <input class="form-control" id="author" name="author" type="text" value="" size="30" maxlength="245" aria-required="true" required="required"
+                                           placeholder="Ваше имя">
+                                </div>
+                                <p class="comment-form-email form-group has-placeholder">
+                                    <label for="email">Телефон</label>
+                                    <input class="form-control" id="email" name="email" type="email" value="" size="30" maxlength="100" aria-required="true" required="required"
+                                           placeholder="Ваш телефон">
+                                </p>
+
+                                <p class="comment-form-comment form-group has-placeholder">
+                                    <label for="comment">Ваш комментарий</label>
+                                    <textarea class="form-control" id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"
+                                              placeholder="Комментарий"></textarea>
+                                </p>
+                                <p class="form-submit">
+                                    <button type="button" class="btn btn-small btn-maincolor">Отправить</button>
+                                </p>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </main>
+
+                <aside class="col-lg-5 col-xl-4">
+                    {% include 'promotions/chunks/promotion_types.html' %}
+                    {% include 'chunks/aside/tags.html' with tags=promotion.tags.all %}
+                    {# {% include 'chunks/aside/instagram.html' %} #}
+                    {% include 'promotions/chunks/other_promotions.html' %}
+                </aside>
             </div>
 
-            {% include 'chunks/aside/social_buttons.html' %}
-
-            <div class="item-content">
-              <div class="divider-7"></div>
-              <div class="entry-meta item-meta color-darkgrey mb-20">
-                <i class="fa fa-calendar color-main"></i> <span>{{ promotion.date|date_delta }}</span>
-              </div>
-              <!-- .entry-meta -->
-              <hr>
-
-              <div class="entry-content">
-
-                {{ promotion.text|safe }}
-
-              </div>
-              <!-- .entry-content -->
-
-            </div>
-            <!-- .item-content -->
-          </article>
-
-
-          <div id="comments" class="post-comments comments-area rounded">
-            <h4 id="reply-title" class="fw-700 comment-reply-title">Оставить<span class="text-gradient">заявку</span></h4>
-
-            <div id="respond" class="comment-respond ls d-flex">
-              <form action="/" method="post" id="commentform" class="comment-form" novalidate="">
-                <div class="comment-form-author form-group has-placeholder">
-                  <label for="author">Имя</label>
-                  <input class="form-control" id="author" name="author" type="text" value="" size="30" maxlength="245" aria-required="true" required="required"
-                         placeholder="Ваше имя">
-                </div>
-                <p class="comment-form-email form-group has-placeholder">
-                  <label for="email">Телефон</label>
-                  <input class="form-control" id="email" name="email" type="email" value="" size="30" maxlength="100" aria-required="true" required="required"
-                         placeholder="Ваш телефон">
-                </p>
-
-                <p class="comment-form-comment form-group has-placeholder">
-                  <label for="comment">Ваш комментарий</label>
-                  <textarea class="form-control" id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"
-                            placeholder="Комментарий"></textarea>
-                </p>
-                <p class="form-submit">
-                  <button type="button" class="btn btn-small btn-maincolor">Отправить</button>
-                </p>
-              </form>
-            </div>
-
-          </div>
-
-        </main>
-
-        <aside class="col-lg-5 col-xl-4">
-          {% include 'promotions/chunks/promotion_types.html' %}
-          {% include 'chunks/aside/tags.html' with tags=promotion.tags.all %}
-          {# {% include 'chunks/aside/instagram.html' %} #}
-          {% include 'promotions/chunks/other_promotions.html' %}
-        </aside>
-      </div>
-
-    </div>
-  </section>
+        </div>
+    </section>
 {% endblock %}
