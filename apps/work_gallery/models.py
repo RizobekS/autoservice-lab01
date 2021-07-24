@@ -3,12 +3,13 @@ from django.db import models
 from image_cropping import ImageRatioField
 
 
-class Image(models.Model):
-    def image_path(self, filename):
-        return f'work_gallery/{self.work.url}/{filename}'
+def work_gallery_image_path(instance, filename):
+    return f'work_gallery/{instance.work.url}/{filename}'
 
+
+class Image(models.Model):
     alt = models.CharField('Описание фото', help_text='Используется внутри аттрибута alt=" "', max_length=128, null=True, blank=True)
-    image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to=image_path)
+    image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to=work_gallery_image_path)
     iframe_url = models.CharField('Ссылка на <iframe>', help_text='Оставьте поле пустым, чтобы отображать только изображение', max_length=512, null=True, blank=True)
     work = models.ForeignKey(verbose_name='Работа', to='Work', on_delete=models.CASCADE)
     list_thumbnail = ImageRatioField(verbose_name='Обрезка изображения', help_text='Для списка всех работ', image_field='image', free_crop=True)
