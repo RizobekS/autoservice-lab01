@@ -1,3 +1,5 @@
+import traceback
+
 from autoslug import AutoSlugField
 from django.db import models
 from image_cropping import ImageRatioField
@@ -18,9 +20,14 @@ class Image(models.Model):
         return self.image.name
 
     def max_size(self):
-        ratio = min(600 / self.image.width, 1)  # Downscale if image is wider than 600, do nothing otherwise
-        width, height = self.image.width * ratio, self.image.height * ratio
-        return f'{int(width)}x{int(height)}'
+        try:
+            ratio = min(600 / self.image.width, 1)  # Downscale if image is wider than 600, do nothing otherwise
+            width, height = self.image.width * ratio, self.image.height * ratio
+            return f'{int(width)}x{int(height)}'
+        except FileNotFoundError as exc:
+            print(f'FileNotFoundError: {exc}')
+            traceback.print_stack()
+            return '0x0'
 
     class Meta:
         verbose_name = 'Изображение'
