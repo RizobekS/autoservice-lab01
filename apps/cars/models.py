@@ -45,7 +45,7 @@ class CarFilter(models.Model, CarFilterUtilsMixin):
 class Vendor(models.Model):
     name = models.CharField('Название', max_length=200)
     url = AutoSlugField(verbose_name='URL марки', validators=[validate_double_slash_url], help_text='Заполняется на основе поля "Название"', populate_from='name',
-                        unique=True, editable=True)
+                        unique=True, editable=True, max_length=120)
     logo = models.ImageField('Логотип', help_text="Возможность обрезки появится после сохранения", upload_to='vendor_logos')
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления', default=True)
 
@@ -68,7 +68,8 @@ class Vendor(models.Model):
 
 class Model(models.Model):
     name = models.CharField('Название модели', max_length=200)
-    url = AutoSlugField(verbose_name='URL модели', validators=[validate_double_slash_url], help_text='Заполняется на основе поля "Название"', populate_from='name', editable=True)
+    url = AutoSlugField(verbose_name='URL модели', validators=[validate_double_slash_url], help_text='Заполняется на основе поля "Название"', populate_from='name', editable=True,
+                        max_length=120)
 
     vendor = models.ForeignKey(verbose_name='Производитель', to='Vendor', on_delete=models.CASCADE)  # TODO: change to on_delete=models.RESTRICT after final release
 

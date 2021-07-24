@@ -9,7 +9,7 @@ from utils.helpers import format_price
 
 class Category(models.Model):
     name = models.CharField('Название категории', max_length=500)
-    url = AutoSlugField(verbose_name='URL категории', unique=True, populate_from='title', editable=True)
+    url = AutoSlugField(verbose_name='URL категории', unique=True, populate_from='title', editable=True, max_length=120)
 
     def __str__(self):
         return self.name
@@ -21,7 +21,7 @@ class Category(models.Model):
 
 class Promotion(models.Model):
     title = models.CharField('Название акции', max_length=500)
-    url = AutoSlugField(verbose_name='URL акции', unique=True, populate_from='title', editable=True)
+    url = AutoSlugField(verbose_name='URL акции', unique=True, populate_from='title', editable=True, max_length=120)
 
     tags = models.ManyToManyField(verbose_name='Тэги', to=Tag, blank=True)
     categories = models.ManyToManyField(verbose_name='Категории (Типы)', to=Category, blank=True)

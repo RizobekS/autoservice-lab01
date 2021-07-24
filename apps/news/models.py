@@ -14,7 +14,7 @@ CONDITIONS = (('editing', 'Редактирование'), ('pending', 'Ожид
 
 class Article(models.Model):
     title = models.CharField('Заголовок статьи', max_length=500)
-    url = AutoSlugField(verbose_name='URL статьи', unique=True, populate_from='title', editable=True)
+    url = AutoSlugField(verbose_name='URL статьи', unique=True, populate_from='title', editable=True, max_length=120)
     text = models.TextField('Контент')
     short_description = models.CharField('Краткое описание (до 250 символов)', help_text='Заполняется для страницы тегов', max_length=250)
 

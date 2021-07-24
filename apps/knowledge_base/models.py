@@ -9,7 +9,7 @@ from apps.tags.models import Tag
 
 class FaqEntry(models.Model):
     title = models.CharField('Название вопроса', max_length=128, null=True, blank=True)
-    url = AutoSlugField(verbose_name='URL вопроса', unique=True, populate_from='title', editable=True, null=True, blank=True)
+    url = AutoSlugField(verbose_name='URL вопроса', unique=True, populate_from='title', editable=True, null=True, blank=True, max_length=120)
     answered = models.BooleanField('Отвечен', help_text='Неотвеченные вопросы не отображаются нигде, кроме админки', default=False)
     question = models.CharField('Вопрос', max_length=1024)
     answer = models.CharField('Ответ', max_length=2048, null=True, blank=True)
@@ -35,7 +35,7 @@ class FaqEntry(models.Model):
 
 class Symptom(models.Model):
     title = models.CharField('Название симптома', max_length=256)
-    url = AutoSlugField(verbose_name='URL симптома', unique=True, populate_from='title', editable=True)
+    url = AutoSlugField(verbose_name='URL симптома', unique=True, populate_from='title', editable=True, max_length=120)
     active = models.BooleanField('Отвечен', help_text='Неотвеченные симптомы не отображаются нигде, кроме админки', default=True)
     answer = models.CharField('Ответ', max_length=2048)
     tags = models.ManyToManyField(verbose_name='Теги', to=Tag, blank=True)

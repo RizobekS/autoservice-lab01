@@ -13,7 +13,7 @@ from utils.helpers import format_price
 class Section(models.Model):
     title = models.CharField('Название раздела', max_length=255)
     url = AutoSlugField(verbose_name='URL раздела', help_text='Заполняется на основе поля "Название раздела"',
-                        validators=[validate_double_slash_url], populate_from='title', unique=True, editable=True)
+                        validators=[validate_double_slash_url], populate_from='title', unique=True, editable=True, max_length=120)
     title_dative = models.CharField('Название раздела в Дательном падеже', help_text=TITLE_DATIVE_HELP_TEXT, max_length=255)
     active = models.BooleanField('Активно', help_text=ACTIVE_HELP_TEXT, default=True)
     show_at_homepage = models.BooleanField('Отображать на главной', help_text='В блоке "Наши услуги"', default=False)
@@ -63,7 +63,8 @@ class Section(models.Model):
 
 class Product(models.Model):
     title = models.CharField('Название товара/услуги', max_length=255)
-    url = AutoSlugField(verbose_name='URL товара/услуги', help_text='Заполняется на основе поля "Название товара/услуги"', populate_from='title', unique=True, editable=True)
+    url = AutoSlugField(verbose_name='URL товара/услуги', help_text='Заполняется на основе поля "Название товара/услуги"', populate_from='title', unique=True, editable=True,
+                        max_length=120)
     time_duration = models.CharField('Длительность выполнения', help_text='Заполняется текстом (пример: "2 часа")', max_length=63, null=True, blank=True)
     fixed_price = models.BooleanField('Фиксированная цена', help_text='Не фикскированная цена будет отображаться как "от 990₽"', default=False)
     price = models.FloatField('Цена за работу (₽)')
@@ -113,7 +114,7 @@ class Product(models.Model):
 
 class SparePart(models.Model):
     title = models.CharField('Название запчасти', max_length=255)
-    url = AutoSlugField(verbose_name='URL раздела', help_text='Заполняется на основе поля "Название запчасти"', populate_from='title', unique=True, editable=True)
+    url = AutoSlugField(verbose_name='URL раздела', help_text='Заполняется на основе поля "Название запчасти"', populate_from='title', unique=True, editable=True, max_length=120)
 
     image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to='services/spare_parts')
     thumbnail_268x118 = ImageRatioField(verbose_name='Обрезка изображения для картинки запчасти на странице услуги/товара (268x118)', image_field='image', size='268x118')
