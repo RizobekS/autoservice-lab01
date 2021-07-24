@@ -12,11 +12,14 @@ ADMIN_EXAMPLES_ROOT = Path('images') / 'admin-examples'
 def admin_reverse(instance: Model, link_name: str = None):
     """
         Returns html link to admin change page of an item
+
+        instance - required. Subclass of models.Model. It is used to retrieve model_name, app_label and PK field to construct url
+        link_name - optional. If provided - used inside <a> tag. If not provided - __str__ of instance is used instead
     """
     if not isinstance(instance, Model):
         raise ValueError('Instance must inherit from models.Model')
     url = reverse("admin:%s_%s_change" % (instance._meta.model._meta.app_label, instance._meta.model_name), args=(instance.pk,))
-    return link_tag_safe(url, link_name, target_blank=True)
+    return link_tag_safe(url, link_name if link_name else str(instance), target_blank=True)
 
 
 def admin_example(image_name: str, name: str = 'Посмотреть'):

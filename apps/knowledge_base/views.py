@@ -43,7 +43,9 @@ class AnsweredQuestionView(CreateView, PageSettingsMixin, FaqEntryListMixin):
     initial_breadcrumbs = [reverse_bc(viewname=KnowledgeBaseView.viewname)]
 
     def get_ceo_context(self) -> Dict[str, Any]:
-        return {'title': self.faq_entry.title, 'answer': strip_tags(self.faq_entry.answer)}
+        context = super().get_ceo_context()
+        context.update({'title': self.faq_entry.title, 'answer': strip_tags(self.faq_entry.answer)})
+        return context
 
     def get_page_title(self):
         return self.faq_entry.title
@@ -91,7 +93,9 @@ class SymptomView(DetailView, PageSettingsMixin, SymptomListMixin):
     initial_breadcrumbs = [reverse_bc(viewname=KnowledgeBaseView.viewname)]
 
     def get_ceo_context(self) -> Dict[str, Any]:
-        return {'title': self.object.title, 'answer': strip_tags(self.object.answer)}
+        context = super().get_ceo_context()
+        context.update({'title': self.object.title, 'answer': strip_tags(self.object.answer)})
+        return context
 
     def get_page_title(self):
         return self.object.title

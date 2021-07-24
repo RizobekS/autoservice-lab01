@@ -31,8 +31,16 @@ class Branch(models.Model):
 
 
 class StaticInformation(models.Model):
+    CATEGORIES = (
+        ('socials', 'Соц. сети'),
+        ('advantages', 'Наши преимущества'),
+        ('other_data', 'Другие данные'),
+        ('title', 'Заголовок')
+    )
+
     name = models.CharField('Название', max_length=200)
     add_to_context = models.BooleanField('Добавлять в контекст', default=True)
+    category = models.CharField('Категория', max_length=20, choices=CATEGORIES)
     key = models.CharField('Ключ', max_length=200)
     value = models.CharField('Значение', max_length=500, blank=True)
 
@@ -40,6 +48,7 @@ class StaticInformation(models.Model):
         return self.name
 
     class Meta:
+        ordering = ['category']
         verbose_name = 'Статическая информация'
         verbose_name_plural = 'Статическая информация'
 

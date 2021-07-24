@@ -64,7 +64,9 @@ class TagsListView(View, PageSettingsMixin):
         return [Breadcrumb(self.tag.name, reverse_lazy('tags:single', args=(self.tag.url,)))] if self.tag else []
 
     def get_ceo_context(self) -> Dict[str, Any]:
-        return {'tag': self.tag}
+        context = super().get_ceo_context()
+        context.update({'tag': self.tag})
+        return context
 
     # #### PRIVATE METHODS ####
 

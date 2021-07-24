@@ -32,7 +32,9 @@ class PromotionCategoryView(DetailView, PromotionsMixin, PageSettingsMixin):
         return queryset.filter(categories__url__exact=self.object.url)
 
     def get_ceo_context(self) -> Dict[str, Any]:
-        return {'category': self.object.name}
+        context = super().get_ceo_context()
+        context.update({'category': self.object.name})
+        return context
 
 
 class PromotionView(DetailView, PromotionsMixin, PageSettingsMixin):
@@ -55,7 +57,9 @@ class PromotionView(DetailView, PromotionsMixin, PageSettingsMixin):
         return [Breadcrumb(self.object.title, reverse('promotions:promotion', args=(self.object.url,)))]
 
     def get_ceo_context(self) -> Dict[str, Any]:
-        return {'promotion': self.get_object().title}
+        context = super().get_ceo_context()
+        context.update({'promotion': self.get_object().title})
+        return context
 
     # PromotionsMixin
     def get_promotions_exclude_kwargs(self) -> Dict[str, Any]:

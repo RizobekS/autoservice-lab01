@@ -1,0 +1,21 @@
+.inline-group fieldset .inline-related.dynamic-image_set {
+    padding: 20px 10px 20px 10px;
+    border-bottom: 1px solid var(--primary);
+}
+
+.inline-group fieldset .inline-related.dynamic-image_set h3 {
+    width: calc(100% + 10px);
+    margin: 0 -10px;
+}
+
+.inline-group fieldset .inline-related.dynamic-image_set:first-of-type {
+    padding-top: 0;
+}
+
+.inline-group fieldset .inline-related.dynamic-image_set:last-of-type {
+    border-bottom: 0;
+}
+
+.inline-group fieldset .add-row {
+    margin-top: 20px;
+}

@@ -70,6 +70,7 @@
     "fields": {
       "name": "Эл. почта (в шапке и в футере)",
       "add_to_context": true,
+      "category": "other_data",
       "key": "email",
       "value": "example@example.com"
     }
@@ -80,6 +81,7 @@
     "fields": {
       "name": "Инстаграм",
       "add_to_context": true,
+      "category": "socials",
       "key": "instagram",
       "value": "https://www.instagram.com/"
     }
@@ -90,6 +92,7 @@
     "fields": {
       "name": "Facebook",
       "add_to_context": true,
+      "category": "socials",
       "key": "facebook",
       "value": "https://www.facebook.com/"
     }
@@ -100,6 +103,7 @@
     "fields": {
       "name": "ВКонтакте",
       "add_to_context": true,
+      "category": "socials",
       "key": "vk",
       "value": "https://vk.com/feed"
     }
@@ -110,6 +114,7 @@
     "fields": {
       "name": "Whatsapp",
       "add_to_context": true,
+      "category": "socials",
       "key": "whatsapp",
       "value": "https://www.whatsapp.com/?lang=ru"
     }
@@ -120,6 +125,7 @@
     "fields": {
       "name": "Телеграм",
       "add_to_context": true,
+      "category": "socials",
       "key": "telegram",
       "value": "https://xn--80affa3aj0al.xn--80asehdb/#/login"
     }
@@ -130,6 +136,7 @@
     "fields": {
       "name": "Тел. номер (в футере)",
       "add_to_context": true,
+      "category": "other_data",
       "key": "phone",
       "value": "+7 (812) 123-56-78"
     }
@@ -140,6 +147,7 @@
     "fields": {
       "name": "Название сайта",
       "add_to_context": true,
+      "category": "other_data",
       "key": "site_name",
       "value": "Автосервис"
     }
@@ -150,6 +158,7 @@
     "fields": {
       "name": "Адрес (в футере)",
       "add_to_context": true,
+      "category": "other_data",
       "key": "address",
       "value": "2688 Simpson Avenue Harrisburg, PA 17109"
     }
@@ -160,6 +169,7 @@
     "fields": {
       "name": "Суффикс тега title (только внутри тега title)",
       "add_to_context": true,
+      "category": "title",
       "key": "title_suffix",
       "value": ""
     }
@@ -170,6 +180,7 @@
     "fields": {
       "name": "Префикс тега title (только внутри тега title)",
       "add_to_context": true,
+      "category": "title",
       "key": "title_prefix",
       "value": ""
     }
@@ -180,6 +191,7 @@
     "fields": {
       "name": "Время работы",
       "add_to_context": true,
+      "category": "other_data",
       "key": "schedule",
       "value": "Пн-Вс с 09:00 до 21:00"
     }
@@ -190,6 +202,7 @@
     "fields": {
       "name": "Ссылка на Яндекс карту",
       "add_to_context": true,
+      "category": "other_data",
       "key": "map_link",
       "value": "https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=e470ae02-a4b8-471a-bde6-d4a12def6e51"
     }
@@ -200,6 +213,7 @@
     "fields": {
       "name": "Наши преимущества -- Довольных клиентов",
       "add_to_context": true,
+      "category": "advantages",
       "key": "advantages__happy_clients",
       "value": "1489"
     }
@@ -210,6 +224,7 @@
     "fields": {
       "name": "Наши преимущества -- Заказ-нарядов",
       "add_to_context": true,
+      "category": "advantages",
       "key": "advantages__orders",
       "value": "1773"
     }
@@ -220,8 +235,53 @@
     "fields": {
       "name": "Наши преимущества -- Положительных отзывов (в процентах)",
       "add_to_context": true,
+      "category": "advantages",
       "key": "advantages__positive_reviews",
       "value": "99"
+    }
+  },
+  {
+    "model": "site_settings.staticinformation",
+    "pk": 17,
+    "fields": {
+      "name": "Google+",
+      "add_to_context": true,
+      "category": "socials",
+      "key": "google_plus",
+      "value": "https://myaccount.google.com/"
+    }
+  },
+  {
+    "model": "site_settings.staticinformation",
+    "pk": 18,
+    "fields": {
+      "name": "Twitter",
+      "add_to_context": true,
+      "category": "socials",
+      "key": "twitter",
+      "value": "https://twitter.com/?lang=ru"
+    }
+  },
+  {
+    "model": "site_settings.staticinformation",
+    "pk": 19,
+    "fields": {
+      "name": "Dribbble",
+      "add_to_context": true,
+      "category": "socials",
+      "key": "dribbble",
+      "value": "https://dribbble.com/"
+    }
+  },
+  {
+    "model": "site_settings.staticinformation",
+    "pk": 20,
+    "fields": {
+      "name": "YouTube",
+      "add_to_context": true,
+      "category": "socials",
+      "key": "youtube",
+      "value": "https://www.youtube.com/"
     }
   },
   {
@@ -518,6 +578,32 @@
       "page": "Список акций с выбранной категорией",
       "key": "promotions:category",
       "variables": "{{category}} - Название категории",
+      "description": "",
+      "keywords": "",
+      "robots": ""
+    }
+  },
+  {
+    "model": "site_settings.ceosetting",
+    "pk": 24,
+    "fields": {
+      "title": "Наши работы",
+      "page": "Список всех работ",
+      "key": "work_gallery:list",
+      "variables": "",
+      "description": "",
+      "keywords": "",
+      "robots": ""
+    }
+  },
+  {
+    "model": "site_settings.ceosetting",
+    "pk": 25,
+    "fields": {
+      "title": "Работа -- {{work}}",
+      "page": "Страницы работы",
+      "key": "work_gallery:single",
+      "variables": "{{work}} - название работы",
       "description": "",
       "keywords": "",
       "robots": ""

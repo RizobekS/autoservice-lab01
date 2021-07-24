@@ -9,7 +9,8 @@ admin.site.site_header = 'EuroRepar - Админ панель'
 
 @admin.register(StaticInformation)
 class StaticInformationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'add_to_context', 'value', 'key')
+    list_display = ('name', 'category', 'add_to_context', 'value', 'key')
+    list_filter = ('category',)
     list_editable = ('value',)
 
     readonly_fields = ('name', 'add_to_context', 'key')
