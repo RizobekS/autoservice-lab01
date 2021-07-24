@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'apps.site_settings',
     'apps.knowledge_base',
     'apps.contacts',
+    'apps.work_gallery',
 
     # Utils
     'utils',

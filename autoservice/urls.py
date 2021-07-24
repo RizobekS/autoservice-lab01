@@ -26,6 +26,7 @@ urlpatterns = [
     path('account/', include('apps.accounts.urls', namespace='accounts')),
     path('tags/', include('apps.tags.urls', namespace='tags')),
     path('knowledge-base/', include('apps.knowledge_base.urls', namespace='knowledge_base')),
+    path('gallery/', include('apps.work_gallery.urls', namespace='work_gallery')),
     path('', include('apps.contacts.urls', namespace='contacts')),
 
     path('', include((static_urlpatterns, 'static'), namespace='static')),

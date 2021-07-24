@@ -1,0 +1,415 @@
+[
+  {
+    "model": "work_gallery.image",
+    "pk": 1,
+    "fields": {
+      "alt": "Фото с высоким разрешением",
+      "image": "work_gallery/in-hac-habitasse-platea-dictumst/high-resolution-photo-4.jpg",
+      "iframe_url": null,
+      "work": 1,
+      "list_thumbnail": "0,240,2400,966",
+      "page_thumbnail": "304,0,2104,1198"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 2,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/in-hac-habitasse-platea-dictumst/high-resolution-photo-6.jpg",
+      "iframe_url": null,
+      "work": 1,
+      "list_thumbnail": "0,0,2624,2160",
+      "page_thumbnail": "294,0,3539,2160"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 3,
+    "fields": {
+      "alt": "Фото с высоким разрешением",
+      "image": "work_gallery/aenean-ut-eros-et-nisl/high-resolution-photo-6.jpg",
+      "iframe_url": "https://www.youtube.com/embed/tdmsLjzVLmk",
+      "work": 2,
+      "list_thumbnail": "0,0,2496,2160",
+      "page_thumbnail": "294,0,3539,2160"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 4,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/phasellus-viverra-nulla-ut-metus/high-resolution-photo-1.jpg",
+      "iframe_url": null,
+      "work": 3,
+      "list_thumbnail": "0,0,1125,2436",
+      "page_thumbnail": "0,844,1125,1597"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 5,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/phasellus-viverra-nulla-ut-metus/high-resolution-photo-2.jpg",
+      "iframe_url": null,
+      "work": 3,
+      "list_thumbnail": "265,460,1357,1157",
+      "page_thumbnail": "77,0,2483,1600"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 6,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/phasellus-viverra-nulla-ut-metus/high-resolution-photo-3.jpg",
+      "iframe_url": null,
+      "work": 3,
+      "list_thumbnail": "0,0,1178,766",
+      "page_thumbnail": "58,0,1862,1200"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 7,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/praesent-congue-erat-at-massa/cjkz6lpzmprx.jpg",
+      "iframe_url": null,
+      "work": 4,
+      "list_thumbnail": "1242,473,2586,1457",
+      "page_thumbnail": "294,0,3539,2160"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 8,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/morbi-mollis-tellus-ac-sapien/721321.jpg",
+      "iframe_url": null,
+      "work": 5,
+      "list_thumbnail": "0,0,10000,6618",
+      "page_thumbnail": "33,0,9983,6618"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 9,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/morbi-mollis-tellus-ac-sapien/cjkz6lpzmprx.jpg",
+      "iframe_url": null,
+      "work": 5,
+      "list_thumbnail": "0,0,3840,2160",
+      "page_thumbnail": "294,0,3539,2160"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 10,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/suspendisse-nisl-elit-rhoncus-eget/high-resolution-photo-2.jpg",
+      "iframe_url": null,
+      "work": 6,
+      "list_thumbnail": "145,1047,1374,1600",
+      "page_thumbnail": "77,0,2483,1600"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 11,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/suspendisse-nisl-elit-rhoncus-eget/high-resolution-photo-4.jpg",
+      "iframe_url": null,
+      "work": 6,
+      "list_thumbnail": "0,0,2400,1198",
+      "page_thumbnail": "304,0,2104,1198"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 12,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/suspendisse-nisl-elit-rhoncus-eget/high-resolution-photo-6.jpg",
+      "iframe_url": null,
+      "work": 6,
+      "list_thumbnail": "0,0,3840,2160",
+      "page_thumbnail": "294,0,3539,2160"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 13,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/donec-pede-justo-fringilla-vel/2809.jpg",
+      "iframe_url": null,
+      "work": 7,
+      "list_thumbnail": "0,0,10000,10000",
+      "page_thumbnail": "0,1667,10000,8333"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 14,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/donec-pede-justo-fringilla-vel/721321.jpg",
+      "iframe_url": null,
+      "work": 7,
+      "list_thumbnail": "0,0,10000,6618",
+      "page_thumbnail": "33,0,9983,6618"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 15,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/donec-pede-justo-fringilla-vel/cjkz6lpzmprx.jpg",
+      "iframe_url": null,
+      "work": 7,
+      "list_thumbnail": "0,0,3840,2160",
+      "page_thumbnail": "294,0,3539,2160"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 16,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/donec-pede-justo-fringilla-vel/high-resolution-photo-1.jpg",
+      "iframe_url": null,
+      "work": 7,
+      "list_thumbnail": "0,0,1125,2436",
+      "page_thumbnail": "0,844,1125,1597"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 17,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/donec-pede-justo-fringilla-vel/high-resolution-photo-2.jpg",
+      "iframe_url": null,
+      "work": 7,
+      "list_thumbnail": "0,0,2560,1600",
+      "page_thumbnail": "77,0,2483,1600"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 18,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/donec-pede-justo-fringilla-vel/high-resolution-photo-3.jpg",
+      "iframe_url": null,
+      "work": 7,
+      "list_thumbnail": "0,0,1920,1200",
+      "page_thumbnail": "58,0,1862,1200"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 19,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/donec-pede-justo-fringilla-vel/high-resolution-photo-4.jpg",
+      "iframe_url": null,
+      "work": 7,
+      "list_thumbnail": "0,0,2400,1198",
+      "page_thumbnail": "304,0,2104,1198"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 20,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/donec-pede-justo-fringilla-vel/high-resolution-photo-5.jpg",
+      "iframe_url": null,
+      "work": 7,
+      "list_thumbnail": "0,0,2560,1440",
+      "page_thumbnail": "196,0,2359,1440"
+    }
+  },
+  {
+    "model": "work_gallery.image",
+    "pk": 21,
+    "fields": {
+      "alt": null,
+      "image": "work_gallery/donec-pede-justo-fringilla-vel/high-resolution-photo-6.jpg",
+      "iframe_url": null,
+      "work": 7,
+      "list_thumbnail": "0,0,3840,2160",
+      "page_thumbnail": "294,0,3539,2160"
+    }
+  },
+  {
+    "model": "work_gallery.category",
+    "pk": 1,
+    "fields": {
+      "name": "Диагностика",
+      "url": "diagnostika",
+      "active": true
+    }
+  },
+  {
+    "model": "work_gallery.category",
+    "pk": 2,
+    "fields": {
+      "name": "Ремонт",
+      "url": "remont",
+      "active": true
+    }
+  },
+  {
+    "model": "work_gallery.category",
+    "pk": 3,
+    "fields": {
+      "name": "Покраска",
+      "url": "pokraska",
+      "active": true
+    }
+  },
+  {
+    "model": "work_gallery.category",
+    "pk": 4,
+    "fields": {
+      "name": "Акции",
+      "url": "akcii",
+      "active": true
+    }
+  },
+  {
+    "model": "work_gallery.category",
+    "pk": 5,
+    "fields": {
+      "name": "Реставрация",
+      "url": "restavraciya",
+      "active": true
+    }
+  },
+  {
+    "model": "work_gallery.category",
+    "pk": 6,
+    "fields": {
+      "name": "Грунтовка",
+      "url": "gruntovka",
+      "active": true
+    }
+  },
+  {
+    "model": "work_gallery.work",
+    "pk": 1,
+    "fields": {
+      "title": "In hac habitasse platea dictumst",
+      "url": "in-hac-habitasse-platea-dictumst",
+      "active": true,
+      "text": "<p><em>Maecenas nec odio et ante tincidunt tempus. Nunc sed turpis. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. Curabitur a felis in nunc fringilla tristique. Phasellus viverra nulla ut metus varius laoreet.</em></p>\r\n\r\n<p><strong>Sed in libero ut nibh placerat accumsan. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. Aenean ut eros et nisl sagittis vestibulum. Praesent nonummy mi in odio. Suspendisse non nisl sit amet velit hendrerit rutrum.</strong></p>\r\n\r\n<p>Vestibulum volutpat pretium libero. Praesent blandit laoreet nibh. Praesent egestas tristique nibh. Aliquam erat volutpat. Fusce pharetra convallis urna.</p>",
+      "categories": []
+    }
+  },
+  {
+    "model": "work_gallery.work",
+    "pk": 2,
+    "fields": {
+      "title": "Aenean ut eros et nisl",
+      "url": "aenean-ut-eros-et-nisl",
+      "active": true,
+      "text": "<p>Phasellus volutpat, metus eget egestas mollis, lacus lacus blandit dui, id egestas quam mauris ut lacus. Fusce fermentum odio nec arcu. Donec mollis hendrerit risus. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Etiam imperdiet imperdiet orci.</p>\r\n\r\n<p>Duis lobortis massa imperdiet quam. Vivamus quis mi. Vivamus consectetuer hendrerit lacus. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo.</p>",
+      "categories": [
+        1,
+        2,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "work_gallery.work",
+    "pk": 3,
+    "fields": {
+      "title": "Phasellus viverra nulla ut metus",
+      "url": "phasellus-viverra-nulla-ut-metus",
+      "active": true,
+      "text": "<p>Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Morbi ac felis. Phasellus blandit leo ut odio. Phasellus nec sem in justo pellentesque facilisis. Duis lobortis massa imperdiet quam.</p>\r\n\r\n<p><em><strong>In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Aenean massa. Phasellus blandit leo ut odio. Pellentesque auctor neque nec urna. Pellentesque auctor neque nec urna.</strong></em></p>\r\n\r\n<p>Vivamus euismod mauris. Phasellus gravida semper nisi. Aliquam eu nunc. Proin magna. Donec sodales sagittis magna.</p>",
+      "categories": [
+        1,
+        2,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "work_gallery.work",
+    "pk": 4,
+    "fields": {
+      "title": "Praesent congue erat at massa",
+      "url": "praesent-congue-erat-at-massa",
+      "active": true,
+      "text": "<p><u><strong>Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Donec venenatis vulputate lorem. Aliquam erat volutpat. Phasellus ullamcorper ipsum rutrum nunc. Donec sodales sagittis magna.</strong></u></p>\r\n\r\n<ul>\r\n\t<li>Ut non enim eleifend felis pretium feugiat. Praesent ac massa at ligula laoreet iaculis. Praesent metus tellus, elementum eu, semper a, adipiscing nec, purus. Nulla consequat massa quis enim. Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis venenatis ante odio sit amet eros.</li>\r\n\t<li>Phasellus viverra nulla ut metus varius laoreet. Quisque id mi. Aenean vulputate eleifend tellus. Donec posuere vulputate arcu. Nullam cursus lacinia erat.</li>\r\n</ul>\r\n\r\n<p><strong>Duis leo. Sed hendrerit. Donec elit libero, sodales nec, volutpat a, suscipit non, turpis. Etiam ultricies nisi vel augue. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</strong></p>\r\n\r\n<p>Fusce pharetra convallis urna. Nullam tincidunt adipiscing enim. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. Aliquam eu nunc.</p>",
+      "categories": [
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "work_gallery.work",
+    "pk": 5,
+    "fields": {
+      "title": "Morbi mollis tellus ac sapien",
+      "url": "morbi-mollis-tellus-ac-sapien",
+      "active": true,
+      "text": "<p><strong></strong><span class=\"marker\"><u><strong>Sed hendrerit. Fusce ac felis sit amet ligula pharetra condimentum. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nulla porta dolor. Suspendisse feugiat.</strong></u></span></p>\r\n\r\n<ol>\r\n\t<li>In hac habitasse platea dictumst. Fusce ac felis sit amet ligula pharetra condimentum. Suspendisse nisl elit, rhoncus eget, elementum ac, condimentum eget, diam. Praesent nec nisl a purus blandit viverra. Cras non dolor.</li>\r\n\t<li>Aliquam eu nunc. Praesent congue erat at massa. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Cras ultricies mi eu turpis hendrerit fringilla. Nulla neque dolor, sagittis eget, iaculis quis, molestie non, velit.</li>\r\n\t<li>Cras dapibus. Sed libero. Phasellus ullamcorper ipsum rutrum nunc. Vestibulum ullamcorper mauris at ligula. In dui magna, posuere eget, vestibulum et, tempor auctor, justo.</li>\r\n\t<li>Praesent ut ligula non mi varius sagittis. Nunc nulla. Praesent congue erat at massa. Cras dapibus. Nunc sed turpis.</li>\r\n</ol>\r\n\r\n<p><strong></strong></p>",
+      "categories": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "work_gallery.work",
+    "pk": 6,
+    "fields": {
+      "title": "Suspendisse nisl elit rhoncus eget",
+      "url": "suspendisse-nisl-elit-rhoncus-eget",
+      "active": true,
+      "text": "<p><code>Fusce neque. Donec id justo. Donec elit libero, sodales nec, volutpat a, suscipit non, turpis. Sed magna purus, fermentum eu, tincidunt eu, varius ut, felis. Fusce commodo aliquam arcu.</code></p>\r\n\r\n<p><strong>In auctor lobortis lacus. Pellentesque dapibus hendrerit tortor. Fusce risus nisl, viverra et, tempor et, pretium in, sapien. Praesent nec nisl a purus blandit viverra. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</strong></p>\r\n\r\n<p><strong>In turpis. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Suspendisse enim turpis, dictum sed, iaculis a, condimentum nec, nisi. Quisque ut nisi.</strong></p>\r\n\r\n<p><strong>Aenean commodo ligula eget dolor. Fusce egestas elit eget lorem. Curabitur a felis in nunc fringilla tristique. Donec vitae sapien ut libero venenatis faucibus. Vivamus euismod mauris.</strong></p>",
+      "categories": [
+        1,
+        2,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  {
+    "model": "work_gallery.work",
+    "pk": 7,
+    "fields": {
+      "title": "Donec pede justo fringilla vel",
+      "url": "donec-pede-justo-fringilla-vel",
+      "active": true,
+      "text": "<p>In hac habitasse platea dictumst. Suspendisse feugiat. Phasellus consectetuer vestibulum elit. Curabitur nisi. Suspendisse eu ligula.</p>\r\n\r\n<p>Fusce commodo aliquam arcu. Duis lobortis massa imperdiet quam. Suspendisse eu ligula. Etiam iaculis nunc ac metus. Curabitur ullamcorper ultricies nisi.</p>\r\n\r\n<blockquote>\r\n<p>Vestibulum suscipit nulla quis orci. Cras sagittis. In auctor lobortis lacus. Vestibulum turpis sem, aliquet eget, lobortis pellentesque, rutrum eu, nisl. Pellentesque egestas, neque sit amet convallis pulvinar, justo nulla eleifend augue, ac auctor orci leo non est.</p>\r\n</blockquote>\r\n\r\n<p>Aenean viverra rhoncus pede. Vivamus in erat ut urna cursus vestibulum. Phasellus gravida semper nisi. Nullam dictum felis eu pede mollis pretium. Nam pretium turpis et arcu.</p>\r\n\r\n<p>Aliquam lobortis. Praesent metus tellus, elementum eu, semper a, adipiscing nec, purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Suspendisse eu ligula. Nunc nulla.</p>",
+      "categories": [
+        1,
+        6
+      ]
+    }
+  }
+]
