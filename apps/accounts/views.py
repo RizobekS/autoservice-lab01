@@ -14,7 +14,7 @@ from django.views.generic import FormView, TemplateView, ListView
 
 from apps.accounts.forms import RegistrationForm, AuthenticationForm, PasswordChangeForm, ProfileEditForm, PasswordResetForm, NewPasswordForm, AppointmentForm
 from apps.accounts.models import User, Appointment
-from apps.accounts.utils.mixins import PersonalAreaMixin, MenuItem
+from apps.accounts.utils.mixins import PersonalAreaMixin
 from apps.cars.models import CarFilter
 from utils.breadcrumbs.types import Breadcrumb
 from utils.breadcrumbs.utils import reverse_bc
@@ -103,7 +103,6 @@ class SubmitAppointmentView(View):
 
 @method_decorator(login_required, name='dispatch')
 class PersonalAreaIndex(TemplateView, PersonalAreaMixin):
-    menu = MenuItem.INDEX
     template_name = 'accounts/personal_area/index.html'
 
     def get_current_breadcrumb(self):
@@ -112,7 +111,6 @@ class PersonalAreaIndex(TemplateView, PersonalAreaMixin):
 
 @method_decorator(login_required, name='dispatch')
 class AppointmentListView(ListView, PersonalAreaMixin):
-    menu = MenuItem.ORDERS
     template_name = 'accounts/personal_area/appointment_list.html'
     current_breadcrumb = Breadcrumb('Записи на сервис', reverse_lazy('accounts:pa:appointment:list'))
 
@@ -122,7 +120,6 @@ class AppointmentListView(ListView, PersonalAreaMixin):
 
 @method_decorator(login_required, name='dispatch')
 class PersonalAreaGarage(View, PersonalAreaMixin):
-    menu = MenuItem.GARAGE
     template_name = 'accounts/personal_area/garage.html'
     current_breadcrumb = Breadcrumb('Гараж', reverse_lazy('accounts:pa:garage'))
 
@@ -155,8 +152,6 @@ class PersonalAreaEdit(View, PersonalAreaMixin):
         Provides both forms for profile editing and password changing.
         POST data handled by other views
     """
-
-    menu = MenuItem.PERSONAL_DATA
     template_name = 'accounts/personal_area/edit.html'
     current_breadcrumb = Breadcrumb('Редактировать профиль', reverse_lazy('accounts:pa:edit'))
 

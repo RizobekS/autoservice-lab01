@@ -1,4 +1,3 @@
-from enum import Enum
 from typing import Dict, Any
 
 from django.contrib import messages
@@ -12,43 +11,9 @@ from utils.breadcrumbs.mixins import BreadcrumbsMixin
 from utils.breadcrumbs.types import Breadcrumb
 
 
-class MenuItem(Enum):
-    INDEX = 1
-    ORDERS = 2
-    GARAGE = 3
-    PERSONAL_DATA = 4
-
-    def is_index(self) -> bool:
-        return self == MenuItem.INDEX
-
-    def is_orders(self) -> bool:
-        return self == MenuItem.ORDERS
-
-    def is_garage(self) -> bool:
-        return self == MenuItem.GARAGE
-
-    def is_personal_data(self) -> bool:
-        return self == MenuItem.PERSONAL_DATA
-
-
-class MenuMixin(ContextMixin):
+class PersonalAreaMixin(BreadcrumbsMixin, ContextMixin):
     """
-        Automatically updates your context
-
-        menu: MenuItem - represents current menu level
-    """
-
-    menu = None
-
-    def get_context_data(self, **kwargs) -> Dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context['menu_item'] = self.menu
-        return context
-
-
-class PersonalAreaMixin(BreadcrumbsMixin, MenuMixin):
-    """
-        Adds necessary context for Personal area, helps building breadcrumbs and aside menu
+        Adds necessary context for Personal area, helps building breadcrumbs
     """
     initial_breadcrumbs = [Breadcrumb('Личный кабинет', reverse_lazy('accounts:pa:index'))]
 
