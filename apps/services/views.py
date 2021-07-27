@@ -8,6 +8,7 @@ from utils.breadcrumbs.types import Breadcrumb
 from .models import Section, Product
 from .utils.helpers import service_url
 from .utils.mixins import ProductsMixin, SectionsMixin, SingleSectionMixin
+from ..accounts.utils.mixins import ShortAppointmentMixin
 from ..site_settings.models import StaticInformation
 
 
@@ -60,7 +61,7 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSetting
         return super().get_context_data(**kwargs)
 
 
-class ProductView(DetailView, SingleSectionMixin, ProductsMixin, CarFilterPageSettingsMixin):
+class ProductView(DetailView, SingleSectionMixin, ProductsMixin, CarFilterPageSettingsMixin, ShortAppointmentMixin):
     # #### DetailView ####
     template_name = 'services/product.html'
     queryset = Product.objects.filter(active=True)
@@ -68,6 +69,15 @@ class ProductView(DetailView, SingleSectionMixin, ProductsMixin, CarFilterPageSe
     slug_url_kwarg = 'product_url'
     context_object_name = 'product'
     object: Product = None  # for typehints
+
+    # #### ShortAppointmentMixin ####
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()  # Create self.object variable to emulate DetailView behaviour
+        if self.extra_context:
+            self.extra_context[self.context_object_name] = self.object
+        else:
+            self.extra_context = {self.context_object_name: self.object}
+        return super().post(request, *args, **kwargs)
 
     # #### ProductsMixin ####
 

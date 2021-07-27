@@ -5,12 +5,11 @@ from django.contrib.auth.forms import \
     AuthenticationForm as BaseAuthenticationForm, \
     PasswordChangeForm as BasePasswordChangeForm, UsernameField, \
     PasswordResetForm as BasePasswordResetForm, SetPasswordForm
-from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 
-from apps.accounts.models import User, Appointment
+from apps.accounts.models import User, Appointment, ShortAppointment
 from apps.site_settings.models import StaticInformation
 from utils.shortcuts import add_attrs
 
@@ -105,14 +104,21 @@ class PasswordChangeForm(BasePasswordChangeForm):
 
 
 class AppointmentForm(forms.ModelForm):
+    email_subject_template = 'accounts/emails/appointment/subject.html'
+    email_body_template = 'accounts/emails/appointment/body.html'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['branch'].empty_label = 'Выберите СТО'
+
     def send_mail(self):
         if not self.is_valid():
             raise ValueError('The form must be valid to send mails')
         branch = self.cleaned_data.get('branch')
         site_name = StaticInformation.objects.get(key='site_name')
         send_mail(
-            render_to_string('accounts/emails/appointment/subject.html', context={'site_name': site_name.value}),
-            render_to_string('accounts/emails/appointment/body.html', context={'site_name': site_name.value, **self.cleaned_data}),
+            render_to_string(self.email_subject_template, context={'site_name': site_name.value}),
+            render_to_string(self.email_body_template, context={'site_name': site_name.value, **self.cleaned_data}),
             DEFAULT_FROM_EMAIL,
             list(branch.emailreceiver_set.all()),
             fail_silently=True
@@ -120,21 +126,17 @@ class AppointmentForm(forms.ModelForm):
 
     class Meta:
         fields = ('user', 'full_name', 'car', 'phone', 'branch', 'datetime')
-
         model = Appointment
 
-# class TextualAppointmentForm(forms.ModelForm):
-#     def send_mail(self):
-#         # TODO: NOT READY!
-#         if not self.is_valid():
-#             raise ValueError('The form must be valid to send mails')
-#
-#         site_name = StaticInformation.objects.get(key='site_name')
-#         receiver = StaticInformation.objects.get(key='email')
-#         return send_mail(
-#             render_to_string('contacts/emails/subject.txt', context={'site_name': site_name.value}),
-#             render_to_string('contacts/emails/body.txt', context={'site_name': site_name.value, **self.cleaned_data}),
-#             DEFAULT_FROM_EMAIL,
-#             [receiver.value],
-#             fail_silently=True
-#         )
+
+class ShortAppointmentForm(AppointmentForm):
+    email_subject_template = 'accounts/emails/short_appointment/subject.html'
+    email_body_template = 'accounts/emails/short_appointment/body.html'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['branch'].empty_label = 'Выберите СТО'
+
+    class Meta:
+        fields = ('full_name', 'phone', 'email', 'branch', 'text')
+        model = ShortAppointment

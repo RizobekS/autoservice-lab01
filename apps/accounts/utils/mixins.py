@@ -1,10 +1,13 @@
 from enum import Enum
 from typing import Dict, Any
 
+from django.contrib import messages
 from django.templatetags.static import static
 from django.urls import reverse_lazy
 from django.views.generic.base import ContextMixin
+from django.views.generic.edit import FormMixin, ProcessFormView
 
+from apps.accounts.forms import ShortAppointmentForm
 from utils.breadcrumbs.mixins import BreadcrumbsMixin
 from utils.breadcrumbs.types import Breadcrumb
 
@@ -46,7 +49,6 @@ class MenuMixin(ContextMixin):
 class PersonalAreaMixin(BreadcrumbsMixin, MenuMixin):
     """
         Adds necessary context for Personal area, helps building breadcrumbs and aside menu
-
     """
     initial_breadcrumbs = [Breadcrumb('Личный кабинет', reverse_lazy('accounts:pa:index'))]
 
@@ -59,3 +61,19 @@ class PersonalAreaMixin(BreadcrumbsMixin, MenuMixin):
         }
         context.update(extra_context)
         return context
+
+
+class ShortAppointmentMixin(FormMixin, ProcessFormView):
+    """
+        Adds functionality to render and process ShortAppointmentForm
+    """
+    form_class = ShortAppointmentForm
+
+    def form_valid(self, form):
+        form.send_mail()
+        form.save()
+        messages.success(self.request, 'Заявка была успешно отправлена ✔', extra_tags='text-success')
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return self.request.path_info

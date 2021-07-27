@@ -1,5 +1,5 @@
-import re
 import os
+import re
 from gettext import ngettext
 
 from django.contrib import admin, messages
@@ -34,7 +34,7 @@ def clone(modeladmin: admin.ModelAdmin, request, queryset: QuerySet):
     fields = queryset.model._meta.get_fields()
     pk_fieldname = queryset.model._meta.pk.name
     for field in fields:
-        if hasattr(field, 'unique') and getattr(field, 'unique') and field.name != pk_fieldname:
+        if getattr(field, 'unique', False) and field.name != pk_fieldname:
             unique_fieldnames.append(field.name)
         if isinstance(field, ManyToManyField):
             m2m_fieldnames.append(field.name)

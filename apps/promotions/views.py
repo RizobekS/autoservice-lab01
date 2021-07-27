@@ -3,11 +3,13 @@ from typing import Any, Dict
 from django.urls import reverse
 from django.views.generic import DetailView, TemplateView
 
+from apps.accounts.utils.mixins import ShortAppointmentMixin
 from apps.promotions.models import Promotion, Category
 from apps.promotions.utils.mixins import PromotionsMixin
 from utils.breadcrumbs.types import Breadcrumb
 from utils.breadcrumbs.utils import reverse_bc
 from utils.mixins import PageSettingsMixin
+from utils.views import FormDetailView
 
 
 class PromotionListView(TemplateView, PromotionsMixin, PageSettingsMixin):
@@ -37,13 +39,14 @@ class PromotionCategoryView(DetailView, PromotionsMixin, PageSettingsMixin):
         return context
 
 
-class PromotionView(DetailView, PromotionsMixin, PageSettingsMixin):
+class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMixin, ShortAppointmentMixin):
     # DetailView
     template_name = 'promotions/promotion.html'
     model = Promotion
     slug_field = 'url'
     slug_url_kwarg = 'promotion_url'
     context_object_name = 'promotion'
+    object: Promotion = None  # for typehints
 
     # PromotionsMixin
     promotions_max = 5

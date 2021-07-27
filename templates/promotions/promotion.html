@@ -3,6 +3,7 @@
 
 
 {% block links %}
+    <link rel="stylesheet" href="{% static 'css/utils.css' %}" class="color-switcher-link">
     <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
 {% endblock %}
 
@@ -48,34 +49,7 @@
                     </article>
 
 
-                    <div id="comments" class="post-comments comments-area rounded">
-                        <h4 id="reply-title" class="fw-700 comment-reply-title">Оставить<span class="text-gradient">заявку</span></h4>
-
-                        <div id="respond" class="comment-respond ls d-flex">
-                            <form action="/" method="post" id="commentform" class="comment-form" novalidate="">
-                                <div class="comment-form-author form-group has-placeholder">
-                                    <label for="author">Имя</label>
-                                    <input class="form-control" id="author" name="author" type="text" value="" size="30" maxlength="245" aria-required="true" required="required"
-                                           placeholder="Ваше имя">
-                                </div>
-                                <p class="comment-form-email form-group has-placeholder">
-                                    <label for="email">Телефон</label>
-                                    <input class="form-control" id="email" name="email" type="email" value="" size="30" maxlength="100" aria-required="true" required="required"
-                                           placeholder="Ваш телефон">
-                                </p>
-
-                                <p class="comment-form-comment form-group has-placeholder">
-                                    <label for="comment">Ваш комментарий</label>
-                                    <textarea class="form-control" id="comment" name="comment" cols="45" rows="8" maxlength="65525" aria-required="true" required="required"
-                                              placeholder="Комментарий"></textarea>
-                                </p>
-                                <p class="form-submit">
-                                    <button type="button" class="btn btn-small btn-maincolor">Отправить</button>
-                                </p>
-                            </form>
-                        </div>
-
-                    </div>
+                    {% include 'accounts/chunks/short-appontment-form.html' %}
 
                 </main>
 
@@ -89,4 +63,10 @@
 
         </div>
     </section>
+{% endblock %}
+
+
+
+{% block body_scripts %}
+    <script src="{% static 'js/custom/scroll-to.js' %}"></script>
 {% endblock %}

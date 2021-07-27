@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext as _
 
-from .models import User, Appointment
+from .models import User, Appointment, ShortAppointment
 
 
 @admin.register(User)
@@ -21,3 +21,10 @@ class CustomUserAdmin(UserAdmin):
 class AppointmentAdmin(admin.ModelAdmin):
     list_display = ('user', 'car', 'phone', 'branch', 'status', 'datetime')
     list_editable = ('status',)
+    list_filter = ('branch', 'status', 'datetime')
+
+
+@admin.register(ShortAppointment)
+class ShortAppointmentAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'phone', 'email', 'branch', 'datetime')
+    list_filter = ('branch', 'datetime')

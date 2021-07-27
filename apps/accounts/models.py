@@ -88,18 +88,18 @@ class Appointment(models.Model):
         verbose_name = 'Заявка'
         verbose_name_plural = 'Заявки'
 
-# class TextualAppointment(models.Model):
-#     full_name = models.CharField('Полное имя', max_length=200)
-#     phone = models.CharField('Телефон', max_length=20)
-#     branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.DO_NOTHING)
-#     datetime = models.DateTimeField('Время')
-#
-#     status = models.CharField('Статус', max_length=20, choices=CHOICES, default='pending')
-#
-#     def __str__(self):
-#         return f'Заявка от {self.full_name}, {self.datetime.strftime("%m/%d/%Y, %H:%M")}'
-#
-#     class Meta:
-#         ordering = ['-datetime']
-#         verbose_name = 'Заявка'
-#         verbose_name_plural = 'Заявки'
+
+class ShortAppointment(models.Model):
+    full_name = models.CharField('Полное имя', max_length=256)
+    phone = models.CharField('Телефон', max_length=20)
+    email = models.EmailField('Эл. почта', null=True, blank=True)
+    branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.DO_NOTHING)
+    text = models.TextField('Сообщение', null=True, blank=True)
+    datetime = models.DateTimeField('Дата и время создания', auto_now_add=True)
+
+    def __str__(self):
+        return f'Мини-заявка от {self.full_name} ({self.datetime.strftime("%m/%d/%Y, %H:%M")})'
+
+    class Meta:
+        verbose_name = 'Мини-заявка'
+        verbose_name_plural = 'Мини-заявки'
