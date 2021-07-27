@@ -70,8 +70,8 @@ class ShortAppointmentMixin(FormMixin, ProcessFormView):
     form_class = ShortAppointmentForm
 
     def form_valid(self, form):
-        form.send_mail()
         form.save()
+        form.send_mail()
         messages.success(self.request, 'Заявка была успешно отправлена ✔', extra_tags='text-success')
         return super().form_valid(form)
 

@@ -98,7 +98,7 @@ class ShortAppointment(models.Model):
     datetime = models.DateTimeField('Дата и время создания', auto_now_add=True)
 
     def __str__(self):
-        return f'Мини-заявка от {self.full_name} ({self.datetime.strftime("%m/%d/%Y, %H:%M")})'
+        return f'Мини-заявка от {self.full_name} ({self.datetime.strftime("%m/%d/%Y, %H:%M")})' if self.datetime else f'Мини-заявка от {self.full_name}'
 
     class Meta:
         verbose_name = 'Мини-заявка'
