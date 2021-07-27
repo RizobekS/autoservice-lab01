@@ -122,7 +122,7 @@ class AppointmentForm(forms.ModelForm):
             render_to_string(self.email_subject_template, context=context),
             render_to_string(self.email_body_template, context=context),
             settings.DEFAULT_FROM_EMAIL,
-            list(branch.emailreceiver_set.all()),
+            branch.get_email_list(),
             fail_silently=True
         )
 

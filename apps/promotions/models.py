@@ -24,13 +24,16 @@ class Promotion(models.Model):
     url = AutoSlugField(verbose_name='URL акции', unique=True, populate_from='title', editable=True, max_length=120)
 
     tags = models.ManyToManyField(verbose_name='Тэги', to=Tag, blank=True)
-    categories = models.ManyToManyField(verbose_name='Категории (Типы)', to=Category, blank=True)
+    category = models.ForeignKey(verbose_name='Категория (Тип)', to=Category, on_delete=models.SET_NULL, null=True, blank=True)
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления. Неактивные акции не отображаются нигде, кроме админ панели', default=True)
-    date = models.DateField("Дата")
-    fixed_price = models.BooleanField('Фиксированная цена', help_text='Фикс. цена: "990₽", НЕ фикс. цена: "от 990₽"', default=False)
-    price = models.FloatField('Цена за работу (₽)')
+    date = models.DateField('Дата')
     short_description = models.CharField('Краткое описание (до 500 символов)', max_length=500)
     text = models.TextField('Контент')
+
+    fixed_price = models.BooleanField('Фиксированная цена', help_text='Фикс. цена: "990₽", НЕ фикс. цена: "от 990₽"', default=False)
+    price = models.FloatField('Цена за работу (₽)', null=True, blank=True)
+    is_sale = models.BooleanField('Скидка', default=False)
+    sale_amount = models.FloatField('Скидка (%)', null=True, blank=True)
 
     show_at_homepage = models.BooleanField('Отображать на главной', default=False)
     homepage_description = models.CharField('Краткое описание для главной страницы (до 500 символов)', max_length=500, blank=True)
@@ -44,12 +47,11 @@ class Promotion(models.Model):
 
     @display(description='Цена')
     def verbose_price(self):
-        price = format_price(self.price, '₽')
-        return f'{price}' if self.fixed_price else f'От {price}'
-
-    @display(description='Категории')
-    def category_string(self):
-        return ', '.join(item.name for item in self.categories.all())
+        if self.is_sale:
+            return format_price(self.sale_amount, '%')
+        else:
+            price = format_price(self.price, '₽')
+            return f'{price}' if self.fixed_price else f'От {price}'
 
     @display(description='Тэги')
     def tag_string(self):

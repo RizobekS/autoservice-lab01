@@ -31,7 +31,7 @@ class PromotionCategoryView(DetailView, PromotionsMixin, PageSettingsMixin):
 
     def get_promotions_queryset(self):
         queryset = super().get_promotions_queryset()
-        return queryset.filter(categories__url__exact=self.object.url)
+        return queryset.filter(category__url__exact=self.object.url)
 
     def get_ceo_context(self) -> Dict[str, Any]:
         context = super().get_ceo_context()
@@ -67,3 +67,6 @@ class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMix
     # PromotionsMixin
     def get_promotions_exclude_kwargs(self) -> Dict[str, Any]:
         return {'id': self.object.id}
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(categories=Category.objects.all(), **kwargs)

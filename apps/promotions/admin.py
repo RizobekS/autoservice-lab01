@@ -25,16 +25,16 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Promotion)
 class PromotionAdmin(ImageCroppingMixin, admin.ModelAdmin):
-    list_display = ('title', 'url', 'active', 'category_string', 'tag_string', 'verbose_price', 'date', 'show_at_homepage')
+    list_display = ('title', 'url', 'active', 'category', 'tag_string', 'verbose_price', 'date', 'show_at_homepage')
     list_editable = ('show_at_homepage',)
-    list_filter = ('active', 'categories', 'tags', 'date', 'fixed_price')
+    list_filter = ('active', 'category', 'tags', 'date', 'fixed_price')
     search_fields = ('title', 'short_description', 'homepage_description', 'text')
     actions = (activate, deactivate, clone)
 
     prepopulated_fields = {'url': ('title',), }
-    autocomplete_fields = ('categories', 'tags')
+    autocomplete_fields = ('category', 'tags')
     fieldsets = (
-        (None, {'fields': (('title', 'url'), 'active', 'categories', 'tags', 'date', ('price', 'fixed_price'))}),
+        (None, {'fields': (('title', 'url'), 'active', 'category', 'tags', 'date', ('price', 'fixed_price'), ('sale_amount', 'is_sale'))}),
         ('Изображение', {'fields': ('image', 'thumbnail', 'icon_thumbnail'), 'classes': ['wide']}),
         ('Главная страница', {'fields': ('show_at_homepage', 'homepage_description'), 'classes': ['wide', 'collapse']}),
         ('Текст', {'fields': ('short_description', 'text'), 'classes': ['wide']}),

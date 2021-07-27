@@ -11311,8 +11311,11 @@ h3.small {
 }
 
 .pricing-plan {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     background-repeat: no-repeat;
-    padding: 40px 30px;
+    padding: 40px 20px;
     position: relative;
     text-align: center;
     -webkit-transition: -webkit-transform 0.6s ease 0s;
@@ -11414,7 +11417,7 @@ h3.small {
 
 @media (min-width: 1200px) {
     .pricing-plan {
-        padding: 65px 30px 60px;
+        padding: 65px 20px 60px;
     }
 
     .pricing-plan [class*='bg-'] {
@@ -11428,7 +11431,7 @@ h3.small {
 }
 
 .pricing-plan .plan-features {
-    margin: 46px 0 0;
+    margin: 46px 0 auto;
 }
 
 @media (max-width: 767px) {

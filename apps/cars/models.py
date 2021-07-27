@@ -1,11 +1,9 @@
 from autoslug import AutoSlugField
 from django.contrib.auth.models import User
 from django.db import models
-from django_cleanup.signals import cleanup_pre_delete
 
 from apps.cars.utils.car_filter_mixin import CarFilterUtilsMixin
 from apps.cars.utils.managers import LastAccessedManager
-from apps.cars.utils.thumbnails import delete_old_thumbnails
 from apps.cars.utils.validators import validate_double_slash_url
 from autoservice.settings.common import AUTH_USER_MODEL
 
@@ -147,14 +145,3 @@ class Modification(models.Model):
     class Meta:
         verbose_name = 'Модификация'
         verbose_name_plural = 'Модификации'
-
-
-""" Signals """
-
-
-# TODO: Check whether old images deletion works properly in production
-def old_delete(file, **kwargs):
-    delete_old_thumbnails(file, True)
-
-
-cleanup_pre_delete.connect(old_delete)

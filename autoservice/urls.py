@@ -20,14 +20,13 @@ static_urlpatterns = [
 urlpatterns = [
     path('', include('apps.home.urls', namespace='home')),
     path('cars/', include('apps.cars.urls', namespace='cars')),
-    path('services/', include('apps.services.urls', namespace='services')),
     path('blog/', include('apps.news.urls', namespace='news')),
     path('specials/', include('apps.promotions.urls', namespace='promotions')),
     path('account/', include('apps.accounts.urls', namespace='accounts')),
     path('tags/', include('apps.tags.urls', namespace='tags')),
     path('knowledge-base/', include('apps.knowledge_base.urls', namespace='knowledge_base')),
     path('gallery/', include('apps.work_gallery.urls', namespace='work_gallery')),
-    path('', include('apps.contacts.urls', namespace='contacts')),
+    path('contacts/', include('apps.contacts.urls', namespace='contacts')),
 
     path('', include((static_urlpatterns, 'static'), namespace='static')),
 
@@ -35,6 +34,9 @@ urlpatterns = [
 
     url(r'^search/$', SearchView.as_view(), name='haystack_search'),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
+    # This is the last one, because it can intercept other urls
+    path('', include('apps.services.urls', namespace='services')),
 ]
 
 if settings.DEBUG:

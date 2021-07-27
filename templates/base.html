@@ -1,18 +1,26 @@
 {% load appointment_modal %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>
-<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<html lang="ru" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>
-<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<html lang="ru" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>
-<html class="no-js lt-ie9"> <![endif]-->
+<html lang="ru" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js">
+<html lang="ru" class="no-js">
 <!--<![endif]-->
 
 <head>
     <title>{{ title_prefix }} {{ page_title }} {{ title_suffix }}</title>
     <meta charset="utf-8">
+    <script>
+        var Hyphenopoly = {
+            require: {
+                "ru": "FORCEHYPHENOPOLY",
+            },
+        };
+    </script>
+    <script src="/static/js/vendor/Hyphenopoly_Loader.js"></script>
     <!--[if IE]>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <![endif]-->

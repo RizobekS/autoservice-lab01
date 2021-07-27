@@ -25,11 +25,11 @@
                                 <article class="text-center content-padding vertical-item post type-post status-publish format-standard has-post-thumbnail ls ms">
 
 
-                                    {% if item.tags.exists %}{% with tag=item.tags.first %}
+                                    {% if item.category %}
                                         <div class="tagcloud">
-                                            <a href="{% url 'tags:single' tag.url %}" class="tag-cloud-link"><span>{{ tag.name }}</span></a>
+                                            <a href="{% url 'promotions:category' item.category.url %}" class="tag-cloud-link"><span>{{ item.category.name }}</span></a>
                                         </div>
-                                    {% endwith %}{% endif %}
+                                    {% endif %}
 
                                     <div class="item-media post-thumbnail">
                                         <a href="{% url 'promotions:promotion' item.url %}">
@@ -37,7 +37,7 @@
                                         </a>
                                     </div>
 
-                  <div class="item-content">
+                                    <div class="item-content">
                     <header class="entry-header">
                       <h4 class="entry-title"><a href="{% url 'promotions:promotion' item.url %}" rel="bookmark">{{ item.title }}</a></h4>
                     </header>

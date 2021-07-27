@@ -37,7 +37,8 @@ class BranchAdmin(admin.ModelAdmin):
 
     @admin.display(description='Получатели эл. сообщений')
     def receivers_string(self, obj):
-        return f'({obj.emailreceiver_set.count()}) {" ,  ".join(item.email for item in obj.emailreceiver_set.all())}'
+        emails = obj.get_email_list()
+        return f'({len(emails)}) {" ,  ".join(emails)}'
 
 
 @admin.register(CEOSetting)

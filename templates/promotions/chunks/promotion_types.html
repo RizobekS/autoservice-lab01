@@ -1,10 +1,10 @@
-{% if promotion.categories.exists %}
+{% if categories %}
     <div class="widget widget_categories">
 
         <h5 class="widget-title">Типы акции</h5>
 
         <ul>
-            {% for item in promotion.categories.all %}
+            {% for item in categories %}
                 <li class="cat-item">
                     <a class="active" href="{% url 'promotions:category' item.url %}">{{ item.name }}</a>
                 </li>

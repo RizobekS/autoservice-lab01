@@ -19,7 +19,7 @@ class CarUrls:
         if self.model:
             value = value and Model.objects.filter(url__exact=self.model).exists()
             if self.year:
-                value = value and Year.objects.filter(year=self.year).exists()
+                value = value and Year.objects.filter(year=self.year, model__url__exact=self.model).exists()
                 if self.modification:
                     value = value and Modification.objects.filter(id=self.modification).exists()
         return value
