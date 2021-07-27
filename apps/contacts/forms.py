@@ -1,5 +1,5 @@
 from django import forms
-from django.conf.global_settings import DEFAULT_FROM_EMAIL
+from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
@@ -20,7 +20,7 @@ class ContactForm(forms.Form):
         return send_mail(
             render_to_string('contacts/emails/subject.txt', context={'site_name': site_name.value}),
             render_to_string('contacts/emails/body.txt', context={'site_name': site_name.value, **self.cleaned_data}),
-            DEFAULT_FROM_EMAIL,
+            settings.DEFAULT_FROM_EMAIL,
             [receiver.value],
             fail_silently=True
         )

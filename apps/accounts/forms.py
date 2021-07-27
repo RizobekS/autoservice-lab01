@@ -1,5 +1,5 @@
 from django import forms
-from django.conf.global_settings import DEFAULT_FROM_EMAIL
+from django.conf import settings
 from django.contrib.auth.forms import \
     UserCreationForm as BaseUserCreationForm, \
     AuthenticationForm as BaseAuthenticationForm, \
@@ -121,7 +121,7 @@ class AppointmentForm(forms.ModelForm):
         send_mail(
             render_to_string(self.email_subject_template, context=context),
             render_to_string(self.email_body_template, context=context),
-            DEFAULT_FROM_EMAIL,
+            settings.DEFAULT_FROM_EMAIL,
             list(branch.emailreceiver_set.all()),
             fail_silently=True
         )
