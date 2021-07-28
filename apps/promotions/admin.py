@@ -33,8 +33,9 @@ class PromotionAdmin(ImageCroppingMixin, admin.ModelAdmin):
 
     prepopulated_fields = {'url': ('title',), }
     autocomplete_fields = ('category', 'tags')
+    radio_fields = {'sale': admin.HORIZONTAL}
     fieldsets = (
-        (None, {'fields': (('title', 'url'), 'active', 'category', 'tags', 'date', ('price', 'fixed_price'), ('sale_amount', 'is_sale'))}),
+        (None, {'fields': (('title', 'url'), 'active', 'category', 'tags', 'date', 'sale', ('price', 'fixed_price'))}),
         ('Изображение', {'fields': ('image', 'thumbnail', 'icon_thumbnail'), 'classes': ['wide']}),
         ('Главная страница', {'fields': ('show_at_homepage', 'homepage_description'), 'classes': ['wide', 'collapse']}),
         ('Текст', {'fields': ('short_description', 'text'), 'classes': ['wide']}),

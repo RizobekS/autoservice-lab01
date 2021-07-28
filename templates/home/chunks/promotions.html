@@ -12,20 +12,15 @@
                     </h5>
                 </div>
 
-                <div class="plan-description">
-                    {% if not item.fixed_price %}
-                        <h6 class="fw-300 text-uppercase">От</h6>
-                    {% elif item.is_sale %}
-                        <h6 class="fw-300 text-uppercase">скидка</h6>
-                    {% endif %}
-                </div>
-                <div class="price-wrap color-main2">
-                    {% if item.is_sale %}
-                        <span class="plan-price">{{ item.sale_amount|floatformat:"-2g" }}</span><span class="plan-sign">%</span>
-                    {% else %}
-                        <span class="plan-price">{{ item.price|floatformat:"-2g" }}</span><span class="plan-sign">₽</span>
-                    {% endif %}
-                </div>
+                {% if item.price %}
+                    <div class="plan-description">
+                        <h6 class="fw-300 text-uppercase">{% if item.sale %}скидка{% endif %} {% if not item.fixed_price %}{{ item.sale|yesno:"До,От" }}{% endif %}</h6>
+                    </div>
+                    <div class="price-wrap color-main2">
+                        <span class="plan-price">{{ item.price|floatformat:"-2g" }}</span>
+                        <span class="plan-sign">{{ item.get_currency }}</span>
+                    </div>
+                {% endif %}
 
                 <div class="plan-features">
                     {{ item.homepage_description| safe }}

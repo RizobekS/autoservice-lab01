@@ -20,6 +20,11 @@ class Category(models.Model):
 
 
 class Promotion(models.Model):
+    IS_SALE_CHOICES = (
+        (True, 'Скидка'),
+        (False, 'Цена')
+    )
+
     title = models.CharField('Название акции', max_length=500)
     url = AutoSlugField(verbose_name='URL акции', unique=True, populate_from='title', editable=True, max_length=120)
 
@@ -30,10 +35,10 @@ class Promotion(models.Model):
     short_description = models.CharField('Краткое описание (до 500 символов)', max_length=500)
     text = models.TextField('Контент')
 
-    fixed_price = models.BooleanField('Фиксированная цена', help_text='Фикс. цена: "990₽", НЕ фикс. цена: "от 990₽"', default=False)
-    price = models.FloatField('Цена за работу (₽)', null=True, blank=True)
-    is_sale = models.BooleanField('Скидка', default=False)
-    sale_amount = models.FloatField('Скидка (%)', null=True, blank=True)
+    fixed_price = models.BooleanField('Фиксированная цена/скидка', help_text='Фикс. цена: "990₽", НЕ фикс. цена: "от 990₽". Фикс. скидка: "15%", НЕ фикс. скидка: "До 15%"',
+                                      default=False)
+    price = models.FloatField('Цена (₽) / Скидка (%)', null=True, blank=True)
+    sale = models.BooleanField('Цена/Скидка', default=False, choices=IS_SALE_CHOICES)
 
     show_at_homepage = models.BooleanField('Отображать на главной', default=False)
     homepage_description = models.CharField('Краткое описание для главной страницы (до 500 символов)', max_length=500, blank=True)
@@ -45,13 +50,13 @@ class Promotion(models.Model):
     def __str__(self):
         return self.title
 
-    @display(description='Цена')
+    @display(description='Цена/Скидка')
     def verbose_price(self):
-        if self.is_sale:
-            return format_price(self.sale_amount, '%')
-        else:
-            price = format_price(self.price, '₽')
-            return f'{price}' if self.fixed_price else f'От {price}'
+        price = format_price(self.price, self.get_currency())
+        return f'{price}' if self.fixed_price else f'От {price}'
+
+    def get_currency(self):
+        return '%' if self.sale else '₽'
 
     @display(description='Тэги')
     def tag_string(self):
