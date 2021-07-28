@@ -2,6 +2,8 @@ from autoslug import AutoSlugField
 from django.db import models
 from image_cropping import ImageRatioField
 
+from apps.cars.utils.thumbnails import delete_old_thumbnails
+
 
 class Image(models.Model):
     def image_path(self, filename):
@@ -28,6 +30,8 @@ class Image(models.Model):
         if self.__original_image != self.image:
             self.list_thumbnail = None
             self.page_thumbnail = None
+            delete_old_thumbnails(self.__original_image)
+            self.__original_image.close()
         self.__original_image = self.image
         return super().save(**kwargs)
 
