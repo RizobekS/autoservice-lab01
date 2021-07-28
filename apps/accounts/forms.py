@@ -106,13 +106,14 @@ class PasswordChangeForm(BasePasswordChangeForm):
 class AppointmentForm(forms.ModelForm):
     email_subject_template = 'accounts/emails/appointment/subject.html'
     email_body_template = 'accounts/emails/appointment/body.html'
+    html_email_body_template = 'accounts/emails/appointment/html.html'
     extra_context = {}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['branch'].empty_label = 'Выберите СТО'
 
-    def send_mail(self):
+    def send_mail(self, request):
         if not self.is_valid():
             raise ValueError('The form must be valid to send mails')
         branch = self.cleaned_data.get('branch')
@@ -123,7 +124,8 @@ class AppointmentForm(forms.ModelForm):
             render_to_string(self.email_body_template, context=context),
             settings.DEFAULT_FROM_EMAIL,
             branch.get_email_list(),
-            fail_silently=True
+            fail_silently=True,
+            html_message=render_to_string(self.html_email_body_template, context, request=request) if self.html_email_body_template else None
         )
 
     class Meta:
@@ -134,10 +136,11 @@ class AppointmentForm(forms.ModelForm):
 class ShortAppointmentForm(AppointmentForm):
     email_subject_template = 'accounts/emails/short_appointment/subject.html'
     email_body_template = 'accounts/emails/short_appointment/body.html'
+    html_email_body_template = 'accounts/emails/short_appointment/html.html'
 
-    def send_mail(self):
+    def send_mail(self, request):
         self.extra_context = {'datetime': self.instance.datetime}
-        return super().send_mail()
+        return super().send_mail(request)
 
     class Meta:
         fields = ('full_name', 'phone', 'email', 'branch', 'text')

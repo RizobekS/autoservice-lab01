@@ -11,7 +11,7 @@ class ContactForm(forms.Form):
     email = forms.EmailField(label='Email', required=True)
     text = forms.CharField(label='Сообщение', widget=forms.Textarea, required=True)
 
-    def send_mail(self):
+    def send_mail(self, request):
         if not self.is_valid():
             raise ValueError('The form must be valid to send mails')
 

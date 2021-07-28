@@ -91,7 +91,7 @@ class SubmitAppointmentView(View):
         data['user'] = self.request.user.id if self.request.user.is_authenticated else None
         form = AppointmentForm(data=data)
         if form.is_valid():
-            form.send_mail()
+            form.send_mail(request)
             form.save()
             return redirect('accounts:pa:appointment:list')
         else:

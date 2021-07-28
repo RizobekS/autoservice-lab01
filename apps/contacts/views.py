@@ -14,7 +14,7 @@ class ContactsView(FormView, PageSettingsMixin):
     success_url = reverse_lazy('contacts:contacts')
 
     def form_valid(self, form):
-        if form.send_mail():
+        if form.send_mail(self.request):
             messages.success(self.request, '✔ Сообщение было отправлено', extra_tags='text-success')
         else:
             messages.error(self.request, '❌ Сообщение не было отправлено. Что-то пошло не так...', extra_tags='text-danger')
