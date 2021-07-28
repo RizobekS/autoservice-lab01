@@ -34,7 +34,8 @@
                     <div class="row isotope-wrapper masonry-layout c-gutter-0" data-filters=".gallery-filters">
 
                         {% for item in works %}{% with image=item.image_set.first %}
-                            <div class="col-xl-4 col-sm-6 {% for category in item.categories.all %}{{ category.url }} {% endfor %}">
+                            <div onclick="window.location = '{% url 'work_gallery:single' item.url %}'"
+                                 class="col-xl-4 col-sm-6 {% for category in item.categories.all %}{{ category.url }} {% endfor %}">
                                 <div class="vertical-item item-gallery content-absolute text-center ds">
                                     <div class="item-media">
                                         <img src="{% cropped_thumbnail image 'list_thumbnail' max_size=image.max_size %}"

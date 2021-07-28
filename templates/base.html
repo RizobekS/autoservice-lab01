@@ -13,14 +13,7 @@
 <head>
     <title>{{ title_prefix }} {{ page_title }} {{ title_suffix }}</title>
     <meta charset="utf-8">
-    <script>
-        var Hyphenopoly = {
-            require: {
-                "ru": "FORCEHYPHENOPOLY",
-            },
-        };
-    </script>
-    <script src="/static/js/vendor/Hyphenopoly_Loader.js"></script>
+    {% block language_head_scripts %}{% endblock %}
     <!--[if IE]>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <![endif]-->
