@@ -14,13 +14,26 @@ class Image(models.Model):
     list_thumbnail = ImageRatioField(verbose_name='Обрезка изображения', help_text='Для списка всех работ', image_field='image', free_crop=True)
     page_thumbnail = ImageRatioField(verbose_name='Обрезка изображения (1170x780)', help_text='Для индивидуальной страницы работы', image_field='image', size='1170x780')
 
+    __original_image = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__original_image = self.image
+
     def __str__(self):
         return self.image.name
 
-    def max_size(self):
-        ratio = min(600 / self.image.width, 1)  # Downscale if image is wider than 600, do nothing otherwise
-        width, height = self.image.width * ratio, self.image.height * ratio
-        return f'{int(width)}x{int(height)}'
+    def save(self, **kwargs):
+        # Clear image ratio fields to prevent incorrect cropping
+        if self.__original_image != self.image:
+            self.list_thumbnail = None
+            self.page_thumbnail = None
+        self.__original_image = self.image
+        return super().save(**kwargs)
+
+    def scale(self):
+        scale = 600 / self.image.width
+        return scale
 
     class Meta:
         verbose_name = 'Изображение'
