@@ -167,6 +167,31 @@ except IOError:
     except IOError:
         raise Exception('Could not open %s for writing!' % SECRET_FILE)
 
+# ###### LOGGING CONFIGURATION ######
+
+# LOGGING = {
+#     'version': 1,
+#     'filters': {
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         }
+#     },
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'filters': ['require_debug_true'],
+#             'class': 'logging.StreamHandler',
+#         }
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#         }
+#     }
+# }
+
+
 # ##### PACKAGE CONFIGURATIONS ############################
 
 
