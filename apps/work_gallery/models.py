@@ -36,8 +36,15 @@ class Image(models.Model):
         return super().save(**kwargs)
 
     def scale(self):
+        print(self, self.list_thumbnail)
         scale = 600 / self.image.width
         return scale
+
+    def max_size(self):
+        ratio = min(600 / self.image.width, 1)  # Maximum size of image is 600 if original is bigger and original otherwise
+        width, height = self.image.width * ratio, self.image.height * ratio
+        result = f'{int(width)}x{int(height)}'
+        return result
 
     class Meta:
         verbose_name = 'Изображение'

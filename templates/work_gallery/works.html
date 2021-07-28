@@ -38,7 +38,7 @@
                                  data-url="{% url 'work_gallery:single' item.url %}">
                                 <div class="vertical-item item-gallery content-absolute text-center ds">
                                     <div class="item-media">
-                                        <img src="{% cropped_thumbnail image 'list_thumbnail' scale=image.scale upscale=True %}"
+                                        <img src="{% cropped_thumbnail image 'list_thumbnail' max_size=image.max_size %}"
                                              alt="{% if image.alt %}{{ image.alt }}{% else %}{{ image.image.name }}{% endif %}">
                                         <div class="media-links">
                                             <div class="links-wrap">
