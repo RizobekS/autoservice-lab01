@@ -44,7 +44,7 @@ class Vendor(models.Model):
     name = models.CharField('Название', max_length=200)
     url = AutoSlugField(verbose_name='URL марки', validators=[validate_double_slash_url], help_text='Заполняется на основе поля "Название"', populate_from='name',
                         unique=True, editable=True, max_length=120)
-    logo = models.ImageField('Логотип', help_text="Возможность обрезки появится после сохранения", upload_to='vendor_logos')
+    logo = models.ImageField('Логотип', help_text="Возможность обрезки появится после сохранения", upload_to='vendor_logos', max_length=256)
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления', default=True)
 
     def __str__(self):

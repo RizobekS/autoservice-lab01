@@ -23,7 +23,7 @@ class Master(models.Model):
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления. Неактивные мастера не отображаются нигде, кроме админ панели', default=True)
     positions = models.ManyToManyField(verbose_name='Должность', to=Position, blank=True)
     credo = models.TextField('Кредо')
-    image = models.ImageField('Фото', help_text='Возможность обрезки появится после сохранения', upload_to='masters')
+    image = models.ImageField('Фото', help_text='Возможность обрезки появится после сохранения', upload_to='masters', max_length=256)
     thumbnail = ImageRatioField(verbose_name='Обрезка изображения (350x350)', image_field='image', size='350x350')
 
     def __str__(self):

@@ -23,7 +23,7 @@ class Article(models.Model):
     status = models.CharField('Статус статьи', help_text='Отображаться будут только статьи с статусом "Опубликовано"', default='editing', max_length=30, choices=CONDITIONS)
     date = models.DateTimeField("Дата создания")
 
-    image = models.ImageField('Изображение статьи', help_text='Возможность обрезки появится после сохранения', upload_to='articles/')
+    image = models.ImageField('Изображение статьи', help_text='Возможность обрезки появится после сохранения', upload_to='articles/', max_length=256)
     thumbnail = ImageRatioField(verbose_name='Обрезка изображения для страницы списка новостей (800x360)', image_field='image', size='800x360')
     icon_thumbnail = ImageRatioField(verbose_name='Обрезка изображения для списка "Последние записи" (100x100)', image_field='image', size='100x100')
 

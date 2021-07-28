@@ -22,7 +22,7 @@ class Section(models.Model):
     parent_section = models.ForeignKey(verbose_name='Родительский раздел', to='Section', help_text='Оставьте поле пустым, если данный раздел - корневой',
                                        on_delete=models.SET_NULL, null=True, blank=True)
 
-    image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to='services/sections')
+    image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to='services/sections', max_length=256)
     thumbnail_1960x600 = ImageRatioField(verbose_name='Обрезка изображения (1920x600)', help_text='Для фона заголовка страницы', image_field='image', size='1920x600')
     thumbnail_960x585 = ImageRatioField(verbose_name='Обрезка изображения (960x585)', help_text=VENDOR_PAGE_THUMBNAIL_HELP_TEXT, image_field='image', size='960x585')
     thumbnail_455x200 = ImageRatioField(verbose_name='Обрезка изображения (455x200)', help_text='Для превью на странице раздела 1 уровня', image_field='image', size='455x200')
@@ -82,7 +82,7 @@ class Product(models.Model):
     similar_products = models.ManyToManyField(verbose_name='Похожие услуги', help_text='Выводятся когда пользователь попал на услугу, которая не поддерживается его авто.',
                                               to='self', blank=True)
 
-    image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to='services/products')
+    image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to='services/products', max_length=256)
     thumbnail_1960x600 = ImageRatioField(verbose_name='Обрезка изображения (1920x600)', help_text='Для фона заголовка страницы', image_field='image', size='1920x600')
     thumbnail_960x585 = ImageRatioField(verbose_name='Обрезка изображения (960x585)', image_field='image', size='960x585')
     thumbnail_455x200 = ImageRatioField(verbose_name='Обрезка изображения (455x200)', image_field='image', size='455x200')
@@ -116,7 +116,7 @@ class SparePart(models.Model):
     title = models.CharField('Название запчасти', max_length=255)
     url = AutoSlugField(verbose_name='URL раздела', help_text='Заполняется на основе поля "Название запчасти"', populate_from='title', unique=True, editable=True, max_length=120)
 
-    image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to='services/spare_parts')
+    image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to='services/spare_parts', max_length=256)
     thumbnail_268x118 = ImageRatioField(verbose_name='Обрезка изображения для картинки запчасти на странице услуги/товара (268x118)', image_field='image', size='268x118')
 
     price = models.FloatField('Цена за запчасть (₽)')
