@@ -4,7 +4,7 @@ from image_cropping import ImageRatioField
 
 
 class Position(models.Model):
-    name = models.CharField('Название должности', max_length=50, unique=True)
+    name = models.CharField('Название должности', max_length=120, unique=True)
 
     def __str__(self):
         return self.name
