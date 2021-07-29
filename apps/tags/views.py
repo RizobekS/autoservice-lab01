@@ -40,7 +40,7 @@ class TagsListView(View, PageSettingsMixin):
         promotions = self._get_slice(Promotion.objects.exclude(tags=None).filter(active=True, **{'tags__url': tag} if tag else {}), self.promotions_per_page)
         products = self._get_slice(Product.objects.exclude(tag=None).filter(active=True, **{'tag__url': tag} if tag else {}), self.products_per_page)
         masters_count = Master.objects.filter(active=True).count()
-        masters = list(Master.objects.filter(active=True, id__in=[randint(1, masters_count) for item in range(0, 20)])[:self.MASTERS_PER_PAGE])
+        masters = list(Master.objects.filter(active=True, id__in=[randint(1, masters_count + 1) for item in range(0, 20)])[:self.MASTERS_PER_PAGE])
 
         mix = articles + promotions + products + [masters]
         shuffle(mix)
