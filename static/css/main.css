@@ -19827,7 +19827,7 @@ a[class*="fa-"].fa-paper-plane:hover {
     height: 4px;
     margin-top: 0;
     transform: translateY(-50%);
-    background-image: url("../../../img/arrow-down.png");
+    /* background-image: url("../img/arrow-down.png"); */
 }
 
 .choices-plain .choices[data-type*="select-one"] .choices__inner {

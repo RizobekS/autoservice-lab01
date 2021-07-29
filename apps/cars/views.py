@@ -130,6 +130,8 @@ def ajax_filter(request):
     if vendor and model and year and modification:
         if request.user.is_authenticated:
             car_filter, created = CarFilter.objects.get_or_create(user=request.user, vendor=vendor, model=model, year=year, modification=modification)
+            if not created:
+                car_filter.update_last_used()
         else:
             car_filter = CarFilter.objects.create(vendor=vendor, model=model, year=year, modification=modification)
         set_car_filter(request, car_filter)

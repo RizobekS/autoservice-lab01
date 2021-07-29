@@ -15,10 +15,6 @@ def get_car_filter(request: HttpRequest) -> Optional[CarFilter]:
     car_filter = CarFilter.objects.filter(id=filter_id)
     if car_filter.exists():
         return car_filter.first()
-    # elif request.user.is_authenticated and CarFilter.objects.count() > 0:
-    #     user = request.user
-    #     return user.carfilter_set.latest()
-
 
 def set_car_filter(request: HttpRequest, filter_obj: CarFilter) -> None:
     """

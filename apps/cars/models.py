@@ -1,9 +1,9 @@
 from autoslug import AutoSlugField
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 from apps.cars.utils.car_filter_mixin import CarFilterUtilsMixin
-from apps.cars.utils.managers import LastAccessedManager
 from apps.cars.utils.validators import validate_double_slash_url
 from autoservice.settings.common import AUTH_USER_MODEL
 
@@ -18,7 +18,7 @@ class CarFilter(models.Model, CarFilterUtilsMixin):
 
     last_used = models.DateTimeField('Время последнего использования', auto_now=True)
 
-    objects = LastAccessedManager()
+    # objects = LastAccessedManager()
 
     def __str__(self):
         return f'Filter #{self.id} {f" - {self.user} : " if self.user else ":"} {self.modification}'
@@ -31,6 +31,12 @@ class CarFilter(models.Model, CarFilterUtilsMixin):
 
     def ceo_context(self):
         return self.existing_attributes()[-1].ceo_context()
+
+    def update_last_used(self):
+        # print(traceback.print_stack())
+        if self.user and CarFilter.objects.latest().id != self.id:
+            self.last_used = timezone.now()
+            self.save(update_fields=('last_used',))
 
     class Meta:
         unique_together = ('user', 'vendor', 'model', 'year', 'modification')

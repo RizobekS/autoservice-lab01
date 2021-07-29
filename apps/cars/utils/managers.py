@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class LastAccessedQuerySet(models.QuerySet):
@@ -7,26 +8,24 @@ class LastAccessedQuerySet(models.QuerySet):
     """
 
     @staticmethod
-    def _update_access_time(obj):
-        if obj:
+    def _update_access_time(obj):  # Update do not update field more
+        diff = timezone.now() - obj.last_used
+        if obj and diff.seconds > 3:
             obj.save(update_fields=('last_used',))
         return obj
 
     def get(self, *args, **kwargs):
         result = super().get(*args, **kwargs)
-        # print('My get() is used :D')
         self._update_access_time(result)
         return result
 
     def first(self):
         result = super().first()
-        # print('My first() is used :D')
         self._update_access_time(result)
         return result
 
     def last(self):
         result = super().last()
-        # print('My last() is used :D')
         self._update_access_time(result)
         return result
 

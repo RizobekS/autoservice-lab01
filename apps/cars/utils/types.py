@@ -51,6 +51,8 @@ class CarUrls:
                     if request.user.is_authenticated:
                         kwargs['user'] = request.user
                         car_filter, created = CarFilter.objects.get_or_create(**kwargs)
+                        if not created:
+                            car_filter.update_last_used()
         if car_filter is None:
             car_filter = CarFilter.objects.create(**kwargs)
         return car_filter
