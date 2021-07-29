@@ -2,6 +2,8 @@ from django.contrib.admin import display
 from django.db import models
 from image_cropping import ImageRatioField
 
+from apps.site_settings.models import Branch
+
 
 class Position(models.Model):
     name = models.CharField('Название должности', max_length=120, unique=True)
@@ -22,6 +24,7 @@ class Master(models.Model):
     show_at_homepage = models.BooleanField('Отображать на Главной странице', default=False)
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления. Неактивные мастера не отображаются нигде, кроме админ панели', default=True)
     positions = models.ManyToManyField(verbose_name='Должность', to=Position, blank=True)
+    branch = models.ForeignKey(verbose_name='Филиал', to=Branch, on_delete=models.SET_NULL, null=True, blank=True)
     credo = models.TextField('Кредо')
     image = models.ImageField('Фото', help_text='Возможность обрезки появится после сохранения', upload_to='masters', max_length=256)
     thumbnail = ImageRatioField(verbose_name='Обрезка изображения (350x350)', image_field='image', size='350x350')

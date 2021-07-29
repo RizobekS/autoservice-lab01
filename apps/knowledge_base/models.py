@@ -20,7 +20,6 @@ class FaqEntry(models.Model):
     asking_email = models.EmailField('Эл. почта спрашивающего', null=True, blank=True)
 
     master = models.ForeignKey(verbose_name='Отвечающий', to=Master, on_delete=models.SET_NULL, null=True, blank=True)
-    branch = models.ForeignKey(verbose_name='Филиал (Отвечающий)', to=Branch, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.title if self.title else self.question
@@ -42,7 +41,6 @@ class Symptom(models.Model):
     date = models.DateTimeField('Дата и время')
 
     master = models.ForeignKey(verbose_name='Отвечающий', to=Master, on_delete=models.SET_NULL, null=True)
-    branch = models.ForeignKey(verbose_name='Филиал (Отвечающий)', to=Branch, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.title
