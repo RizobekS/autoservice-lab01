@@ -21,3 +21,8 @@ static/*
 media/*
 # except the README
 !media/README
+
+# do NOT ignore the logs directory
+!logs
+# but everything inside it
+logs/*
