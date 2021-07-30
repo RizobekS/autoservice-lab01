@@ -57,6 +57,8 @@ class Section(models.Model):
         return {'section': self.title}
 
     class Meta:
+        indexes = (models.Index(fields=('active', 'parent_section')),
+                   models.Index(fields=('show_at_homepage',)))
         verbose_name = 'Раздел'
         verbose_name_plural = 'Разделы'
 
@@ -108,13 +110,16 @@ class Product(models.Model):
         return {'section': self.section.title, 'product': self.title}
 
     class Meta:
+        indexes = (models.Index(fields=('active',)),
+                   models.Index(fields=('show_at_homepage',)),
+                   models.Index(fields=('section_id',)))
         verbose_name = 'Товар/Услуга'
         verbose_name_plural = 'Товары/Услуги'
 
 
 class SparePart(models.Model):
     title = models.CharField('Название запчасти', max_length=255)
-    url = AutoSlugField(verbose_name='URL раздела', help_text='Заполняется на основе поля "Название запчасти"', populate_from='title', unique=True, editable=True, max_length=120)
+    url = AutoSlugField(verbose_name='URL запчасти', help_text='Заполняется на основе поля "Название запчасти"', populate_from='title', unique=True, editable=True, max_length=120)
 
     image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to='services/spare_parts', max_length=256)
     thumbnail_268x118 = ImageRatioField(verbose_name='Обрезка изображения для картинки запчасти на странице услуги/товара (268x118)', image_field='image', size='268x118')

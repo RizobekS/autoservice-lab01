@@ -18,8 +18,6 @@ class CarFilter(models.Model, CarFilterUtilsMixin):
 
     last_used = models.DateTimeField('Время последнего использования', auto_now=True)
 
-    # objects = LastAccessedManager()
-
     def __str__(self):
         return f'Filter #{self.id} {f" - {self.user} : " if self.user else ":"} {self.modification}'
 
@@ -39,6 +37,8 @@ class CarFilter(models.Model, CarFilterUtilsMixin):
             self.save(update_fields=('last_used',))
 
     class Meta:
+        indexes = (models.Index(fields=('last_used',)),
+                   models.Index(fields=('user_id',)))
         unique_together = ('user', 'vendor', 'model', 'year', 'modification')
         get_latest_by = 'last_used'
         ordering = ['-last_used']
@@ -66,6 +66,7 @@ class Vendor(models.Model):
         return {'vendor': self.name}
 
     class Meta:
+        indexes = (models.Index(fields=('active',)),)
         verbose_name = 'Марка'
         verbose_name_plural = 'Марки'
 
@@ -122,20 +123,27 @@ class Year(models.Model):
         return {'vendor': self.model.vendor.name, 'model': self.model.name, 'year': self.name}
 
     class Meta:
+        indexes = (models.Index(fields=('year',)),)
         verbose_name = 'Год выпуска'
         verbose_name_plural = 'Года выпуска'
 
 
 class Modification(models.Model):
     name = models.CharField('Название модификации', max_length=200)
-
+    full_name = models.CharField('Полное название автомобиля', max_length=640, null=True, blank=True)
     year = models.ForeignKey(verbose_name='Года выпуска', to='Year', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.year.model.vendor.name} - {self.year.model.name} - {self.year.name} - {self.name}'
+        if not self.full_name:
+            self.save(update_fields=('full_name',))
+        return self.full_name
 
     def __repr__(self):
         return f'Modification(name="{self.name}", year="{self.year.year}", model="{self.year.model.name}", vendor="{self.year.model.vendor.name}")'
+
+    def save(self, **kwargs):
+        self.full_name = f'{self.year.model.vendor.name} - {self.year.model.name} - {self.year.name} - {self.name}'
+        return super().save(**kwargs)
 
     def url_args(self):
         return self.year.model.vendor.url, self.year.model.url, self.year.url, self.url

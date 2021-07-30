@@ -36,6 +36,7 @@ class Branch(models.Model):
         return list(chain(*list_of_lists))
 
     class Meta:
+        indexes = (models.Index(fields=('active',)),)
         verbose_name = 'Филиал'
         verbose_name_plural = 'Филиалы'
 
@@ -58,6 +59,7 @@ class StaticInformation(models.Model):
         return self.name
 
     class Meta:
+        indexes = (models.Index(fields=('key',)),)
         ordering = ['category']
         verbose_name = 'Статическая информация'
         verbose_name_plural = 'Статическая информация'

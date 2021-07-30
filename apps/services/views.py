@@ -71,6 +71,10 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
     context_object_name = 'product'
     object: Product = None  # for typehints
 
+    # #### SingleSectionMixin ####
+    def get_current_section(self):
+        return self.object.section
+
     # #### ProductsMixin ####
 
     products_context_name = 'other_products'

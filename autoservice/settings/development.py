@@ -21,8 +21,17 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Database configuration
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': join(PROJECT_ROOT, 'run', 'dev.sqlite3'),
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': join(r'C:\Users\David\Desktop\temp', 'dev.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'autoservice_development',
+        'USER': 'dabud',
+        'PASSWORD': '8ghgVa7k_5Y7LK*',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
+    },
 }

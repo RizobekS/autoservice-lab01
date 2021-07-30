@@ -4,7 +4,7 @@ from django import forms
 from django.db import models
 from django.forms.models import ModelChoiceIterator
 
-from apps.cars.models import Vendor, Model, Year, Modification
+from apps.cars.models import Modification
 
 
 class OptimizedManyToManyField(models.ManyToManyField):
@@ -27,19 +27,10 @@ class OptimizedModelChoiceIterator(ModelChoiceIterator):
     def __iter__(self):
         start = default_timer()
 
-        vendor_set = Vendor.objects.filter(active=True)
-        for vendor in vendor_set:
-            model_set = Model.objects.filter(vendor=vendor)
-            vendor_name = vendor.name
-            for model in model_set:
-                year_set = Year.objects.filter(model=model)
-                model_name = model.name
-                for year in year_set:
-                    modification_set = Modification.objects.filter(year=year)
-                    year_name = year.name
-                    for modification in modification_set:
-                        yield modification.id, ' - '.join((vendor_name, model_name, year_name, modification.name))
-        print(f'Overall time: {default_timer() - start}s')
+        modification_set = Modification.objects.all()
+        for modification in modification_set:
+            yield modification.id, str(modification)
+        print(f'\nOverall time: {default_timer() - start}s\n')
 
 
 class OptimizedModelMultipleChoiceField(forms.ModelMultipleChoiceField):

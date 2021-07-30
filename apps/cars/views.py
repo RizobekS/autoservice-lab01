@@ -114,7 +114,7 @@ def ajax_filter(request):
     modification_id = int(request.POST.get('modification')) if request.POST.get('modification') else None
 
     # Render link for Submit button. Note: Home url is a placeholder and never should be used.
-    vendor = Vendor.objects.filter(id=vendor_id).first()
+    vendor = Vendor.objects.filter(id=vendor_id, active=True).first()
     model = Model.objects.filter(id=model_id, vendor=vendor).first()
     year = Year.objects.filter(id=year_id, model=model).first()
     modification = Modification.objects.filter(id=modification_id, year=year).first()

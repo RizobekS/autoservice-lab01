@@ -15,7 +15,7 @@ class CarUrls:
         return f'{self.vendor} {self.model} {self.year} {self.modification}'
 
     def exists(self) -> bool:
-        value = Vendor.objects.filter(url__exact=self.vendor).exists()
+        value = Vendor.objects.filter(url__exact=self.vendor, active=True).exists()
         if self.model:
             value = value and Model.objects.filter(url__exact=self.model).exists()
             if self.year:
@@ -31,7 +31,7 @@ class CarUrls:
         car_filter = None
         kwargs = {'model': None, 'year': None, 'modification': None}
 
-        obj = Vendor.objects.filter(url__exact=self.vendor)
+        obj = Vendor.objects.filter(url__exact=self.vendor, active=True)
         kwargs['vendor'] = exists_or_404(obj)
 
         # Get Model object

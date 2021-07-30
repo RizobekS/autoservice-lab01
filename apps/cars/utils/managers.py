@@ -1,6 +1,12 @@
 from django.db import models
 from django.utils import timezone
 
+"""
+
+    !!! CURRENTLY UNUSED !!!
+
+"""
+
 
 class LastAccessedQuerySet(models.QuerySet):
     """
