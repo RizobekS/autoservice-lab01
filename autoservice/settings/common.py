@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',  # Ckeditor with file upload
     'django_cleanup.apps.CleanupConfig',  # Deletes old images
     'haystack',  # Search API
+    'clear_cache',  # manage.py command to clear all caches
 ]
 
 # Middlewares
@@ -169,27 +170,27 @@ except IOError:
 
 # ###### LOGGING CONFIGURATION ######
 
-# LOGGING = {
-#     'version': 1,
-#     'filters': {
-#         'require_debug_true': {
-#             '()': 'django.utils.log.RequireDebugTrue',
-#         }
-#     },
-#     'handlers': {
-#         'console': {
-#             'level': 'DEBUG',
-#             'filters': ['require_debug_true'],
-#             'class': 'logging.StreamHandler',
-#         }
-#     },
-#     'loggers': {
-#         'django.db.backends': {
-#             'level': 'DEBUG',
-#             'handlers': ['console'],
-#         }
-#     }
-# }
+LOGGING = {
+    'version': 1,
+    'filters': {
+        'slow_sql': {'()': 'autoservice.logging.filters.SlowSQLQueryFilter'},
+        'require_debug_true': {'()': 'django.utils.log.RequireDebugTrue'}
+    },
+    'handlers': {
+        'slow_sql_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': join(PROJECT_ROOT, 'run', 'logs', 'slow_sql_queries.log')
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['slow_sql_file'],
+            'filters': ['require_debug_true', 'slow_sql'],
+        }
+    }
+}
 
 
 # ##### PACKAGE CONFIGURATIONS ############################
