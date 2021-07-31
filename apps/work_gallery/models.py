@@ -15,7 +15,8 @@ class Image(models.Model):
         return f'work_gallery/{self.work.url}/{filename}'
 
     alt = models.CharField('Описание фото', help_text='Используется внутри аттрибута alt=" "', max_length=128, null=True, blank=True)
-    image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to=image_path, max_length=256)
+    image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения. Изображения автоматически конвертируются в JPEG формат',
+                              upload_to=image_path, max_length=256)
     iframe_url = models.CharField('Ссылка на <iframe>', help_text='Оставьте поле пустым, чтобы отображать только изображение', max_length=512, null=True, blank=True)
     work = models.ForeignKey(verbose_name='Работа', to='Work', on_delete=models.CASCADE)
     list_thumbnail = ImageRatioField(verbose_name='Обрезка изображения', help_text='Для списка всех работ', image_field='image', free_crop=True)
