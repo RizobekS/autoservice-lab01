@@ -26,7 +26,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class ImageInlineAdmin(ImageCroppingMixin, admin.StackedInline):
     fieldsets = (
-        (None, {'fields': ('image', 'alt', 'iframe_url')}),
+        (None, {'fields': (('image', 'alt'), 'iframe_url')}),
         ('Обрезка изображений', {'fields': ('list_thumbnail', 'page_thumbnail'), 'classes': ('collapse',), 'description': 'Появится после первого сохранения'})
     )
     extra = 0

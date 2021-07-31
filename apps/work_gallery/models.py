@@ -1,4 +1,9 @@
+from io import BytesIO
+from os.path import splitext
+
+from PIL import Image as PillowImage
 from autoslug import AutoSlugField
+from django.core.files.base import ContentFile
 from django.db import models
 from image_cropping import ImageRatioField
 
@@ -26,7 +31,24 @@ class Image(models.Model):
         return self.image.name
 
     def save(self, **kwargs):
-        # Clear image ratio fields to prevent incorrect cropping
+        """ Change extension to .jpg if needed """
+        name, extension = splitext(self.image.name)
+        if extension != '.jpg':
+            filename = f'{name}.jpg'
+
+            image = PillowImage.open(self.image)
+            # for PNG images discarding the alpha channel and fill it with some color
+            if image.mode in ('RGBA', 'LA'):
+                background = PillowImage.new(image.mode[:-1], image.size, '#fff')
+                background.paste(image, image.split()[-1])
+                image = background
+            image_io = BytesIO()
+            image.save(image_io, format='JPEG', quality=100)
+
+            # change the image field value to be the newly modified image value
+            self.image.save(filename, ContentFile(image_io.getvalue()), save=False)
+
+        """ Clear image ratio fields to prevent incorrect cropping """
         if self.__original_image != self.image:
             self.list_thumbnail = None
             self.page_thumbnail = None
