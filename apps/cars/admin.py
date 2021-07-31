@@ -26,6 +26,7 @@ class VendorAdmin(ImageCroppingMixin, admin.ModelAdmin):
 
 
 class ModificationNestedInline(NestedStackedInline):
+    fields = ('name',)
     model = Modification
     extra = 1
 

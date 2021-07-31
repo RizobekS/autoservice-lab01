@@ -25,8 +25,7 @@
                             <div class="owl-carousel" data-margin="0" data-responsive-lg="1" data-responsive-md="1" data-responsive-sm="1" data-responsive-xs="1" data-dots="false"
                                  data-nav="true">
                                 {% for image in work.image_set.all %}
-                                    <a href="{{ image.image.url }}" class="photoswipe-link" data-width="{{ image.image.width }}" data-height="{{ image.image.height }}"
-                                       {% if image.iframe_url %}data-iframe="{{ image.iframe_url }}"{% endif %}>
+                                    <a {% if image.iframe_url %}data-iframe="{{ image.iframe_url }}" class="photoswipe-link"{% endif %}>
                                         <img src="{% cropped_thumbnail image 'page_thumbnail' %}" alt="{{ image.image.get_alt }}">
                                     </a>
                                 {% endfor %}
