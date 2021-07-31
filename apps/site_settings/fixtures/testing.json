@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "name": "Давид",
-      "email": "bydev2001@gmail.com",
+      "emails": "bydev2001@gmail.com",
       "foreign_key": 1
     }
   },
@@ -13,7 +13,7 @@
     "pk": 2,
     "fields": {
       "name": "Ахмад",
-      "email": "ada_170301@mail.ru",
+      "emails": "lorem@gmail.com, ipsum@gmail.com, dolor@gmail.com",
       "foreign_key": 1
     }
   },
@@ -22,7 +22,7 @@
     "pk": 3,
     "fields": {
       "name": "Давид",
-      "email": "bydev2001@gmail.com",
+      "emails": "bydev2001@gmail.com",
       "foreign_key": 2
     }
   },
@@ -31,7 +31,7 @@
     "pk": 4,
     "fields": {
       "name": "Ахмад",
-      "email": "ada_170301@mail.ru",
+      "emails": "example@gmail.com, someone@mail.ru",
       "foreign_key": 2
     }
   },
@@ -40,7 +40,7 @@
     "pk": 5,
     "fields": {
       "name": "Пример",
-      "email": "exampe@example.com",
+      "emails": "lorem@gmail.com",
       "foreign_key": 2
     }
   },
@@ -604,6 +604,19 @@
       "page": "Страницы работы",
       "key": "work_gallery:single",
       "variables": "{{work}} - название работы",
+      "description": "",
+      "keywords": "",
+      "robots": ""
+    }
+  },
+  {
+    "model": "site_settings.ceosetting",
+    "pk": 26,
+    "fields": {
+      "title": "О нас",
+      "page": "Страница \"О нас\"",
+      "key": "about:about",
+      "variables": "",
       "description": "",
       "keywords": "",
       "robots": ""
