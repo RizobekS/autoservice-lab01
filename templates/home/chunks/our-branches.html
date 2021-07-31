@@ -17,19 +17,19 @@
             <div class="icon-styled color-main">
               <i class="fa fa-map-marker"></i>
             </div>
-            <p class="media-body">{{ item.address }}</p>
+              <p class="media-body">{{ item.address }}</p>
           </div>
-          <div class="media side-icon-box">
-            <div class="icon-styled color-main">
-              <i class="fa fa-phone"></i>
+            <div class="media side-icon-box">
+                <div class="icon-styled color-main">
+                    <i class="fa fa-phone"></i>
+                </div>
+                <p class="media-body"><a href="tel:{{ item.phone|extract_phone }}">{{ item.phone }}</a></p>
             </div>
-            <p class="media-body"><a href="tel:{{ item.phone|extract_phone }}">{{ item.phone }}</a></p>
-          </div>
         {% endfor %}
-        <a href="contact.html" class="btn btn-small btn-outline-maincolor">Связаться с нами</a>
+          <a href="{% url 'contacts:contacts' %}" class="btn btn-small btn-outline-maincolor">Связаться с нами</a>
       </div>
-      <div class="divider-60 d-md-none"></div>
+        <div class="divider-60 d-md-none"></div>
     </div>
-    <!--.col-* -->
+      <!--.col-* -->
   </div>
 </section>

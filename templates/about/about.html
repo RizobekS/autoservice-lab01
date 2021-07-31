@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block language_head_scripts %}
+    <script>
+        var Hyphenopoly = {
+            require: {
+                "ru": "FORCEHYPHENOPOLY",
+            },
+        };
+    </script>
+    <script src="/static/js/vendor/Hyphenopoly_Loader.js"></script>
+{% endblock %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
+{% endblock %}
+
+
+{% block head_scripts %}
+    <script src="{{ map_link }}" type="text/javascript"></script>
+{% endblock %}
+
+
+{% block header %}
+    {% include 'chunks/header/title.html' %}
+{% endblock %}
+
+
+
+{% block main %}
+    {% include 'about/chunks/founder.html' with founder=founder %}
+
+    <section class="ds s-pt-60 s-pt-md-5 s-pb-0 s-pb-md-15 s-pb-lg-150 choose-us-section c-gutter-10 overflow-visible" id="choose-us">
+        <div class="container">
+            {% include 'home/chunks/promotions.html' %}
+            {% include 'about/chunks/why_us.html' with why_us=why_us %}
+            <div class="divider-50 d-none d-lg-block"></div>
+        </div>
+    </section>
+
+    {% include 'about/chunks/how_we_work.html' with how_we_work=how_we_work %}
+
+    {% include 'about/chunks/our_services.html' with our_services=our_services %}
+
+    {% include 'home/chunks/testimonials.html' %}
+
+    {% include 'home/chunks/team.html' %}
+
+    {% include 'home/chunks/our-branches.html' %}
+{% endblock %}

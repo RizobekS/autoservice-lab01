@@ -3,6 +3,7 @@
 
 
 {% block links %}
+    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
     <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
 {% endblock %}
 
@@ -15,65 +16,67 @@
 
 {% block main %}
     <section class="ls s-pt-55 s-pb-20 s-pb-md-60 s-py-xl-145 c-gutter-60">
-    <div class="container">
-      <div class="col-12">
-        <h3 class="special-heading text-center">Почему<span class="text-gradient">выбирают</span> нас?</h3>
-        <p class="fs-20">Высокое качество сервиса {{ car.full_name }} по доступным ценам</p>
-        <div class="divider-60 d-none d-lg-block"></div>
-      </div>
-      <div class="row c-mb-30 c-mb-md-0">
-        <div class="col-md-4">
-          <div class="media align-items-center mb-40">
-            <div class="icon-styled color-main fs-40">
-              <i class="ico-mechanic"></i>
+        <div class="container">
+            <div class="col-12">
+                <h3 class="special-heading text-center">Почему<span class="text-gradient">выбирают</span> нас?</h3>
+                <p class="fs-20">Высокое качество сервиса {{ car.full_name }} по доступным ценам</p>
+                <div class="divider-60 d-none d-lg-block"></div>
             </div>
-            <div class="media-body">
-              <p>
-                Любые виды ремотных работ по низким ценам
-              </p>
+            <div class="row c-mb-30 c-mb-md-0">
+                <div class="col-md-4">
+                    <div class="media align-items-center mb-40">
+                        <div class="icon-styled color-main fs-40">
+                            <i class="ico-mechanic"></i>
+                        </div>
+                        <div class="media-body">
+                            <p>
+                                Любые виды ремотных работ по низким ценам
+                            </p>
+                        </div>
+                    </div>
+                    <div class="media align-items-center mb-40">
+                        <div class="icon-styled color-main fs-40">
+                            <i class="ico-breakdown"></i>
+                        </div>
+                        <div class="media-body">
+                            <p>
+                                Профессионально оборудованные сервисные посты
+                            </p>
+                        </div>
+                    </div>
+                    <div class="media align-items-center">
+                        <div class="icon-styled color-main fs-40">
+                            <i class="ico-car-wash"></i>
+                        </div>
+                        <div class="media-body">
+                            <p>
+                                Комплексная мойка, химчистка и полировка
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 text-center text-lg-left">
+                    <p>
+                        EUROREPAR "Авто Премиум" &ndash; отдельное подразделение по обслуживанию постгарантийных автомобилей {{ car.full_name }}, входящим в группу компаний «Авто
+                        Премиум».
+                    </p>
+                    <p>
+                        Мы являемся официальными партнерами широкой сети сервисных центров EUROREPAR CAR SERVICE, объединяющей более 1 400 сервисных центров во Франции и 3200
+                        сервисных центров
+                        в Европе.
+                    </p>
+                    <div class="mt-lg-40">
+                        <a href="#" class="btn btn-small btn-outline-maincolor">Записаться на сервис</a>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="media align-items-center mb-40">
-            <div class="icon-styled color-main fs-40">
-              <i class="ico-breakdown"></i>
-            </div>
-            <div class="media-body">
-              <p>
-                Профессионально оборудованные сервисные посты
-              </p>
-            </div>
-          </div>
-          <div class="media align-items-center">
-            <div class="icon-styled color-main fs-40">
-              <i class="ico-car-wash"></i>
-            </div>
-            <div class="media-body">
-              <p>
-                Комплексная мойка, химчистка и полировка
-              </p>
-            </div>
-          </div>
         </div>
-        <div class="col-md-8 text-center text-lg-left">
-          <p>
-            EUROREPAR "Авто Премиум" &ndash; отдельное подразделение по обслуживанию постгарантийных автомобилей {{ car.full_name }}, входящим в группу компаний «Авто Премиум».
-          </p>
-          <p>
-            Мы являемся официальными партнерами широкой сети сервисных центров EUROREPAR CAR SERVICE, объединяющей более 1 400 сервисных центров во Франции и 3200 сервисных центров
-            в Европе.
-          </p>
-          <div class="mt-lg-40">
-            <a href="#" class="btn btn-small btn-outline-maincolor">Записаться на сервис</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  {% if sections %}
-    {% include 'cars/chunks/vendor_services.html' %}
-  {% else %}
-    {% include 'cars/chunks/model_services.html' %}
-  {% endif %}
+    {% if sections %}
+        {% include 'cars/chunks/vendor_services.html' %}
+    {% else %}
+        {% include 'cars/chunks/model_services.html' %}
+    {% endif %}
 
 {% endblock %}

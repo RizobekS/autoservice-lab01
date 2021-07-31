@@ -45,6 +45,7 @@ class BranchAdmin(admin.ModelAdmin):
 class CEOSettingAdmin(admin.ModelAdmin):
     list_display = ('page', 'title', 'key', 'variables_safe', 'description', 'keywords', 'robots')
     # list_editable = ('title',)
+    ordering = ('key', 'title')
     search_fields = ('page', 'title', 'key', 'description', 'keywords', 'robots')
     readonly_fields = ('variables_safe', 'page', 'key')
     fields = ('title', ('page', 'key'), 'variables', 'description', 'keywords', 'robots')
