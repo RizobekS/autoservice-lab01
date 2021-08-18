@@ -1,0 +1,35 @@
+{% extends 'accounts/emails/base.html' %}
+
+{% block title %}
+  <p align="left"
+     style="font-size:18px;line-height:24px;color:#030F1C;font-weight:bold;margin-top:0px;margin-bottom:8px;font-family:HelveticaNeue,sans-serif">
+    На сайте "{{ site_name }}" в разделе "Контакты" было отправлено новое сообщение.
+  </p>
+{% endblock %}
+
+{% block data %}
+  <tr style="border-collapse:collapse">
+    <td width="35%" style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <strong>Имя:</strong>
+    </td>
+    <td width="60%" style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      {{ name }}
+    </td>
+  </tr>
+  <tr style="border-collapse:collapse">
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <strong>Эл. почта:</strong>
+    </td>
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <a href="mailto:{{ email }}" style="color:#0078be;font-weight:bold;text-decoration:none" target="_blank">{{ email }}</a>
+    </td>
+  </tr>
+  <tr style="border-collapse:collapse">
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse;vertical-align: top;">
+      <strong>Сообщение:</strong>
+    </td>
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      {{ text|default:'-' }}
+    </td>
+  </tr>
+{% endblock %}

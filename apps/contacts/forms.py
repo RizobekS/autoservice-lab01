@@ -17,10 +17,12 @@ class ContactForm(forms.Form):
 
         site_name = StaticInformation.objects.get(key='site_name')
         receiver = StaticInformation.objects.get(key='email')
+        context = {'site_name': site_name.value, **self.cleaned_data}
         return send_mail(
-            render_to_string('contacts/emails/subject.txt', context={'site_name': site_name.value}),
-            render_to_string('contacts/emails/body.txt', context={'site_name': site_name.value, **self.cleaned_data}),
+            render_to_string('contacts/emails/subject.txt', context=context),
+            render_to_string('contacts/emails/body.txt', context=context),
             settings.DEFAULT_FROM_EMAIL,
             [receiver.value],
-            fail_silently=True
+            fail_silently=True,
+            html_message=render_to_string('contacts/emails/html.html', context, request=request)
         )
