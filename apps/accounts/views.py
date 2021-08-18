@@ -55,9 +55,9 @@ class PasswordResetView(BasePasswordResetView, PageSettingsMixin):
     template_name = 'accounts/password_reset/reset_password.html'
     success_url = reverse_lazy('accounts:password:done')
     form_class = PasswordResetForm
-    subject_template_name = 'emails/password_reset/reset-link-subject.html'
-    email_template_name = 'emails/password_reset/reset-link.html'
-    html_email_template_name = 'emails/password_reset/html-reset-link.html'
+    subject_template_name = 'accounts/emails/password_reset/reset-link-subject.html'
+    email_template_name = 'accounts/emails/password_reset/reset-link.html'
+    html_email_template_name = 'accounts/emails/password_reset/html-reset-link.html'
 
     initial_breadcrumbs = [reverse_bc(LoginView)]
     viewname = 'accounts:password:reset'
