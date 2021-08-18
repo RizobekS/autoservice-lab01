@@ -1,8 +1,10 @@
-from os import environ
-
 from .common import *
 
-print(ROOT_URLCONF)
+import environ
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # turn off all debugging
 DEBUG = True
@@ -13,9 +15,9 @@ ALLOWED_HOSTS = ['autoservice.david-showcase.uz']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': str(environ.get("DB_NAME")),
-        'USER': str(environ.get("DB_USER")),
-        'PASSWORD': str(environ.get("DB_PASSWORD")),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
@@ -25,10 +27,10 @@ DATABASES = {
 # Email sending
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = False
-EMAIL_HOST = str(environ.get("EMAIL_HOST"))
+EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = 587
-EMAIL_HOST_USER = str(environ.get("EMAIL_HOST_USER"))
-EMAIL_HOST_PASSWORD = str(environ.get("EMAIL_HOST_PASSWORD"))
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # ##### SECURITY CONFIGURATION ############################

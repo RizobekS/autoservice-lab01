@@ -21,3 +21,6 @@ coverage_html
 
 # Do not track Whoosh search indexes
 /apps/search/whoosh_index
+
+# Do not track environment varibles file
+.env
