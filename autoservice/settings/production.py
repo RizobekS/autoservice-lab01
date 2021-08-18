@@ -10,7 +10,7 @@ environ.Env.read_env()
 DEBUG = True
 
 # You will have to determine, which hostnames should be served by Django
-ALLOWED_HOSTS = ['autoservice.david-showcase.uz']
+ALLOWED_HOSTS = [env('ALLOWED_HOST')]
 
 DATABASES = {
     'default': {
