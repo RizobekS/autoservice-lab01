@@ -182,14 +182,24 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': join(PROJECT_ROOT, 'run', 'logs', 'slow_sql_queries.log')
-        }
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': join(PROJECT_ROOT, 'run', 'logs', 'django.log')
+        },
     },
     'loggers': {
         'django.db.backends': {
             'level': 'DEBUG',
             'handlers': ['slow_sql_file'],
             'filters': ['require_debug_true', 'slow_sql'],
-        }
+        },
+        'django': {
+            'handlers': ['file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
     }
 }
 
