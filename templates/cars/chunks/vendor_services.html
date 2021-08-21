@@ -1,14 +1,14 @@
 {% load service_url static cropping %}
 
 {% for section in sections %}
-    {% cycle 1 2 as oddity silent %}
+  {% cycle 1 2 as oddity silent %}
   <section class="ls ms s-pt-5 s-pb-3 s-pt-md-50 s-pb-md-45 s-py-lg-140 c-mb-40 c-mb-md-0 side-section text-center text-md-left">
     <div class="divider-5"></div>
     <div class="cover-image {% if oddity == 2 %}s-cover-right{% else %}s-cover-left{% endif %}"></div><!-- half image background element -->
     <div class="container">
       <div class="row">
         <div class="col-md-6 {% if oddity == 2 %}order-1 order-md-2{% endif %}">
-          <img src="{% cropped_thumbnail section 'thumbnail_960x585' %}" alt="{{ section.title }}">
+          <img loading="lazy" src="{% cropped_thumbnail section 'thumbnail_960x585' %}" alt="{{ section.title }}">
         </div>
         <div class="col-md-6 {% if oddity == 2 %}order-2 order-md-1{% endif %}">
           <div class="service-content {% if oddity == 2 %}content-right-padding{% else %}content-left-padding{% endif %}">

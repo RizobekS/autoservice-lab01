@@ -27,17 +27,17 @@
                       <div class="row">
                         <div class="col-xl-3 col-lg-3 col-md-3">
                           <div class="item-media cover-image">
-                            <img src="{% cropped_thumbnail prod 'thumbnail_348x236' %}" alt="">
+                            <img loading="lazy" src="{% cropped_thumbnail prod 'thumbnail_348x236' %}" alt="">
                             <div class="media-links">
                               <a class="abs-link" title="" href="{% service_url prod %}"></a>
                             </div>
                           </div>
                         </div>
-                          <div class="col-xl-8 col-lg-7 col-md-6">
-                              <div class="divider-11 d-none d-xl-block"></div>
-                              <div class="item-content">
-                                  <h6>
-                                      <a href="{% service_url prod %}">{{ prod.title }} {{ car.full_name }}</a>
+                        <div class="col-xl-8 col-lg-7 col-md-6">
+                          <div class="divider-11 d-none d-xl-block"></div>
+                          <div class="item-content">
+                            <h6>
+                              <a href="{% service_url prod %}">{{ prod.title }} {{ car.full_name }}</a>
                                   </h6>
                                   <div class="mb-10 item-meta color-darkgrey">
                               <span>
