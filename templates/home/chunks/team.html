@@ -13,7 +13,7 @@
           {% for master in masters %}
             <div class="vertical-item content-padding text-center overflow-hidden">
               <div class="item-media">
-                <img src="{% cropped_thumbnail master 'thumbnail' %}" alt="{{ master.name }}">
+                <img loading="lazy" src="{% cropped_thumbnail master 'thumbnail' %}" alt="{{ master.name }}">
               </div>
               <div class="item-content">
                 <h6 class="team-name fw-700">{{ master.name }}</h6>
