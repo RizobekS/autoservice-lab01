@@ -11,21 +11,21 @@
 <!--<![endif]-->
 
 <head>
-    <title>{{ title_prefix }} {{ page_title }} {{ title_suffix }}</title>
-    <meta charset="utf-8">
-    {% block language_head_scripts %}{% endblock %}
-    <!--[if IE]>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <![endif]-->
-    <meta name="robots" content="noindex">
-    <meta name="description" content="{{ meta_description }}">
-    <meta name="keywords" content="{{ meta_keywords }}">
-    {#    <meta name="robots" content="{{ meta_robots }}">#}
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    {% load static %}
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
+  <title>{{ title_prefix }} {{ page_title }} {{ title_suffix }}</title>
+  <meta charset="utf-8">
+  {% block language_head_scripts %}{% endblock %}
+  <!--[if IE]>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <![endif]-->
+  <meta name="robots" content="noindex">
+  <meta name="description" content="{{ meta_description }}">
+  <meta name="keywords" content="{{ meta_keywords }}">
+  {#    <meta name="robots" content="{{ meta_robots }}">#}
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% load static %}
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/animations.css' %}">
   <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
 
   {% block links %}
@@ -52,10 +52,10 @@
 </div>
 
 {% if not request.user.is_authenticated %}
-    {% load login_modal %}
-    {% login_modal %}
+  {% load login_modal %}
+  {% login_modal %}
 {% else %}
-    {% appointment_modal %}
+  {% appointment_modal %}
 {% endif %}
 {% include 'modals/search.html' %}
 
@@ -65,23 +65,23 @@
 
 <!-- wrappers for visual page editor and boxed version of template -->
 <div id="canvas">
-    <div id="box_wrapper">
-        <!-- template sections -->
+  <div id="box_wrapper">
+    <!-- template sections -->
 
-        {% block header %}
-            {% include 'chunks/header/base.html' %}
-        {% endblock %}
-
-
-      {% block main %}
-      {% endblock %}
+    {% block header %}
+      {% include 'chunks/header/base.html' %}
+    {% endblock %}
 
 
-      {% include 'chunks/footer.html' %}
-      {% include 'chunks/copyright.html' %}
+    {% block main %}
+    {% endblock %}
 
 
-    </div><!-- eof #box_wrapper -->
+    {% include 'chunks/footer.html' %}
+    {% include 'chunks/copyright.html' %}
+
+
+  </div><!-- eof #box_wrapper -->
 </div><!-- eof #canvas -->
 <script src="{% static 'js/vendor/modernizr-2.6.2.min.js' %}"></script>
 <script src="{% static 'js/compressed.js' %}"></script>

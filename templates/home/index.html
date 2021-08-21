@@ -4,14 +4,14 @@
 
 
 {% block language_head_scripts %}
-    <script>
-        var Hyphenopoly = {
-            require: {
-                "ru": "FORCEHYPHENOPOLY",
-            },
-        };
-    </script>
-    <script src="/static/js/vendor/Hyphenopoly_Loader.js"></script>
+  <script>
+    var Hyphenopoly = {
+      require: {
+        "ru": "FORCEHYPHENOPOLY",
+      },
+    };
+  </script>
+  <script src="/static/js/vendor/Hyphenopoly_Loader.js" defer></script>
 {% endblock %}
 
 
@@ -107,5 +107,5 @@
 
 {% block body_scripts %}
   <script src="{% static 'js/custom/ajax-filter.js' %}"></script>
-  <script src="{{ map_link }}" type="text/javascript"></script>
+  <script src="{{ map_link }}" type="text/javascript" defer></script>
 {% endblock %}
