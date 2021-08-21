@@ -23,7 +23,6 @@
 
 
 {% block head_scripts %}
-    <script src="{{ map_link }}" type="text/javascript"></script>
 {% endblock %}
 
 
@@ -97,15 +96,16 @@
 
     {% include 'home/chunks/services.html' %}
 
-    {% include 'home/chunks/vendors.html' %}
+  {% include 'home/chunks/vendors.html' %}
 
-    {% include 'home/chunks/testimonials.html' %}
+  {% include 'home/chunks/testimonials.html' %}
 
-    {% include 'home/chunks/team.html' %}
+  {% include 'home/chunks/team.html' %}
 
-    {% include 'home/chunks/our-branches.html' %}
+  {% include 'home/chunks/our-branches.html' %}
 {% endblock %}
 
 {% block body_scripts %}
-    <script src="{% static 'js/custom/ajax-filter.js' %}"></script>
+  <script src="{{ map_link }}" type="text/javascript"></script>
+  <script src="{% static 'js/custom/ajax-filter.js' %}"></script>
 {% endblock %}
