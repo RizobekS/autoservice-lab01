@@ -1,44 +1,45 @@
 {% extends 'base.html' %}
+{% load deferred_static %}
 {% load static %}
 {% load cropping %}
 
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
+  {% deferred_style 'css/shop.css' 'color-switcher-link' %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
 {% endblock %}
 
 
 {% block header %}
-    {% include 'chunks/header/title.html' %}
+  {% include 'chunks/header/title.html' %}
 {% endblock %}
 
 
 
 {% block main %}
-    <section class="ls s-pt-60 s-pb-0 s-pt-lg-100 s-pb-lg-40 s-pt-xl-150 s-pb-xl-90">
-        <div class="container">
-            <div class="row c-mb-30">
-                <main class="offset-lg-1 col-lg-10">
-                    <div class="row isotope-wrapper masonry-layout">
-                        {% for item in promotions %}
-                            <div class="col-xl-4 col-md-6">
-                                <article class="text-center content-padding vertical-item post type-post status-publish format-standard has-post-thumbnail ls ms">
+  <section class="ls s-pt-60 s-pb-0 s-pt-lg-100 s-pb-lg-40 s-pt-xl-150 s-pb-xl-90">
+    <div class="container">
+      <div class="row c-mb-30">
+        <main class="offset-lg-1 col-lg-10">
+          <div class="row isotope-wrapper masonry-layout">
+            {% for item in promotions %}
+              <div class="col-xl-4 col-md-6">
+                <article class="text-center content-padding vertical-item post type-post status-publish format-standard has-post-thumbnail ls ms">
 
 
-                                    {% if item.category %}
-                                        <div class="tagcloud">
-                                            <a href="{% url 'promotions:category' item.category.url %}" class="tag-cloud-link"><span>{{ item.category.name }}</span></a>
-                                        </div>
-                                    {% endif %}
+                  {% if item.category %}
+                    <div class="tagcloud">
+                      <a href="{% url 'promotions:category' item.category.url %}" class="tag-cloud-link"><span>{{ item.category.name }}</span></a>
+                    </div>
+                  {% endif %}
 
-                                    <div class="item-media post-thumbnail">
-                                        <a href="{% url 'promotions:promotion' item.url %}">
-                                            <img src="{% cropped_thumbnail item 'thumbnail' %}" alt="{{ item.title }}">
-                                        </a>
-                                    </div>
+                  <div class="item-media post-thumbnail">
+                    <a href="{% url 'promotions:promotion' item.url %}">
+                      <img src="{% cropped_thumbnail item 'thumbnail' %}" alt="{{ item.title }}">
+                    </a>
+                  </div>
 
-                                    <div class="item-content">
+                  <div class="item-content">
                     <header class="entry-header">
                       <h4 class="entry-title"><a href="{% url 'promotions:promotion' item.url %}" rel="bookmark">{{ item.title }}</a></h4>
                     </header>

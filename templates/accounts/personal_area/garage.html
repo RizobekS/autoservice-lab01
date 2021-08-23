@@ -1,15 +1,16 @@
 {% extends 'accounts/personal_area/base.html' %}
+{% load deferred_static %}
 {% load static %}
 
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
+  {% deferred_style 'css/shop.css' 'color-switcher-link' %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
 {% endblock %}
 
 
 {% block modals %}
-    {% include 'modals/select-car.html' with redirect_urlpattern_name='accounts:pa:garage' %}
+  {% include 'modals/select-car.html' with redirect_urlpattern_name='accounts:pa:garage' %}
 {% endblock %}
 
 

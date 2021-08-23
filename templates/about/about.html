@@ -1,62 +1,63 @@
 {% extends 'base.html' %}
+{% load deferred_static %}
 {% load static %}
 
 
 {% block language_head_scripts %}
-    <script>
-        var Hyphenopoly = {
-            require: {
-                "ru": "FORCEHYPHENOPOLY",
-            },
-        };
-    </script>
-    <script src="/static/js/vendor/Hyphenopoly_Loader.js"></script>
+  <script>
+    var Hyphenopoly = {
+      require: {
+        "ru": "FORCEHYPHENOPOLY",
+      },
+    };
+  </script>
+  <script src="/static/js/vendor/Hyphenopoly_Loader.js"></script>
 {% endblock %}
 
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
+  {% deferred_style 'css/shop.css' 'color-switcher-link' %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
 {% endblock %}
 
 
 {% block head_scripts %}
-    <script src="{{ map_link }}" type="text/javascript"></script>
+  <script src="{{ map_link }}" type="text/javascript"></script>
 {% endblock %}
 
 
 {% block header %}
-    {% include 'chunks/header/title.html' %}
+  {% include 'chunks/header/title.html' %}
 {% endblock %}
 
 
 
 {% block main %}
-    {% if founder %}
-        {% include 'about/chunks/founder.html' %}
-    {% endif %}
+  {% if founder %}
+    {% include 'about/chunks/founder.html' %}
+  {% endif %}
 
-    <section class="ds s-pt-60 s-pt-md-5 s-pb-0 s-pb-md-15 s-pb-lg-150 choose-us-section c-gutter-10 overflow-visible" id="choose-us">
-        <div class="container">
-            {% include 'home/chunks/promotions.html' %}
-            {% if why_us %}
-                {% include 'about/chunks/why_us.html' %}
-            {% endif %}
-            <div class="divider-50 d-none d-lg-block"></div>
-        </div>
-    </section>
+  <section class="ds s-pt-60 s-pt-md-5 s-pb-0 s-pb-md-15 s-pb-lg-150 choose-us-section c-gutter-10 overflow-visible" id="choose-us">
+    <div class="container">
+      {% include 'home/chunks/promotions.html' %}
+      {% if why_us %}
+        {% include 'about/chunks/why_us.html' %}
+      {% endif %}
+      <div class="divider-50 d-none d-lg-block"></div>
+    </div>
+  </section>
 
-    {% if how_we_work %}
-        {% include 'about/chunks/how_we_work.html' %}
-    {% endif %}
+  {% if how_we_work %}
+    {% include 'about/chunks/how_we_work.html' %}
+  {% endif %}
 
-    {% if our_services %}
-        {% include 'about/chunks/our_services.html' %}
-    {% endif %}
+  {% if our_services %}
+    {% include 'about/chunks/our_services.html' %}
+  {% endif %}
 
-    {% include 'home/chunks/testimonials.html' %}
+  {% include 'home/chunks/testimonials.html' %}
 
-    {% include 'home/chunks/team.html' %}
+  {% include 'home/chunks/team.html' %}
 
-    {% include 'home/chunks/our-branches.html' %}
+  {% include 'home/chunks/our-branches.html' %}
 {% endblock %}

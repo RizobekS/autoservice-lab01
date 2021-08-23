@@ -1,20 +1,21 @@
 {% extends 'base.html' %}
+{% load deferred_static %}
 {% load service_url %}
 
 {% load cropping static shortcuts %}
 
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
-    <link rel="stylesheet" href="{% static 'css/utils.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
+  {% deferred_style 'css/shop.css' 'color-switcher-link' %}
+  {% deferred_style 'css/utils.css' %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
 {% endblock %}
 
 
 {% block modals %}
-    {% if selected_car %}
-        {% include 'modals/select-car.html' %}
-    {% endif %}
+  {% if selected_car %}
+    {% include 'modals/select-car.html' %}
+  {% endif %}
 {% endblock %}
 
 
@@ -25,7 +26,7 @@
 
 {% block main %}
 
-    {% if child_products %}
+  {% if child_products %}
     <section class="ls s-pt-60 s-pb-30 s-py-lg-100 s-py-xl-150 c-gutter-60 c-mb-30 c-mb-lg-0">
       <div class="container">
         <div class="row">
@@ -33,57 +34,57 @@
 
             {{ current_section.description| safe }}
 
-              {% if child_products %}
+            {% if child_products %}
               <h5>Цены на {{ current_section.title|lower }}</h5>
-                  <table class="table table-striped">
-                      <thead>
-                      <tr>
-                          <th>Услуга</th>
-                          <th>Стоимость</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      {% for item in child_products %}
-                          <tr>
-                              <td><a href="{% service_url item %}">{{ item.title }}</a></td>
-                              <td>{{ item.verbose_price }}</td>
-                          </tr>
-                      {% endfor %}
-                      </tbody>
-                  </table>
-              {% endif %}
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Услуга</th>
+                  <th>Стоимость</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in child_products %}
+                  <tr>
+                    <td><a href="{% service_url item %}">{{ item.title }}</a></td>
+                    <td>{{ item.verbose_price }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            {% endif %}
 
           </div>
 
-            <div class="col-md-5 service-tab">
+          <div class="col-md-5 service-tab">
 
-                {% if child_products %}
-                    <div id="accordion01" class="accordion ls ms" role="tablist">
+            {% if child_products %}
+              <div id="accordion01" class="accordion ls ms" role="tablist">
 
-                        {% for item in child_products %}
-                            <div class="card">
+                {% for item in child_products %}
+                  <div class="card">
 
-                                <div class="card-header" role="tab" id="collapse{{ forloop.counter }}_header">
-                                    <h6>
-                                        <a {% if forloop.first %}class="collapsed"{% endif %} data-toggle="collapse" href="#collapse{{ forloop.counter }}"
-                                           aria-expanded="{{ forloop.first|yesno:"true,false" }}"
-                                           aria-controls="collapse{{ forloop.counter }}">
-                                            {{ item.title }}
-                                        </a>
-                                    </h6>
-                                </div>
-                                <div id="collapse{{ forloop.counter }}" class="collapse {% if forloop.first %}show{% endif %}" role="tabpanel"
-                                     aria-labelledby="collapse{{ forloop.counter }}_header" data-parent="#accordion01">
-                                    <div class="card-body">
-                                        <div class="media align-items-center">
-                                            <div class="media-left">
-                                                <a href="{% service_url item %}">
-                                                    <img src="{% cropped_thumbnail item 'thumbnail_80x80' %}" alt="{{ item.title }}">
-                                                </a>
-                                            </div>
-                                            <div class="media-body">
-                                                {{ item.short_description }}
-                                                <br>
+                    <div class="card-header" role="tab" id="collapse{{ forloop.counter }}_header">
+                      <h6>
+                        <a {% if forloop.first %}class="collapsed"{% endif %} data-toggle="collapse" href="#collapse{{ forloop.counter }}"
+                           aria-expanded="{{ forloop.first|yesno:"true,false" }}"
+                           aria-controls="collapse{{ forloop.counter }}">
+                          {{ item.title }}
+                        </a>
+                      </h6>
+                    </div>
+                    <div id="collapse{{ forloop.counter }}" class="collapse {% if forloop.first %}show{% endif %}" role="tabpanel"
+                         aria-labelledby="collapse{{ forloop.counter }}_header" data-parent="#accordion01">
+                      <div class="card-body">
+                        <div class="media align-items-center">
+                          <div class="media-left">
+                            <a href="{% service_url item %}">
+                              <img src="{% cropped_thumbnail item 'thumbnail_80x80' %}" alt="{{ item.title }}">
+                            </a>
+                          </div>
+                          <div class="media-body">
+                            {{ item.short_description }}
+                            <br>
                             <a href="{% service_url item %}">Подробнее</a>
                           </div>
                         </div>
@@ -97,7 +98,7 @@
             {% endif %}
 
 
-                {% include 'services/chunks/branches.html' %}
+            {% include 'services/chunks/branches.html' %}
 
             <div class="ls ms p-30">
               <h6>Оставить заявку</h6>

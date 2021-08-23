@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load deferred_static %}
 {% load service_url %}
 
 {% load cropping %}
@@ -6,57 +7,57 @@
 
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
-    <link rel="stylesheet" href="{% static 'css/utils.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
+  {% deferred_style 'css/shop.css' 'color-switcher-link' %}
+  {% deferred_style 'css/utils.css' %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
 {% endblock %}
 
 
 {% block modals %}
-    {% if selected_car %}
-        {% include 'modals/select-car.html' %}
-    {% endif %}
+  {% if selected_car %}
+    {% include 'modals/select-car.html' %}
+  {% endif %}
 {% endblock %}
 
 
 {% block header %}
-    {% include 'chunks/header/title-filter.html' %}
+  {% include 'chunks/header/title-filter.html' %}
 {% endblock %}
 
 
 
 {% block main %}
 
-    <section class="ls s-pt-50 s-pb-20 s-pt-lg-100 s-pb-lg-90 s-pt-xl-150 s-pb-xl-140 c-gutter-60 c-mb-30 c-mb-lg-0 service-single">
-        <div class="container">
-            <div class="row">
+  <section class="ls s-pt-50 s-pb-20 s-pt-lg-100 s-pb-lg-90 s-pt-xl-150 s-pb-xl-140 c-gutter-60 c-mb-30 c-mb-lg-0 service-single">
+    <div class="container">
+      <div class="row">
 
-                <div class="col-md-7 col-lg-8">
-
-
-                    {{ product.description| safe }}
-                    {% include 'services/chunks/progress_bars.html' %}
+        <div class="col-md-7 col-lg-8">
 
 
-                    {% include 'accounts/chunks/short-appontment-form.html' %}
+          {{ product.description| safe }}
+          {% include 'services/chunks/progress_bars.html' %}
 
-                </div>
-                <div class="col-md-5 col-lg-4">
 
-                    {% include 'services/chunks/aside/product_spares_details.html' %}
-                    {% include 'services/chunks/aside/other_products.html' %}
+          {% include 'accounts/chunks/short-appontment-form.html' %}
 
-                </div><!-- .col-* -->
-            </div>
-            <div class="divider-3"></div>
         </div>
-    </section>
+        <div class="col-md-5 col-lg-4">
+
+          {% include 'services/chunks/aside/product_spares_details.html' %}
+          {% include 'services/chunks/aside/other_products.html' %}
+
+        </div><!-- .col-* -->
+      </div>
+      <div class="divider-3"></div>
+    </div>
+  </section>
 
 {% endblock %}
 
 
 
 {% block body_scripts %}
-    <script src="{% static 'js/custom/ajax-filter.js' %}"></script>
-    <script src="{% static 'js/custom/scroll-to.js' %}"></script>
+  <script src="{% static 'js/custom/ajax-filter.js' %}"></script>
+  <script src="{% static 'js/custom/scroll-to.js' %}"></script>
 {% endblock %}

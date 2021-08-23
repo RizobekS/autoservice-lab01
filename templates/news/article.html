@@ -1,21 +1,22 @@
 {% extends 'base.html' %}
+{% load deferred_static %}
 {% load static string_time_delta %}
 
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
+  {% deferred_style 'css/shop.css' 'color-switcher-link' %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
 {% endblock %}
 
 
 {% block header %}
-    {% include 'chunks/header/title.html' %}
+  {% include 'chunks/header/title.html' %}
 {% endblock %}
 
 
 
 {% block main %}
-    <section class="ls s-py-60 s-py-lg-100 s-py-xl-150 c-gutter-70">
+  <section class="ls s-py-60 s-py-lg-100 s-py-xl-150 c-gutter-70">
     <div class="container">
       <div class="row">
         <main class="col-lg-7 col-xl-8">

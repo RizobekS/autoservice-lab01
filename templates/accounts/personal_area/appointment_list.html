@@ -1,82 +1,83 @@
 {% extends 'accounts/personal_area/base.html' %}
+{% load deferred_static %}
 {% load static strings %}
 
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
-    <link rel="stylesheet" href="{% static 'css/utils.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
+  {% deferred_style 'css/shop.css' 'color-switcher-link' %}
+  {% deferred_style 'css/utils.css' %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
 {% endblock %}
 
 
 
 {% block main %}
-    <section class="ls s-py-50 s-pt-lg-90 s-pb-lg-100 s-pt-xl-140 s-pb-xl-150">
-        <div class="divider-3"></div>
-        <div class="container">
-            <div class="row">
-                <main class="col-lg-12">
-                    <article id="post-1708" class="post-1708 page type-page status-publish hentry">
-                        <header class="entry-header mb-30">
-                            <h1 class="entry-title">Записи на сервис</h1>
-                        </header><!-- .entry-header -->
-                        <div class="entry-content">
-                            <div class="woocommerce">
+  <section class="ls s-py-50 s-pt-lg-90 s-pb-lg-100 s-pt-xl-140 s-pb-xl-150">
+    <div class="divider-3"></div>
+    <div class="container">
+      <div class="row">
+        <main class="col-lg-12">
+          <article id="post-1708" class="post-1708 page type-page status-publish hentry">
+            <header class="entry-header mb-30">
+              <h1 class="entry-title">Записи на сервис</h1>
+            </header><!-- .entry-header -->
+            <div class="entry-content">
+              <div class="woocommerce">
 
-                                {% include 'accounts/personal_area/chunks/sidebar.html' %}
+                {% include 'accounts/personal_area/chunks/sidebar.html' %}
 
-                                <div class="woocommerce-MyAccount-content">
+                <div class="woocommerce-MyAccount-content">
 
-                                    {% if object_list %}
+                  {% if object_list %}
 
-                                        {# TODO: Текущий шаблон является урезанной версией. Возможно в будущем понадобится заново наполнять исходный шаблон тегами #}
-                                        <table class="woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table">
-                                            <thead>
-                                            <tr class="text-center">
-                                                <th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-number"><span class="nobr">Запись</span></th>
-                                                <th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date"><span class="nobr">Дата и время</span></th>
-                                                <th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-status"><span class="nobr">Статус</span></th>
-                                                <th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-actions text-center"><span class="nobr">Автомобиль</span>
-                                                </th>
-                                            </tr>
-                                            </thead>
+                    {# TODO: Текущий шаблон является урезанной версией. Возможно в будущем понадобится заново наполнять исходный шаблон тегами #}
+                    <table class="woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table">
+                      <thead>
+                      <tr class="text-center">
+                        <th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-number"><span class="nobr">Запись</span></th>
+                        <th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date"><span class="nobr">Дата и время</span></th>
+                        <th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-status"><span class="nobr">Статус</span></th>
+                        <th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-actions text-center"><span class="nobr">Автомобиль</span>
+                        </th>
+                      </tr>
+                      </thead>
 
-                                            <tbody>
-                                            {% for item in object_list %}
-                                                <tr class="woocommerce-orders-table__row woocommerce-orders-table__row--status-processing order text-center">
-                                                    <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
-                                                        <a>#{{ item.id }}</a>
-                                                    </td>
-                                                    <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-date" data-title="Date">
-                                                        <time datetime="{{ item.datetime }}">{{ item.datetime|date:"E d, Y" }}<br>{{ item.datetime|time:"H:i" }}</time>
-                                                    </td>
-                                                    <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status" data-title="Status">
-                                                        {{ item.get_status_display|break_words }}
-                                                    </td>
-                                                    <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-actions" data-title="Car">
-                                                        {{ item.car }}
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
+                      <tbody>
+                      {% for item in object_list %}
+                        <tr class="woocommerce-orders-table__row woocommerce-orders-table__row--status-processing order text-center">
+                          <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
+                            <a>#{{ item.id }}</a>
+                          </td>
+                          <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-date" data-title="Date">
+                            <time datetime="{{ item.datetime }}">{{ item.datetime|date:"E d, Y" }}<br>{{ item.datetime|time:"H:i" }}</time>
+                          </td>
+                          <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status" data-title="Status">
+                            {{ item.get_status_display|break_words }}
+                          </td>
+                          <td class="woocommerce-orders-table__cell woocommerce-orders-table__cell-order-actions" data-title="Car">
+                            {{ item.car }}
+                          </td>
+                        </tr>
+                      {% endfor %}
 
-                                            </tbody>
-                                        </table>
-                                    {% else %}
-                                        <div class="woocommerce-message woocommerce-message--info woocommerce-Message woocommerce-Message--info woocommerce-info">
-                                            <!--<a class="woocommerce-Button btn btn-maincolor" href="shop-right.html">Go shop</a>-->
-                                            Вы еще ни разу не записывались на наш сервис =(
-                                        </div>
-                                    {% endif %}
+                      </tbody>
+                    </table>
+                  {% else %}
+                    <div class="woocommerce-message woocommerce-message--info woocommerce-Message woocommerce-Message--info woocommerce-info">
+                      <!--<a class="woocommerce-Button btn btn-maincolor" href="shop-right.html">Go shop</a>-->
+                      Вы еще ни разу не записывались на наш сервис =(
+                    </div>
+                  {% endif %}
 
-                                </div>
-                            </div>
-                        </div><!-- .entry-content -->
-                    </article>
+                </div>
+              </div>
+            </div><!-- .entry-content -->
+          </article>
 
-                </main>
-            </div>
+        </main>
+      </div>
 
-        </div>
-    </section>
+    </div>
+  </section>
 {% endblock %}
 

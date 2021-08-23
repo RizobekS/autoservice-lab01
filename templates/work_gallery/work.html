@@ -1,56 +1,57 @@
 {% extends 'base.html' %}
+{% load deferred_static %}
 {% load cropping %}
 {% load static %}
 
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
+  {% deferred_style 'css/shop.css' 'color-switcher-link' %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
 {% endblock %}
 
 
 {% block header %}
-    {% include 'chunks/header/title.html' %}
+  {% include 'chunks/header/title.html' %}
 {% endblock %}
 
 
 
 {% block main %}
-    <section class="ls s-py-60 s-py-lg-100 s-py-xl-150 gallery-single">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-10 offset-lg-1">
+  <section class="ls s-py-60 s-py-lg-100 s-py-xl-150 gallery-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1">
 
-                    <div class="vertical-item content-padding hero-bg text-center">
-                        <div class="item-media">
-                            <div class="owl-carousel" data-margin="0" data-responsive-lg="1" data-responsive-md="1" data-responsive-sm="1" data-responsive-xs="1" data-dots="false"
-                                 data-nav="true">
-                                {% for image in work.image_set.all %}
-                                    <a {% if image.iframe_url %}data-iframe="{{ image.iframe_url }}" class="photoswipe-link"{% endif %}>
-                                        <img src="{% cropped_thumbnail image 'page_thumbnail' %}" alt="{{ image.image.get_alt }}">
-                                    </a>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <div class="item-content">
-                            <h5>
-                                {{ work.title }}
-                            </h5>
-                            <p>
-                                {{ work.text|safe }}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="share_buttons social_part">
-                        <a href="{{ facebook }}" class="color-bg-icon fa fa-facebook" target="_blank"></a>
-                        <a href="{{ twitter }}" class="color-bg-icon fa fa-twitter" target="_blank"></a>
-                        <a href="{{ google_plus }}" class="color-bg-icon fa fa-google-plus" target="_blank"></a>
-                        <a href="{{ instagram }}" class="color-bg-icon fa fa-instagram" target="_blank"></a>
-                        <a href="{{ youtube }}" class="color-bg-icon fa fa-youtube-play" target="_blank"></a>
-                        <a href="{{ dribbble }}" class="color-bg-icon fa fa-dribbble" target="_blank"></a>
-                    </div>
-                </div>
+          <div class="vertical-item content-padding hero-bg text-center">
+            <div class="item-media">
+              <div class="owl-carousel" data-margin="0" data-responsive-lg="1" data-responsive-md="1" data-responsive-sm="1" data-responsive-xs="1" data-dots="false"
+                   data-nav="true">
+                {% for image in work.image_set.all %}
+                  <a {% if image.iframe_url %}data-iframe="{{ image.iframe_url }}" class="photoswipe-link"{% endif %}>
+                    <img src="{% cropped_thumbnail image 'page_thumbnail' %}" alt="{{ image.image.get_alt }}">
+                  </a>
+                {% endfor %}
+              </div>
             </div>
+            <div class="item-content">
+              <h5>
+                {{ work.title }}
+              </h5>
+              <p>
+                {{ work.text|safe }}
+              </p>
+            </div>
+          </div>
+          <div class="share_buttons social_part">
+            <a href="{{ facebook }}" class="color-bg-icon fa fa-facebook" target="_blank"></a>
+            <a href="{{ twitter }}" class="color-bg-icon fa fa-twitter" target="_blank"></a>
+            <a href="{{ google_plus }}" class="color-bg-icon fa fa-google-plus" target="_blank"></a>
+            <a href="{{ instagram }}" class="color-bg-icon fa fa-instagram" target="_blank"></a>
+            <a href="{{ youtube }}" class="color-bg-icon fa fa-youtube-play" target="_blank"></a>
+            <a href="{{ dribbble }}" class="color-bg-icon fa fa-dribbble" target="_blank"></a>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 {% endblock %}

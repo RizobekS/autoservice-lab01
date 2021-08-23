@@ -30,8 +30,8 @@
   {% deferred_style 'css/font-awesome.css' %}
 
   {% block links %}
-    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
-    <link rel="stylesheet" href="{% static 'css/utils.css' %}">
+    {% deferred_style 'css/shop.css' 'color-switcher-link' %}
+    {% deferred_style 'css/utils.css' %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
   {% endblock %}
 

@@ -6,9 +6,10 @@ register = template.Library()
 
 
 @register.simple_tag
-def deferred_style(url: str):
+def deferred_style(url: str, class_: str = None):
     static_url = static(url)
-    return mark_safe(f"""<link rel="preload" href="{static_url}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    class_ = f'class="{class_}"' if class_ else ''
+    return mark_safe(f"""<link rel="preload" href="{static_url}" as="style" onload="this.onload=null;this.rel='stylesheet'" {class_}>
   <noscript>
     <link rel="stylesheet" href="{static_url}">
   </noscript>""")

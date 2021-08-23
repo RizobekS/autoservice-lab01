@@ -1,73 +1,74 @@
 {% extends 'base.html' %}
+{% load deferred_static %}
 {% load static string_time_delta %}
 
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
-    <link rel="stylesheet" href="{% static 'css/utils.css' %}" class="color-switcher-link">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
+  {% deferred_style 'css/shop.css' 'color-switcher-link' %}
+  {% deferred_style 'css/utils.css' %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
 {% endblock %}
 
 
 {% block header %}
-    {% include 'chunks/header/title.html' %}
+  {% include 'chunks/header/title.html' %}
 {% endblock %}
 
 
 
 {% block main %}
-    <section class="ls s-py-60 s-py-lg-100 s-py-xl-150 c-gutter-60">
-        <div class="container">
-            <div class="row">
+  <section class="ls s-py-60 s-py-lg-100 s-py-xl-150 c-gutter-60">
+    <div class="container">
+      <div class="row">
 
-                <main class="col-lg-7 col-xl-8">
-                    <article class="vertical-item post type-event status-publish format-standard has-post-thumbnail events-post single-post">
-
-
-                        <div class="item-media post-thumbnail rounded-top">
-                            <img src="{{ promotion.image.url }}" alt="{{ promotion.title }}">
-                        </div>
-
-                        {% include 'chunks/aside/social_buttons.html' %}
-
-                        <div class="item-content">
-                            <div class="divider-7"></div>
-                            <div class="entry-meta item-meta color-darkgrey mb-20">
-                                <i class="fa fa-calendar color-main"></i> <span>{{ promotion.date|date_delta }}</span>
-                            </div>
-                            <!-- .entry-meta -->
-                            <hr>
-
-                            <div class="entry-content">
-
-                                {{ promotion.text|safe }}
-
-                            </div>
-                            <!-- .entry-content -->
-
-                        </div>
-                        <!-- .item-content -->
-                    </article>
+        <main class="col-lg-7 col-xl-8">
+          <article class="vertical-item post type-event status-publish format-standard has-post-thumbnail events-post single-post">
 
 
-                    {% include 'accounts/chunks/short-appontment-form.html' %}
-
-                </main>
-
-                <aside class="col-lg-5 col-xl-4">
-                    {% include 'promotions/chunks/promotion_types.html' %}
-                    {% include 'chunks/aside/tags.html' with tags=promotion.tags.all %}
-                    {# {% include 'chunks/aside/instagram.html' %} #}
-                    {% include 'promotions/chunks/other_promotions.html' %}
-                </aside>
+            <div class="item-media post-thumbnail rounded-top">
+              <img src="{{ promotion.image.url }}" alt="{{ promotion.title }}">
             </div>
 
-        </div>
-    </section>
+            {% include 'chunks/aside/social_buttons.html' %}
+
+            <div class="item-content">
+              <div class="divider-7"></div>
+              <div class="entry-meta item-meta color-darkgrey mb-20">
+                <i class="fa fa-calendar color-main"></i> <span>{{ promotion.date|date_delta }}</span>
+              </div>
+              <!-- .entry-meta -->
+              <hr>
+
+              <div class="entry-content">
+
+                {{ promotion.text|safe }}
+
+              </div>
+              <!-- .entry-content -->
+
+            </div>
+            <!-- .item-content -->
+          </article>
+
+
+          {% include 'accounts/chunks/short-appontment-form.html' %}
+
+        </main>
+
+        <aside class="col-lg-5 col-xl-4">
+          {% include 'promotions/chunks/promotion_types.html' %}
+          {% include 'chunks/aside/tags.html' with tags=promotion.tags.all %}
+          {# {% include 'chunks/aside/instagram.html' %} #}
+          {% include 'promotions/chunks/other_promotions.html' %}
+        </aside>
+      </div>
+
+    </div>
+  </section>
 {% endblock %}
 
 
 
 {% block body_scripts %}
-    <script src="{% static 'js/custom/scroll-to.js' %}"></script>
+  <script src="{% static 'js/custom/scroll-to.js' %}"></script>
 {% endblock %}
