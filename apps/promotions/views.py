@@ -65,8 +65,8 @@ class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMix
         return context
 
     # PromotionsMixin
-    def get_promotions_exclude_kwargs(self) -> Dict[str, Any]:
-        return {'id': self.object.id}
+    def get_promotions_queryset(self):
+        return super().get_promotions_queryset().exclude(id=self.object.id)
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(categories=Category.objects.all(), **kwargs)
