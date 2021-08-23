@@ -1,3 +1,4 @@
+{% load deferred_static %}
 {% load appointment_modal %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>
@@ -24,18 +25,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   {% load static %}
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-  <link rel="preload" href="{% static 'css/bootstrap.min.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  </noscript>
-  <link rel="preload" href="{% static 'css/animations.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
-  </noscript>
-  <link rel="preload" href="{% static 'css/font-awesome.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript>
-    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
-  </noscript>
+  {% deferred_style 'css/bootstrap.min.css' %}
+  {% deferred_style 'css/animations.css' %}
+  {% deferred_style 'css/font-awesome.css' %}
 
   {% block links %}
     <link rel="stylesheet" href="{% static 'css/shop.css' %}" class="color-switcher-link">
