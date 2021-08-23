@@ -24,7 +24,7 @@
             {% endif %}
 
             <div class="item-media post-thumbnail">
-              <img src="{% cropped_thumbnail item 'thumbnail_348x236' %}" alt="{{ item.title }}">
+              <img loading="lazy" src="{% cropped_thumbnail item 'thumbnail_348x236' %}" alt="{{ item.title }}">
               <div class="media-links">
                 <a class="abs-link" title="" href="{% service_url item %}"></a>
               </div>
