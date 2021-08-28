@@ -2,7 +2,6 @@ from typing import Any, Dict
 
 from django.urls import reverse
 from django.utils.html import strip_tags
-from django.utils.safestring import mark_safe
 from django.views.generic import DetailView, TemplateView
 
 from apps.accounts.utils.mixins import ShortAppointmentMixin
@@ -64,7 +63,7 @@ class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMix
     def get_ceo_context(self) -> Dict[str, Any]:
         context = super().get_ceo_context()
         obj = self.get_object()
-        context.update({'promotion': obj.title, 'short_description': mark_safe(strip_tags(obj.short_description))})
+        context.update({'promotion': obj.title, 'short_description': strip_tags(obj.short_description)})
         return context
 
     # PromotionsMixin
