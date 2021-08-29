@@ -159,7 +159,7 @@ class SparePartAppointmentForm(forms.ModelForm):
             render_to_string('accounts/emails/spare_part_appointment/body.html', context=context),
             settings.DEFAULT_FROM_EMAIL,
             [receiver.value],
-            fail_silently=False,
+            fail_silently=True,
             html_message=render_to_string('accounts/emails/spare_part_appointment/html.html', context, request=request)
         )
 
