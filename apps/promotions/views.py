@@ -66,6 +66,18 @@ class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMix
         context.update({'promotion': obj.title, 'short_description': strip_tags(obj.short_description)})
         return context
 
+    def get_ceo_template(self, ceo_object, field_name):
+        """ Override default behaviour to support individual or category specific ceo values """
+        # Custom fields with ceo values are the same, but has 'meta_' prefix
+        text = getattr(self.object, f'meta_{field_name}', None)
+        if text:  # Return individual value, if exists
+            return text
+        text = getattr(self.object.category, f'meta_{field_name}', None)
+        if text:  # If individual value is not specified, try category mask
+            return text
+        else:  # If neither category mask nor promotion specific values are not specified, use default one
+            return super().get_ceo_template(ceo_object, field_name)
+
     # PromotionsMixin
     def get_promotions_queryset(self):
         return super().get_promotions_queryset().exclude(id=self.object.id)

@@ -25,13 +25,11 @@ class SectionAdmin(ImageCroppingMixin, admin.ModelAdmin):
         (None, {
             'fields': (('title', 'url'), 'title_dative', 'active', 'parent_section', ('child_sections', 'child_products'))
         }),
-        ('Текст', {
-            'fields': ('short_description', 'description'),
-            'classes': ('wide',)
-        }),
+        ('Текст', {'fields': ('short_description', 'description'), 'classes': ('wide',)}),
         ('Изображения', {
             'fields': ('image', 'thumbnail_1960x600', 'thumbnail_960x585', 'thumbnail_455x200', 'thumbnail_348x236', 'thumbnail_268x118', 'thumbnail_80x80'),
         }),
+        ('CEO настройки', {'fields': ('meta_title', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
     )
 
     form = SectionAdminForm
@@ -75,13 +73,11 @@ class ProductAdmin(ImageCroppingMixin, admin.ModelAdmin):
         (None, {
             'fields': (('title', 'url'), 'active', 'show_at_homepage', 'tag', 'section', ('price', 'fixed_price'), 'time_duration', 'spare_parts', 'cars', 'similar_products')
         }),
-        ('Текст', {
-            'fields': ('short_description', 'description'),
-            'classes': ('wide',)
-        }),
+        ('Текст', {'fields': ('short_description', 'description'), 'classes': ('wide',)}),
         ('Изображения', {
             'fields': ('image', 'thumbnail_1960x600', 'thumbnail_960x585', 'thumbnail_455x200', 'thumbnail_348x236', 'thumbnail_268x118', 'thumbnail_80x80')
         }),
+        ('CEO настройки', {'fields': ('meta_title', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
     )
 
     form = ProductAdminForm

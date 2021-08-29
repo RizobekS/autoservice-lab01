@@ -11,6 +11,8 @@ from utils.helpers import format_price
 
 
 class Section(models.Model):
+    CEO_HELP_TEXT = 'Оставьте поле пустым чтобы использовать стандартную маску.'
+    
     title = models.CharField('Название раздела', max_length=255)
     url = AutoSlugField(verbose_name='URL раздела', help_text='Заполняется на основе поля "Название раздела"',
                         validators=[validate_double_slash_url], populate_from='title', unique=True, editable=True, max_length=120)
@@ -29,6 +31,11 @@ class Section(models.Model):
     thumbnail_348x236 = ImageRatioField(verbose_name='Обрезка изображения (348x236)', image_field='image', size='348x236')
     thumbnail_268x118 = ImageRatioField(verbose_name='Обрезка изображения (268x118)', image_field='image', size='268x118')
     thumbnail_80x80 = ImageRatioField(verbose_name='Обрезка изображения (80x80)', image_field='image', size='80x80')
+
+    meta_title = models.CharField('Заголовок', help_text='Содержимое тега title. ' + CEO_HELP_TEXT, max_length=200, blank=True)
+    meta_description = models.TextField('Meta description', help_text=CEO_HELP_TEXT, null=True, blank=True)
+    meta_keywords = models.TextField('Meta keywords', help_text=CEO_HELP_TEXT, null=True, blank=True)
+    meta_robots = models.TextField('Meta robots', help_text=CEO_HELP_TEXT, null=True, blank=True)
 
     def __str__(self):
         return f'Корневой раздел "{self.title}"' if self.is_root() else f'Раздел "{self.title}"'
@@ -64,6 +71,8 @@ class Section(models.Model):
 
 
 class Product(models.Model):
+    CEO_HELP_TEXT = 'Оставьте поле пустым чтобы использовать стандартную маску.'
+
     title = models.CharField('Название товара/услуги', max_length=255)
     url = AutoSlugField(verbose_name='URL товара/услуги', help_text='Заполняется на основе поля "Название товара/услуги"', populate_from='title', unique=True, editable=True,
                         max_length=120)
@@ -91,6 +100,11 @@ class Product(models.Model):
     thumbnail_348x236 = ImageRatioField(verbose_name='Обрезка изображения (348x236)', image_field='image', size='348x236')
     thumbnail_268x118 = ImageRatioField(verbose_name='Обрезка изображения (268x118)', image_field='image', size='268x118')
     thumbnail_80x80 = ImageRatioField(verbose_name='Обрезка изображения (80x80)', image_field='image', size='80x80')
+
+    meta_title = models.CharField('Заголовок', help_text='Содержимое тега title. ' + CEO_HELP_TEXT, max_length=200, blank=True)
+    meta_description = models.TextField('Meta description', help_text=CEO_HELP_TEXT, null=True, blank=True)
+    meta_keywords = models.TextField('Meta keywords', help_text=CEO_HELP_TEXT, null=True, blank=True)
+    meta_robots = models.TextField('Meta robots', help_text=CEO_HELP_TEXT, null=True, blank=True)
 
     def __str__(self):
         return f'Товар/Услуга "{self.title}"'

@@ -11,6 +11,11 @@ class Category(models.Model):
     name = models.CharField('Название категории', max_length=500)
     url = AutoSlugField(verbose_name='URL категории', unique=True, populate_from='title', editable=True, max_length=120)
 
+    meta_title = models.CharField('Заголовок', help_text='Содержимое тега title. Оставьте поле пустым чтобы использовать стандартную маску.', max_length=200, blank=True)
+    meta_description = models.TextField('Meta description', help_text='Оставьте поле пустым чтобы использовать стандартную маску.', null=True, blank=True)
+    meta_keywords = models.TextField('Meta keywords', help_text='Оставьте поле пустым чтобы использовать стандартную маску.', null=True, blank=True)
+    meta_robots = models.TextField('Meta robots', help_text='Оставьте поле пустым чтобы использовать стандартную маску.', null=True, blank=True)
+
     def __str__(self):
         return self.name
 
@@ -20,6 +25,7 @@ class Category(models.Model):
 
 
 class Promotion(models.Model):
+    CEO_HELP_TEXT = 'Оставьте поле пустым чтобы использовать маску категории или стандартную маску.'
     IS_SALE_CHOICES = (
         (True, 'Скидка'),
         (False, 'Цена')
@@ -46,6 +52,11 @@ class Promotion(models.Model):
     image = models.ImageField('Изображение акции', help_text='Возможность обрезки появится после сохранения', upload_to='promotions/', max_length=256)
     thumbnail = ImageRatioField(verbose_name='Обрезка изображения для страницы списка акций (800x360)', image_field='image', size='800x360')
     icon_thumbnail = ImageRatioField(verbose_name='Обрезка изображения для списка "Другие акции" (100x100)', image_field='image', size='100x100')
+
+    meta_title = models.CharField('Заголовок', help_text='Содержимое тега title. ' + CEO_HELP_TEXT, max_length=200, blank=True)
+    meta_description = models.TextField('Meta description', help_text=CEO_HELP_TEXT, null=True, blank=True)
+    meta_keywords = models.TextField('Meta keywords', help_text=CEO_HELP_TEXT, null=True, blank=True)
+    meta_robots = models.TextField('Meta robots', help_text=CEO_HELP_TEXT, null=True, blank=True)
 
     def __str__(self):
         return self.title

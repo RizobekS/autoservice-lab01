@@ -54,6 +54,15 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSetting
         context['section'] = self.object.title
         return context
 
+    def get_ceo_template(self, ceo_object, field_name):
+        """ Override default behaviour to support individual ceo values """
+        # Custom fields with ceo values are the same, but has 'meta_' prefix
+        text = getattr(self.object, f'meta_{field_name}', None)
+        if text:  # Return individual value, if exists
+            return text
+        else:  # If not, use default one
+            return super().get_ceo_template(ceo_object, field_name)
+
     def get_context_data(self, **kwargs):
         kwargs.update({
             'image_url': cropped_thumbnail(None, self.object, 'thumbnail_1960x600'),
@@ -104,6 +113,15 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
             'product': self.object.title
         })
         return context
+
+    def get_ceo_template(self, ceo_object, field_name):
+        """ Override default behaviour to support individual ceo values """
+        # Custom fields with ceo values are the same, but has 'meta_' prefix
+        text = getattr(self.object, f'meta_{field_name}', None)
+        if text:  # Return individual value, if exists
+            return text
+        else:  # If not, use default one
+            return super().get_ceo_template(ceo_object, field_name)
 
     def get_context_data(self, **kwargs):
         kwargs.update({

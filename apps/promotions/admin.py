@@ -6,12 +6,16 @@ from utils.admin_actions import clone, activate, deactivate
 from utils.helpers import admin_reverse
 from .forms import PromotionAdminForm
 from .models import Category, Promotion
+from ..site_settings.models import CEOSetting
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    fields = ('name', 'url', 'promotions_string')
-    readonly_fields = ('promotions_string',)
+    fieldsets = (
+        (None, {'fields': ('name', 'url', 'promotions_string')}),
+        ('CEO настройки (для привязанных акций)', {'fields': ('variables_safe', 'meta_title', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
+    )
+    readonly_fields = ('promotions_string', 'variables_safe')
     prepopulated_fields = {'url': ('name',), }
 
     list_display = ('name', 'url', 'promotions_string')
@@ -21,6 +25,11 @@ class CategoryAdmin(admin.ModelAdmin):
     @admin.display(description='Привязанные Акции')
     def promotions_string(self, obj):
         return mark_safe(f'({obj.promotion_set.count()}) {" ,  ".join(admin_reverse(item, item.title) for item in obj.promotion_set.all())}')
+
+    @admin.display(description='Доступные перменные')
+    def variables_safe(self, *args):
+        obj = CEOSetting.objects.get(key='promotions:promotion')
+        return mark_safe(obj.variables.replace('{{', '<b>{{').replace('}}', '}}</b>'))
 
 
 @admin.register(Promotion)
@@ -39,5 +48,6 @@ class PromotionAdmin(ImageCroppingMixin, admin.ModelAdmin):
         ('Изображение', {'fields': ('image', 'thumbnail', 'icon_thumbnail'), 'classes': ['wide']}),
         ('Главная страница', {'fields': ('show_at_homepage', 'homepage_description'), 'classes': ['wide', 'collapse']}),
         ('Текст', {'fields': ('short_description', 'text'), 'classes': ['wide']}),
+        ('CEO настройки', {'fields': ('meta_title', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
     )
     form = PromotionAdminForm

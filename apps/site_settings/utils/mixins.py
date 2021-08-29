@@ -26,13 +26,17 @@ class CEORenderer:
 
     def _render(self, field_name):
         ceo_object = self.get_ceo_object()
-        text = getattr(ceo_object, field_name)
+        text = self.get_ceo_template(ceo_object, field_name)
 
         if text and ceo_object.variables:
             template = Template(f'{{% autoescape off %}}{text}{{% endautoescape %}}')
             return template.render(Context(self.get_ceo_context())).strip()
         else:
             return text.strip()
+
+    def get_ceo_template(self, ceo_object, field_name):
+        """ Hook for overriding behaviour of getting ceo template to render """
+        return getattr(ceo_object, field_name)
 
     def get_ceo_key(self):
         if self.ceo_key is None:
