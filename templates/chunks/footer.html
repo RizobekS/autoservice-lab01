@@ -1,3 +1,4 @@
+{% load strings %}
 {% load static %}
 
 <footer class="page_footer text-center text-md-left ds ms s-pt-65 s-pt-lg-125 s-pb-lg-35 c-gutter-40 main-footer">
@@ -9,18 +10,15 @@
           <a href="{% url 'home:index' %}" class="logo">
             <img src="{% static 'images/logo_ow.png' %}" alt="{{ site_name }}">
           </a>
-          <div class="media side-icon-box">
-            <div class="icon-styled color-main">
-              <i class="fa fa-map-marker"></i>
+
+          {% for item in navbar_branches|slice:":2" %}
+            <div class="media side-icon-box">
+              <div class="icon-styled color-main">
+                <i class="fa fa-phone"></i>
+              </div>
+              <p class="media-body color-grey"><a href="tel:{{ item.phone|extract_phone }}">{{ item.phone }}</a></p>
             </div>
-            <p class="media-body color-grey">{{ address }}</p>
-          </div>
-          <div class="media side-icon-box">
-            <div class="icon-styled color-main">
-              <i class="fa fa-phone"></i>
-            </div>
-            <p class="media-body color-grey">{{ phone }}</p>
-          </div>
+          {% endfor %}
           <div class="media side-icon-box">
             <div class="icon-styled color-main">
               <i class="fa fa-envelope"></i>
@@ -37,53 +35,53 @@
           <ul>
             <li>
               <a href="#"><i class="ico-check-circle"></i>Contact Us</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="ico-check-circle"></i>Blog post</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="ico-check-circle"></i>About Us</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="ico-check-circle"></i>Services</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 animate order-md-4 order-lg-3" data-animation="fadeInUp">
-                <div class="widget widget_services_links">
-                    <h3>Доп услуги</h3>
-                    <ul>
-                        <li>
-                            <a href="#"><i class="ico-check-circle"></i>Обслуживание автопарков</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="ico-check-circle"></i>Tower Hand Dry</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="ico-check-circle"></i>Tire Dressing</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="ico-check-circle"></i>Wheel Shine</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 c-gutter-10 animate order-lg-4" data-animation="fadeInUp">
-                <div class="widget widget_working_hours">
-                    <h3>Время работы</h3>
-                    <ul>
-                        <li class="row">
-                            <div class="color-grey col-3">
-                                Пн-Вс
-                            </div>
-                            <div class="col-md-9 col-5">
-                                <span class="color-darkgrey">9.<sup>00</sup> - 21.<sup>00</sup></span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            </li>
+            <li>
+              <a href="#"><i class="ico-check-circle"></i>Blog post</a>
+            </li>
+            <li>
+              <a href="#"><i class="ico-check-circle"></i>About Us</a>
+            </li>
+            <li>
+              <a href="#"><i class="ico-check-circle"></i>Services</a>
+            </li>
+          </ul>
         </div>
+      </div>
+      <div class="col-md-6 col-lg-3 animate order-md-4 order-lg-3" data-animation="fadeInUp">
+        <div class="widget widget_services_links">
+          <h3>Доп услуги</h3>
+          <ul>
+            <li>
+              <a href="#"><i class="ico-check-circle"></i>Обслуживание автопарков</a>
+            </li>
+            <li>
+              <a href="#"><i class="ico-check-circle"></i>Tower Hand Dry</a>
+            </li>
+            <li>
+              <a href="#"><i class="ico-check-circle"></i>Tire Dressing</a>
+            </li>
+            <li>
+              <a href="#"><i class="ico-check-circle"></i>Wheel Shine</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 c-gutter-10 animate order-lg-4" data-animation="fadeInUp">
+        <div class="widget widget_working_hours">
+          <h3>Время работы</h3>
+          <ul>
+            <li class="row">
+              <div class="color-grey col-3">
+                Пн-Вс
+              </div>
+              <div class="col-md-9 col-5">
+                <span class="color-darkgrey">9.<sup>00</sup> - 21.<sup>00</sup></span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
 </footer>
