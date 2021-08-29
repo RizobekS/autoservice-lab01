@@ -17,12 +17,8 @@
 
 {% block links %}
   {% deferred_style 'css/shop.css' 'color-switcher-link' %}
+  {% deferred_style 'css/utils.css' %}
   <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
-{% endblock %}
-
-
-{% block head_scripts %}
-  <script src="{{ map_link }}" type="text/javascript"></script>
 {% endblock %}
 
 
@@ -59,4 +55,8 @@
   {% include 'home/chunks/team.html' %}
 
   {% include 'home/chunks/our-branches.html' %}
+{% endblock %}
+
+{% block body_scripts %}
+  <div id="mapScript" data-url="{{ map_link }}"></div>
 {% endblock %}
