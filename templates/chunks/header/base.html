@@ -133,19 +133,19 @@
                                         </ul>
                                     </div> <!-- eof mega menu -->
                                 </li>
-                                <!-- eof features -->
-                                <li>
-                                    <a href="about.html">Запчасти</a>
-                                </li>
-                                <li class="{% is_active 'static' 'work_gallery' %}">
-                                    <a href="{% url 'about:about' %}">О нас</a>
-                                    <ul>
-                                        <li class="{% is_active 'static:certificates' %}">
-                                            <a href="{% url 'static:certificates' %}">Сертификаты</a>
-                                        </li>
-                                        <li class="{% is_active 'static:reviews' %}">
-                                            <a href="{% url 'static:reviews' %}">Отзывы</a>
-                                        </li>
+                              <!-- eof features -->
+                              <li>
+                                <a href="{% url 'services:spare_parts' %}">Запчасти</a>
+                              </li>
+                              <li class="{% is_active 'static' 'work_gallery' %}">
+                                <a href="{% url 'about:about' %}">О нас</a>
+                                <ul>
+                                  <li class="{% is_active 'static:certificates' %}">
+                                    <a href="{% url 'static:certificates' %}">Сертификаты</a>
+                                  </li>
+                                  <li class="{% is_active 'static:reviews' %}">
+                                    <a href="{% url 'static:reviews' %}">Отзывы</a>
+                                  </li>
                                         <li class="{% is_active 'work_gallery:list' %}">
                                             <a href="{% url 'work_gallery:list' %}">Галерея работ</a>
                                         </li>
