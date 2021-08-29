@@ -58,4 +58,4 @@ class CEOSettingAdmin(admin.ModelAdmin):
 
     @admin.display(description='Доступные переменные')
     def variables_safe(self, obj):
-        return mark_safe(obj.variables.replace('{{', '<b>{{').replace('}}', '}}</b>'))
+        return mark_safe(obj.variables.replace('{{', '<b>{{').replace('}}', '}}</b>')) if obj.variables else '-'
