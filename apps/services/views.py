@@ -1,15 +1,16 @@
 from typing import List
 
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 from image_cropping.templatetags.cropping import cropped_thumbnail
 
 from apps.cars.utils.mixins import CarFilterPageSettingsMixin
 from utils.breadcrumbs.types import Breadcrumb
+from utils.mixins import PageSettingsMixin
 from utils.views import FormDetailView
 from .models import Section, Product
 from .utils.helpers import service_url
 from .utils.mixins import ProductsMixin, SectionsMixin, SingleSectionMixin
-from ..accounts.utils.mixins import ShortAppointmentMixin
+from ..accounts.utils.mixins import ShortAppointmentMixin, SparePartAppointmentMixin
 from ..site_settings.models import StaticInformation
 
 
@@ -142,3 +143,8 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
     #         return super().get(*args, **kwargs)
     #     else:
     #         return redirect() TODO: redirect to page incompatible.html
+
+
+class SparePartsView(TemplateView, SparePartAppointmentMixin, PageSettingsMixin):
+    template_name = 'services/spare_parts.html'
+    viewname = 'services:spare_parts'

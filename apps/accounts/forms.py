@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 
-from apps.accounts.models import User, Appointment, ShortAppointment
+from apps.accounts.models import User, Appointment, ShortAppointment, SparePartAppointment
 from apps.site_settings.models import StaticInformation
 from utils.shortcuts import add_attrs
 
@@ -145,3 +145,24 @@ class ShortAppointmentForm(AppointmentForm):
     class Meta:
         fields = ('full_name', 'phone', 'email', 'branch', 'text')
         model = ShortAppointment
+
+
+class SparePartAppointmentForm(forms.ModelForm):
+    def send_mail(self, request, datetime):
+        if not self.is_valid():
+            raise ValueError('The form must be valid to send mails')
+        receiver = StaticInformation.objects.get(key='email')
+        site_name = StaticInformation.objects.get(key='site_name')
+        context = {'site_name': site_name.value, 'datetime': datetime, **self.cleaned_data}
+        send_mail(
+            render_to_string('accounts/emails/spare_part_appointment/subject.html', context=context).replace('\n', ''),
+            render_to_string('accounts/emails/spare_part_appointment/body.html', context=context),
+            settings.DEFAULT_FROM_EMAIL,
+            [receiver.value],
+            fail_silently=False,
+            html_message=render_to_string('accounts/emails/spare_part_appointment/html.html', context, request=request)
+        )
+
+    class Meta:
+        fields = ('full_name', 'phone', 'car', 'vin', 'text')
+        model = SparePartAppointment

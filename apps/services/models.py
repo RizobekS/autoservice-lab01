@@ -12,7 +12,7 @@ from utils.helpers import format_price
 
 class Section(models.Model):
     CEO_HELP_TEXT = 'Оставьте поле пустым чтобы использовать стандартную маску.'
-    
+
     title = models.CharField('Название раздела', max_length=255)
     url = AutoSlugField(verbose_name='URL раздела', help_text='Заполняется на основе поля "Название раздела"',
                         validators=[validate_double_slash_url], populate_from='title', unique=True, editable=True, max_length=120)

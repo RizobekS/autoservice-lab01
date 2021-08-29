@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic.base import ContextMixin
 from django.views.generic.edit import FormMixin, ProcessFormView
 
-from apps.accounts.forms import ShortAppointmentForm
+from apps.accounts.forms import ShortAppointmentForm, SparePartAppointmentForm
 from utils.breadcrumbs.mixins import BreadcrumbsMixin
 from utils.breadcrumbs.types import Breadcrumb
 
@@ -37,6 +37,22 @@ class ShortAppointmentMixin(FormMixin, ProcessFormView):
     def form_valid(self, form):
         form.save()
         form.send_mail(self.request)
+        messages.success(self.request, 'Заявка была успешно отправлена ✔', extra_tags='text-success')
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return self.request.path_info
+
+
+class SparePartAppointmentMixin(FormMixin, ProcessFormView):
+    """
+        Adds functionality to render and process SparePartAppointment
+    """
+    form_class = SparePartAppointmentForm
+
+    def form_valid(self, form):
+        obj = form.save()
+        form.send_mail(self.request, obj.datetime)
         messages.success(self.request, 'Заявка была успешно отправлена ✔', extra_tags='text-success')
         return super().form_valid(form)
 
