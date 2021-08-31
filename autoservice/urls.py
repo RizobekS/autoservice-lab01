@@ -28,6 +28,7 @@ urlpatterns = [
     path('raboty/', include('apps.work_gallery.urls', namespace='work_gallery')),
     path('contacts/', include('apps.contacts.urls', namespace='contacts')),
     path('about/', include('apps.about.urls', namespace='about')),
+    path('', include('apps.editor_pages.urls', namespace='editor_pages')),
 
     path('', include((static_urlpatterns, 'static'), namespace='static')),
 

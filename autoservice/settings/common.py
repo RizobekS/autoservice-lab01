@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'apps.contacts',
     'apps.work_gallery',
     'apps.about',
+    'apps.editor_pages',
 
     # Utils
     'utils',

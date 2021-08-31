@@ -1,0 +1,38 @@
+[
+  {
+    "model": "editor_pages.editorpage",
+    "pk": "garantii",
+    "fields": {
+      "title": "Гарантии",
+      "content": "<p><span style=\"font-size:24px;\">Vivamus aliquet elit ac nisl. Mauris sollicitudin fermentum libero. Aenean tellus metus, bibendum sed, posuere ac, mattis non, nunc. Suspendisse potenti. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero.</span></p>\r\n\r\n<p>Sed augue ipsum, egestas nec, vestibulum et, malesuada adipiscing, dui. Suspendisse nisl elit, rhoncus eget, elementum ac, condimentum eget, diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. Donec venenatis vulputate lorem.</p>",
+      "active": true,
+      "meta_description": "",
+      "meta_keywords": "",
+      "meta_robots": ""
+    }
+  },
+  {
+    "model": "editor_pages.editorpage",
+    "pk": "obsluzhivanie-korporativnyh-parkov",
+    "fields": {
+      "title": "Обслуживание автопарков",
+      "content": "<p><strong><em>Curabitur nisi. Fusce fermentum odio nec arcu. Suspendisse non nisl sit amet velit hendrerit rutrum. Etiam rhoncus. Praesent turpis.</em></strong></p>\r\n\r\n<p>Curabitur a felis in nunc fringilla tristique. Vestibulum facilisis, purus nec pulvinar iaculis, ligula mi congue nunc, vitae euismod ligula urna in dolor. Nullam accumsan lorem in dui. Nunc nec neque. Praesent ac sem eget est egestas volutpat.</p>\r\n\r\n<p>Maecenas egestas arcu quis ligula mattis placerat. Nullam sagittis. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Nam adipiscing. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>\r\n\r\n<p><u>Nullam tincidunt adipiscing enim. Fusce fermentum. Etiam ultricies nisi vel augue. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Vestibulum eu odio.</u></p>\r\n\r\n<p>Donec elit libero, sodales nec, volutpat a, <s>suscipit non</s>, turpis. Suspendisse non nisl sit amet velit hendrerit rutrum. Nunc nonummy metus. Vestibulum volutpat pretium libero. Maecenas nec odio et ante tincidunt tempus.</p>",
+      "active": true,
+      "meta_description": "",
+      "meta_keywords": "",
+      "meta_robots": ""
+    }
+  },
+  {
+    "model": "editor_pages.editorpage",
+    "pk": "rabota-v-period-karantina",
+    "fields": {
+      "title": "Работа в условиях COVID-19",
+      "content": "<h1>Donec mi odio faucibus at&nbsp;</h1>\r\n\r\n<h6 style=\"color:#aaaaaa;font-style:italic;\">Praesent ac sem eget est egestas volutpat. Phasellus magna. Nunc interdum lacus sit amet orci. Fusce risus nisl, viverra et, tempor et, pretium in, sapien.</h6>\r\n\r\n<p>Curabitur at lacus ac velit ornare lobortis. Fusce a quam. Aenean viverra rhoncus pede. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Donec id justo.</p>\r\n\r\n<p>Praesent nonummy mi in odio. Vestibulum ullamcorper mauris at ligula. Duis lobortis massa imperdiet quam. In hac habitasse platea dictumst. Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede.</p>\r\n\r\n<p>Donec venenatis vulputate lorem. Maecenas egestas arcu quis ligula mattis placerat. Donec vitae orci sed dolor rutrum auctor. Fusce convallis metus id felis luctus adipiscing. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.</p>\r\n\r\n<p><u>Nunc nonummy metus. Quisque ut nisi. Sed in libero ut nibh placerat accumsan. Nullam cursus lacinia erat. Quisque id mi.</u></p>",
+      "active": true,
+      "meta_description": "",
+      "meta_keywords": "",
+      "meta_robots": ""
+    }
+  }
+]
