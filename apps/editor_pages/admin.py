@@ -12,7 +12,6 @@ class EditorPageAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_editable = ('active',)
     list_filter = ('active',)
     search_fields = ('url', 'content')
-    prepopulated_fields = {'url': ('title',), }
     actions = (activate, deactivate, clone)
     readonly_fields = ('url',)
 
