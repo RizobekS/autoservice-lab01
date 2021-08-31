@@ -14,9 +14,16 @@ class EditorPageAdmin(ImageCroppingMixin, admin.ModelAdmin):
     search_fields = ('url', 'content')
     prepopulated_fields = {'url': ('title',), }
     actions = (activate, deactivate, clone)
+    readonly_fields = ('url',)
 
     fieldsets = (
         (None, {'fields': (('title', 'url'), 'content')}),
         ('CEO настройки', {'fields': ('meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide']})
     )
     form = EditorPageForm
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
