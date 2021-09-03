@@ -27,12 +27,17 @@
           <form method="POST" class="checkout woocommerce-checkout" novalidate>
 
 
-            <div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout">
-              <ul class="woocommerce-error">
-                <li><strong>Имя</strong> обязательно к заполнению.</li>
-                <li><strong>Телефон</strong> обязателен к заполнению.</li>
-              </ul>
-            </div>
+            {% if form.full_name.errors or form.phone.errors %}
+              <div class="woocommerce-NoticeGroup woocommerce-NoticeGroup-checkout">
+                <ul class="woocommerce-error">
+                  {% if form.full_name.errors %}
+                    <li><strong>Имя</strong> обязательно к заполнению.</li>
+                  {% endif %}{% if form.phone.errors %}
+                  <li><strong>Телефон</strong> обязателен к заполнению.</li>
+                {% endif %}
+                </ul>
+              </div>
+            {% endif %}
 
 
             <div class="col2-set" id="customer_details">
@@ -89,106 +94,9 @@
             </div>
 
 
-            <h5 id="order_review_heading">Your order</h5>
-
-
             <div id="order_review" class="woocommerce-checkout-review-order">
-              <table class="shop_table woocommerce-checkout-review-order-table">
-                <thead>
-                <tr>
-                  <th class="product-name">Product</th>
-                  <th class="product-total">Total</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="cart_item">
-                  <td class="product-name">
-                    Premium Quality&nbsp; <strong class="product-quantity">× 1</strong>
-                  </td>
-                  <td class="product-total">
-													<span class="woocommerce-Price-amount amount">
-														<span class="woocommerce-Price-currencySymbol">$</span>12.00</span>
-                  </td>
-                </tr>
-                <tr class="cart_item">
-                  <td class="product-name">
-                    Woo Ninja&nbsp; <strong class="product-quantity">× 1</strong>
-                  </td>
-                  <td class="product-total">
-													<span class="woocommerce-Price-amount amount">
-														<span class="woocommerce-Price-currencySymbol">$</span>15.00</span>
-                  </td>
-                </tr>
-                <tr class="cart_item">
-                  <td class="product-name">
-                    Woo Album #3&nbsp; <strong class="product-quantity">× 2</strong>
-                  </td>
-                  <td class="product-total">
-													<span class="woocommerce-Price-amount amount">
-														<span class="woocommerce-Price-currencySymbol">$</span>18.00</span>
-                  </td>
-                </tr>
-                </tbody>
-                <tfoot>
 
-                <tr class="cart-subtotal">
-                  <th>Subtotal</th>
-                  <td>
-													<span class="woocommerce-Price-amount amount">
-														<span class="woocommerce-Price-currencySymbol">$</span>45.00</span>
-                  </td>
-                </tr>
-
-
-                <tr class="order-total">
-                  <th>Total</th>
-                  <td>
-                    <strong>
-                        <span class="woocommerce-Price-amount amount">
-                            <span
-                                    class="woocommerce-Price-currencySymbol">$</span>45.00</span>
-                    </strong>
-                  </td>
-                </tr>
-
-
-                </tfoot>
-              </table>
-
-              <div id="payment" class="woocommerce-checkout-payment">
-                <ul class="wc_payment_methods payment_methods methods">
-                  <li class="wc_payment_method payment_method_cheque">
-                    <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method" value="cheque" checked="checked" data-order_button_text="">
-
-                    <label for="payment_method_cheque">
-                      Check payments </label>
-                    <div class="payment_box payment_method_cheque" style="display: none;">
-                      <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store
-                        Postcode.</p>
-                    </div>
-                  </li>
-                  <li class="wc_payment_method payment_method_cod">
-                    <input id="payment_method_cod" type="radio" class="input-radio" name="payment_method" value="cod" data-order_button_text="">
-
-                    <label for="payment_method_cod">
-                      Cash on delivery </label>
-                    <div class="payment_box payment_method_cod" style="display: block;">
-                      <p>Pay with cash upon delivery.</p>
-                    </div>
-                  </li>
-                </ul>
-                <div class="form-row place-order">
-                  <noscript>
-                    Since your browser does not support JavaScript, or it is disabled, please ensure you click the
-                    &lt;em&gt;Update Totals&lt;/em&gt; button before placing your order. You may be charged more
-                    than the amount stated above if you fail to do so. &lt;br/&gt;&lt;input type="submit"
-                    class="button alt" name="woocommerce_checkout_update_totals" value="Update totals" /&gt;
-                  </noscript>
-
-                  <button type="submit" class="btn btn-outline-maincolor small-button" name="woocommerce_checkout_place_order">Place order</button>
-
-                </div>
-              </div>
+              <img src="{% static 'images/banners/promo_zapchasti.jpg' %}" alt="">
 
             </div>
 
