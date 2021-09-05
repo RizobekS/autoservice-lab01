@@ -12,7 +12,6 @@ class FaqEntryAdminForm(forms.ModelForm):
         url = self.cleaned_data.get('url')
         answer = self.cleaned_data.get('answer')
         master = self.cleaned_data.get('master')
-        branch = self.cleaned_data.get('branch')
         date = self.cleaned_data.get('date')
 
         if answered:
@@ -25,8 +24,6 @@ class FaqEntryAdminForm(forms.ModelForm):
                 fieldnames.append('answer')
             if not master:
                 fieldnames.append('master')
-            if not branch:
-                fieldnames.append('branch')
             if not date:
                 fieldnames.append('date')
             if fieldnames:
