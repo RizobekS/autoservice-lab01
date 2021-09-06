@@ -1,5 +1,5 @@
 from math import ceil
-from random import shuffle, randint
+from random import shuffle
 from typing import Any, Dict
 
 from django.db.models import QuerySet
@@ -8,7 +8,6 @@ from django.urls import reverse_lazy
 from django.views import View
 
 from apps.knowledge_base.models import FaqEntry, Symptom
-from apps.masters.models import Master
 from apps.news.models import Article
 from apps.promotions.models import Promotion
 from apps.services.models import Product
