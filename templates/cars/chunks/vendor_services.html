@@ -14,9 +14,9 @@
           <div class="service-content {% if oddity == 2 %}content-right-padding{% else %}content-left-padding{% endif %}">
             <h3 class="special-heading">{{ section.title }}<span class="text-gradient">{{ car.full_name }}</span></h3>
 
-            {{ section.description| safe }}
+            {#            {{ section.description| safe }}#}
 
-            <a href="{% service_url section %}" class="btn btn-darkgrey">Услуги по {{ section.title_dative| lower }} {{ car.full_name }}</a>
+            <a href="{% service_url section %}" class="mt-5 btn btn-darkgrey">Услуги по {{ section.title_dative| lower }} {{ car.full_name }}</a>
           </div>
         </div>
       </div>
