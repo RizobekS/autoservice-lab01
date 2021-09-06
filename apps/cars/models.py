@@ -2,6 +2,7 @@ from autoslug import AutoSlugField
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
+from image_cropping import ImageRatioField
 
 from apps.cars.utils.car_filter_mixin import CarFilterUtilsMixin
 from apps.cars.utils.validators import validate_double_slash_url
@@ -50,7 +51,9 @@ class Vendor(models.Model):
     name = models.CharField('Название', max_length=200)
     url = AutoSlugField(verbose_name='URL марки', validators=[validate_double_slash_url], help_text='Заполняется на основе поля "Название"', populate_from='name',
                         unique=True, editable=True, max_length=120)
-    logo = models.ImageField('Логотип', help_text="Возможность обрезки появится после сохранения", upload_to='vendor_logos', max_length=256)
+    header_image = models.ImageField('Изображение в заголовке', help_text='Возможность обрезки появится после сохранения', null=True, blank=True)
+    header_crop = ImageRatioField(verbose_name='Обрезка изображения заголовка (1920x600)', image_field='header_image', size='1920x600')
+    logo = models.ImageField('Логотип', help_text='Возможность обрезки появится после сохранения', upload_to='vendor_logos', max_length=256)
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления', default=True)
 
     def __str__(self):

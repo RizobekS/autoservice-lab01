@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load cropping %}
 {% load deferred_static %}
 {% load static %}
 
@@ -10,7 +11,10 @@
 
 
 {% block header %}
-  {% include 'chunks/header/title.html' with no_background_image=True %}
+  {% if car.vendor.header_image %}
+    {% cropped_thumbnail car.vendor 'header_crop' as image_url %}
+  {% endif %}
+  {% include 'chunks/header/title.html' %}
 {% endblock %}
 
 
