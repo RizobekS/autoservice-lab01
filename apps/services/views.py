@@ -1,5 +1,6 @@
 from typing import List
 
+from django.urls import reverse
 from django.views.generic import DetailView, TemplateView
 from image_cropping.templatetags.cropping import cropped_thumbnail
 
@@ -133,6 +134,8 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
             'orders': StaticInformation.objects.get(key='advantages__orders').value,
             'positive_reviews': StaticInformation.objects.get(key='advantages__positive_reviews').value,
         })
+        if self.object.canonical_to_original:
+            kwargs['canonical_link'] = self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url}))
         return super().get_context_data(**kwargs)
 
     # Check whether product suits the product
