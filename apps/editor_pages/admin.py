@@ -13,7 +13,7 @@ class EditorPageAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_filter = ('active',)
     search_fields = ('url', 'content')
     actions = (activate, deactivate, clone)
-    # readonly_fields = ('url',)
+    readonly_fields = ('url',)
 
     fieldsets = (
         (None, {'fields': (('title', 'url'), 'content')}),
@@ -21,8 +21,8 @@ class EditorPageAdmin(ImageCroppingMixin, admin.ModelAdmin):
     )
     form = EditorPageForm
 
-    # def has_add_permission(self, request):
-    #     return False
-    #
-    # def has_delete_permission(self, request, obj=None):
-    #     return False
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
