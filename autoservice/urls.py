@@ -14,7 +14,6 @@ from utils.views import StaticPageView
 
 static_urlpatterns = [
     path('certificates/', StaticPageView.as_view(template_name='static/certificates.html', viewname='static:certificates'), name='certificates'),
-    path('reviews/', StaticPageView.as_view(template_name='static/reviews.html', viewname='static:reviews'), name='reviews'),
 ]
 
 urlpatterns = [

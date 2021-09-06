@@ -144,17 +144,17 @@
                                     <a href="{% url 'static:certificates' %}">Сертификаты</a>
                                   </li>
                                   <li class="{% is_active 'static:reviews' %}">
-                                    <a href="{% url 'static:reviews' %}">Отзывы</a>
+                                    <a href="{% url 'editor_pages:reviews' %}">Отзывы</a>
                                   </li>
-                                        <li class="{% is_active 'work_gallery:list' %}">
-                                            <a href="{% url 'work_gallery:list' %}">Галерея работ</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="{% is_active 'knowledge_base' %}">
-                                    <a href="{% url 'knowledge_base:list' %}">База знаний</a>
-                                </li>
-                                <!-- contacts -->
+                                  <li class="{% is_active 'work_gallery:list' %}">
+                                    <a href="{% url 'work_gallery:list' %}">Галерея работ</a>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li class="{% is_active 'knowledge_base' %}">
+                                <a href="{% url 'knowledge_base:list' %}">База знаний</a>
+                              </li>
+                              <!-- contacts -->
                                 <li class="{% is_active 'contacts' %}">
                                     <a href="{% url 'contacts:contacts' %}">Контакты</a>
                                 </li>
