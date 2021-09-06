@@ -95,6 +95,7 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
     # #### CarFilterPageSettingsMixin ####
 
     viewname = 'services:product'
+    viewname_suffix = '_car'
 
     def get_initial_breadcrumbs(self) -> List[Breadcrumb]:
         breadcrumbs = []
