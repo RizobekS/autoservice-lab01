@@ -43,12 +43,12 @@ class BranchAdmin(admin.ModelAdmin):
 
 @admin.register(CEOSetting)
 class CEOSettingAdmin(admin.ModelAdmin):
-    list_display = ('page', 'title', 'key', 'variables_safe', 'description', 'keywords', 'robots')
+    list_display = ('page', 'title', 'header', 'key', 'variables_safe')
     # list_editable = ('title',)
     ordering = ('key', 'title')
-    search_fields = ('page', 'title', 'key', 'description', 'keywords', 'robots')
+    search_fields = ('page', 'title', 'header', 'key', 'description', 'keywords', 'robots')
     readonly_fields = ('variables_safe', 'page', 'key')
-    fields = ('title', ('page', 'key'), 'variables_safe', 'description', 'keywords', 'robots')
+    fields = ('title', 'header', ('page', 'key'), 'variables_safe', 'description', 'keywords', 'robots')
 
     def has_add_permission(self, request):
         return False

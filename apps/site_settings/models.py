@@ -66,7 +66,8 @@ class StaticInformation(models.Model):
 
 
 class CEOSetting(models.Model):
-    title = models.CharField('Заголовок', help_text='Содержимое тега title. Так-же поддерживает переменные.', max_length=200, blank=True)
+    title = models.CharField('Заголовок <title>', help_text='Поддерживает переменные.', max_length=200, blank=True)
+    header = models.CharField('Заголовок <h1>', help_text='Поддерживает переменные.', max_length=200, blank=True)
     page = models.CharField('Описание страницы', max_length=120)
     key = models.CharField('Ключ', max_length=50, unique=True)
     variables = models.TextField('Доступные переменные', null=True, blank=True)

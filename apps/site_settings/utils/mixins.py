@@ -59,6 +59,9 @@ class CEORenderer:
     def get_page_title(self):
         return self._render('title')
 
+    def get_page_header(self):
+        return self._render('header')
+
     def get_meta_description(self):
         return self._render('description')
 
@@ -71,6 +74,7 @@ class CEORenderer:
     def as_context(self):
         return {
             'page_title': self.get_page_title(),
+            'page_header': self.get_page_header(),
             'meta_description': self.get_meta_description(),
             'meta_keywords': self.get_meta_keywords(),
             'meta_robots': self.get_meta_robots(),
