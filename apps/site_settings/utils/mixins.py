@@ -1,3 +1,4 @@
+import re
 from typing import Any, Dict
 
 from django.core.exceptions import ImproperlyConfigured
@@ -19,6 +20,7 @@ class CEORenderer:
     """
     ceo_key = None
     ceo_context = {}
+    spaces_regex = re.compile(r'[ ]{2,}')
 
     def __init__(self, ceo_key=None, ceo_context={}):
         self.ceo_key = ceo_key
@@ -30,9 +32,10 @@ class CEORenderer:
 
         if text and ceo_object.variables:
             template = Template(f'{{% autoescape off %}}{text}{{% endautoescape %}}')
-            return template.render(Context(self.get_ceo_context())).strip()
+            result = template.render(Context(self.get_ceo_context()))
         else:
-            return text.strip()
+            result = text
+        return self.spaces_regex.sub(' ', result)
 
     def get_ceo_template(self, ceo_object, field_name):
         """ Hook for overriding behaviour of getting ceo template to render """
