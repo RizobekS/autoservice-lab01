@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 
+from apps.knowledge_base.models import FaqEntry, Symptom
 from apps.masters.models import Master
 from apps.news.models import Article
 from apps.promotions.models import Promotion
@@ -24,8 +25,8 @@ class TagsListView(View, PageSettingsMixin):
 
     articles_per_page = 3
     promotions_per_page = 3
-    products_per_page = 3
-    MASTERS_PER_PAGE = 3
+    faq_entries_per_page = 3
+    symptoms_per_page = 3
 
     tag = None
 
@@ -38,11 +39,10 @@ class TagsListView(View, PageSettingsMixin):
 
         articles = self._get_slice(Article.objects.exclude(tags=None).filter(status='published', **{'tags__url': tag} if tag else {}), self.articles_per_page)
         promotions = self._get_slice(Promotion.objects.exclude(tags=None).filter(active=True, **{'tags__url': tag} if tag else {}), self.promotions_per_page)
-        products = self._get_slice(Product.objects.exclude(tag=None).filter(active=True, **{'tag__url': tag} if tag else {}), self.products_per_page)
-        masters_count = Master.objects.filter(active=True).count()
-        masters = list(Master.objects.filter(active=True, id__in=[randint(1, masters_count + 1) for item in range(0, 20)])[:self.MASTERS_PER_PAGE])
+        faq_entries = self._get_slice(FaqEntry.objects.exclude(tags=None).filter(answered=True, **{'tags__url': tag} if tag else {}), self.faq_entries_per_page)
+        symptoms = self._get_slice(Symptom.objects.exclude(tags=None).filter(active=True, **{'tags__url': tag} if tag else {}), self.symptoms_per_page)
 
-        mix = articles + promotions + products + [masters]
+        mix = articles + promotions + faq_entries + symptoms
         shuffle(mix)
 
         context = self.get_context_data()
