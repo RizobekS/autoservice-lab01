@@ -13,7 +13,8 @@ from ..site_settings.models import CEOSetting
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {'fields': ('name', 'url', 'promotions_string')}),
-        ('CEO настройки (для привязанных акций)', {'fields': ('variables_safe', 'meta_title', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
+        ('CEO настройки (для привязанных акций)',
+         {'fields': ('variables_safe', 'meta_title', 'meta_header', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
     )
     readonly_fields = ('promotions_string', 'variables_safe')
     prepopulated_fields = {'url': ('name',), }
@@ -48,6 +49,6 @@ class PromotionAdmin(ImageCroppingMixin, admin.ModelAdmin):
         ('Изображение', {'fields': ('image', 'thumbnail', 'icon_thumbnail'), 'classes': ['wide']}),
         ('Главная страница', {'fields': ('show_at_homepage', 'homepage_description'), 'classes': ['wide', 'collapse']}),
         ('Текст', {'fields': ('short_description', 'text'), 'classes': ['wide']}),
-        ('CEO настройки', {'fields': ('meta_title', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
+        ('CEO настройки', {'fields': ('meta_title', 'meta_header', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
     )
     form = PromotionAdminForm

@@ -32,7 +32,8 @@ class Section(models.Model):
     thumbnail_268x118 = ImageRatioField(verbose_name='Обрезка изображения (268x118)', image_field='image', size='268x118')
     thumbnail_80x80 = ImageRatioField(verbose_name='Обрезка изображения (80x80)', image_field='image', size='80x80')
 
-    meta_title = models.CharField('Заголовок', help_text='Содержимое тега title. ' + CEO_HELP_TEXT, max_length=200, blank=True)
+    meta_title = models.CharField('Заголовок <title>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
+    meta_header = models.CharField('Заголовок <h1>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
     meta_description = models.TextField('Meta description', help_text=CEO_HELP_TEXT, null=True, blank=True)
     meta_keywords = models.TextField('Meta keywords', help_text=CEO_HELP_TEXT, null=True, blank=True)
     meta_robots = models.TextField('Meta robots', help_text=CEO_HELP_TEXT, null=True, blank=True)
@@ -101,7 +102,8 @@ class Product(models.Model):
     thumbnail_268x118 = ImageRatioField(verbose_name='Обрезка изображения (268x118)', image_field='image', size='268x118')
     thumbnail_80x80 = ImageRatioField(verbose_name='Обрезка изображения (80x80)', image_field='image', size='80x80')
 
-    meta_title = models.CharField('Заголовок', help_text='Содержимое тега title. ' + CEO_HELP_TEXT, max_length=200, blank=True)
+    meta_title = models.CharField('Заголовок <title>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
+    meta_header = models.CharField('Заголовок <h1>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
     meta_description = models.TextField('Meta description', help_text=CEO_HELP_TEXT, null=True, blank=True)
     meta_keywords = models.TextField('Meta keywords', help_text=CEO_HELP_TEXT, null=True, blank=True)
     meta_robots = models.TextField('Meta robots', help_text=CEO_HELP_TEXT, null=True, blank=True)
