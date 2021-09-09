@@ -19,7 +19,6 @@ class CEORenderer:
         ceo_context: Dict[str, Any] - variables, that are used to render meta tags and title
     """
     ceo_key = None
-    ceo_context = {}
     spaces_regex = re.compile(r'[ ]{2,}')
 
     def __init__(self, ceo_key=None, ceo_context={}):
@@ -53,8 +52,8 @@ class CEORenderer:
             raise ImproperlyConfigured(f'CEOSetting with key={key} does not exist')
         return ceo_obj.first()
 
-    def get_ceo_context(self) -> Dict[str, Any]:
-        return self.ceo_context
+    def get_ceo_context(self, **kwargs) -> Dict[str, Any]:
+        return kwargs
 
     def get_page_title(self):
         return self._render('title')

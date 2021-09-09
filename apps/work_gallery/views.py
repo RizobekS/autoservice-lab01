@@ -32,7 +32,6 @@ class SingleWorkView(DetailView, PageSettingsMixin):
     def get_current_breadcrumb(self):
         return [Breadcrumb(self.object.title, '#')]
 
-    def get_ceo_context(self) -> Dict[str, Any]:
-        context = super().get_ceo_context()
-        context.update({'work': self.object.title})
-        return context
+    def get_ceo_context(self, **kwargs) -> Dict[str, Any]:
+        kwargs.update({'work': self.object.title})
+        return super().get_ceo_context(**kwargs)

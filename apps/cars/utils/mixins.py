@@ -52,7 +52,7 @@ class CarFilterPageSettingsMixin(PageSettingsMixin):
     viewname_suffix = None
 
     def get_car_filter(self):
-        if hasattr(self, 'car_filter'):
+        if self.car_filter:
             return self.car_filter
 
         if hasattr(self, 'kwargs') and hasattr(self, 'request'):
@@ -95,17 +95,16 @@ class CarFilterPageSettingsMixin(PageSettingsMixin):
                     breadcrumbs.append(Breadcrumb(name, f'{last_url}{car_filter_url}/'))
         return breadcrumbs
 
-    def get_ceo_context(self):
-        context = super().get_ceo_context()
+    def get_ceo_context(self, **kwargs):
         car_filter = self.get_car_filter()
         if car_filter:
-            context.update({
+            kwargs.update({
                 'vendor': car_filter.vendor.name if car_filter.vendor else '',
                 'model': car_filter.model.name if car_filter.model else '',
                 'year': car_filter.year.name if car_filter.year else '',
                 'modification': car_filter.modification.name if car_filter.modification else '',
             })
-        return context
+        return super().get_ceo_context(**kwargs)
 
     def get_context_data(self, **kwargs):
         car_filter = self.get_car_filter()

@@ -43,10 +43,9 @@ class ArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, 
     def get_current_breadcrumb(self) -> List[Breadcrumb]:
         return [Breadcrumb(self.object.title, reverse_lazy('news:article', args=(self.object.url,)))]
 
-    def get_ceo_context(self) -> Dict[str, Any]:
-        context = super().get_ceo_context()
-        context.update({'article': self.object.title})
-        return context
+    def get_ceo_context(self, **kwargs) -> Dict[str, Any]:
+        kwargs.update({'article': self.object.title})
+        return super().get_ceo_context(**kwargs)
 
     # #### FormMixin (FormView) ####
 

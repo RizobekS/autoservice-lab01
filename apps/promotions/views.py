@@ -34,10 +34,9 @@ class PromotionCategoryView(DetailView, PromotionsMixin, PageSettingsMixin):
         queryset = super().get_promotions_queryset()
         return queryset.filter(category__url__exact=self.object.url)
 
-    def get_ceo_context(self) -> Dict[str, Any]:
-        context = super().get_ceo_context()
-        context.update({'category': self.object.name})
-        return context
+    def get_ceo_context(self, **kwargs) -> Dict[str, Any]:
+        kwargs.update({'category': self.object.name})
+        return super().get_ceo_context(**kwargs)
 
 
 class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMixin, ShortAppointmentMixin):
@@ -60,11 +59,10 @@ class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMix
     def get_current_breadcrumb(self):
         return [Breadcrumb(self.object.title, reverse('promotions:promotion', args=(self.object.url,)))]
 
-    def get_ceo_context(self) -> Dict[str, Any]:
-        context = super().get_ceo_context()
+    def get_ceo_context(self, **kwargs) -> Dict[str, Any]:
         obj = self.get_object()
-        context.update({'promotion': obj.title, 'short_description': strip_tags(obj.short_description)})
-        return context
+        kwargs.update({'promotion': obj.title, 'short_description': strip_tags(obj.short_description)})
+        return super().get_ceo_context(**kwargs)
 
     def get_ceo_template(self, ceo_object, field_name):
         """ Override default behaviour to support individual or category specific ceo values """

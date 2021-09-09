@@ -51,10 +51,9 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSetting
     def get_current_breadcrumb(self):
         return [Breadcrumb(self.object.title, service_url(self.request, self.object, True))]
 
-    def get_ceo_context(self):
-        context = super().get_ceo_context()
-        context['section'] = self.object.title
-        return context
+    def get_ceo_context(self, **kwargs):
+        kwargs['section'] = self.object.title
+        return super().get_ceo_context(**kwargs)
 
     def get_ceo_template(self, ceo_object, field_name):
         """ Override default behaviour to support individual ceo values """
@@ -80,7 +79,17 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
     slug_field = 'url'
     slug_url_kwarg = 'product_url'
     context_object_name = 'product'
-    object: Product = None  # for typehints
+
+    def __init__(self, **kwargs):
+        print('\n\n')
+        print('__init__ called')
+        super().__init__(**kwargs)
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object: Product = None  # for typehints
+        self.car_filter = None
+        print('dispatch called')
+        return super().dispatch(request, *args, **kwargs)
 
     # #### SingleSectionMixin ####
     def get_current_section(self):
@@ -109,13 +118,12 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
     def get_current_breadcrumb(self):
         return [Breadcrumb(self.object.title, service_url(self.request, self.object, True))]
 
-    def get_ceo_context(self):
-        context = super().get_ceo_context()
-        context.update({
+    def get_ceo_context(self, **kwargs):
+        kwargs.update({
             'section': self.object.section.title,
             'product': self.object.title
         })
-        return context
+        return super().get_ceo_context(**kwargs)
 
     def get_ceo_template(self, ceo_object, field_name):
         """ Override default behaviour to support individual ceo values """
