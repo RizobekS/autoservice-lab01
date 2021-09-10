@@ -22,7 +22,7 @@
   <meta name="keywords" content="{{ meta_keywords }}">
   {% if meta_robots %}
     <meta name="robots" content="{{ meta_robots }}">
-  {% elif canonical_link %}
+  {% elif canonical_link and canonical_link != request.build_absolute_uri %}
     <meta name="robots" content="noindex, follow">
   {% else %}
     <meta name="robots" content="index, follow">
