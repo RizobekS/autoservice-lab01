@@ -87,14 +87,17 @@ class TagsListView(View, PageSettingsMixin):
         page = self._get_page() + 1
         article = max(page * self.articles_per_page - Article.objects.filter(status='published').count(), 0)
         promotion = max(page * self.promotions_per_page - Promotion.objects.filter(active=True).count(), 0)
-        product = max(page * self.products_per_page - Product.objects.filter(active=True).count(), 0)
-        overhead = article + promotion + product
+        faq_entry = max(page * self.faq_entries_per_page - FaqEntry.objects.filter(answered=True).count(), 0)
+        symptom = max(page * self.symptoms_per_page - Symptom.objects.filter(active=True).count(), 0)
+        overhead = article + promotion + faq_entry + symptom
         available = []
         if article == 0:
             available.append(self.articles_per_page)
         if promotion == 0:
             available.append(self.promotions_per_page)
-        if product == 0:
-            available.append(self.products_per_page)
+        if faq_entry == 0:
+            available.append(self.faq_entries_per_page)
+        if symptom == 0:
+            available.append(self.symptoms_per_page)
         for item in available:
             item += overhead // len(available)
