@@ -52,7 +52,7 @@ class CarFilterPageSettingsMixin(PageSettingsMixin):
     viewname_suffix = None
 
     def get_car_filter(self):
-        if self.car_filter:
+        if hasattr(self, 'car_filter') and self.car_filter:
             return self.car_filter
 
         if hasattr(self, 'kwargs') and hasattr(self, 'request'):
