@@ -22,10 +22,10 @@ class TagsListView(View, PageSettingsMixin):
 
     max_pages = 1  # Maximum possible pages
 
-    articles_per_page = 3
-    promotions_per_page = 3
-    faq_entries_per_page = 3
-    symptoms_per_page = 3
+    articles_per_page = 7
+    promotions_per_page = 7
+    faq_entries_per_page = 8
+    symptoms_per_page = 8
 
     tag = None
 
