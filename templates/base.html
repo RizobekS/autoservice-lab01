@@ -71,9 +71,8 @@
 {% if not request.user.is_authenticated %}
   {% load login_modal %}
   {% login_modal %}
-{% else %}
-  {% appointment_modal %}
 {% endif %}
+{% appointment_modal %}
 {% include 'modals/search.html' %}
 
 

@@ -5,7 +5,7 @@ from django.contrib.auth.views import LoginView as BaseLoginView, \
     PasswordResetView as BasePasswordResetView, \
     PasswordResetConfirmView as BasePasswordResetConfirmView, \
     PasswordResetDoneView as BasePasswordResetDoneView, redirect_to_login
-from django.http import HttpRequest, Http404, HttpResponse
+from django.http import HttpRequest, Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
@@ -83,7 +83,6 @@ class PasswordResetConfirmView(BasePasswordResetConfirmView, PageSettingsMixin):
         return super().form_valid(form)
 
 
-@method_decorator(login_required, name='dispatch')
 class SubmitAppointmentView(View):
 
     def post(self, request):
@@ -93,9 +92,12 @@ class SubmitAppointmentView(View):
         if form.is_valid():
             form.send_mail(request)
             form.save()
-            return redirect('accounts:pa:appointment:list')
+            if form.cleaned_data.get('user'):
+                return redirect('accounts:pa:appointment:list')
+            else:
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         else:
-            return redirect(request.path_info)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 # ####### PERSONAL AREA #########

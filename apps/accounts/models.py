@@ -45,7 +45,7 @@ class Appointment(models.Model):
                ('confirmed', 'Подтверждена'),
                ('completed', 'Услуга оказана'))
 
-    user = models.ForeignKey(verbose_name='Пользователь', to=AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(verbose_name='Пользователь', to=AUTH_USER_MODEL, on_delete=models.DO_NOTHING, null=True, blank=True)
 
     full_name = models.CharField('Полное имя', max_length=200)
     car = models.CharField('Автомобиль', max_length=400)
