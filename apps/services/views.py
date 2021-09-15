@@ -80,15 +80,9 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
     slug_url_kwarg = 'product_url'
     context_object_name = 'product'
 
-    def __init__(self, **kwargs):
-        print('\n\n')
-        print('__init__ called')
-        super().__init__(**kwargs)
-
     def dispatch(self, request, *args, **kwargs):
         self.object: Product = None  # for typehints
         self.car_filter = None
-        print('dispatch called')
         return super().dispatch(request, *args, **kwargs)
 
     # #### SingleSectionMixin ####
