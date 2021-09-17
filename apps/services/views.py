@@ -44,7 +44,8 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSetting
         breadcrumbs = []
         section = self.object.parent_section
         while section:
-            breadcrumbs.append(Breadcrumb(section.title, service_url(self.request, section, True)))
+            if section.url != 'others':
+                breadcrumbs.append(Breadcrumb(section.title, service_url(self.request, section, True)))
             section = section.parent_section
         return breadcrumbs[::-1]
 
@@ -105,7 +106,8 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
         breadcrumbs = []
         section = self.object.section
         while section:
-            breadcrumbs.append(Breadcrumb(section.title, service_url(self.request, section, True)))
+            if section.url != 'others':
+                breadcrumbs.append(Breadcrumb(section.title, service_url(self.request, section, True)))
             section = section.parent_section
         return breadcrumbs[::-1]
 
