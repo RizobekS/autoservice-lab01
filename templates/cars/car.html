@@ -79,6 +79,8 @@
   </section>
 
   {% if sections %}
+    {% include 'cars/chunks/models_table.html' %}
+
     {% include 'cars/chunks/vendor_services.html' %}
   {% else %}
     {% include 'cars/chunks/model_services.html' %}
