@@ -1,3 +1,4 @@
+from adminsortable.models import SortableMixin
 from autoslug import AutoSlugField
 from django.contrib.admin import display
 from django.db import models
@@ -10,7 +11,7 @@ from apps.tags.models import Tag
 from utils.helpers import format_price
 
 
-class Section(models.Model):
+class Section(SortableMixin):
     CEO_HELP_TEXT = 'Оставьте поле пустым чтобы использовать стандартную маску.'
 
     title = models.CharField('Название раздела', max_length=255)
@@ -37,6 +38,8 @@ class Section(models.Model):
     meta_description = models.TextField('Meta description', help_text=CEO_HELP_TEXT, null=True, blank=True)
     meta_keywords = models.TextField('Meta keywords', help_text=CEO_HELP_TEXT, null=True, blank=True)
     meta_robots = models.TextField('Meta robots', help_text=CEO_HELP_TEXT, null=True, blank=True)
+
+    sorting = models.PositiveIntegerField('Сортировка', editable=False)
 
     def __str__(self):
         return f'Корневой раздел "{self.title}"' if self.is_root() else f'Раздел "{self.title}"'
@@ -70,8 +73,10 @@ class Section(models.Model):
         verbose_name = 'Раздел'
         verbose_name_plural = 'Разделы'
 
+        ordering = ['sorting']
 
-class Product(models.Model):
+
+class Product(SortableMixin):
     CEO_HELP_TEXT = 'Оставьте поле пустым чтобы использовать стандартную маску.'
 
     title = models.CharField('Название товара/услуги', max_length=255)
@@ -109,6 +114,8 @@ class Product(models.Model):
     meta_robots = models.TextField('Meta robots', help_text=CEO_HELP_TEXT, null=True, blank=True)
     canonical_to_original = models.BooleanField('Каноничная ссылка', help_text='Каноничная ссылка на страницу без ММП фильтра', default=False)
 
+    sorting = models.PositiveIntegerField('Сортировка', editable=False)
+
     def __str__(self):
         return f'Товар/Услуга "{self.title}"'
 
@@ -132,6 +139,8 @@ class Product(models.Model):
                    models.Index(fields=('section_id',)))
         verbose_name = 'Товар/Услуга'
         verbose_name_plural = 'Товары/Услуги'
+
+        ordering = ['sorting']
 
 
 class SparePart(models.Model):

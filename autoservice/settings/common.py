@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',  # Deletes old images
     'haystack',  # Search API
     'clear_cache',  # manage.py command to clear all caches
+    'adminsortable',  # Sorting admin records
 ]
 
 # Middlewares

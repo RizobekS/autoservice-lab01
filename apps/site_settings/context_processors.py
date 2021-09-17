@@ -20,4 +20,4 @@ def static_info(request):
 
 
 def menu_data(request):
-    return {'menu_root_sections': Section.objects.filter(active=True, parent_section=None).order_by('id')}
+    return {'menu_root_sections': Section.objects.filter(active=True, parent_section=None)}

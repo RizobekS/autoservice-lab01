@@ -1,3 +1,4 @@
+from adminsortable.admin import SortableAdmin
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from image_cropping import ImageCroppingMixin
@@ -8,7 +9,7 @@ from .models import Section, Product, SparePart
 
 
 @admin.register(Section)
-class SectionAdmin(ImageCroppingMixin, admin.ModelAdmin):
+class SectionAdmin(ImageCroppingMixin, SortableAdmin):
     list_per_page = 400
     list_display = ('title', 'url', 'active', 'parent_section', 'child_products', 'show_at_homepage')
     list_editable = ('show_at_homepage',)
@@ -57,7 +58,7 @@ class SectionAdmin(ImageCroppingMixin, admin.ModelAdmin):
 
 
 @admin.register(Product)
-class ProductAdmin(ImageCroppingMixin, admin.ModelAdmin):
+class ProductAdmin(ImageCroppingMixin, SortableAdmin):
     list_display = ('title', 'url', 'active', 'section', 'verbose_price', 'tag', 'canonical_to_original', 'show_at_homepage')
     list_editable = ('show_at_homepage', 'canonical_to_original')
     list_filter = ('active', 'fixed_price', 'show_at_homepage', 'section', 'tag')
