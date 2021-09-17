@@ -1709,9 +1709,26 @@
     $(document).ready(function () {
         documentReadyInit();
         // initGoogleMap();
-        if (!(typeof ymaps === 'undefined')) {
-            initYandexMap();
-        }
+        var yaMapsStartedDownload = false;
+
+        $(window).scroll(function () {
+            if (!yaMapsStartedDownload) {
+                if ($(window).scrollTop() + $(window).height() > $(document).height() - 700) {
+                    console.log('Callind showYaMaps');
+                    yaMapsStartedDownload = true;
+                    $.ajax({
+                        url: $('#mapScript').data('url'),
+                        dataType: "script",
+                        success: function () {
+                            initYandexMap();
+                        },
+                        error: function () {
+                            console.log('Failed to initialize yandex map');
+                        }
+                    });
+                }
+            }
+        });
 
     });
 
