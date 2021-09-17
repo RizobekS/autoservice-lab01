@@ -109,27 +109,27 @@
                                 </ul>
                             </div>
                             <ul class="nav sf-menu">
-                                <li class="{% is_active 'promotions' %}">
-                                    <a href="{% url 'promotions:list' %}">Акции</a>
-                                </li>
-                                <li class="{% is_active 'services' %}">
-                                    <a href="#">Услуги и цены</a>
-                                    <div class="mega-menu">
-                                        <ul class="mega-menu-row">
-                                            {% for section in menu_root_sections %}
-                                                {% service_url section as url %}
-                                                <li class="mega-menu-col {% is_active_path url %}">
-                                                    <a href="{{ url }}">{{ section.title|break_words }}</a>
-                                                    <ul>
-                                                        {% for item in section.menu_set %}
-                                                            {% service_url item as url %}
-                                                            <li class="{% is_active_path url %}">
-                                                                <a href="{{ url }}">{{ item.title }}</a>
-                                                            </li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                </li>
-                                            {% endfor %}
+                              <li class="{% is_active 'promotions' %}">
+                                <a href="{% url 'promotions:list' %}">Акции</a>
+                              </li>
+                              <li class="{% is_active 'services' %}">
+                                <a href="#">Услуги и цены</a>
+                                <div class="mega-menu">
+                                  <ul class="mega-menu-row">
+                                    {% for section in menu_root_sections %}
+                                      {% service_url section as url %}
+                                      <li class="mega-menu-col {% is_active_path url %}">
+                                        <a {% if section.url != 'others' %}href="{{ url }}"{% endif %}>{{ section.title|break_words }}</a>
+                                        <ul>
+                                          {% for item in section.menu_set %}
+                                            {% service_url item as url %}
+                                            <li class="{% is_active_path url %}">
+                                              <a href="{{ url }}">{{ item.title }}</a>
+                                            </li>
+                                          {% endfor %}
+                                        </ul>
+                                      </li>
+                                    {% endfor %}
                                         </ul>
                                     </div> <!-- eof mega menu -->
                                 </li>
