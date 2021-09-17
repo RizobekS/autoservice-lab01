@@ -1,7 +1,8 @@
+{% load iterables %}
 <div class="row plan-content choose-slider c-mt-0 c-mt-lg-10 c-mt-xl-0">
 
 
-  {% for item in promotions %}
+  {% for item in promotions|merge:product_promotions %}
     <div class="col-xl-3 col-md-6">
       <div class="pricing-plan plan{{ forloop.counter }} cs">
 
@@ -26,7 +27,7 @@
           {{ item.homepage_description| safe }}
         </div>
 
-        <div><a href="{% url 'promotions:promotion' item.url %}" class="btn btn-small btn-outline-maincolor">Подробнее</a></div>
+        <div><a href="{{ item.reverse_url }}" class="btn btn-small btn-outline-maincolor">Подробнее</a></div>
 
 
       </div>

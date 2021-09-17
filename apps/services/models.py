@@ -107,6 +107,9 @@ class Product(SortableMixin):
     thumbnail_268x118 = ImageRatioField(verbose_name='Обрезка изображения (268x118)', image_field='image', size='268x118')
     thumbnail_80x80 = ImageRatioField(verbose_name='Обрезка изображения (80x80)', image_field='image', size='80x80')
 
+    show_in_promotions = models.BooleanField('В акциях', help_text='Отображать среди баннеров акций на главной', default=False)
+    homepage_description = models.CharField('Краткое описание для списка акций главной страницы (до 500 символов)', max_length=500, blank=True)
+
     meta_title = models.CharField('Заголовок <title>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
     meta_header = models.CharField('Заголовок <h1>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
     meta_description = models.TextField('Meta description', help_text=CEO_HELP_TEXT, null=True, blank=True)
@@ -132,6 +135,14 @@ class Product(SortableMixin):
 
     def ceo_context(self):
         return {'section': self.section.title, 'product': self.title}
+
+    @staticmethod
+    def get_currency(self):
+        return '₽'
+
+    def reverse_url(self, request):
+        from apps.services.utils.helpers import service_url
+        return service_url(request, self)
 
     class Meta:
         indexes = (models.Index(fields=('active',)),

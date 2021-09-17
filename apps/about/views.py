@@ -6,6 +6,7 @@ from apps.about.models import EditorContent
 from apps.masters.utils.mixins import MastersMixin
 from apps.promotions.models import Promotion
 from apps.promotions.utils.mixins import PromotionsMixin
+from apps.services.models import Product
 from utils.mixins import PageSettingsMixin
 
 
@@ -21,4 +22,6 @@ class AboutView(TemplateView, PromotionsMixin, MastersMixin, PageSettingsMixin):
     def get_context_data(self, **kwargs) -> Dict[str, Any]:
         objects = EditorContent.objects.all()
         kwargs.update({item.key: item.text for item in objects})
+        # Add product_promotions to promotions list at homepage
+        kwargs['product_promotions'] = Product.objects.filter(show_in_promotions=True, active=True)
         return super().get_context_data(**kwargs)

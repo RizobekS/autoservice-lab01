@@ -59,8 +59,8 @@ class SectionAdmin(ImageCroppingMixin, SortableAdmin):
 
 @admin.register(Product)
 class ProductAdmin(ImageCroppingMixin, SortableAdmin):
-    list_display = ('title', 'url', 'active', 'section', 'verbose_price', 'tag', 'canonical_to_original', 'show_at_homepage')
-    list_editable = ('show_at_homepage', 'canonical_to_original')
+    list_display = ('title', 'url', 'active', 'section', 'verbose_price', 'tag', 'canonical_to_original', 'show_in_promotions', 'show_at_homepage')
+    list_editable = ('show_at_homepage', 'canonical_to_original', 'show_in_promotions')
     list_filter = ('active', 'fixed_price', 'show_at_homepage', 'section', 'tag')
     search_fields = ('title', 'url', 'section', 'price', 'time_duration', 'cars', 'short_description', 'description')
 
@@ -78,6 +78,7 @@ class ProductAdmin(ImageCroppingMixin, SortableAdmin):
         ('Изображения', {
             'fields': ('image', 'thumbnail_1960x600', 'thumbnail_960x585', 'thumbnail_455x200', 'thumbnail_348x236', 'thumbnail_268x118', 'thumbnail_80x80')
         }),
+        ('Главная страница (Список акций', {'fields': ('show_in_promotions', 'homepage_description'), 'classes': ['wide', 'collapse']}),
         ('CEO настройки', {'fields': ('canonical_to_original', 'meta_title', 'meta_header', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
     )
 

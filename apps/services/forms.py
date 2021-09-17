@@ -1,6 +1,6 @@
 from django import forms
 
-from utils.widgets import CKEditorUploadingWidget
+from utils.widgets import CKEditorUploadingWidget, CKEditorWidget
 from .models import Section, Product
 
 
@@ -23,6 +23,7 @@ class ProductAdminForm(forms.ModelForm):
         widgets = {
             'description': CKEditorUploadingWidget(),
             'short_description': forms.Textarea(attrs={"style": "width: 400px; height: 68px;"}),
+            'homepage_description': CKEditorWidget(),
         }
 
         model = Product

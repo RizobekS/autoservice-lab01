@@ -1,6 +1,7 @@
 from autoslug import AutoSlugField
 from django.contrib.admin import display
 from django.db import models
+from django.urls import reverse
 from image_cropping import ImageRatioField
 
 from apps.tags.models import Tag
@@ -75,6 +76,9 @@ class Promotion(models.Model):
     @display(description='Тэги')
     def tag_string(self):
         return ', '.join(item.name for item in self.tags.all())
+
+    def reverse_url(self):
+        return reverse('promotions:promotion', args=(self.url,))
 
     class Meta:
         ordering = ('-date',)

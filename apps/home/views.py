@@ -29,3 +29,8 @@ class IndexView(TemplateView, PromotionsMixin, VendorsMixin, MastersMixin, Produ
 
     products_max = 9
     products_queryset = Product.objects.filter(show_at_homepage=True)
+
+    # Add product_promotions to promotions list at homepage
+    def get_context_data(self, **kwargs):
+        kwargs['product_promotions'] = Product.objects.filter(show_in_promotions=True, active=True)
+        return super().get_context_data(**kwargs)
