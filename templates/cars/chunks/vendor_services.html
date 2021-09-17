@@ -1,3 +1,4 @@
+{% load iterables %}
 {% load service_url static cropping %}
 
 {% for section in sections %}
@@ -16,7 +17,12 @@
 
             {#            {{ section.description| safe }}#}
 
-            <a href="{% service_url section %}" class="mt-5 btn btn-darkgrey">Услуги по {{ section.title_dative| lower }} {{ car.full_name }}</a>
+            <ul class="list1">
+              {% for item in section.active_section_set|merge:section.active_product_set %}
+                <li><a href="{% service_url item %}">{{ item.title }} {{ car.vendor.name }}</a></li>
+              {% endfor %}
+            </ul>
+
           </div>
         </div>
       </div>
