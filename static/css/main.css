@@ -242,6 +242,7 @@ img,
 figure {
     height: auto;
     max-width: 100%;
+    font-family: 'font-family';
 }
 
 figcaption {
@@ -619,14 +620,6 @@ select,
     width: 100%;
 }
 
-.form-control-bg {
-    padding: 10px 10px;
-    background-color: #fff;
-    border: none;
-    font-size: 16px;
-    line-height: 1.2;
-}
-
 form textarea.form-control {
     background-image: -webkit-linear-gradient(transparent, transparent 30px, rgba(97, 114, 138, 0.2) 30px, rgba(97, 114, 138, 0.2) 31px, transparent 31px) !important;
     background-image: linear-gradient(transparent, transparent 30px, rgba(97, 114, 138, 0.2) 30px, rgba(97, 114, 138, 0.2) 31px, transparent 31px) !important;
@@ -916,15 +909,6 @@ select {
     border: 1px solid rgba(97, 114, 138, 0.2);
     height: 50px;
     padding-left: 20px;
-}
-
-.form-aside input {
-    width: 100%;
-}
-
-.form-aside .btn-submit {
-    width: 100%;
-    margin-top: 20px;
 }
 
 /* carousel */
@@ -11845,11 +11829,6 @@ aside > * + * {
     transform: translateX(-50%);
 }
 
-.widget-call .widget-title {
-    font-size: 18px;
-    line-height: 1.2;
-}
-
 @media (max-width: 991px) {
     aside {
         margin: 60px auto 0;
@@ -20423,47 +20402,5 @@ start-form-modal - на модалке
     .xdsoft_datetimepicker {
         left: 15px !important;
     }
-}
-
-
-.advantages .icon-box .icon-styled + p.small-text {
-    font-size: 16px;
-}
-
-.advantages .special-heading.text-uppercase {
-    font-size: 54px;
-}
-
-.advantages [class*="col-"] {
-    display: flex;
-}
-
-.advantages .icon-box.text-center {
-    display: flex;
-    flex-direction: column;
-}
-
-.advantages .special-heading {
-    margin-top: auto;
-}
-
-.mega-menu li:nth-child(n+8) {
-    display: none;
-}
-
-.mega-menu .mega-menu__more {
-    display: block !important;
-}
-
-.mega-menu-col span {
-    display: inline-block;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    cursor: pointer;
-}
-
-.mega-menu-col span:hover {
-    color: #ff4e3c;
-    transition: color 0.15s linear 0s;
 }
 
