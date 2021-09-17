@@ -34,7 +34,7 @@ class CEORenderer:
             result = template.render(Context(self.get_ceo_context()))
         else:
             result = text
-        return self.spaces_regex.sub(' ', result).replace(' ,', '').replace(' .', '')
+        return self.spaces_regex.sub(' ', result).replace(' ,', ',').replace(' .', '.')
 
     def get_ceo_template(self, ceo_object, field_name):
         """ Hook for overriding behaviour of getting ceo template to render """
