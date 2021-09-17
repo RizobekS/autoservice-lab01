@@ -194,20 +194,20 @@
                                     {% endif %}
                                 </li>
                             </ul>
-                            <div class="top-add">
-                                <div class="d-xl-none">
-                                    <a href="#" class="btn btn-small btn-outline-maincolor btn-appointment" data-toggle="modal"
-                                       data-target="{{ user.is_authenticated|yesno:'#modalRegisterForm,#modalLoginForm' }}" title="Онлайн запись">Онлайн запись</a>
-                                </div>
+                          <div class="top-add">
+                            <div class="d-xl-none">
+                              <a href="#" class="btn btn-small btn-outline-maincolor btn-appointment" data-toggle="modal"
+                                 data-target="#modalRegisterForm" title="Онлайн запись">Онлайн запись</a>
                             </div>
+                          </div>
                         </nav>
-                        <!-- eof main nav -->
+                      <!-- eof main nav -->
                     </div>
                 </div>
             </div>
         </div>
-        <!-- header toggler -->
-        <span class="toggle_menu"><span></span></span>
+      <!-- header toggler -->
+      <span class="toggle_menu"><span></span></span>
     </header>
 
     {% block page_title %}
