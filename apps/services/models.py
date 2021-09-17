@@ -6,7 +6,7 @@ from image_cropping import ImageRatioField
 
 from apps.cars.utils.validators import validate_double_slash_url
 from apps.services.utils.fields import OptimizedManyToManyField
-from apps.services.utils.help_text import DESCRIPTION_HELP_TEXT, TITLE_DATIVE_HELP_TEXT, ACTIVE_HELP_TEXT, VENDOR_PAGE_THUMBNAIL_HELP_TEXT
+from apps.services.utils.help_text import DESCRIPTION_HELP_TEXT, TITLE_DATIVE_HELP_TEXT, ACTIVE_HELP_TEXT, VENDOR_PAGE_THUMBNAIL_HELP_TEXT, SUPPORTS_CAR_CONTEXT_HELP_TEXT
 from apps.tags.models import Tag
 from utils.helpers import format_price
 
@@ -21,7 +21,7 @@ class Section(SortableMixin):
     active = models.BooleanField('Активно', help_text=ACTIVE_HELP_TEXT, default=True)
     show_at_homepage = models.BooleanField('Отображать на главной', help_text='В блоке "Наши услуги"', default=False)
     short_description = models.CharField('Краткое описание', max_length=255)
-    description = models.TextField('Содержание', help_text=DESCRIPTION_HELP_TEXT)
+    description = models.TextField('Содержание', help_text=' '.join((DESCRIPTION_HELP_TEXT, SUPPORTS_CAR_CONTEXT_HELP_TEXT)))
     parent_section = models.ForeignKey(verbose_name='Родительский раздел', to='Section', help_text='Оставьте поле пустым, если данный раздел - корневой',
                                        on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -87,7 +87,7 @@ class Product(SortableMixin):
     price = models.FloatField('Цена за работу (₽)')
 
     short_description = models.CharField('Краткое описание', max_length=255, blank=True)
-    description = models.TextField('Содержание страницы')
+    description = models.TextField('Содержание страницы', help_text=SUPPORTS_CAR_CONTEXT_HELP_TEXT)
 
     active = models.BooleanField('Активно', help_text=ACTIVE_HELP_TEXT, default=True)
     section = models.ForeignKey(verbose_name='Родительский раздел', to='Section', on_delete=models.RESTRICT)

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load render_with_car %}
 {% load deferred_static %}
 {% load service_url %}
 
@@ -25,7 +26,6 @@
 
 
 {% block main %}
-
   {% if child_sections %}
     <section class="ls s-pt-60 s-pb-40 s-pt-lg-100 s-pb-lg-80 s-pt-xl-150 s-pb-xl-130 c-mb-20 c-gutter-20">
       <div class="container">
@@ -57,7 +57,7 @@
       <div class="row">
         <div class="col-md-7">
 
-          {{ current_section.description| safe }}
+          {% render_with_car_context current_section.description %}
 
           {% if child_products %}
             <h5>Цены на {{ current_section.title|lower }}</h5>

@@ -1,8 +1,10 @@
 from utils.helpers import admin_example
 
 DESCRIPTION_HELP_TEXT = f'''
-Примеры размещения: - для корневого раздела: {admin_example("description--root-section.png")}   - для НЕ корневого раздела: {admin_example("description--section.png")}
+Примеры размещения: - для корневого раздела: {admin_example("description--root-section.png")}   - для НЕ корневого раздела: {admin_example("description--section.png")}.
 '''
+
+SUPPORTS_CAR_CONTEXT_HELP_TEXT = 'Поддерживает переменные {{vendor}}, {{model}}, {{year}}, {{modification}}.'
 
 TITLE_DATIVE_HELP_TEXT = f'''
 Используется при выведении надписей типа "Другие работы по <b>ремонту двигателя</b>" или "Услуги по <b>ремонту двигателя</b>"
