@@ -2,6 +2,7 @@ from adminsortable.models import SortableMixin
 from autoslug import AutoSlugField
 from django.contrib.admin import display
 from django.db import models
+from django.urls import reverse
 from image_cropping import ImageRatioField
 
 from apps.cars.utils.validators import validate_double_slash_url
@@ -137,12 +138,11 @@ class Product(SortableMixin):
         return {'section': self.section.title, 'product': self.title}
 
     @staticmethod
-    def get_currency(self):
+    def get_currency():
         return '₽'
 
-    def reverse_url(self, request):
-        from apps.services.utils.helpers import service_url
-        return service_url(request, self)
+    def reverse_url(self):
+        return reverse('services:product', args=(self.url,))
 
     class Meta:
         indexes = (models.Index(fields=('active',)),
