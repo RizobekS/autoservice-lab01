@@ -22,7 +22,7 @@ class Section(SortableMixin):
     active = models.BooleanField('Активно', help_text=ACTIVE_HELP_TEXT, default=True)
     show_at_homepage = models.BooleanField('Отображать на главной', help_text='В блоке "Наши услуги"', default=False)
     short_description = models.CharField('Краткое описание', max_length=255)
-    description = models.TextField('Содержание', help_text=' '.join((DESCRIPTION_HELP_TEXT, SUPPORTS_CAR_CONTEXT_HELP_TEXT)))
+    description = models.TextField('Содержание', help_text=' '.join((DESCRIPTION_HELP_TEXT, SUPPORTS_CAR_CONTEXT_HELP_TEXT)), blank=True, null=True)
     parent_section = models.ForeignKey(verbose_name='Родительский раздел', to='Section', help_text='Оставьте поле пустым, если данный раздел - корневой',
                                        on_delete=models.SET_NULL, null=True, blank=True)
 
