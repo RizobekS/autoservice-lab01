@@ -62,8 +62,8 @@ class Section(SortableMixin):
         return self.section_set.filter(active=True)
 
     def menu_set(self):
-        section_set = self.active_section_set()
-        return section_set if section_set.count() else self.active_product_set()
+        section_set = list(self.active_section_set()) + list(self.active_product_set())
+        return section_set
 
     def ceo_context(self):
         return {'section': self.title}
