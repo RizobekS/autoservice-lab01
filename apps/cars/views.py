@@ -58,49 +58,6 @@ class CarView(TemplateView, CarFilterPageSettingsMixin):
         return {'sections': Section.objects.filter(active=True, parent_section=None)}
 
 
-def car_view(request, urls: CarUrls):
-    # Get Vendor object
-    car_filter = urls.save(request)
-    set_car_filter(request, car_filter)
-
-    context = {
-        # 'service_page_title': car_page_title(car_filter),
-
-        'page_title': car_page_title(car_filter),
-        'breadcrumbs': car_breadcrumbs(car_filter),
-        'car': car_filter,
-    }
-    ceo_tags = CEORenderer(ceo_key='cars:car', ceo_context=car_filter.ceo_context())
-    context.update(ceo_tags.as_context())
-
-    # Only for vendor-model and higher level pages
-    if car_filter.model:
-        # Dict of kwargs for given car_filter
-        kwargs = {'cars__year__model__vendor': car_filter.vendor}
-        if car_filter.model:
-            kwargs['cars__year__model'] = car_filter.model
-            if car_filter.year:
-                kwargs['cars__year'] = car_filter.year
-                if car_filter.modification:
-                    kwargs['cars'] = car_filter.modification
-        # print('Product kwargs:', kwargs)
-
-        products = list(Product.objects.filter(active=True, **kwargs))
-        root_sections = {}
-        for product in products:
-            root = product.root_section()
-            if root in root_sections and len(root_sections[root]) <= 5:
-                root_sections[root].append(product)
-            else:
-                root_sections[root] = [product]
-
-        context['root_sections'] = root_sections
-    else:  # Only for vendor-level pages
-        context['sections'] = Section.objects.filter(active=True, parent_section=None)
-
-    return render(request, 'cars/car.html', context)
-
-
 def ajax_filter(request):
     """
         Data with chosen vendor, model, year and modification is received.
