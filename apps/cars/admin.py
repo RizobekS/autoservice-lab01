@@ -12,7 +12,7 @@ from utils.admin_actions import activate, deactivate, clone
 class VendorAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_display = ('name', 'url', 'active', 'related_cars')
     list_filter = ('active',)
-    fields = (('name', 'url'), 'logo', 'active', 'header_image', 'header_crop')
+    fields = (('name', 'url'), 'logo', 'favicon', 'active', 'header_image', 'header_crop')
     search_fields = ('name', 'model__name', 'model__year__year', 'model__year__modification__name')
     prepopulated_fields = {'url': ('name',), }
     actions = (activate, deactivate, clone)

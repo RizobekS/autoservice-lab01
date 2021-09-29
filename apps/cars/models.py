@@ -54,6 +54,8 @@ class Vendor(models.Model):
     header_image = models.ImageField('Изображение в заголовке', help_text='Возможность обрезки появится после сохранения', null=True, blank=True)
     header_crop = ImageRatioField(verbose_name='Обрезка изображения заголовка (1920x600)', image_field='header_image', size='1920x600')
     logo = models.ImageField('Логотип', help_text='Возможность обрезки появится после сохранения', upload_to='vendor_logos', max_length=256)
+    favicon = models.ImageField('Значок страницы (favicon)', upload_to='vendor_favicons', max_length=256, null=True, blank=True,
+                                help_text='Значок будет отображаться при данной марке в ММП фильтре. Оставьте поле пустым чтобы использовать стандартный значок.')
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления', default=True)
 
     def __str__(self):
