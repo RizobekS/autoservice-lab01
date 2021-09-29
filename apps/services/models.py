@@ -39,6 +39,7 @@ class Section(SortableMixin):
     meta_description = models.TextField('Meta description', help_text=CEO_HELP_TEXT, null=True, blank=True)
     meta_keywords = models.TextField('Meta keywords', help_text=CEO_HELP_TEXT, null=True, blank=True)
     meta_robots = models.TextField('Meta robots', help_text=CEO_HELP_TEXT, null=True, blank=True)
+    canonical_to_original = models.BooleanField('Каноничная ссылка', help_text='Каноничная ссылка на страницу без ММП фильтра', default=False)
 
     sorting = models.PositiveIntegerField('Сортировка', editable=False)
 

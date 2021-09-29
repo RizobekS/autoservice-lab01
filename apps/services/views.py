@@ -70,6 +70,8 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSetting
             'image_url': cropped_thumbnail(None, self.object, 'thumbnail_1960x600'),
             'image_alt': self.object.title,
         })
+        if self.object.canonical_to_original:
+            kwargs['canonical_link'] = self.request.build_absolute_uri(reverse('services:section', kwargs={'section_url': self.object.url}))
         return super().get_context_data(**kwargs)
 
 
