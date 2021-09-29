@@ -50,7 +50,7 @@ class CarView(TemplateView, CarFilterPageSettingsMixin):
                 root_sections[root].add(product)
             else:
                 root_sections[root] = {product}  # Creating set
-
+        root_sections = dict(sorted(root_sections.items(), key=lambda x: x[0].sorting))
         return {'root_sections': root_sections}
 
     @staticmethod
