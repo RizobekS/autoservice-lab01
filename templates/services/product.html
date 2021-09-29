@@ -15,14 +15,18 @@
 
 
 {% block modals %}
-  {% if selected_car %}
+  {% if selected_car and not product.canonical_to_original %}
     {% include 'modals/select-car.html' %}
   {% endif %}
 {% endblock %}
 
 
 {% block header %}
-  {% include 'chunks/header/title-filter.html' %}
+  {% if product.canonical_to_original %}
+    {% include 'chunks/header/title.html' %}
+  {% else %}
+    {% include 'chunks/header/title-filter.html' %}
+  {% endif %}
 {% endblock %}
 
 
