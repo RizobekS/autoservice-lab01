@@ -59,7 +59,7 @@
 
           <div class="col-md-5 service-tab">
 
-            {% with child_products|merge:child_sections as child_items %}
+            {% with child_sections|merge:child_products as child_items %}
               {% if child_items %}
                 <div id="accordion01" class="accordion ls ms" role="tablist">
 
