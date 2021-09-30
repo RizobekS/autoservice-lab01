@@ -1,15 +1,11 @@
 from django.http import JsonResponse
-from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import TemplateView
 
 from utils.car_filter import set_car_filter, get_car_filter
 from .models import *
-from .utils.helpers import car_page_title, car_breadcrumbs
 from .utils.mixins import CarFilterPageSettingsMixin
-from .utils.types import CarUrls
 from ..services.models import Section, Product
-from ..site_settings.utils.mixins import CEORenderer
 
 
 class CarView(TemplateView, CarFilterPageSettingsMixin):
