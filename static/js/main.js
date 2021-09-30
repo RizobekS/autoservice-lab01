@@ -5,8 +5,8 @@
     var $body = $('body');
     var $window = $(window);
 
-//hidding menu elements that do not fit in menu width
-//processing center logo
+    //hidding menu elements that do not fit in menu width
+    //processing center logo
     function menuHideExtraElements() {
 
         //cleaneng changed elements
@@ -71,7 +71,7 @@
                     $menuWraper.css({'left': -menuLeftOffset})
                 }
 
-            }// > 991
+            } // > 991
         }); //sf-menu each
     } //menuHideExtraElements
 
@@ -111,7 +111,7 @@
         }
     }
 
-//NOTE: affixed sidebar works bad with side headers
+    //NOTE: affixed sidebar works bad with side headers
     function initAffixSidebar() {
         var $affixAside = $('.affix-aside');
         if ($affixAside.length) {
@@ -176,8 +176,8 @@
                     offsetTop += $(val).outerHeight(true) || 0;
                 });
                 //note that page_footer and page_copyright sections must exists - else this will cause error in last jQuery versions
-                var offsetBottom = $('.page_footer').outerHeight(true)
-                    + $('.page_copyright').outerHeight(true);
+                var offsetBottom = $('.page_footer').outerHeight(true) +
+                    $('.page_copyright').outerHeight(true);
 
                 $affixAside.data('bs.affix').options.offset.top = offsetTop - offsetTopAdd;
                 $affixAside.data('bs.affix').options.offset.bottom = offsetBottom + offsetBottomAdd;
@@ -188,10 +188,10 @@
 
             $affixAside.affix('checkPosition');
 
-        }//eof checking of affix sidebar existing
+        } //eof checking of affix sidebar existing
     }
 
-//photoSwipe gallery plugin
+    //photoSwipe gallery plugin
     function initPhotoSwipe() {
         if (typeof PhotoSwipe !== 'undefined') {
 
@@ -320,7 +320,7 @@
         }
     }
 
-//helper functions to init elements only when they appears in viewport (jQUery.appear plugin)
+    //helper functions to init elements only when they appears in viewport (jQUery.appear plugin)
     function initAnimateElement(self, index) {
         var animationClass = !self.data('animation') ? 'fadeInUp' : self.data('animation');
         var animationDelay = !self.data('delay') ? 150 : self.data('delay');
@@ -448,112 +448,37 @@
             myMap.geoObjects.add(myPlacemark_01);
             myMap.geoObjects.add(myPlacemark_02);
         });
-
     }
 
-// function initGoogleMap() {
-//         //Google Map script
-//         var $googleMaps = $('#map, .page_map');
-//         if ( $googleMaps.length ) {
-//             $googleMaps.each(function() {
-//                 var $map = $(this);
+    function inputsMask() {
+        var elements = document.querySelectorAll('input[name="phone"]');
+        var maskOptions = {
+            mask: '+{7} (000) 000 - 00 - 00',
+            lazy: false,
+            placeholderChar: '_'
+        };
+        for (var i = 0; i < elements.length; i++) {
+            var mask = IMask(elements[i], maskOptions);
+        }
+    }
 
-//                 var lat;
-//                 var lng;
-//                 var map;
-
-//                 //map styles. You can grab different styles on https://snazzymaps.com/
-
-//                 //dark style
-//                 //var styles = [{"featureType":"all","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"administrative.locality","elementType":"labels.text.fill","stylers":[{"color":"#c4c4c4"}]},{"featureType":"administrative.neighborhood","elementType":"labels.text.fill","stylers":[{"color":"#707070"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21},{"visibility":"on"}]},{"featureType":"poi.business","elementType":"geometry","stylers":[{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#be2026"},{"lightness":"0"},{"visibility":"on"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels.text.fill","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels.text.stroke","stylers":[{"visibility":"off"},{"hue":"#ff000a"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#575757"}]},{"featureType":"road.arterial","elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.arterial","elementType":"labels.text.stroke","stylers":[{"color":"#2c2c2c"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"color":"#999999"}]},{"featureType":"road.local","elementType":"labels.text.stroke","stylers":[{"saturation":"-52"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]}];
-
-//                 // light style
-//                 var styles = [{"featureType": "water","elementType": "geometry","stylers": [{"color": "#e9e9e9"},{"lightness": 17}]},{"featureType": "landscape","elementType": "geometry","stylers": [{"color": "#f5f5f5"},{"lightness": 20}]},{"featureType": "road.highway","elementType": "geometry.fill","stylers": [{"color": "#ffffff"},{"lightness": 17}]},{"featureType": "road.highway","elementType": "geometry.stroke","stylers": [{"color": "#ffffff"},{"lightness": 29},{"weight": 0.2}]},{"featureType": "road.arterial","elementType": "geometry","stylers": [{"color": "#ffffff"},{"lightness": 18}]},{"featureType": "road.local","elementType": "geometry","stylers": [{"color": "#ffffff"},{"lightness": 16}]},{"featureType": "poi","elementType": "geometry","stylers": [{"color": "#f5f5f5"},{"lightness": 21}]},{"featureType": "poi.park","elementType": "geometry","stylers": [{"color": "#dedede"},{"lightness": 21}]},{"elementType": "labels.text.stroke","stylers": [{"visibility": "on"},{"color": "#ffffff"},{"lightness": 16}]},{"elementType": "labels.text.fill","stylers": [{"saturation": 36},{"color": "#333333"},{"lightness": 40}]},{"elementType": "labels.icon","stylers": [{"visibility": "off"}]},{"featureType": "transit","elementType": "geometry","stylers": [{"color": "#f2f2f2"},{"lightness": 19}]},{"featureType": "administrative","elementType": "geometry.fill","stylers": [{"color": "#fefefe"},{"lightness": 20}]},{"featureType": "administrative","elementType": "geometry.stroke","stylers": [{"color": "#fefefe"},{"lightness": 17},{"weight": 1.2}]}];
-
-//                 //markers
-//                 var $markers = $map.find('.marker');
-
-//                 //map settings
-//                 var address = $markers.first().find('.marker-address').text() ? $markers.first().find('.marker-address').text() : 'london, baker street, 221b';
-//                 var geocoder = new google.maps.Geocoder();
-
-
-//                 var draggable = $map.data('draggable') ? $map.data('draggable') : false;
-//                 var scrollwheel = $map.data('scrollwheel') ? $map.data('scrollwheel') : false;
-
-//                 //type your address after "address="
-//                 geocoder.geocode({
-//                     address: address
-//                 }, function(data){
-
-//                     lat = data[0].geometry.location.lat();
-//                     lng = data[0].geometry.location.lng();
-
-//                     var center = new google.maps.LatLng(lat, lng);
-//                     var settings = {
-//                         mapTypeId: google.maps.MapTypeId.ROADMAP,
-//                         zoom: 16,
-//                         draggable: draggable,
-//                         scrollwheel: scrollwheel,
-//                         center: center,
-//                         styles: styles
-//                     };
-//                     map = new google.maps.Map($map[0], settings);
-
-//                     var infoWindows = [];
-
-//                     $($markers).each(function(index) {
-
-//                         var $marker = $(this);
-//                         var markerTitle = $marker.find('.marker-title').text();
-
-//                         //building info widnow HTML code
-//                         var markerDescription = '';
-//                         markerDescription += markerTitle ? '<h3 class="makret-title">' + markerTitle + '</h3>' : '';
-//                         markerDescription += $marker.find('.marker-description').html() ? '<div class="marker-description">' + $marker.find('.marker-description').html() + '</div>' : '';
-//                         if(markerDescription) {
-//                             markerDescription = '<div class="map_marker_description">' + markerDescription + '</div>';
-//                         }
-
-//                         geocoder.geocode({
-//                             address: $marker.find('.marker-address').text()
-//                         }, function(data){
-//                             var iconSrc = $marker.find('.marker-icon').attr('src');
-
-//                             var lat = data[0].geometry.location.lat();
-//                             var lng = data[0].geometry.location.lng();
-
-//                             var center = new google.maps.LatLng(lat, lng);
-
-//                             var marker = new google.maps.Marker({
-//                                 position: center,
-//                                 title: markerTitle,
-//                                 map: map,
-//                                 icon: iconSrc
-//                             });
-
-//                             var infowindow = new google.maps.InfoWindow({
-//                                 content: markerDescription
-//                             });
-
-//                             infoWindows.push(infowindow);
-
-//                             google.maps.event.addListener(marker, 'click', function() {
-//                                 for (var i=0;i<infoWindows.length;i++) {
-//                                     infoWindows[i].close();
-//                                 }
-//                                 infowindow.open(map,marker);
-//                             });
-//                         });
-//                     });
-//                 });
-//             }); //each Google map
-//         }//google map length
-//     }
-//     window.initGoogleMap=initGoogleMap;
+    function megaMenuMore() {
+        $('.mega-menu__more').each(function (index) {
+            var parentUl = $(this).parents('.mega-menu-col > ul');
+            $(this).on('click', function () {
+                parentUl.addClass('mega-menu-ul-open');
+            });
+        });
+        $('.mega-menu__less').each(function (index) {
+            var parentUl = $(this).parents('.mega-menu-col > ul');
+            $(this).on('click', function () {
+                parentUl.removeClass('mega-menu-ul-open');
+            });
+        });
+    }
 
 
-//function that initiating template plugins on window.load event
+    //function that initiating template plugins on window.load event
     function documentReadyInit() {
         ////////////
         //mainmenu//
@@ -1051,10 +976,11 @@
             });
         }
 
+        inputsMask();
+        megaMenuMore();
+    } //documentReadyInit
 
-    }//documentReadyInit
-
-//function that initiating template plugins on window.load event
+    //function that initiating template plugins on window.load event
     function windowLoadInit() {
         //////////////
         //flexslider//
@@ -1131,31 +1057,27 @@
                     animationSpeed: 800,
                 })
             });
-        }
 
-        if (document.documentElement.clientWidth <= 320) {
-            $(".choose-slider").each(function (index) {
-                console.log('choose-slider slider #' + index);
-                var $currentSlider = $(this);
-                console.log($currentSlider);
-                console.log($currentSlider.find('.flex-active-slide').length);
-                if ($currentSlider.find('.flex-active-slide').length) {
-                    return;
-                }
-                console.log('$currentSlider.flexslider');
-                $currentSlider.flexslider({
-                    animation: 'fade',
-                    useCSS: true,
-                    pauseOnHover: true,
-                    controlNav: true,
-                    directionNav: false,
-                    prevText: "",
-                    nextText: "",
-                    smoothHeight: false,
-                    slideshow: true,
-                    slideshowSpeed: 5000,
-                })
-            });
+            if (document.documentElement.clientWidth <= 767) {
+                $(".choose-slider").each(function (index) {
+                    var $currentSlider = $(this);
+                    if ($currentSlider.find('.flex-active-slide').length) {
+                        return;
+                    }
+                    $currentSlider.flexslider({
+                        animation: 'fade',
+                        useCSS: true,
+                        pauseOnHover: true,
+                        controlNav: true,
+                        directionNav: false,
+                        prevText: "",
+                        nextText: "",
+                        smoothHeight: false,
+                        slideshow: true,
+                        slideshowSpeed: 5000,
+                    })
+                });
+            }
         }
 
         ////////////////
@@ -1704,11 +1626,10 @@
         $(".preloader").fadeOut(150).delay(50, function () {
             $(this).remove();
         });
-    }//eof windowLoadInit
+    } //eof windowLoadInit
 
     $(document).ready(function () {
         documentReadyInit();
-        // initGoogleMap();
         var yaMapsStartedDownload = false;
 
         $(window).scroll(function () {
@@ -1771,7 +1692,7 @@
 
     });
 
-// particles.js
+    // particles.js
     if (typeof (particlesJS) !== undefined && $('#particles-js').length) {
         particlesJS("particles-js", {
             "particles": {
@@ -1877,13 +1798,13 @@
         });
     }
 
-//direction gallery
+    //direction gallery
     $(function () {
         $(' #gallery-direction > .gallery-hover').hoverdir();
     });
     if (typeof (Typed) !== undefined && $('#typed').length) {
 
-//typed.js
+        //typed.js
         var typed = new Typed("#typed", {
             stringsElement: '#typed-strings',
             typeSpeed: 100,
@@ -1895,6 +1816,5 @@
     }
 
 
-//end of IIFE function
+    //end of IIFE function
 })(jQuery);
-
