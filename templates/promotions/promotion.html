@@ -28,20 +28,27 @@
               <img src="{{ promotion.image.url }}" alt="{{ promotion.title }}">
             </div>
 
-            {% include 'chunks/aside/social_buttons.html' %}
 
             <div class="item-content">
-              <div class="divider-7"></div>
-              <div class="entry-meta item-meta color-darkgrey mb-20">
-                <i class="fa fa-calendar color-main"></i> <span>{{ promotion.date|date_delta }}</span>
+              <div class="item-content-header">
+                <div class="divider-7"></div>
+                <div class="entry-meta item-meta color-darkgrey mb-20">
+                  <i class="fa fa-calendar color-main"></i> <span>{{ promotion.date|date_delta }}</span>
+                </div>
+                <!-- .entry-meta -->
+                <hr>
               </div>
-              <!-- .entry-meta -->
-              <hr>
 
               <div class="entry-content">
-
-                {{ promotion.text|safe }}
-
+                <div class="entry-content-aside">
+                  <div class="float-socials" style="">
+                    <script src="https://yastatic.net/share2/share.js"></script>
+                    <div class="ya-share2" data-bare data-services="facebook,telegram"></div>
+                  </div>
+                </div>
+                <div class="entry-content-main">
+                  {{ promotion.text|safe }}
+                </div>
               </div>
               <!-- .entry-content -->
 
