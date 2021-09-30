@@ -242,7 +242,6 @@ img,
 figure {
     height: auto;
     max-width: 100%;
-    font-family: 'font-family';
 }
 
 figcaption {
@@ -507,6 +506,7 @@ ol.list2 {
 .list2 ol li,
 ol.list2 li {
     padding: 3px 0 3px 30px;
+    position: relative;
 }
 
 .list2 ol li:before,
@@ -515,7 +515,7 @@ ol.list2 li:before {
     content: "." counter(li, decimal-leading-zero);
     counter-increment: li;
     font-weight: 500;
-    left: 16px;
+    left: 0;
     position: absolute;
 }
 
@@ -618,6 +618,14 @@ select,
     height: 33px;
     padding: 0 10px 0 0;
     width: 100%;
+}
+
+.form-control-bg {
+    padding: 10px 10px;
+    background-color: #fff;
+    border: none;
+    font-size: 16px;
+    line-height: 1.2;
 }
 
 form textarea.form-control {
@@ -909,6 +917,15 @@ select {
     border: 1px solid rgba(97, 114, 138, 0.2);
     height: 50px;
     padding-left: 20px;
+}
+
+.form-aside input {
+    width: 100%;
+}
+
+.form-aside .btn-submit {
+    width: 100%;
+    margin-top: 20px;
 }
 
 /* carousel */
@@ -11497,16 +11514,31 @@ h3.small {
 }
 
 .quote-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: none;
     padding: 20px 0;
     text-align: center;
 }
 
+.quote-item > div {
+    position: relative;
+    height: 450px;
+    overflow: hidden;
+}
+
 @media (min-width: 768px) {
     .quote-item {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 61%;
+        /*        margin-left: auto;
+                margin-right: auto;
+                max-width: 61%;
+        */
+    }
+
+    .quote-item > div {
+        width: 560px;
     }
 }
 
@@ -11827,6 +11859,11 @@ aside > * + * {
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
+}
+
+.widget-call .widget-title {
+    font-size: 18px;
+    line-height: 1.2;
 }
 
 @media (max-width: 991px) {
@@ -19352,10 +19389,10 @@ img.absolute_image {
 }
 
 .ds.testimonials-section .quote-item {
-    padding: 5px 0 45px;
+    padding: 5px 0 0;
 }
 
-.ds.testimonials-section .quote-item:before {
+/*.ds.testimonials-section .quote-item:before {
     background-color: #3d4550;
     content: "";
     height: 428px;
@@ -19367,7 +19404,7 @@ img.absolute_image {
     transform: translateX(1.2%);
     width: 500px;
     z-index: -1;
-}
+}*/
 
 @media (max-width: 1400px) {
     .ds.testimonials-section .quote-item:before {
@@ -20404,3 +20441,57 @@ start-form-modal - на модалке
     }
 }
 
+
+.advantages .icon-box .icon-styled + p.small-text {
+    font-size: 16px;
+}
+
+.advantages .special-heading.text-uppercase {
+    font-size: 54px;
+}
+
+.advantages [class*="col-"] {
+    display: flex;
+}
+
+.advantages .icon-box.text-center {
+    display: flex;
+    flex-direction: column;
+}
+
+.advantages .special-heading {
+    margin-top: auto;
+}
+
+.mega-menu-col:nth-child(3) li:nth-child(n+7),
+.mega-menu-col:nth-child(4) li:nth-child(n+7) {
+    display: none;
+}
+
+.mega-menu__more {
+    display: block !important;
+}
+
+.mega-menu-col span {
+    display: inline-block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.mega-menu-col span:hover {
+    color: #ff4e3c;
+    transition: color 0.15s linear 0s;
+}
+
+.mega-menu-ul-open .mega-menu__more {
+    display: none !important;
+}
+
+.mega-menu-ul-open li {
+    display: block !important;
+}
+
+.bg-maincolor2.tab-content {
+    margin-top: 48px;
+}
