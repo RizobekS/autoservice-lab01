@@ -17,7 +17,7 @@ def service_url(request: HttpRequest, obj: Union[Section, Product], skip_car=Fal
         raise ValueError(f'Object type must be either Section or Product, {type(obj)} was given')
 
     car = get_car_filter(request) if not skip_car else None
-    if car:
+    if car and not obj.canonical_to_original:
         viewname += '_car'
         args.append(car.url_args())
 
