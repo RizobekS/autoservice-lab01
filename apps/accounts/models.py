@@ -49,7 +49,7 @@ class Appointment(models.Model):
 
     full_name = models.CharField('Полное имя', max_length=200)
     car = models.CharField('Автомобиль', max_length=400)
-    phone = models.CharField('Телефон', max_length=20)
+    phone = models.CharField('Телефон', max_length=26)
     branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.DO_NOTHING)
     datetime = models.DateTimeField('Время')
 
@@ -66,7 +66,7 @@ class Appointment(models.Model):
 
 class ShortAppointment(models.Model):
     full_name = models.CharField('Полное имя', max_length=256)
-    phone = models.CharField('Телефон', max_length=20)
+    phone = models.CharField('Телефон', max_length=26)
     email = models.EmailField('Эл. почта', null=True, blank=True)
     branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.DO_NOTHING)
     text = models.TextField('Сообщение', null=True, blank=True)
@@ -82,7 +82,7 @@ class ShortAppointment(models.Model):
 
 class SparePartAppointment(models.Model):
     full_name = models.CharField('Полное имя', max_length=256)
-    phone = models.CharField('Телефон', max_length=20)
+    phone = models.CharField('Телефон', max_length=26)
     car = models.CharField('Автомобиль', max_length=400, null=True, blank=True)
     branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.DO_NOTHING)
     vin = models.CharField('VIN номер', max_length=17, null=True, blank=True)
@@ -98,7 +98,7 @@ class SparePartAppointment(models.Model):
 
 
 class CallRequest(models.Model):
-    phone = models.CharField('Телефон', max_length=20)
+    phone = models.CharField('Телефон', max_length=26)
     branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.DO_NOTHING)
     datetime = models.DateTimeField('Дата и время создания', auto_now_add=True)
 
