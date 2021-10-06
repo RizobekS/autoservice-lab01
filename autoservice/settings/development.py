@@ -4,7 +4,7 @@ from os.path import join
 # project imports
 from .common import *
 
-DEBUG = False
+DEBUG = True
 
 STATICFILES_DIRS = [
     join(PROJECT_ROOT, 'static'),
