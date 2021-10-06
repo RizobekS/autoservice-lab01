@@ -1,0 +1,10 @@
+<a class="collapsed w-100" data-toggle="collapse" href="#collapse-vendor-{{ vendor.id }}" role="button" aria-expanded="false"
+   aria-controls="collapse-product-{{ vendor.id }}">
+  {{ vendor.name }}
+</a>
+
+<div class="collapse pl-3" id="collapse-vendor-{{ vendor.id }}">
+  {% for model in models %}
+    {% include 'site_settings/site_map/model.html' %}
+  {% endfor %}
+</div>

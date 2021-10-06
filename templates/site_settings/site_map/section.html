@@ -1,0 +1,12 @@
+<a class="collapsed w-100" data-toggle="collapse" href="#collapse-section-{{ section.id }}" role="button" aria-expanded="false" aria-controls="collapse-section-{{ section.id }}">
+  {{ section.title }}
+</a>
+
+<div class="collapse pl-3" id="collapse-section-{{ section.id }}">
+  {% for section in section.active_section_set %}
+    {% include 'site_settings/site_map/section.html' %}
+  {% endfor %}
+  {% for product in section.active_product_set %}
+    {% include 'site_settings/site_map/product.html' %}
+  {% endfor %}
+</div>

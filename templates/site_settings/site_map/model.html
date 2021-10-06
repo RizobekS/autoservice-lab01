@@ -1,0 +1,14 @@
+{% load dictionaries %}
+
+<a class="collapsed w-100" data-toggle="collapse" href="#collapse-model-{{ model.id }}" role="button" aria-expanded="false"
+   aria-controls="collapse-product-{{ model.id }}">
+  {{ model.name }}
+</a>
+
+<div class="collapse pl-3" id="collapse-model-{{ model.id }}">
+  {% with model_id=model.id %}
+    {% for item in modifications_instance.modifications|get:model.id %}
+      <a href="{# TODO: link #}">{{ item.name }}</a>
+    {% endfor %}
+  {% endwith %}
+</div>

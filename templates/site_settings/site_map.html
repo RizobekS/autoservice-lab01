@@ -1,0 +1,11 @@
+<div class="site-map">
+  <a class="collapsed w-100" data-toggle="collapse" href="#collapseMain" role="button" aria-expanded="false" aria-controls="collapseMain">
+    Услуги
+  </a>
+  <div class="collapse pl-2" id="collapseMain">
+    {#  {% include 'site_settings/site_map/product.html' %}#}
+    {% for section in root_sections %}
+      {% include 'site_settings/site_map/section.html' %}
+    {% endfor %}
+  </div>
+</div>
