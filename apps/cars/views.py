@@ -45,9 +45,12 @@ class CarView(TemplateView, CarFilterPageSettingsMixin):
         root_sections = {}
         for product in products:
             root = product.root_section()
+
+            # Skip products from 'others' section with canonical_to_original=True
+            if root.url == 'others' and product.canonical_to_original:
+                continue
+
             if root in root_sections:
-                if root.url == 'others' and product.canonical_to_original:
-                    continue  # Skip products from 'others' section with canonical_to_original=True
                 if len(root_sections[root]) < 5:
                     root_sections[root].add(product)
             else:
