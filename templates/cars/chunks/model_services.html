@@ -29,37 +29,35 @@
 
                   {# Creating products #}
                   {% for prod in products %}
-                    {% if root.url != 'others' or not prod.canonical_to_original %}  {# Skip products from 'others' section with canoncal_to_original=True #}
-                      <article class="post side-item text-center text-md-left content-padding bordered event-post">
-                        <div class="row">
-                          <div class="col-xl-3 col-lg-3 col-md-3">
-                            <div class="item-media cover-image">
-                              <img loading="lazy" src="{% cropped_thumbnail prod 'thumbnail_348x236' %}" alt="">
-                              <div class="media-links">
-                                <a class="abs-link" title="" href="{% service_url prod %}"></a>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-xl-8 col-lg-7 col-md-6">
-                            <div class="divider-11 d-none d-xl-block"></div>
-                            <div class="item-content">
-                              <h6>
-                                <a href="{% service_url prod %}">{{ prod.title }} {{ car.full_name }}</a>
-                              </h6>
-                              <div class="mb-10 item-meta color-darkgrey">
-                              <span>
-                                <i class="fa fa-calculator color-main"></i> <span><b>Цена:</b> {{ prod.verbose_price }}</span>
-                              </span>
-                                {% if prod.time_duration %}<span>
-                                <i class="fa fa-clock-o color-main"></i> <span><b>Длительность:</b> {{ prod.time_duration }}</span>
-                              </span>{% endif %}
-                              </div>
-                              <p>{{ prod.short_description }}</p>
+                    <article class="post side-item text-center text-md-left content-padding bordered event-post">
+                      <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3">
+                          <div class="item-media cover-image">
+                            <img loading="lazy" src="{% cropped_thumbnail prod 'thumbnail_348x236' %}" alt="">
+                            <div class="media-links">
+                              <a class="abs-link" title="" href="{% service_url prod %}"></a>
                             </div>
                           </div>
                         </div>
-                      </article>
-                    {% endif %}
+                        <div class="col-xl-8 col-lg-7 col-md-6">
+                          <div class="divider-11 d-none d-xl-block"></div>
+                          <div class="item-content">
+                            <h6>
+                              <a href="{% service_url prod %}">{{ prod.title }} {{ car.full_name }}</a>
+                            </h6>
+                            <div class="mb-10 item-meta color-darkgrey">
+                              <span>
+                                <i class="fa fa-calculator color-main"></i> <span><b>Цена:</b> {{ prod.verbose_price }}</span>
+                              </span>
+                              {% if prod.time_duration %}<span>
+                                <i class="fa fa-clock-o color-main"></i> <span><b>Длительность:</b> {{ prod.time_duration }}</span>
+                              </span>{% endif %}
+                            </div>
+                            <p>{{ prod.short_description }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </article>
                   {% endfor %}
 
                 </main>
