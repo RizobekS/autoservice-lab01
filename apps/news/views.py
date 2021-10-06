@@ -37,11 +37,11 @@ class ArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, 
 
     # #### PageSettingsMixin ####
 
-    viewname = 'news:article'
+    viewname = 'knowledge_base:news:article'
     initial_breadcrumbs = [reverse_bc(viewname='tags:all')]
 
     def get_current_breadcrumb(self) -> List[Breadcrumb]:
-        return [Breadcrumb(self.object.title, reverse_lazy('news:article', args=(self.object.url,)))]
+        return [Breadcrumb(self.object.title, reverse_lazy('knowledge_base:news:article', args=(self.object.url,)))]
 
     def get_ceo_context(self, **kwargs) -> Dict[str, Any]:
         kwargs.update({'article': self.object.title})
@@ -52,7 +52,7 @@ class ArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, 
     form_class = CommentForm
 
     def get_success_url(self):
-        url = reverse_lazy('news:article', kwargs={'article_url': self.get_object().url})
+        url = reverse_lazy('knowledge_base:news:article', kwargs={'article_url': self.get_object().url})
         return f'{url}#{self.comment.tag_id()}' if self.comment else url
 
     def get_initial(self):

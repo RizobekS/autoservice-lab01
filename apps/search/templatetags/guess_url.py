@@ -21,7 +21,7 @@ def guess_url(context: dict, obj: Any):
         raise ValueError('Usage of guess_url template tag requires request in context')
 
     if isinstance(obj, Article):
-        return reverse('news:article', args=(obj.url,))
+        return reverse('knowledge_base:news:article', args=(obj.url,))
     elif isinstance(obj, Promotion):
         return reverse('promotions:promotion', args=(obj.url,))
     elif isinstance(obj, Product) or isinstance(obj, Section):

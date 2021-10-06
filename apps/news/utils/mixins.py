@@ -11,7 +11,7 @@ class LatestArticlesMixin(ContextMixin):
         Adds news to your context, ordered by time in ascending manner
         Tries to exclude current record if object variable is found
 
-        max_articles: int - Number of Articles to retrieve, 10 by default
+        max_articles: int - Number of Articles to retrieve, 10 by default. If None - no constraints
         context_name_articles: str - name of article list variable in context
     """
     max_articles: int = 10

@@ -9,26 +9,28 @@ from django.views.generic import CreateView, DetailView, TemplateView
 from apps.knowledge_base.forms import AskQuestionForm
 from apps.knowledge_base.models import FaqEntry, Symptom
 from apps.knowledge_base.utils.mixins import FaqEntryListMixin, SymptomListMixin
+from apps.news.utils.mixins import LatestArticlesMixin
 from apps.tags.models import Tag
 from utils.breadcrumbs.utils import reverse_bc
 from utils.mixins import PageSettingsMixin
 
 
-class KnowledgeBaseView(TemplateView, PageSettingsMixin, FaqEntryListMixin, SymptomListMixin):
+class KnowledgeBaseView(TemplateView, PageSettingsMixin, FaqEntryListMixin, SymptomListMixin, LatestArticlesMixin):
     template_name = 'knowledge_base/knowledge-base.html'
     viewname = 'knowledge_base:list'
 
     max_articles = None
     context_name_faqentry = 'faq_entries'
     context_name_symptom = 'symptoms'
+    context_name_articles = 'articles'
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        all_records = [*context.get('faq_entries'), *context.get('symptoms')]
+        all_records = [*context.get('faq_entries'), *context.get('symptoms'), *context.get('articles')]
         all_records.sort(key=lambda item: item.date, reverse=True)
         context.update({
             'all_records': all_records,
-            'tags': Tag.objects.filter(Q(faqentry__isnull=False) | Q(symptom__isnull=False)).distinct()
+            'tags': Tag.objects.filter(Q(faqentry__isnull=False) | Q(symptom__isnull=False) | Q(article__isnull=False)).distinct()
         })
         return context
 

@@ -9,12 +9,12 @@
     <ul class="list-unstyled">
       {% for article in latest_articles %}
         <li class="media align-items-center">
-          <a class="media-image" href="{% url 'news:article' article.url %}">
+          <a class="media-image" href="{% url 'knowledge_base:news:article' article.url %}">
             <img src="{% cropped_thumbnail article 'icon_thumbnail' %}" alt="{{ article.title }}">
           </a>
           <div class="media-body">
             <h4>
-              <a href="{% url 'news:article' article.url %}">{{ article.title }}</a>
+              <a href="{% url 'knowledge_base:news:article' article.url %}">{{ article.title }}</a>
             </h4>
             <p class="item-meta">
               <i class="ico-clock-alt color-main"></i>

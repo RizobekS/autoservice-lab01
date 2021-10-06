@@ -19,7 +19,6 @@ static_urlpatterns = [
 urlpatterns = [
     path('', include('apps.home.urls', namespace='home')),
     path('cars/', include('apps.cars.urls', namespace='cars')),
-    path('blog/', include('apps.news.urls', namespace='news')),
     path('specials/', include('apps.promotions.urls', namespace='promotions')),
     path('account/', include('apps.accounts.urls', namespace='accounts')),
     path('tags/', include('apps.tags.urls', namespace='tags')),

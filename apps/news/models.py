@@ -2,6 +2,7 @@ from autoslug import AutoSlugField
 from django.contrib.admin import display
 from django.contrib.sessions.models import Session
 from django.db import models
+from django.urls import reverse
 from image_cropping import ImageRatioField
 
 from apps.tags.models import Tag
@@ -32,6 +33,9 @@ class Article(models.Model):
 
     def active(self):
         return self.status == 'published'
+
+    def reverse_url(self):
+        return reverse('knowledge_base:news:article', args=(self.url,))
 
     @display(description='Тэги')
     def tag_string(self):
