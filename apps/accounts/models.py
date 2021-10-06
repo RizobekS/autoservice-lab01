@@ -84,6 +84,7 @@ class SparePartAppointment(models.Model):
     full_name = models.CharField('Полное имя', max_length=256)
     phone = models.CharField('Телефон', max_length=20)
     car = models.CharField('Автомобиль', max_length=400, null=True, blank=True)
+    branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.DO_NOTHING)
     vin = models.CharField('VIN номер', max_length=17, null=True, blank=True)
     text = models.TextField('Сообщение', null=True, blank=True)
     datetime = models.DateTimeField('Дата и время создания', auto_now_add=True)
@@ -94,3 +95,16 @@ class SparePartAppointment(models.Model):
     class Meta:
         verbose_name = 'Заявка на запчасти'
         verbose_name_plural = 'Заявки на запчасти'
+
+
+class CallRequest(models.Model):
+    phone = models.CharField('Телефон', max_length=20)
+    branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.DO_NOTHING)
+    datetime = models.DateTimeField('Дата и время создания', auto_now_add=True)
+
+    def __str__(self):
+        return f'Заказ на звонок: {self.phone} ({self.datetime.strftime("%m/%d/%Y, %H:%M")})' if self.datetime else f'Заказ на звонок: {self.phone}'
+
+    class Meta:
+        verbose_name = 'Заказ на звонок'
+        verbose_name_plural = 'Заказы на звонок'

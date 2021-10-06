@@ -1,6 +1,9 @@
 from typing import List
 
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.views import View
 from django.views.generic import DetailView, TemplateView
 from image_cropping.templatetags.cropping import cropped_thumbnail
 
@@ -11,6 +14,7 @@ from utils.views import FormDetailView
 from .models import Section, Product
 from .utils.helpers import service_url
 from .utils.mixins import ProductsMixin, SectionsMixin, SingleSectionMixin
+from ..accounts.forms import CallRequestForm
 from ..accounts.utils.mixins import ShortAppointmentMixin, SparePartAppointmentMixin
 from ..site_settings.models import StaticInformation
 
@@ -139,6 +143,7 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
             'happy_clients': StaticInformation.objects.get(key='advantages__happy_clients').value,
             'orders': StaticInformation.objects.get(key='advantages__orders').value,
             'positive_reviews': StaticInformation.objects.get(key='advantages__positive_reviews').value,
+            'call_request_form': CallRequestForm(self.request.POST) if self.request.method == 'post' else CallRequestForm(),
         })
         if self.object.canonical_to_original:
             kwargs['canonical_link'] = self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url}))
@@ -158,3 +163,16 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
 class SparePartsView(TemplateView, SparePartAppointmentMixin, PageSettingsMixin):
     template_name = 'services/spare_parts.html'
     viewname = 'services:spare_parts'
+
+
+class SubmitCallRequestView(View):
+
+    def post(self, request):
+        form = CallRequestForm(data=self.request.POST)
+        if form.is_valid():
+            obj = form.save()
+            form.send_mail(request)
+            messages.success(request, 'Заявка на звонок была успешно отправлена ✔', extra_tags='text-success')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        else:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

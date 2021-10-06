@@ -52,7 +52,7 @@ class SparePartAppointmentMixin(FormMixin, ProcessFormView):
 
     def form_valid(self, form):
         obj = form.save()
-        form.send_mail(self.request, obj.datetime)
+        form.send_mail(self.request)
         messages.success(self.request, 'Заявка была успешно отправлена ✔', extra_tags='text-success')
         return super().form_valid(form)
 

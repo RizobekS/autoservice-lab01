@@ -9,7 +9,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 
-from apps.accounts.models import User, Appointment, ShortAppointment, SparePartAppointment
+from apps.accounts.models import User, Appointment, ShortAppointment, SparePartAppointment, CallRequest
 from apps.site_settings.models import StaticInformation
 from utils.shortcuts import add_attrs
 
@@ -120,7 +120,7 @@ class AppointmentForm(forms.ModelForm):
         site_name = StaticInformation.objects.get(key='site_name')
         context = {'site_name': site_name.value, **self.cleaned_data, **self.extra_context}
         send_mail(
-            render_to_string(self.email_subject_template, context=context),
+            render_to_string(self.email_subject_template, context=context).replace('\n', ''),
             render_to_string(self.email_body_template, context=context),
             settings.DEFAULT_FROM_EMAIL,
             branch.get_email_list(),
@@ -147,22 +147,29 @@ class ShortAppointmentForm(AppointmentForm):
         model = ShortAppointment
 
 
-class SparePartAppointmentForm(forms.ModelForm):
-    def send_mail(self, request, datetime):
-        if not self.is_valid():
-            raise ValueError('The form must be valid to send mails')
-        receiver = StaticInformation.objects.get(key='email')
-        site_name = StaticInformation.objects.get(key='site_name')
-        context = {'site_name': site_name.value, 'datetime': datetime, **self.cleaned_data}
-        send_mail(
-            render_to_string('accounts/emails/spare_part_appointment/subject.html', context=context).replace('\n', ''),
-            render_to_string('accounts/emails/spare_part_appointment/body.html', context=context),
-            settings.DEFAULT_FROM_EMAIL,
-            [receiver.value],
-            fail_silently=True,
-            html_message=render_to_string('accounts/emails/spare_part_appointment/html.html', context, request=request)
-        )
+class SparePartAppointmentForm(AppointmentForm):
+    email_subject_template = 'accounts/emails/spare_part_appointment/subject.html'
+    email_body_template = 'accounts/emails/spare_part_appointment/body.html'
+    html_email_body_template = 'accounts/emails/spare_part_appointment/html.html'
+
+    def send_mail(self, request):
+        self.extra_context = {'datetime': self.instance.datetime}
+        return super().send_mail(request)
 
     class Meta:
-        fields = ('full_name', 'phone', 'car', 'vin', 'text')
+        fields = ('full_name', 'phone', 'car', 'branch', 'vin', 'text')
         model = SparePartAppointment
+
+
+class CallRequestForm(AppointmentForm):
+    email_subject_template = 'accounts/emails/call_request/subject.html'
+    email_body_template = 'accounts/emails/call_request/body.html'
+    html_email_body_template = 'accounts/emails/call_request/html.html'
+
+    def send_mail(self, request):
+        self.extra_context = {'datetime': self.instance.datetime}
+        return super().send_mail(request)
+
+    class Meta:
+        fields = ('phone', 'branch')
+        model = CallRequest

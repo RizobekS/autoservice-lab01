@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext as _
 
-from .models import User, Appointment, ShortAppointment, SparePartAppointment
+from .models import User, Appointment, ShortAppointment, SparePartAppointment, CallRequest
 
 
 @admin.register(User)
@@ -32,5 +32,11 @@ class ShortAppointmentAdmin(admin.ModelAdmin):
 
 @admin.register(SparePartAppointment)
 class SparePartAppointmentAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'phone', 'car', 'vin', 'datetime')
-    list_filter = ('datetime',)
+    list_display = ('full_name', 'phone', 'car', 'vin', 'branch', 'datetime')
+    list_filter = ('branch', 'datetime')
+
+
+@admin.register(CallRequest)
+class CallRequestAdmin(admin.ModelAdmin):
+    list_display = ('phone', 'branch', 'datetime')
+    list_filter = ('branch', 'datetime')

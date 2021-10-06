@@ -31,9 +31,10 @@
                 <ul class="woocommerce-error">
                   {% if form.full_name.errors %}
                     <li><strong>Имя</strong> обязательно к заполнению.</li>
-                  {% endif %}{% if form.phone.errors %}
-                  <li><strong>Телефон</strong> обязателен к заполнению.</li>
-                {% endif %}
+                  {% endif %}
+                  {% if form.phone.errors %}
+                    <li><strong>Телефон</strong> обязателен к заполнению.</li>
+                  {% endif %}
                 </ul>
               </div>
             {% endif %}
@@ -76,10 +77,16 @@
                              class="input-text form-control" name="{{ form.vin.name }}" id="vin" placeholder="VIN номер">
                       {% field_errors form.vin %}
                     </p>
+                    <div class="form-group choices-plain choices-plain--field">
+                      <div class="select bg-white">
+                        {{ form.branch }}
+                      </div>
+                      {% field_errors form.branch %}
+                    </div>
                     <p class="form-row form-row-wide address-field validate-required" data-priority="70" data-o_class="form-row form-row-wide address-field validate-required">
                       <label for="text">Номера или названия запчастей</label>
                       <textarea type="text" class="input-text form-control" name="{{ form.text.name }}" id="text"
-                                placeholder="Номера или названия запчастей">{{ form.vin.value|default_if_none:'' }}</textarea>
+                                placeholder="Номера или названия запчастей">{{ form.text.value|default_if_none:'' }}</textarea>
                       {% field_errors form.text %}
                     </p>
 
@@ -96,7 +103,7 @@
             <div id="order_review" class="woocommerce-checkout-review-order">
 
               <a class="d-block" href="{% url 'promotions:promotion' promotion_url='schastlivye-chasy' %}">
-                <img src="{% static 'images/banners/promo_zapchasti.jpg' %}" alt="">
+                <img src="{% static 'images/banners/promo_zapchasti.jpg' %}" alt="Счастливые часы">
               </a>
             </div>
 
