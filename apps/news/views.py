@@ -38,7 +38,7 @@ class ArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, 
     # #### PageSettingsMixin ####
 
     viewname = 'knowledge_base:news:article'
-    initial_breadcrumbs = [reverse_bc(viewname='tags:all')]
+    initial_breadcrumbs = [reverse_bc(viewname='knowledge_base:list')]
 
     def get_current_breadcrumb(self) -> List[Breadcrumb]:
         return [Breadcrumb(self.object.title, reverse_lazy('knowledge_base:news:article', args=(self.object.url,)))]
