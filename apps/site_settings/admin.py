@@ -48,7 +48,7 @@ class CEOSettingAdmin(admin.ModelAdmin):
     ordering = ('key', 'title')
     search_fields = ('page', 'title', 'header', 'key', 'description', 'keywords', 'robots')
     readonly_fields = ('variables_safe', 'page', 'key')
-    fields = ('title', 'header', ('page', 'key'), 'variables_safe', 'description', 'keywords', 'robots')
+    fields = ('title', 'header', ('page', 'key'), 'variables', 'variables_safe', 'description', 'keywords', 'robots')
 
     def has_add_permission(self, request):
         return False

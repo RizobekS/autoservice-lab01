@@ -67,7 +67,7 @@ class Section(SortableMixin):
         return section_set
 
     def ceo_context(self):
-        return {'section': self.title}
+        return {'section': self.title, 'short_description': self.short_description}
 
     class Meta:
         indexes = (models.Index(fields=('active', 'parent_section')),
@@ -136,7 +136,7 @@ class Product(SortableMixin):
         return section
 
     def ceo_context(self):
-        return {'section': self.section.title, 'product': self.title}
+        return {'section': self.section.title, 'product': self.title, 'short_description': self.short_description}
 
     @staticmethod
     def get_currency():

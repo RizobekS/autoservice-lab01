@@ -3,6 +3,7 @@ from typing import List
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.utils.html import strip_tags
 from django.views import View
 from django.views.generic import DetailView, TemplateView
 from image_cropping.templatetags.cropping import cropped_thumbnail
@@ -57,7 +58,10 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSetting
         return [Breadcrumb(self.object.title, service_url(self.request, self.object, True))]
 
     def get_ceo_context(self, **kwargs):
-        kwargs['section'] = self.object.title
+        kwargs.update({
+            'section': self.object.title,
+            'short_description': strip_tags(self.object.short_description),
+        })
         return super().get_ceo_context(**kwargs)
 
     def get_ceo_template(self, ceo_object, field_name):
@@ -123,7 +127,8 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
     def get_ceo_context(self, **kwargs):
         kwargs.update({
             'section': self.object.section.title,
-            'product': self.object.title
+            'product': self.object.title,
+            'short_description': strip_tags(self.object.short_description)
         })
         return super().get_ceo_context(**kwargs)
 
