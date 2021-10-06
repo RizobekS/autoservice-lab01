@@ -17,6 +17,10 @@ class SectionAdminForm(forms.ModelForm):
 
 
 class ProductAdminForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['car_pack'].empty_label = 'Все машины'
+
     class Meta:
         exclude = tuple()
 

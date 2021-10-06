@@ -5,7 +5,7 @@ from image_cropping import ImageCroppingMixin
 
 from utils.admin_actions import clone, deactivate, activate
 from .forms import SectionAdminForm, ProductAdminForm
-from .models import Section, Product, SparePart
+from .models import Section, Product, SparePart, CarPack
 
 
 @admin.register(Section)
@@ -57,14 +57,30 @@ class SectionAdmin(ImageCroppingMixin, SortableAdmin):
         }
 
 
+@admin.register(CarPack)
+class CarPackAdmin(admin.ModelAdmin):
+    list_display = ('name', 'cars_count', 'related_products')
+    fields = ('name', 'related_products', 'cars')
+    readonly_fields = ('related_products',)
+    filter_horizontal = ('cars',)
+
+    @admin.display(description='Всего машин')
+    def cars_count(self, obj):
+        return obj.cars.count()
+
+    @admin.display(description='Привязанные услуги')
+    def related_products(self, obj):
+        return ', '.join(item.title for item in obj.product_set.all())
+
+
 @admin.register(Product)
 class ProductAdmin(ImageCroppingMixin, SortableAdmin):
     list_display = ('title', 'url', 'active', 'section', 'verbose_price', 'tag', 'canonical_to_original', 'show_in_promotions', 'show_at_homepage')
     list_editable = ('show_at_homepage', 'canonical_to_original', 'show_in_promotions')
-    list_filter = ('active', 'fixed_price', 'show_at_homepage', 'section', 'tag')
-    search_fields = ('title', 'url', 'section', 'price', 'time_duration', 'cars', 'short_description', 'description')
+    list_filter = ('active', 'fixed_price', 'show_at_homepage', 'section', 'tag', 'car_pack')
+    search_fields = ('title', 'url', 'section', 'price', 'time_duration', 'car_pack', 'short_description', 'description')
 
-    filter_horizontal = ('spare_parts', 'cars', 'similar_products')
+    filter_horizontal = ('spare_parts', 'similar_products')
     prepopulated_fields = {'url': ('title',), }
     actions = (activate, deactivate, clone)
 
@@ -72,7 +88,7 @@ class ProductAdmin(ImageCroppingMixin, SortableAdmin):
 
     fieldsets = (
         (None, {
-            'fields': (('title', 'url'), 'active', 'show_at_homepage', 'tag', 'section', ('price', 'fixed_price'), 'time_duration', 'spare_parts', 'cars', 'similar_products')
+            'fields': (('title', 'url'), 'active', 'show_at_homepage', 'tag', 'section', ('price', 'fixed_price'), 'time_duration', 'spare_parts', 'car_pack', 'similar_products')
         }),
         ('Текст', {'fields': ('short_description', 'description'), 'classes': ('wide',)}),
         ('Главная страница (Список акций)', {'fields': ('show_in_promotions', 'homepage_description'), 'classes': ['wide', 'collapse']}),

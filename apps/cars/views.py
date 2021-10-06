@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http import JsonResponse
 from django.urls import reverse
 from django.views.generic import TemplateView
@@ -5,7 +6,7 @@ from django.views.generic import TemplateView
 from utils.car_filter import set_car_filter, get_car_filter
 from .models import *
 from .utils.mixins import CarFilterPageSettingsMixin
-from ..services.models import Section, Product
+from ..services.models import Section, Product, CarPack
 
 
 class CarView(TemplateView, CarFilterPageSettingsMixin):
@@ -31,19 +32,22 @@ class CarView(TemplateView, CarFilterPageSettingsMixin):
         return context
 
     def _root_section_products(self):
+        # Find all car_pack's that include current car_filter
         kwargs = {'cars__year__model__vendor': self.car_filter.vendor,
                   'cars__year__model': self.car_filter.model}
         if self.car_filter.year:
             kwargs['cars__year'] = self.car_filter.year
             if self.car_filter.modification:
                 kwargs['cars'] = self.car_filter.modification
+        car_packs = CarPack.objects.filter(**kwargs)
 
-        products = list(Product.objects.filter(active=True, **kwargs))
+        products = list(Product.objects.filter(active=True).filter(Q(car_pack__in=car_packs) | Q(car_pack__isnull=True)))
         root_sections = {}
         for product in products:
             root = product.root_section()
-            if root in root_sections and len(root_sections[root]) <= 5:
-                root_sections[root].add(product)
+            if root in root_sections:
+                if len(root_sections[root]) <= 5:
+                    root_sections[root].add(product)
             else:
                 root_sections[root] = {product}  # Creating set
         root_sections = dict(sorted(root_sections.items(), key=lambda x: x[0].sorting))

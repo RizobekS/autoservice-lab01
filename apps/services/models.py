@@ -78,6 +78,18 @@ class Section(SortableMixin):
         ordering = ['sorting']
 
 
+class CarPack(models.Model):
+    name = models.CharField('Название набора', max_length=200)
+    cars = OptimizedManyToManyField(verbose_name='Машины', to='cars.Modification', blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Набор машин'
+        verbose_name_plural = 'Наборы машин'
+
+
 class Product(SortableMixin):
     CEO_HELP_TEXT = 'Оставьте поле пустым чтобы использовать стандартную маску.'
 
@@ -95,7 +107,8 @@ class Product(SortableMixin):
     section = models.ForeignKey(verbose_name='Родительский раздел', to='Section', on_delete=models.RESTRICT)
     show_at_homepage = models.BooleanField('Отображать на главной', help_text='В блоке "Наши услуги"', default=False)
     spare_parts = models.ManyToManyField(verbose_name='Запчасти', to='SparePart', blank=True)
-    cars = OptimizedManyToManyField(verbose_name='Машины, подходящие под данный товар/услугу', to='cars.Modification', blank=True)
+    car_pack = models.ForeignKey(verbose_name='Машины, подходящие под данный товар/услугу', to='CarPack', on_delete=models.DO_NOTHING, null=True, blank=True,
+                                 help_text='Выберите набор машин, для которого подходит данный товар/услуга')
     tag = models.ForeignKey(verbose_name='Тег', to=Tag, on_delete=models.SET_NULL, null=True, blank=True)
 
     similar_products = models.ManyToManyField(verbose_name='Похожие услуги', help_text='Выводятся когда пользователь попал на услугу, которая не поддерживается его авто.',
