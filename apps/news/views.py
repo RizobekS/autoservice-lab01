@@ -78,17 +78,20 @@ class ArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, 
 
 
 def like_view(request, article_url):
-    article = Article.objects.filter(url=article_url, status='published').first()
-    if article is None:
-        raise Http404('Статья не найдена')
+    if request.is_ajax():
+        article = Article.objects.filter(url=article_url, status='published').first()
+        if article is None:
+            raise Http404('Статья не найдена')
 
-    like = Like.objects.filter(article=article, session_id=request.session.session_key)
+        like = Like.objects.filter(article=article, session_id=request.session.session_key)
 
-    if like.exists():
-        like.delete()
-        liked = False
+        if like.exists():
+            like.delete()
+            liked = False
+        else:
+            Like.objects.create(article=article, session_id=request.session.session_key)
+            liked = True
+
+        return HttpResponse(render_to_string('news/chunks/ajax/likes.html', {'liked': liked, 'overall': article.like_set.count()}), status=200)
     else:
-        Like.objects.create(article=article, session_id=request.session.session_key)
-        liked = True
-
-    return HttpResponse(render_to_string('news/chunks/ajax/likes.html', {'liked': liked, 'overall': article.like_set.count()}), status=200)
+        raise Http404()
