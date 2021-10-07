@@ -44,7 +44,7 @@ class ArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, 
         return [Breadcrumb(self.object.title, reverse_lazy('knowledge_base:news:article', args=(self.object.url,)))]
 
     def get_ceo_context(self, **kwargs) -> Dict[str, Any]:
-        kwargs.update({'article': self.object.title})
+        kwargs.update({'article': self.object.title, 'short_description': self.object.short_description})
         return super().get_ceo_context(**kwargs)
 
     # #### FormMixin (FormView) ####
