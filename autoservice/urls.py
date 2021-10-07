@@ -24,10 +24,10 @@ urlpatterns = [
     path('specials/', include('apps.promotions.urls', namespace='promotions')),
     path('account/', include('apps.accounts.urls', namespace='accounts')),
     path('tags/', include('apps.tags.urls', namespace='tags')),
-    path('knowledge-base/', include('apps.knowledge_base.urls', namespace='knowledge_base')),
     path('raboty/', include('apps.work_gallery.urls', namespace='work_gallery')),
     path('contacts/', include('apps.contacts.urls', namespace='contacts')),
     path('about/', include('apps.about.urls', namespace='about')),
+    path('', include('apps.knowledge_base.urls', namespace='knowledge_base')),
     path('', include('apps.editor_pages.urls', namespace='editor_pages')),
 
     path('', include((static_urlpatterns, 'static'), namespace='static')),
