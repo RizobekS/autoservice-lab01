@@ -13,12 +13,11 @@ def start():
     print('Connected to the database')
 
     cursor = db.cursor()
-    cursor.execute(f"""SELECT COUNT(*) FROM search_by_vehicle WHERE vendor IN {VENDOR_SET}""")
+    cursor.execute(f"""SELECT COUNT(*) FROM search_by_vehicle""")
     overall = cursor.fetchone()[0]
     print(f'Overall entries found: {overall}')
 
-    cursor.execute(f"""SELECT search_by_vehicle.vendor, search_by_vehicle.car, search_by_vehicle.year, search_by_vehicle.modification FROM search_by_vehicle
-                                                                                                                                      WHERE vendor IN {VENDOR_SET}""")
+    cursor.execute(f"""SELECT search_by_vehicle.vendor, search_by_vehicle.car, search_by_vehicle.year, search_by_vehicle.modification FROM search_by_vehicle""")
     print('Executed SELECT')
     rows = cursor.fetchall()
     print('Started parsing rows')
@@ -45,7 +44,7 @@ def start():
         modification, modification_created = Modification.objects.get_or_create(name=name, year=year)
 
         # Determines whether this iteration can contribute into time estimating
-        time_counts = vendor_created and model_created and year_created and modification_created
+        time_counts = vendor_created or model_created or year_created or modification_created
 
         counter += 1
         time_counter += int(time_counts)
