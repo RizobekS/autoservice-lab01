@@ -10,11 +10,16 @@
 {% endblock %}
 
 
+{% block modals %}
+  {% include 'modals/select-car.html' %}
+{% endblock %}
+
+
 {% block header %}
   {% if car.vendor.header_image %}
     {% cropped_thumbnail car.vendor 'header_crop' as image_url %}
   {% endif %}
-  {% include 'chunks/header/title.html' %}
+  {% include 'chunks/header/title-filter.html' with selected_car=car %}
 {% endblock %}
 
 
@@ -87,4 +92,10 @@
     {% include 'cars/chunks/model_services.html' %}
   {% endif %}
 
+{% endblock %}
+
+
+
+{% block body_scripts %}
+  <script src="{% static 'js/custom/ajax-filter.js' %}"></script>
 {% endblock %}
