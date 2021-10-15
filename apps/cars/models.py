@@ -80,6 +80,9 @@ class Model(models.Model):
     name = models.CharField('Название модели', max_length=200)
     url = AutoSlugField(verbose_name='URL модели', validators=[validate_double_slash_url], help_text='Заполняется на основе поля "Название"', populate_from='name', editable=True,
                         max_length=120)
+    header_image = models.ImageField('Изображение в заголовке', upload_to='model_header_images', null=True, blank=True,
+                                     help_text='Возможность обрезки появится после сохранения. Оставьте пустым, чтобы использовать изображение марки.')
+    header_crop = ImageRatioField(verbose_name='Обрезка изображения заголовка (1920x600)', image_field='header_image', size='1920x600')
 
     vendor = models.ForeignKey(verbose_name='Производитель', to='Vendor', on_delete=models.CASCADE)  # TODO: change to on_delete=models.RESTRICT after final release
 

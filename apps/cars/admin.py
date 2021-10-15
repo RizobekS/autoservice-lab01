@@ -39,12 +39,13 @@ class YearInline(NestedStackedInline):
 
 
 @admin.register(Model)
-class ModelAdmin(NestedModelAdmin):
+class ModelAdmin(ImageCroppingMixin, NestedModelAdmin):
     list_display = ('__str__', 'url', 'detailed_info')
     list_filter = ('vendor',)
     search_fields = ('name', 'vendor__name', 'year__year', 'year__modification__name')
     prepopulated_fields = {'url': ('name',), }
     inlines = (YearInline,)
+    save_on_top = True
 
     @admin.display(description='Года выпуска')
     def detailed_info(self, obj):

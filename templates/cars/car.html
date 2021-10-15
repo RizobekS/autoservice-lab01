@@ -16,9 +16,14 @@
 
 
 {% block header %}
-  {% if car.vendor.header_image %}
+
+  {# Select header image #}
+  {% if car.model.header_image %}
+    {% cropped_thumbnail car.model 'header_crop' as image_url %}
+  {% elif car.vendor.header_image %}
     {% cropped_thumbnail car.vendor 'header_crop' as image_url %}
   {% endif %}
+
   {% include 'chunks/header/title-filter.html' with selected_car=car %}
 {% endblock %}
 
