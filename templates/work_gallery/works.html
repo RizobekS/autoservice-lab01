@@ -26,7 +26,7 @@
               <div class="filters gallery-filters text-lg-right">
                 <a href="#" data-filter="*" class="active selected">Все</a>
                 {% for item in categories %}
-                  <a href="#" data-filter=".{{ item.url }}">{{ item.name }}</a>
+                  <a href="#" id="filter-{{ item.id }}" data-filter=".{{ item.url }}">{{ item.name }}</a>
                 {% endfor %}
               </div>
             </div>
@@ -56,7 +56,7 @@
                     </h6>
                     <div class="tagcloud">
                       {% for category in item.categories.all %}
-                        <a href="#"><span>{{ category.name }}</span></a>
+                        <a href="#" class="category-alias" data-target-id="#filter-{{ category.id }}"><span>{{ category.name }}</span></a>
                       {% endfor %}
                     </div>
 
@@ -84,4 +84,8 @@
 
 {% block body_scripts %}
   <script src="{% static 'js/custom/clickable-gallery-work.js' %}"></script>
+  <script>$('.category-alias').on("click", function (e) {
+    $($(this).data("target-id")).click();
+    e.preventDefault();
+  })</script>
 {% endblock %}
