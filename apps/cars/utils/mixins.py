@@ -22,7 +22,7 @@ class VendorsMixin(ContextMixin):
     vendors_additional_kwargs: dict = {}
 
     def get_vendors(self) -> List[Vendor]:
-        vendors = Vendor.objects.filter(active=True, **self.vendors_additional_kwargs)
+        vendors = Vendor.objects.filter(active=True, **self.vendors_additional_kwargs).order_by('name')
         return vendors[:self.vendors_max] if self.vendors_max else list(vendors)
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:
