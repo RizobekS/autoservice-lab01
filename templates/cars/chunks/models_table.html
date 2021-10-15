@@ -6,7 +6,7 @@
     <table class="table table-bordered">
       <tbody>
       <tr>
-        {% for item in car.vendor.model_set.all %}
+        {% for item in car.vendor.active_model_set %}
           <td><a href="{% url 'cars:car' item.url_args %}">{{ item.name }}</a></td>
           {% if forloop.counter|mod:4 == 0 %}
             </tr>

@@ -77,7 +77,7 @@ def ajax_filter(request):
 
     # Render link for Submit button. Note: Home url is a placeholder and never should be used.
     vendor = Vendor.objects.filter(id=vendor_id, active=True).first()
-    model = Model.objects.filter(id=model_id, vendor=vendor).first()
+    model = Model.objects.filter(id=model_id, vendor=vendor, active=True).first()
     year = Year.objects.filter(id=year_id, model=model).first()
     modification = Modification.objects.filter(id=modification_id, year=year).first()
 
@@ -109,7 +109,7 @@ def ajax_filter(request):
 
     # Retrieve options
     vendor_set = [{'value': item.id, 'label': item.name, 'selected': vendor == item} for item in Vendor.objects.filter(active=True)]
-    model_set = [{'value': item.id, 'label': item.name, 'selected': model == item} for item in Model.objects.filter(vendor=vendor)] if vendor else []
+    model_set = [{'value': item.id, 'label': item.name, 'selected': model == item} for item in Model.objects.filter(vendor=vendor, active=True)] if vendor else []
     year_set = [{'value': item.id, 'label': item.name, 'selected': year == item} for item in Year.objects.filter(model=model)] if model else []
     modification_set = [{'value': item.id, 'label': item.name, 'selected': modification == item} for item in Modification.objects.filter(year=year)] if year else []
 

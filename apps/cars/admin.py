@@ -41,8 +41,9 @@ class YearInline(NestedStackedInline):
 
 @admin.register(Model)
 class ModelAdmin(ImageCroppingMixin, NestedModelAdmin):
-    list_display = ('__str__', 'url', 'detailed_info')
-    list_filter = ('vendor',)
+    list_display = ('__str__', 'url', 'detailed_info', 'active')
+    list_filter = ('vendor', 'active')
+    list_editable = ('active',)
     search_fields = ('name', 'vendor__name', 'year__year', 'year__modification__name')
     prepopulated_fields = {'url': ('name',), }
     inlines = (YearInline,)

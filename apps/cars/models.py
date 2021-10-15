@@ -70,6 +70,9 @@ class Vendor(models.Model):
     def ceo_context(self):
         return {'vendor': self.name}
 
+    def active_model_set(self):
+        return self.model_set.filter(active=True)
+
     class Meta:
         indexes = (models.Index(fields=('active',)),)
         verbose_name = 'Марка'
@@ -80,6 +83,7 @@ class Model(models.Model):
     name = models.CharField('Название модели', max_length=200)
     url = AutoSlugField(verbose_name='URL модели', validators=[validate_double_slash_url], help_text='Заполняется на основе поля "Название"', populate_from='name', editable=True,
                         max_length=120)
+    active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления', default=True)
     header_image = models.ImageField('Изображение в заголовке', upload_to='model_header_images', null=True, blank=True,
                                      help_text='Возможность обрезки появится после сохранения. Оставьте пустым, чтобы использовать изображение марки.')
     header_crop = ImageRatioField(verbose_name='Обрезка изображения заголовка (1920x600)', image_field='header_image', size='1920x600')
@@ -99,6 +103,7 @@ class Model(models.Model):
         return {'vendor': self.vendor.name, 'model': self.name}
 
     class Meta:
+        indexes = (models.Index(fields=('active',)),)
         verbose_name = 'Модель'
         verbose_name_plural = 'Модели'
 
