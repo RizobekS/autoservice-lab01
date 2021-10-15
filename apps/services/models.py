@@ -59,6 +59,16 @@ class Section(SortableMixin):
     def active_product_set(self):
         return self.product_set.filter(active=True)
 
+    def active_product_descendants(self):
+        """
+            Find all descendant products (direct child products, child section's child products)
+        :return: List of products
+        """
+        products = list(self.product_set.filter(active=True).all())
+        for section in self.section_set.filter(active=True):
+            products += list(section.product_set.filter(active=True).all())
+        return products
+
     def active_section_set(self):
         return self.section_set.filter(active=True)
 

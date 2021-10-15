@@ -83,7 +83,7 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSetting
         return super().get_context_data(**kwargs)
 
 
-class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin, CarFilterPageSettingsMixin, ShortAppointmentMixin):
+class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageSettingsMixin, ShortAppointmentMixin):
     # #### DetailView ####
     template_name = 'services/product.html'
     queryset = Product.objects.filter(active=True)
@@ -99,13 +99,6 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
     # #### SingleSectionMixin ####
     def get_current_section(self):
         return self.object.section
-
-    # #### ProductsMixin ####
-
-    products_context_name = 'other_products'
-
-    def get_products_queryset(self):
-        return Product.objects.filter(section_id=self.object.section.id).exclude(id=self.object.id)
 
     # #### CarFilterPageSettingsMixin ####
 
@@ -150,6 +143,7 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
             'positive_reviews': StaticInformation.objects.get(key='advantages__positive_reviews').value,
             'average_score': StaticInformation.objects.get(key='advantages__average_score').value,
             'call_request_form': CallRequestForm(self.request.POST) if self.request.method == 'post' else CallRequestForm(),
+            'other_products': self.object.section.active_product_descendants(),
         })
         if self.object.canonical_to_original:
             kwargs['canonical_link'] = self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url}))
