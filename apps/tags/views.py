@@ -10,7 +10,6 @@ from django.views import View
 from apps.knowledge_base.models import FaqEntry, Symptom
 from apps.news.models import Article
 from apps.promotions.models import Promotion
-from apps.services.models import Product
 from apps.tags.models import Tag
 from utils.breadcrumbs.types import Breadcrumb
 from utils.breadcrumbs.utils import reverse_bc
@@ -50,6 +49,7 @@ class TagsListView(View, PageSettingsMixin):
             'current_page': self._get_page(),
             'page_numbers': range(1, self.max_pages + 1),
             'tag': self.tag,
+            'canonical_link': request.build_absolute_uri(request.path),
         })
 
         return render(request, 'tags/tags.html', context)
