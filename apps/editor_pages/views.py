@@ -21,6 +21,7 @@ class EditorPageView(DetailView, BreadcrumbsMixin):
         # Add CEO data into context
         kwargs.update({
             'page_title': self.object.title,
+            'page_header': self.object.title,
             'meta_description': self.object.meta_description,
             'meta_keywords': self.object.meta_keywords,
             'meta_robots': self.object.meta_robots,
