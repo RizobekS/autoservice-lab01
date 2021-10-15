@@ -12,8 +12,6 @@ from haystack.generic_views import SearchView
 
 from utils.views import StaticPageView
 
-from apps.site_settings import views as other_views
-
 static_urlpatterns = [
     path('certificates/', StaticPageView.as_view(template_name='static/certificates.html', viewname='static:certificates'), name='certificates'),
 ]
@@ -44,4 +42,4 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-handler404 = other_views.handler404
+handler404 = 'apps.site_settings.views.handler404'
