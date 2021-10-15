@@ -40,9 +40,6 @@
 
           {% render_with_car_context product.description %}
 
-          {% include 'services/chunks/progress_bars.html' %}
-
-
           {% include 'accounts/chunks/short-appontment-form.html' %}
 
         </div>
@@ -54,7 +51,7 @@
 
         </div><!-- .col-* -->
       </div>
-      <div class="divider-3"></div>
+      {% include 'services/chunks/progress_bars.html' %}
     </div>
   </section>
 

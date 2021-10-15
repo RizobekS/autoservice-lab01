@@ -1,41 +1,49 @@
 <h4>Наши преимущества</h4>
 <hr>
-<div class="row">
-
-    <div class="col-sm-6 col-lg-4">
-        <div class="icon-box text-center">
-            <div class="icon-styled color-main fs-28">
-                <i class="fa fa-thumbs-o-up"></i>
-            </div>
-            <p class="small-text">Довольных клиентов</p>
-            <h3 class="special-heading text-uppercase counter-wrap color-darkgrey">
-                <span class="counter" data-from="0" data-to="{{ happy_clients }}" data-speed="1500">0</span>
-            </h3>
-        </div>
+<div class="row advantages">
+  <div class="col-sm-6 col-lg-3">
+    <div class="icon-box text-center">
+      <div class="icon-styled color-main fs-28">
+        <i class="fa fa-thumbs-o-up"></i>
+      </div>
+      <p class="small-text">Довольных клиентов</p>
+      <h3 class="special-heading text-uppercase counter-wrap color-darkgrey">
+        <span class="counter" data-from="0" data-to="{{ happy_clients }}" data-speed="1500">0</span>
+      </h3>
     </div>
-
-    <div class="col-sm-6 col-lg-4">
-        <div class="icon-box text-center">
-            <div class="icon-styled color-main fs-28">
-                <i class="fa fa-sign-in"></i>
-            </div>
-            <p class="small-text">Заказ-нарядов</p>
-            <h3 class="special-heading text-uppercase counter-wrap color-darkgrey">
-                <span class="counter" data-from="0" data-to="{{ orders }}" data-speed="2500">0</span>
-            </h3>
-        </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="icon-box text-center">
+      <div class="icon-styled color-main fs-28">
+        <i class="fa fa-sign-in"></i>
+      </div>
+      <p class="small-text">Заказ-<br>нарядов</p>
+      <h3 class="special-heading text-uppercase counter-wrap color-darkgrey">
+        <span class="counter" data-from="0" data-to="{{ orders }}" data-speed="2500">0</span>
+      </h3>
     </div>
-
-    <div class="col-sm-6 col-lg-4">
-        <div class="icon-box text-center">
-            <div class="icon-styled color-main fs-28">
-                <i class="fa fa-star-o"></i>
-            </div>
-            <p class="small-text">Положительных отзывов</p>
-            <h3 class="special-heading text-uppercase counter-wrap color-darkgrey">
-                <span class="counter" data-from="0" data-to="{{ positive_reviews }}" data-speed="3000">0</span>
-                <span class="counter-add">%</span>
-            </h3>
-        </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="icon-box text-center">
+      <div class="icon-styled color-main fs-28">
+        <i class="fa fa-star-o"></i>
+      </div>
+      <p class="small-text">Средний<br>рейтинг</p>
+      <h3 class="special-heading text-uppercase counter-wrap color-darkgrey">
+        <span class="counter" data-from="0" data-to="{{ average_score }}" data-speed="3000">0</span>
+      </h3>
     </div>
+  </div>
+  <div class="col-sm-6 col-lg-3">
+    <div class="icon-box text-center">
+      <div class="icon-styled color-main fs-28">
+        <i class="fa fa-heart-o"></i>
+      </div>
+      <p class="small-text">Положительных отзывов</p>
+      <h3 class="special-heading text-uppercase counter-wrap color-darkgrey">
+        <span class="counter" data-from="0" data-to="{{ positive_reviews }}" data-speed="2800">99</span>
+        <span class="counter-add">%</span>
+      </h3>
+    </div>
+  </div>
 </div>

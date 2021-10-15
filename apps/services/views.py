@@ -148,6 +148,7 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, ProductsMixin,
             'happy_clients': StaticInformation.objects.get(key='advantages__happy_clients').value,
             'orders': StaticInformation.objects.get(key='advantages__orders').value,
             'positive_reviews': StaticInformation.objects.get(key='advantages__positive_reviews').value,
+            'average_score': StaticInformation.objects.get(key='advantages__average_score').value,
             'call_request_form': CallRequestForm(self.request.POST) if self.request.method == 'post' else CallRequestForm(),
         })
         if self.object.canonical_to_original:
