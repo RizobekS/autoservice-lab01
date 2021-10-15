@@ -74,6 +74,7 @@ class Vendor(models.Model):
         return self.model_set.filter(active=True)
 
     class Meta:
+        ordering = ('name',)
         indexes = (models.Index(fields=('active',)),)
         verbose_name = 'Марка'
         verbose_name_plural = 'Марки'
