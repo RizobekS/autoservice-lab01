@@ -3,7 +3,7 @@ $(function () {
     $like.on('click', function (e) {
         e.preventDefault();
         $.ajax({
-            url: $(this).attr('href'),
+            url: $(this).data('ajax-url'),
             type: 'GET',
             cache: false,
             contentType: 'html',
