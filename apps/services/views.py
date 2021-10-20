@@ -143,7 +143,7 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
             'positive_reviews': StaticInformation.objects.get(key='advantages__positive_reviews').value,
             'average_score': StaticInformation.objects.get(key='advantages__average_score').value,
             'call_request_form': CallRequestForm(self.request.POST) if self.request.method == 'post' else CallRequestForm(),
-            'other_products': self.object.section.active_product_descendants(),
+            'other_products': self.object.section.active_product_descendants({'id': self.object.id}),
         })
         if self.object.canonical_to_original:
             kwargs['canonical_link'] = self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url}))
