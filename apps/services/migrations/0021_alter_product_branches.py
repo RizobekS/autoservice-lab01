@@ -5,6 +5,7 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+
     dependencies = [
         ('site_settings', '0006_auto_20210906_2226'),
         ('services', '0020_product_branches'),

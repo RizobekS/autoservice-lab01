@@ -104,10 +104,6 @@ class CarPack(models.Model):
         verbose_name_plural = 'Наборы машин'
 
 
-def all_branches():
-    return Branch.objects.all()
-
-
 class Product(SortableMixin):
     CEO_HELP_TEXT = 'Оставьте поле пустым чтобы использовать стандартную маску.'
 
@@ -129,7 +125,7 @@ class Product(SortableMixin):
                                  help_text='Выберите набор машин, для которого подходит данный товар/услуга')
     tag = models.ForeignKey(verbose_name='Тег', to=Tag, on_delete=models.SET_NULL, null=True, blank=True)
 
-    branches = models.ManyToManyField(verbose_name='Филиалы', to=Branch, help_text='Филиалы, которые оказывают данную услугу', default=all_branches)
+    branches = models.ManyToManyField(verbose_name='Филиалы', to=Branch, help_text='Филиалы, которые оказывают данную услугу')
 
     similar_products = models.ManyToManyField(verbose_name='Похожие услуги', help_text='Выводятся когда пользователь попал на услугу, которая не поддерживается его авто.',
                                               to='self', blank=True)
