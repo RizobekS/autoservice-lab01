@@ -75,19 +75,14 @@ class CarPackAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(ImageCroppingMixin, SortableAdmin):
-    list_display = ('title', 'all_branches')
-    # list_display = ('title', 'url', 'active', 'section', 'verbose_price', 'tag', 'canonical_to_original', 'show_in_promotions', 'show_at_homepage')
-    # list_editable = ('show_at_homepage', 'canonical_to_original', 'show_in_promotions')
+    list_display = ('title', 'url', 'active', 'section', 'verbose_price', 'tag', 'canonical_to_original', 'show_in_promotions', 'show_at_homepage')
+    list_editable = ('show_at_homepage', 'canonical_to_original', 'show_in_promotions')
     list_filter = ('active', 'fixed_price', 'show_at_homepage', 'section', 'tag', 'car_pack')
     search_fields = ('title', 'url', 'section', 'price', 'time_duration', 'car_pack', 'short_description', 'description')
 
     filter_horizontal = ('spare_parts', 'similar_products')
     prepopulated_fields = {'url': ('title',), }
     actions = (activate, deactivate, clone)
-
-    @admin.display()
-    def all_branches(self, obj):
-        return ', '.join(item.name for item in obj.branches.all())
 
     save_on_top = True
 
