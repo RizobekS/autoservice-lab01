@@ -8,6 +8,7 @@ from image_cropping import ImageRatioField
 from apps.cars.utils.validators import validate_double_slash_url
 from apps.services.utils.fields import OptimizedManyToManyField
 from apps.services.utils.help_text import DESCRIPTION_HELP_TEXT, TITLE_DATIVE_HELP_TEXT, ACTIVE_HELP_TEXT, VENDOR_PAGE_THUMBNAIL_HELP_TEXT, SUPPORTS_CAR_CONTEXT_HELP_TEXT
+from apps.site_settings.models import Branch
 from apps.tags.models import Tag
 from utils.helpers import format_price
 
@@ -103,6 +104,10 @@ class CarPack(models.Model):
         verbose_name_plural = 'Наборы машин'
 
 
+def all_branches():
+    return Branch.objects.all()
+
+
 class Product(SortableMixin):
     CEO_HELP_TEXT = 'Оставьте поле пустым чтобы использовать стандартную маску.'
 
@@ -123,6 +128,8 @@ class Product(SortableMixin):
     car_pack = models.ForeignKey(verbose_name='Машины, подходящие под данный товар/услугу', to='CarPack', on_delete=models.DO_NOTHING, null=True, blank=True,
                                  help_text='Выберите набор машин, для которого подходит данный товар/услуга')
     tag = models.ForeignKey(verbose_name='Тег', to=Tag, on_delete=models.SET_NULL, null=True, blank=True)
+
+    branches = models.ManyToManyField(verbose_name='Филиалы', to=Branch, help_text='Филиалы, которые оказывают данную услугу', default=all_branches)
 
     similar_products = models.ManyToManyField(verbose_name='Похожие услуги', help_text='Выводятся когда пользователь попал на услугу, которая не поддерживается его авто.',
                                               to='self', blank=True)

@@ -91,6 +91,18 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
     slug_url_kwarg = 'product_url'
     context_object_name = 'product'
 
+    def get_form(self, form_class=None):
+        """
+            Override branch choices to contain only supported branches.
+            This function works both for ShortAppointmentForm and CallRequestForm (because both forms use the same choices field, I guess)
+        """
+        form_class = super().get_form(form_class)
+        choices = [(item.id, item.name) for item in self.object.branches.get_queryset()]
+        if len(choices) > 1:
+            choices.insert(0, ('', 'Выберите СТО'))
+        form_class.fields['branch'].choices = choices
+        return form_class
+
     def dispatch(self, request, *args, **kwargs):
         self.object: Product = None  # for typehints
         self.car_filter = None
