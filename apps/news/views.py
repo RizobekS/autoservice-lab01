@@ -1,5 +1,6 @@
 from typing import Any, Dict, List
 
+from bs4 import BeautifulSoup
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponse
 from django.template.loader import render_to_string
@@ -32,8 +33,34 @@ class ArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, 
     max_articles = 3
     max_comments = 10
 
+    def get_object(self, queryset=None):
+        """
+            Creates navigation by h4 headers throughout the news content:
+                Adds 'navigation' attribute to object, containing {<header id>: <header text>} dictionary
+                Adds html id attribute to all h4s in the text
+        """
+        if getattr(self, 'object', None):  # Do not bother recreating self.object attribute if it already exists
+            return self.object
+        else:
+            obj = super().get_object(queryset)
+
+            soup = BeautifulSoup(obj.text, "html.parser")
+            navigation = {}
+            h4s = soup.find_all('h4')
+            for n, h4 in enumerate(h4s):
+                html_id = f'header_h4-{n}'
+                navigation[html_id] = h4.text
+                h4['id'] = html_id
+            obj.text = str(soup)
+            obj.navigation = navigation
+
+            return obj
+
     def get_context_data(self, **kwargs):
-        return super().get_context_data(liked=Like.objects.filter(article=self.get_object(), session_id=self.request.session.session_key).exists(), **kwargs)
+        kwargs.update({
+            'liked': Like.objects.filter(article=self.get_object(), session_id=self.request.session.session_key).exists()
+        })
+        return super().get_context_data(**kwargs)
 
     # #### PageSettingsMixin ####
 

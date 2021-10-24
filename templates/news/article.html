@@ -31,6 +31,9 @@
             {% include 'chunks/aside/social_buttons.html' %}
 
             <div class="item-content">
+
+              {% include 'news/chunks/navigation.html' with navigation=article.navigation %}
+
               <div class="entry-content">
 
                 {{ article.text| safe }}

@@ -1,0 +1,13 @@
+<div class="media bordered">
+  <div class="icon-styled icon-bordered rounded color-darkgrey fs-16">
+    <i class="fa fa-book"></i>
+  </div>
+  <div class="media-body">
+    <h5>Содержание статьи</h5>
+    <ol class="list2 mt-20">
+      {% for id, text in navigation.items %}
+        <li><a href="#{{ id }}" class="fw-500 color-dark">{{ text }}</a></li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>
