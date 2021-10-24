@@ -1,0 +1,29 @@
+{% load service_url %}
+
+{% if article.active_suitable_product_set %}
+  <div class="widget widget_categories">
+
+    <h5 class="widget-title">Подходящие услуги</h5>
+
+    <ul>
+      {% for section in article.active_suitable_section_set %}
+        <li class="cat-item">
+          <a href="{% service_url section %}">{{ section.title }}</a>
+
+          <ul class="children">
+            {% for product in section.active_product_set %}
+              <li class="cat-item">
+                <a href="{% service_url product %}">{{ product.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endfor %}
+      {% for product in article.active_suitable_product_set %}
+        <li class="cat-item">
+          <a href="{% service_url product %}">{{ product.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}

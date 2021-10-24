@@ -17,11 +17,12 @@ class ArticleAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_filter = ('status', 'date', 'tags', 'author')
     search_fields = ('title', 'short_description', 'text', 'status', 'author__name')
     actions = ('make_published', 'make_pending', 'make_editing', clone)
+    filter_horizontal = ('suitable_products', 'suitable_sections')
 
     prepopulated_fields = {'url': ('title',), }
     autocomplete_fields = ('tags',)
     fieldsets = (
-        (None, {'fields': (('title', 'url'), 'author', 'tags', 'status', 'date')}),
+        (None, {'fields': (('title', 'url'), 'author', 'tags', 'status', 'date', 'suitable_sections', 'suitable_products')}),
         ('Изображение', {'fields': ('image', 'thumbnail', 'icon_thumbnail'), 'classes': ['wide']}),
         ('Текст', {'fields': ('short_description', 'text'), 'classes': ['wide']}),
     )

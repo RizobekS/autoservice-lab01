@@ -9,6 +9,7 @@ from apps.tags.models import Tag
 from autoservice.settings.common import AUTH_USER_MODEL
 from ..accounts.models import User
 from ..masters.models import Master
+from ..services.models import Product, Section
 
 CONDITIONS = (('editing', 'Редактирование'), ('pending', 'Ожидание'), ('published', 'Опубликовано'),)
 
@@ -24,6 +25,9 @@ class Article(models.Model):
     status = models.CharField('Статус статьи', help_text='Отображаться будут только статьи с статусом "Опубликовано"', default='editing', max_length=30, choices=CONDITIONS)
     date = models.DateTimeField("Дата создания")
 
+    suitable_sections = models.ManyToManyField(verbose_name='Подходящие разделы', to=Section, blank=True)
+    suitable_products = models.ManyToManyField(verbose_name='Подходящие услуги', to=Product, blank=True)
+
     image = models.ImageField('Изображение статьи', help_text='Возможность обрезки появится после сохранения', upload_to='articles/', max_length=256)
     thumbnail = ImageRatioField(verbose_name='Обрезка изображения для страницы списка новостей (800x360)', image_field='image', size='800x360')
     icon_thumbnail = ImageRatioField(verbose_name='Обрезка изображения для списка "Последние записи" (100x100)', image_field='image', size='100x100')
@@ -36,6 +40,12 @@ class Article(models.Model):
 
     def reverse_url(self):
         return reverse('knowledge_base:news:article', args=(self.url,))
+
+    def active_suitable_section_set(self):
+        return self.suitable_sections.filter(active=True)
+
+    def active_suitable_product_set(self):
+        return self.suitable_products.filter(active=True)
 
     @display(description='Тэги')
     def tag_string(self):
