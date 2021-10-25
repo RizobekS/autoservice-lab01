@@ -57,7 +57,7 @@ sitemaps = {
     'sections': sitemap_factory(Section.objects.filter(active=True)),
     'products': sitemap_factory(Product.objects.filter(active=True)),  # Bare products
 
-    'tag_categories': sitemap_factory(Tag.objects.all()),
+    'tags': sitemap_factory(Tag.objects.all()),
 
     'work_gallery': sitemap_factory(Work.objects.filter(active=True)),
 
