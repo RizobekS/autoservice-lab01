@@ -36,7 +36,6 @@ def sitemap_factory(queryset):
     return GenericSitemap({'queryset': queryset})
 
 
-print('ex')
 sitemaps = {
     'cars': CarsSitemap,
 
