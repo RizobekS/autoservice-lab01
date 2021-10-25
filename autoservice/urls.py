@@ -19,9 +19,6 @@ static_urlpatterns = [
 ]
 
 urlpatterns = [
-    path('sitemap.xml', sitemap_views.index, {'sitemaps': sitemaps}),
-    path('sitemap-<section>.xml', sitemap_views.sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
-
     path('', include('apps.home.urls', namespace='home')),
     path('cars/', include('apps.cars.urls', namespace='cars')),
     path('specials/', include('apps.promotions.urls', namespace='promotions')),
