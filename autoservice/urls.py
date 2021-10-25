@@ -8,7 +8,6 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemap_views
-from autoservice.sitemap.views import index as overridden_index
 from django.urls import path, include
 from haystack.generic_views import SearchView
 
@@ -20,7 +19,7 @@ static_urlpatterns = [
 ]
 
 urlpatterns = [
-    path('sitemap.xml', overridden_index, {'sitemaps': sitemaps}),
+    path('sitemap.xml', sitemap_views.index, {'sitemaps': sitemaps}),
     path('sitemap-<section>.xml', sitemap_views.sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
     path('', include('apps.home.urls', namespace='home')),
