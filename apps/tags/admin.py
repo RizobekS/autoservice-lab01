@@ -10,7 +10,7 @@ class TagAdmin(admin.ModelAdmin):
     fields = ('name', 'url', 'article_string', 'promotions_string', 'product_string', 'faqentry_string', 'symptom_string')
     readonly_fields = ('article_string', 'promotions_string', 'product_string', 'faqentry_string', 'symptom_string')
     list_display = ('name', 'url', 'all_tied_records_string')
-    search_fields = ('name', 'url', 'article')
+    search_fields = ('name', 'url')
 
     prepopulated_fields = {'url': ('name',), }
 
