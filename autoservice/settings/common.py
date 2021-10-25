@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.template.context_processors',
+    'django.contrib.sitemaps',
 
     # Custom apps
     'apps.home',

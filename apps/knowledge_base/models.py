@@ -27,7 +27,11 @@ class FaqEntry(models.Model):
     def reverse_url(self):
         return reverse('knowledge_base:answered-question', args=(self.url,))
 
+    def get_absolute_url(self):
+        return reverse('knowledge_base:answered-question', args=(self.url,))
+
     class Meta:
+        ordering = ['-date']
         indexes = (models.Index(fields=('answered',)),)
         verbose_name = 'Вопрос/Ответ'
         verbose_name_plural = 'Вопросы/Ответы'
@@ -49,7 +53,11 @@ class Symptom(models.Model):
     def reverse_url(self):
         return reverse('knowledge_base:symptom', args=(self.url,))
 
+    def get_absolute_url(self):
+        return reverse('knowledge_base:symptom', args=(self.url,))
+
     class Meta:
+        ordering = ['-date']
         indexes = (models.Index(fields=('active',)),)
         verbose_name = 'Симптом'
         verbose_name_plural = 'Симптомы'

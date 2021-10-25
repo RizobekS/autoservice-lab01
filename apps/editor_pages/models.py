@@ -16,7 +16,11 @@ class EditorPage(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return f'/{self.url}/'
+
     class Meta:
+        ordering = ['url']
         indexes = [models.Index(fields=('active', 'url'))]
         verbose_name = 'Страница с изменяемым контентом'
         verbose_name_plural = 'Страницы с изменяемым контентом'

@@ -83,6 +83,9 @@ class Section(SortableMixin):
     def ceo_context(self):
         return {'section': self.title, 'short_description': self.short_description}
 
+    def get_absolute_url(self):
+        return reverse('services:section', args=(self.url,))
+
     class Meta:
         indexes = (models.Index(fields=('active', 'parent_section')),
                    models.Index(fields=('show_at_homepage',)))
@@ -172,6 +175,9 @@ class Product(SortableMixin):
         return '₽'
 
     def reverse_url(self):
+        return reverse('services:product', args=(self.url,))
+
+    def get_absolute_url(self):
         return reverse('services:product', args=(self.url,))
 
     class Meta:

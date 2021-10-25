@@ -5,6 +5,7 @@ from PIL import Image as PillowImage
 from autoslug import AutoSlugField
 from django.core.files.base import ContentFile
 from django.db import models
+from django.urls import reverse
 from image_cropping import ImageRatioField
 
 from apps.cars.utils.thumbnails import delete_old_thumbnails
@@ -92,7 +93,11 @@ class Work(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse('work_gallery:single', args=(self.url,))
+
     class Meta:
+        ordering = ['id']
         indexes = (models.Index(fields=('active',)),)
         verbose_name = 'Работа'
         verbose_name_plural = 'Работы'

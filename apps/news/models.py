@@ -41,6 +41,9 @@ class Article(models.Model):
     def reverse_url(self):
         return reverse('knowledge_base:news:article', args=(self.url,))
 
+    def get_absolute_url(self):
+        return reverse('knowledge_base:news:article', args=(self.url,))
+
     def active_suitable_section_set(self):
         return self.suitable_sections.filter(active=True)
 
@@ -52,7 +55,7 @@ class Article(models.Model):
         return ', '.join(item.name for item in self.tags.all())
 
     class Meta:
-        ordering = ('-date',)
+        ordering = ['-date']
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
 

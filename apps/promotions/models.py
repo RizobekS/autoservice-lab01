@@ -80,6 +80,9 @@ class Promotion(models.Model):
     def reverse_url(self):
         return reverse('promotions:promotion', args=(self.url,))
 
+    def get_absolute_url(self):
+        return reverse('promotions:promotion', args=(self.url,))
+
     class Meta:
         ordering = ('-date',)
         verbose_name = 'Акция'
