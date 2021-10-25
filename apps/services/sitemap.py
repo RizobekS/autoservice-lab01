@@ -27,7 +27,7 @@ def product_sitemaps() -> Dict[str, type]:
     cached_car_packs = {}  # All cached car_packs are stored here (car_packs including all cars also)
 
     sitemaps = {}
-    for product in Product.objects.filter(active=True):
+    for product in Product.objects.filter(active=True, canonical_to_original=False):
 
         if product.car_pack not in cached_car_packs:  # Create cached car pack for the product's car pack if does not exist
             cached_car_packs[product.car_pack] = create_cached_car_url_list(product.car_pack)
