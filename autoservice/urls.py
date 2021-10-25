@@ -7,11 +7,9 @@ from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.sitemaps import views as sitemap_views
 from django.urls import path, include
 from haystack.generic_views import SearchView
 
-from autoservice.sitemap import sitemaps
 from utils.views import StaticPageView
 
 static_urlpatterns = [
