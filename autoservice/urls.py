@@ -7,9 +7,11 @@ from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps import views as sitemap_views
 from django.urls import path, include
 from haystack.generic_views import SearchView
 
+from autoservice.sitemap import sitemaps
 from utils.views import StaticPageView
 
 static_urlpatterns = [
@@ -17,6 +19,9 @@ static_urlpatterns = [
 ]
 
 urlpatterns = [
+    path('sitemap.xml', sitemap_views.index, {'sitemaps': sitemaps}),
+    path('sitemap-<section>.xml', sitemap_views.sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+
     path('', include('apps.home.urls', namespace='home')),
     path('cars/', include('apps.cars.urls', namespace='cars')),
     path('specials/', include('apps.promotions.urls', namespace='promotions')),
