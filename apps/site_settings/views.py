@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 
 def handler404(request, *args, **kwargs):
-    return render(request, "http_errors/404.html", context={'page_title': 'Страница не найдена'}, status=404)
+    return render(request, "http_errors/404.html", context={'page_title': '404'}, status=404)
 
 # def handler500(request, *args, **kwargs):
 #     return render(request, "errors/error_500.html", status=500)
