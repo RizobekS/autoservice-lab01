@@ -22,7 +22,7 @@ class StaticSitemaps(Sitemap):
             'contacts:contacts',
             'home:index',
             'knowledge_base:list',
-            'promotions:list'
+            'promotions:list',
             'services:spare_parts',
             'tags:all',
             'work_gallery:list',
