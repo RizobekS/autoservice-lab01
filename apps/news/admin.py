@@ -12,9 +12,9 @@ from .models import Article, Comment
 
 @admin.register(Article)
 class ArticleAdmin(ImageCroppingMixin, admin.ModelAdmin):
-    list_display = ('title', 'status', 'url', 'date', 'short_description', 'tag_string')
-    list_editable = ('status',)
-    list_filter = ('status', 'date', 'tags', 'author')
+    list_display = ('title', 'status', 'url', 'date', 'tag_string', 'is_news')
+    list_editable = ('status', 'is_news')
+    list_filter = ('status', 'is_news', 'date', 'tags', 'author')
     search_fields = ('title', 'short_description', 'text', 'status', 'author__name')
     actions = ('make_published', 'make_pending', 'make_editing', clone)
     filter_horizontal = ('suitable_products', 'suitable_sections')
@@ -22,7 +22,7 @@ class ArticleAdmin(ImageCroppingMixin, admin.ModelAdmin):
     prepopulated_fields = {'url': ('title',), }
     autocomplete_fields = ('tags',)
     fieldsets = (
-        (None, {'fields': (('title', 'url'), 'author', 'tags', 'status', 'date', 'suitable_sections', 'suitable_products')}),
+        (None, {'fields': (('title', 'url'), 'is_news', 'author', 'tags', 'status', 'date', 'suitable_sections', 'suitable_products')}),
         ('Изображение', {'fields': ('image', 'thumbnail', 'icon_thumbnail'), 'classes': ['wide']}),
         ('Текст', {'fields': ('short_description', 'text'), 'classes': ['wide']}),
     )

@@ -9,6 +9,7 @@ from django.views.generic import CreateView, DetailView, TemplateView
 from apps.knowledge_base.forms import AskQuestionForm
 from apps.knowledge_base.models import FaqEntry, Symptom
 from apps.knowledge_base.utils.mixins import FaqEntryListMixin, SymptomListMixin
+from apps.news.models import Article
 from apps.news.utils.mixins import LatestArticlesMixin
 from apps.tags.models import Tag
 from utils.breadcrumbs.utils import reverse_bc
@@ -23,6 +24,7 @@ class KnowledgeBaseView(TemplateView, PageSettingsMixin, FaqEntryListMixin, Symp
     context_name_faqentry = 'faq_entries'
     context_name_symptom = 'symptoms'
     context_name_articles = 'articles'
+    latest_articles_queryset = Article.objects.filter(is_news=False)  # Retrieve only knowledge_base articles
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:
         context = super().get_context_data(**kwargs)

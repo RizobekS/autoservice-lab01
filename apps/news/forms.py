@@ -12,6 +12,7 @@ class ArticleAdminForm(forms.ModelForm):
             'url': forms.TextInput(attrs={'style': 'width: 400px;'}),
             'short_description': forms.Textarea(attrs={'style': 'width: 400px; height: 68px;'}),
             'text': CKEditorUploadingWidget(),
+            'is_news': forms.RadioSelect(),
         }
         model = Article
 
@@ -22,6 +23,6 @@ class CommentForm(forms.ModelForm):
         widgets = {
             'article': forms.HiddenInput(),
             'reply_to': forms.HiddenInput(),
-            'text': forms.Textarea(attrs={'class': 'form-control', 'cols': '45', 'rows': '8', 'required': 'required', 'placeholder': 'Комментарий'})
+            'text': forms.Textarea(attrs={'class': 'form-control', 'cols': '45', 'rows': '8', 'required': 'required', 'placeholder': 'Комментарий'}),
         }
         model = Comment

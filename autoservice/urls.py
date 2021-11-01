@@ -30,6 +30,7 @@ urlpatterns = [
     path('raboty/', include('apps.work_gallery.urls', namespace='work_gallery')),
     path('contacts/', include('apps.contacts.urls', namespace='contacts')),
     path('about/', include('apps.about.urls', namespace='about')),
+    path('news/', include('apps.news.urls', namespace='news')),
     path('', include('apps.knowledge_base.urls', namespace='knowledge_base')),
     path('', include('apps.editor_pages.urls', namespace='editor_pages')),
 

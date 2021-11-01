@@ -16,13 +16,14 @@ class LatestArticlesMixin(ContextMixin):
     """
     max_articles: int = 10
     context_name_articles: str = 'latest_articles'
+    latest_articles_queryset = Article.objects
 
     def get_latest_articles(self) -> List[Article]:
         if hasattr(self, 'object'):
             obj = getattr(self, 'object')
-            articles = Article.objects.filter(status='published').exclude(id=obj.id)
+            articles = self.latest_articles_queryset.filter(status='published').exclude(id=obj.id)
         else:
-            articles = Article.objects.filter(status='published')
+            articles = self.latest_articles_queryset.filter(status='published')
         return articles[:self.max_articles] if self.max_articles else list(articles)
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:

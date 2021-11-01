@@ -12,15 +12,18 @@ from ..masters.models import Master
 from ..services.models import Product, Section
 
 CONDITIONS = (('editing', 'Редактирование'), ('pending', 'Ожидание'), ('published', 'Опубликовано'),)
+NEWS_OR_ARTICLE = ((True, 'Новость'), (False, 'Статья (База знаний)'))
 
 
+# Used both at news page and in knowledge_base
 class Article(models.Model):
     title = models.CharField('Заголовок статьи', max_length=500)
     url = AutoSlugField(verbose_name='URL статьи', unique=True, populate_from='title', editable=True, max_length=120)
+    is_news = models.BooleanField('Отображать в', choices=NEWS_OR_ARTICLE, default=True)  # If True - record is displayed at news page, if False - in knowledge base
     text = models.TextField('Контент')
     short_description = models.CharField('Краткое описание (до 250 символов)', help_text='Заполняется для страницы тегов', max_length=250)
 
-    author = models.ForeignKey(verbose_name='Автор', to=Master, on_delete=models.SET_NULL, null=True, blank=True)
+    author = models.ForeignKey(verbose_name='Автор', help_text='Оставьте поле пустым, чтобы не отображать блок автора', to=Master, on_delete=models.SET_NULL, null=True, blank=True)
     tags = models.ManyToManyField(verbose_name='Тэги', to=Tag, blank=True)
     status = models.CharField('Статус статьи', help_text='Отображаться будут только статьи с статусом "Опубликовано"', default='editing', max_length=30, choices=CONDITIONS)
     date = models.DateTimeField("Дата создания")
@@ -39,10 +42,10 @@ class Article(models.Model):
         return self.status == 'published'
 
     def reverse_url(self):
-        return reverse('knowledge_base:news:article', args=(self.url,))
+        return reverse('knowledge_base:article', args=(self.url,))
 
     def get_absolute_url(self):
-        return reverse('knowledge_base:news:article', args=(self.url,))
+        return reverse('knowledge_base:article', args=(self.url,))
 
     def active_suitable_section_set(self):
         return self.suitable_sections.filter(active=True)
@@ -56,12 +59,12 @@ class Article(models.Model):
 
     class Meta:
         ordering = ['-date']
-        verbose_name = 'Статья'
-        verbose_name_plural = 'Статьи'
+        verbose_name = 'Статья/Новость'
+        verbose_name_plural = 'Статьи/Новости'
 
 
 class Like(models.Model):
-    article = models.ForeignKey(verbose_name='Статья', to=Article, on_delete=models.CASCADE)
+    article = models.ForeignKey(verbose_name='Статья/Новость', to=Article, on_delete=models.CASCADE)
     session = models.ForeignKey(verbose_name='Сессия', to=Session, on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
@@ -70,7 +73,7 @@ class Like(models.Model):
 
 class Comment(models.Model):
     author = models.ForeignKey(verbose_name='Пользователь', to=AUTH_USER_MODEL, on_delete=models.CASCADE)
-    article = models.ForeignKey(verbose_name='Комментарий под статьёй', to=Article, on_delete=models.CASCADE)
+    article = models.ForeignKey(verbose_name='Статья/Новость', help_text='Статья/Новость, под которой был оставлен комментарий', to=Article, on_delete=models.CASCADE)
     reply_to = models.ForeignKey(verbose_name='Ответ на комментарий', to='Comment', on_delete=models.CASCADE, null=True, blank=True)
     date = models.DateTimeField('Дата создания', auto_now_add=True)
     visible = models.BooleanField('Отображение', help_text='Снимите галочку вместо удаления.', default=True)

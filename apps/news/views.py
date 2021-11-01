@@ -6,6 +6,7 @@ from django.http import Http404, HttpResponse
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.views.generic import ListView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView
 
@@ -17,19 +18,12 @@ from utils.breadcrumbs.utils import reverse_bc
 from utils.mixins import PageSettingsMixin
 
 
-# class ArticleListView(ListView, LatestArticlesMixin, PageSettingsMixin):
-#     template_name = 'promotions/promotions.html'
-#     page_title = 'Блог'
-#
-#     queryset = Article.objects.filter(status='published')
-
-
-class ArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, CommentsMixin):
-    model = Article
+# Base view for Articles at news page and knowledge_base
+class BaseArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, CommentsMixin):
+    template_name = 'news/article.html'
     slug_field = 'url'
     slug_url_kwarg = 'article_url'
     context_object_name = 'article'
-    template_name = 'news/article.html'
     max_articles = 3
     max_comments = 10
 
@@ -64,12 +58,6 @@ class ArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, 
 
     # #### PageSettingsMixin ####
 
-    viewname = 'knowledge_base:article'
-    initial_breadcrumbs = [reverse_bc(viewname='knowledge_base:list')]
-
-    def get_current_breadcrumb(self) -> List[Breadcrumb]:
-        return [Breadcrumb(self.object.title, reverse_lazy('knowledge_base:article', args=(self.object.url,)))]
-
     def get_ceo_context(self, **kwargs) -> Dict[str, Any]:
         kwargs.update({'article': self.object.title, 'short_description': self.object.short_description})
         return super().get_ceo_context(**kwargs)
@@ -77,10 +65,6 @@ class ArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, 
     # #### FormMixin (FormView) ####
 
     form_class = CommentForm
-
-    def get_success_url(self):
-        url = reverse_lazy('knowledge_base:article', kwargs={'article_url': self.get_object().url})
-        return f'{url}#{self.comment.tag_id()}' if self.comment else url
 
     def get_initial(self):
         return {'article': self.get_object().id}
@@ -104,20 +88,53 @@ class ArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, 
         return super().post(request, *args, **kwargs)
 
 
-# class NewsView(ArticleView):
-#     model = News
-#     viewname = 'knowledge_base:article'
-#
-#     def get_current_breadcrumb(self) -> List[Breadcrumb]:
-#         return [Breadcrumb(self.object.title, reverse_lazy('knowledge_base:article', args=(self.object.url,)))]
-#
+# Displayed in knowledge_base
+class KnowledgeBaseArticleView(BaseArticleView):
+    queryset = Article.objects.filter(is_news=False)  # Check only among knowledge_base articles
+    latest_articles_queryset = Article.objects.filter(is_news=False)  # Retrieve only knowledge_base articles
+
+    viewname = 'knowledge_base:article'
+    initial_breadcrumbs = [reverse_bc(viewname='knowledge_base:list')]
+
+    def get_current_breadcrumb(self) -> List[Breadcrumb]:
+        return [Breadcrumb(self.object.title, reverse_lazy('knowledge_base:article', args=(self.object.url,)))]
+
+    def get_success_url(self):
+        url = reverse_lazy('knowledge_base:article', kwargs={'article_url': self.get_object().url})
+        return f'{url}#{self.comment.tag_id()}' if self.comment else url
+
+
+# Displayed at news page
+class NewsArticleView(BaseArticleView):
+    queryset = Article.objects.filter(is_news=True)  # Exclude articles from knowledge_base
+    latest_articles_queryset = Article.objects.filter(is_news=True)  # Retrieve only news articles
+
+    viewname = 'news:article'
+    initial_breadcrumbs = [reverse_bc(viewname='news:list')]
+
+    def get_current_breadcrumb(self) -> List[Breadcrumb]:
+        return [Breadcrumb(self.object.title, reverse_lazy('news:article', args=(self.object.url,)))]
+
+    def get_success_url(self):
+        url = reverse_lazy('news:article', kwargs={'article_url': self.get_object().url})
+        return f'{url}#{self.comment.tag_id()}' if self.comment else url
+
+
+# News list page
+class ArticleListView(ListView, PageSettingsMixin):
+    template_name = 'news/news.html'
+    ordering = '-date'
+    context_object_name = 'news'
+    queryset = Article.objects.filter(status='published', is_news=True)
+
+    viewname = 'news:list'
 
 
 def like_view(request, article_url):
     if request.is_ajax():
         article = Article.objects.filter(url=article_url, status='published').first()
         if article is None:
-            raise Http404('Статья не найдена')
+            raise Http404('Статья/Новость не найдена')
 
         like = Like.objects.filter(article=article, session_id=request.session.session_key)
 
