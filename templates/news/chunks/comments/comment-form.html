@@ -23,8 +23,8 @@
   {% else %}
 
     <p class="mb-4">Для того, чтобы оставлять комментарии, необходимо войти</p>
-    <a href="{% url 'accounts:login' %}?next={% url 'knowledge_base:news:article' article.url %}">Войти</a>
-    <a class="ml-4" href="{% url 'accounts:register' %}?next={% url 'knowledge_base:news:article' article.url %}">Зарегистрироваться</a>
+    <a href="{% url 'accounts:login' %}?next={% url 'knowledge_base:article' article.url %}">Войти</a>
+    <a class="ml-4" href="{% url 'accounts:register' %}?next={% url 'knowledge_base:article' article.url %}">Зарегистрироваться</a>
 
   {% endif %}
 

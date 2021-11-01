@@ -54,7 +54,7 @@
 													</a>
 												</span>
 												<span class="like-count">
-													<a id="like" data-ajax-url="{% url 'knowledge_base:news:like' article.url %}">
+													<a id="like" data-ajax-url="{% url 'knowledge_base:like' article.url %}">
 														<i class="fs-14 fw-900 color-main fa {% if liked %}fa-heart{% else %}fa-heart-o{% endif %}"></i>
 														{{ article.like_set.count }}
 													</a>
