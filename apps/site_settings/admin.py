@@ -47,14 +47,14 @@ class CEOSettingAdmin(admin.ModelAdmin):
     # list_editable = ('title',)
     ordering = ('key', 'title')
     search_fields = ('page', 'title', 'header', 'key', 'description', 'keywords', 'robots')
-    # readonly_fields = ('variables_safe', 'page', 'key')
+    readonly_fields = ('variables_safe', 'page', 'key')
     fields = ('title', 'header', ('page', 'key'), 'variables', 'description', 'keywords', 'robots')
 
-    # def has_add_permission(self, request):
-    #     return False
-    #
-    # def has_delete_permission(self, request, obj=None):
-    #     return False
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
     @admin.display(description='Доступные переменные')
     def variables_safe(self, obj):
