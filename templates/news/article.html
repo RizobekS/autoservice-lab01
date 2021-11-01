@@ -31,7 +31,9 @@
 
             <div class="item-content">
 
-              {% include 'news/chunks/navigation.html' with navigation=article.navigation %}
+              {% if article.navigation %}
+                {% include 'news/chunks/navigation.html' with navigation=article.navigation %}
+              {% endif %}
 
               <div class="entry-content">
 

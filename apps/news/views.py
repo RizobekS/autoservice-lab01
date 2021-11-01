@@ -27,29 +27,6 @@ class BaseArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMix
     max_articles = 3
     max_comments = 10
 
-    def get_object(self, queryset=None):
-        """
-            Creates navigation by h4 headers throughout the news content:
-                Adds 'navigation' attribute to object, containing {<header id>: <header text>} dictionary
-                Adds html id attribute to all h4s in the text
-        """
-        if getattr(self, 'object', None):  # Do not bother recreating self.object attribute if it already exists
-            return self.object
-        else:
-            obj = super().get_object(queryset)
-
-            soup = BeautifulSoup(obj.text, "html.parser")
-            navigation = {}
-            h4s = soup.find_all('h4')
-            for n, h4 in enumerate(h4s):
-                html_id = f'header_h4-{n}'
-                navigation[html_id] = h4.text
-                h4['id'] = html_id
-            obj.text = str(soup)
-            obj.navigation = navigation
-
-            return obj
-
     def get_context_data(self, **kwargs):
         kwargs.update({
             'liked': Like.objects.filter(article=self.get_object(), session_id=self.request.session.session_key).exists()
@@ -95,6 +72,29 @@ class KnowledgeBaseArticleView(BaseArticleView):
 
     viewname = 'knowledge_base:article'
     initial_breadcrumbs = [reverse_bc(viewname='knowledge_base:list')]
+
+    def get_object(self, queryset=None):
+        """
+            Creates navigation by h4 headers throughout the article content:
+                Adds 'navigation' attribute to object, containing {<header id>: <header text>} dictionary
+                Adds html id attribute to all h4s in the text
+        """
+        if getattr(self, 'object', None):  # Do not bother recreating self.object attribute if it already exists
+            return self.object
+        else:
+            obj = super().get_object(queryset)
+
+            soup = BeautifulSoup(obj.text, "html.parser")
+            navigation = {}
+            h4s = soup.find_all('h4')
+            for n, h4 in enumerate(h4s):
+                html_id = f'header_h4-{n}'
+                navigation[html_id] = h4.text
+                h4['id'] = html_id
+            obj.text = str(soup)
+            obj.navigation = navigation
+
+            return obj
 
     def get_current_breadcrumb(self) -> List[Breadcrumb]:
         return [Breadcrumb(self.object.title, reverse_lazy('knowledge_base:article', args=(self.object.url,)))]
