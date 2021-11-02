@@ -21,5 +21,5 @@ def static_info(request):
 
 def menu_data(request):
     root_sections = Section.objects.filter(active=True, parent_section=None)
-    objects = {item: MenuServiceSorting.objects.filter(root_section=item, active=True) for item in root_sections}
+    objects = {sec: [item.instance for item in MenuServiceSorting.objects.filter(root_section=sec, active=True) if item.instance.active] for sec in root_sections}
     return {'menu_services': objects}

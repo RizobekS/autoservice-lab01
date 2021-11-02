@@ -122,9 +122,9 @@ d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
                           <a {% if root_section.url != 'others' %}href="{{ url }}"{% endif %}>{{ root_section.title|break_words }}</a>
                           <ul>
                             {% for item in entries %}  {# Iterating over MenuServiceSorting objects, not Product and Section #}
-                              {% service_url item.instance as url %}
+                              {% service_url item as url %}
                               <li class="{% is_active_path url %}">
-                                <a href="{{ url }}">{{ item.instance.title }}</a>
+                                <a href="{{ url }}">{{ item.title }}</a>
                               </li>
                             {% endfor %}
                             {% if root_section.url == 'others' or root_section.url == 'diagnostika' %}
