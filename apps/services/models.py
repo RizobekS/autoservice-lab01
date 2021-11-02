@@ -86,9 +86,16 @@ class Section(SortableMixin):
     def get_absolute_url(self):
         return reverse('services:section', args=(self.url,))
 
+    def root_section(self):
+        section = self.parent_section
+        while section.parent_section:
+            section = section.parent_section
+        return section
+
     class Meta:
         indexes = (models.Index(fields=('active', 'parent_section')),
-                   models.Index(fields=('show_at_homepage',)))
+                   models.Index(fields=('show_at_homepage',)),
+                   models.Index(fields=('sorting',)))
         verbose_name = 'Раздел'
         verbose_name_plural = 'Разделы'
 
@@ -183,7 +190,8 @@ class Product(SortableMixin):
     class Meta:
         indexes = (models.Index(fields=('active',)),
                    models.Index(fields=('show_at_homepage',)),
-                   models.Index(fields=('section_id',)))
+                   models.Index(fields=('section_id',)),
+                   models.Index(fields=('sorting',)))
         verbose_name = 'Товар/Услуга'
         verbose_name_plural = 'Товары/Услуги'
 

@@ -6,3 +6,6 @@ class ServicesConfig(AppConfig):
     name = 'apps.services'
 
     verbose_name = 'Разделы и Товары/Услуги'
+
+    def ready(self):
+        from . import signals

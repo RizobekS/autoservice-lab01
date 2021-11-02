@@ -116,18 +116,18 @@ d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
                   <a href="#">Услуги и цены</a>
                   <div class="mega-menu">
                     <ul class="mega-menu-row">
-                      {% for section in menu_root_sections %}
-                        {% service_url section as url %}
+                      {% for root_section, entries in menu_services.items %}
+                        {% service_url root_section as url %}
                         <li class="mega-menu-col {% is_active_path url %}">
-                          <a {% if section.url != 'others' %}href="{{ url }}"{% endif %}>{{ section.title|break_words }}</a>
+                          <a {% if root_section.url != 'others' %}href="{{ url }}"{% endif %}>{{ root_section.title|break_words }}</a>
                           <ul>
-                            {% for item in section.menu_set %}
-                              {% service_url item as url %}
+                            {% for item in entries %}  {# Iterating over MenuServiceSorting objects, not Product and Section #}
+                              {% service_url item.instance as url %}
                               <li class="{% is_active_path url %}">
-                                <a href="{{ url }}">{{ item.title }}</a>
+                                <a href="{{ url }}">{{ item.instance.title }}</a>
                               </li>
                             {% endfor %}
-                            {% if section.url == 'others' or section.url == 'diagnostika' %}
+                            {% if root_section.url == 'others' or root_section.url == 'diagnostika' %}
                               <li class="mega-menu__more">
                                 <span>Развернуть</span>
                               </li>

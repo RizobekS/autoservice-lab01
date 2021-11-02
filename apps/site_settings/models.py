@@ -1,5 +1,7 @@
 from itertools import chain
 
+from adminsortable.fields import SortableForeignKey
+from adminsortable.models import SortableMixin
 from django.db import models
 
 from apps.services.utils.help_text import ACTIVE_HELP_TEXT
@@ -81,3 +83,24 @@ class CEOSetting(models.Model):
     class Meta:
         verbose_name = 'CEO настройка'
         verbose_name_plural = 'CEO настройки'
+
+
+class MenuServiceSorting(SortableMixin):
+    root_section = SortableForeignKey(to='services.Section', on_delete=models.CASCADE)
+    sorting = models.PositiveIntegerField('Сортировка', editable=False, default=0)
+    active = models.BooleanField('Отображать в меню', default=True)
+    product = models.OneToOneField(to='services.Product', on_delete=models.CASCADE, related_name='menu_sorting', null=True)
+    section = models.OneToOneField(to='services.Section', on_delete=models.CASCADE, related_name='menu_sorting', null=True)
+
+    def __str__(self):
+        product_or_section = self.instance
+        return str(product_or_section if product_or_section else self.root_section)
+
+    @property
+    def instance(self):
+        return self.product if self.product else self.section
+
+    class Meta:
+        ordering = ['sorting']
+        verbose_name = 'Раздел/Услуга в меню'
+        verbose_name_plural = 'Разделы/Услуги в меню'

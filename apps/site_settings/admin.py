@@ -1,7 +1,8 @@
+from adminsortable.admin import SortableAdmin
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from apps.site_settings.models import EmailReceiver, Branch, StaticInformation, CEOSetting
+from apps.site_settings.models import EmailReceiver, Branch, StaticInformation, CEOSetting, MenuServiceSorting
 from utils.admin_actions import activate, deactivate, clone
 
 admin.site.site_header = 'EuroRepar - Админ панель'
@@ -59,3 +60,19 @@ class CEOSettingAdmin(admin.ModelAdmin):
     @admin.display(description='Доступные переменные')
     def variables_safe(self, obj):
         return mark_safe(obj.variables.replace('{{', '<b>{{').replace('}}', '}}</b>')) if obj.variables else '-'
+
+
+@admin.register(MenuServiceSorting)
+class MenuServiceSortingAdmin(SortableAdmin):
+    list_display = ('__str__', 'active')
+    list_editable = ('active',)
+    actions = (activate, deactivate)
+
+    def get_list_display_links(self, request, list_display):
+        return []
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False

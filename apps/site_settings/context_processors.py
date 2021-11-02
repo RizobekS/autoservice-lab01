@@ -1,6 +1,6 @@
 from apps.cars.models import CarFilter
 from apps.services.models import Section
-from apps.site_settings.models import StaticInformation, Branch
+from apps.site_settings.models import StaticInformation, Branch, MenuServiceSorting
 from utils.car_filter import get_car_filter
 
 
@@ -20,4 +20,6 @@ def static_info(request):
 
 
 def menu_data(request):
-    return {'menu_root_sections': Section.objects.filter(active=True, parent_section=None)}
+    root_sections = Section.objects.filter(active=True, parent_section=None)
+    objects = {item: MenuServiceSorting.objects.filter(root_section=item, active=True) for item in root_sections}
+    return {'menu_services': objects}
