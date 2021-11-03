@@ -8,7 +8,7 @@
     <ul>
       {% for section in article.active_suitable_section_set %}
         <li class="cat-item">
-          <a href="{% service_url section %}">{{ section.title }}</a>
+          <a class="active" href="{% service_url section %}">{{ section.title }}</a>
 
           <ul class="children">
             {% for product in section.active_product_set %}
@@ -21,7 +21,7 @@
       {% endfor %}
       {% for product in article.active_suitable_product_set %}
         <li class="cat-item">
-          <a href="{% service_url product %}">{{ product.title }}</a>
+          <a class="active" href="{% service_url product %}">{{ product.title }}</a>
         </li>
       {% endfor %}
     </ul>
