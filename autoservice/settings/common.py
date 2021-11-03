@@ -107,8 +107,6 @@ TEMPLATES = [
 
 # Internationalization
 LANGUAGE_CODE = 'ru'
-USE_I18N = True
-USE_L10N = True
 
 # Authentication
 AUTH_USER_MODEL = 'accounts.User'
