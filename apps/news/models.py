@@ -97,6 +97,15 @@ class Comment(models.Model):
             item, counter = item.reply_to, counter + 1
         return counter
 
+    @display(description='Дочерних комментариев')
+    def deepcount(self):
+        overall = self.child_comments.count()
+        for item in self.child_comments:
+            overall += item.deepcount()
+            if overall >= 5:
+                return '>5'
+        return overall
+
     class Meta:
         ordering = ('-date',)
         verbose_name = 'Комментарий'

@@ -67,12 +67,3 @@ class CommentAdmin(admin.ModelAdmin):
     @admin.display(description='Ответ на комментарий')
     def reply_to_link(self, obj):
         return admin_reverse(obj.reply_to, str(obj.reply_to)) if obj.reply_to else None
-
-    @admin.display(description='Дочерних комментариев')
-    def deepcount(self, obj):
-        overall = obj.child_comments.count()
-        for item in obj.child_comments:
-            overall += item.deepcount()
-            if overall >= 5:
-                return '>5'
-        return overall
