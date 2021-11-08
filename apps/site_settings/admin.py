@@ -75,4 +75,8 @@ class MenuServiceSortingAdmin(SortableAdmin):
         return False
 
     def has_delete_permission(self, request, obj=None):
-        return False
+        # Allow cascade deletion (i.e. allow deletion of product/section, which will cascade to deletion of MenuServiceSorting instance)
+        if '/product' in request.path_info and '/delete' in request.path_info:
+            return super().has_delete_permission(request, obj)
+        else:  # Do not allow direct deletion of menu entries
+            return False
