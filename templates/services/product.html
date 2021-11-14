@@ -37,8 +37,11 @@
       <div class="row">
 
         <div class="col-md-7 col-lg-8">
+          <div class="article-text">
 
-          {% render_with_car_context product.description %}
+            {% render_with_car_context product.description %}
+
+          </div>
 
           {% include 'accounts/chunks/short-appontment-form.html' %}
 
