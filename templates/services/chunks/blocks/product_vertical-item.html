@@ -12,12 +12,11 @@
     <p class="item-meta">
       <i class="fa fa-calculator color-main"></i>
       <b>Цена:</b> {{ product.verbose_price }}
-      {% if product.time_duration %}<br/>
+      {% if product.time_duration %}
+        <br/>
         <i class="ico-clock-alt color-main"></i>
         <b>Длительность:</b> {{ product.time_duration }}
       {% endif %}
-      <i class="fa fa-shield color-main"></i>
-      <b>Гарантия:</b> 6 месяцев
     </p>
   </div>
 </div>
