@@ -84,7 +84,9 @@
                               </a>
                             </div>
                             <div class="media-body">
-                              {{ item.short_description }}
+                              <b>Цена:</b> {{ item.verbose_price }}
+                              <br>
+                              <b>Длительность:</b> {{ item.time_duration }}
                               <br>
                               <a href="{% service_url item %}">Подробнее</a>
                             </div>

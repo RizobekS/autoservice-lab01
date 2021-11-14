@@ -1,13 +1,15 @@
 {% load service_url %}
 {% if other_products %}
-  <h6 class="widget-title">Другие работы<br>по {{ current_section.title_dative }}</h6>
-  <div class="ls ms widget-service">
-    <ul class="list1">
-      {% for item in other_products %}
-        <li class="mb-20 icon-inline">
-          <a href="{% service_url item %}" class="fw-500 color-dark">{{ item.title }}</a>
-        </li>
-      {% endfor %}
-    </ul>
+  <div>
+    <h6 class="widget-title">Другие работы<br>по {{ current_section.title_dative }}</h6>
+    <div class="ls ms widget-service">
+      <ul class="list1">
+        {% for item in other_products %}
+          <li class="mb-20 icon-inline">
+            <a href="{% service_url item %}" class="fw-500 color-dark">{{ item.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 {% endif %}
