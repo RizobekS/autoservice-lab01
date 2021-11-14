@@ -30,15 +30,17 @@
           {% for message in messages %}<p class="{{ message.extra_tags }} mb-0 mt-3">{{ message| safe }}</p>{% endfor %}
           <h3 class="special-heading"><span class="text-gradient">Вопрос</span> {{ faq_entry.title }}</h3>
           <div class="divider-40"></div>
-          <div class="accordion" id="accordion01" role="tablist">
-            <div class="card">
+          <div class="article-text">
+            <div class="accordion" id="accordion01" role="tablist">
+              <div class="card">
 
 
-              <div id="collapse01" class="collapse show" role="tabpanel" aria-labelledby="collapse01_header" data-parent="#accordion01">
-                <div class="card-body">
+                <div id="collapse01" class="collapse show" role="tabpanel" aria-labelledby="collapse01_header" data-parent="#accordion01">
+                  <div class="card-body">
 
-                  {{ faq_entry.answer| safe }}
+                    {{ faq_entry.answer| safe }}
 
+                  </div>
                 </div>
               </div>
             </div>
