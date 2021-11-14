@@ -43,17 +43,21 @@
           {% include 'accounts/chunks/short-appontment-form.html' %}
 
         </div>
-        <div class="col-md-5 col-lg-4">
+        <aside class="col-md-5 col-lg-4">
 
           {% include 'services/chunks/aside/product_spares_details.html' %}
           {% include 'services/chunks/aside/request_call_form.html' %}
+          {% include 'services/chunks/aside/special_offer.html' %}
           {% include 'services/chunks/aside/other_products.html' %}
 
-        </div><!-- .col-* -->
+        </aside><!-- .col-* -->
       </div>
       {% include 'services/chunks/progress_bars.html' %}
+
     </div>
   </section>
+
+  {% include 'services/chunks/articles.html' %}
 
 {% endblock %}
 

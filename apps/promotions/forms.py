@@ -1,10 +1,15 @@
 from django import forms
 
+from apps.news.models import Article
 from apps.promotions.models import Promotion
 from utils.widgets import CKEditorUploadingWidget, CKEditorWidget
 
 
 class PromotionAdminForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['articles'].queryset = Article.objects.filter(is_news=False)
+
     class Meta:
         fields = ('title', 'url', 'active', 'tags', 'date', 'image', 'thumbnail', 'icon_thumbnail', 'show_at_homepage', 'homepage_description', 'short_description', 'text')
         widgets = {

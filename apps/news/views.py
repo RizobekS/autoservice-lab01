@@ -13,6 +13,7 @@ from django.views.generic.edit import FormView
 from apps.news.forms import CommentForm
 from apps.news.models import Article, Like
 from apps.news.utils.mixins import LatestArticlesMixin, CommentsMixin
+from apps.promotions.models import Promotion
 from utils.breadcrumbs.types import Breadcrumb
 from utils.breadcrumbs.utils import reverse_bc
 from utils.mixins import PageSettingsMixin
@@ -96,12 +97,25 @@ class KnowledgeBaseArticleView(BaseArticleView):
 
             return obj
 
+    def get_context_data(self, **kwargs):
+        kwargs['promotions'] = self.get_promotions()
+        return super().get_context_data(**kwargs)
+
     def get_current_breadcrumb(self) -> List[Breadcrumb]:
         return [Breadcrumb(self.object.title, reverse_lazy('knowledge_base:article', args=(self.object.url,)))]
 
     def get_success_url(self):
         url = reverse_lazy('knowledge_base:article', kwargs={'article_url': self.get_object().url})
         return f'{url}#{self.comment.tag_id()}' if self.comment else url
+
+    def get_promotions(self):
+        """ Get related promotions (each promotion can be related to a knowledge base article). If no related promotions - select 3 arbitrary ones """
+        promotions = self.object.promotion_set.filter(active=True)
+        if promotions.exists():
+            promotions = promotions[:3]
+        else:
+            promotions = Promotion.objects.filter(active=True)[:3]
+        return promotions
 
 
 # Displayed at news page

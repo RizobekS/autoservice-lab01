@@ -60,6 +60,9 @@ class Promotion(models.Model):
     thumbnail = ImageRatioField(verbose_name='Обрезка изображения для страницы списка акций (800x360)', image_field='image', size='800x360')
     icon_thumbnail = ImageRatioField(verbose_name='Обрезка изображения для списка "Другие акции" (100x100)', image_field='image', size='100x100')
 
+    articles = models.ManyToManyField(verbose_name='Привязанные статьи', to='news.Article', blank=True)
+    products = models.ManyToManyField(verbose_name='Привязанные услуги', to='services.Product', blank=True)
+
     meta_title = models.CharField('Заголовок <title>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
     meta_header = models.CharField('Заголовок <h1>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
     meta_description = models.TextField('Meta description', help_text=CEO_HELP_TEXT, null=True, blank=True)

@@ -17,6 +17,8 @@ from .utils.helpers import service_url
 from .utils.mixins import ProductsMixin, SectionsMixin, SingleSectionMixin
 from ..accounts.forms import CallRequestForm
 from ..accounts.utils.mixins import ShortAppointmentMixin, SparePartAppointmentMixin
+from ..news.models import Article
+from ..promotions.models import Promotion
 from ..site_settings.models import StaticInformation
 
 
@@ -155,11 +157,31 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
             'positive_reviews': StaticInformation.objects.get(key='advantages__positive_reviews').value,
             'average_score': StaticInformation.objects.get(key='advantages__average_score').value,
             'call_request_form': CallRequestForm(self.request.POST) if self.request.method == 'post' else CallRequestForm(),
+            'promotions': self.get_promotions(),
+            'articles': self.get_articles(),
             'other_products': self.object.section.active_product_descendants({'id': self.object.id}),
         })
         if self.object.canonical_to_original:
             kwargs['canonical_link'] = self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url}))
         return super().get_context_data(**kwargs)
+
+    def get_promotions(self):
+        """ Get related promotions (each promotion can be related to a product). If no related promotions - select 3 arbitrary ones """
+        promotions = self.object.promotion_set.filter(active=True)
+        if promotions.exists():
+            promotions = promotions[:3]
+        else:
+            promotions = Promotion.objects.filter(active=True)[:3]
+        return promotions
+
+    def get_articles(self):
+        """ Get related articles (each article can be related to a product). If no related articles - select 3 arbitrary ones """
+        articles = self.object.article_set.filter(is_news=False, status='published')
+        if articles.exists():
+            articles = articles[:3]
+        else:
+            articles = Article.objects.filter(is_news=False, status='published')[:3]
+        return articles
 
     # Check whether product suits the product
     # def get(self, *args, **kwargs):

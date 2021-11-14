@@ -1,0 +1,40 @@
+{% if promotions %}
+
+  {% load cropping %}
+  {% load string_time_delta %}
+
+  <div class="widget widget_recent_posts">
+
+    <h5 class="widget-title">Специальные предложения</h5>
+    <ul class="list-unstyled">
+
+      {% for item in promotions %}
+
+        <li class="media align-items-center">
+          <a class="media-image" href="{% url 'promotions:promotion' item.url %}">
+            <img src="{% cropped_thumbnail item 'icon_thumbnail' %}" alt="{{ item.title }}">
+          </a>
+
+          {% if item.category %}
+            <div class="tagcloud sticky-tag">
+              <a href="{% url 'promotions:category' item.category.url %}" class="tag-cloud-link"><span>{{ item.category.name }}</span></a>
+            </div>
+          {% endif %}
+
+          <div class="media-body">
+            <h4>
+              <a href="{% url 'promotions:promotion' item.url %}">{{ item.title }}</a>
+            </h4>
+            <p class="item-meta"><i class="ico-clock-alt color-main"></i>
+              {{ item.date|date_delta }}
+            </p>
+          </div>
+        </li>
+
+      {% endfor %}
+
+    </ul>
+  </div>
+
+
+{% endif %}
