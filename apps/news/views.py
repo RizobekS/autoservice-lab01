@@ -1,3 +1,4 @@
+from random import randint
 from typing import Any, Dict, List
 
 from bs4 import BeautifulSoup
@@ -114,7 +115,15 @@ class KnowledgeBaseArticleView(BaseArticleView):
         if promotions.exists():
             promotions = promotions[:3]
         else:
-            promotions = Promotion.objects.filter(active=True)[:3]
+            # Get random promotion entries
+            queryset = Promotion.objects.filter(active=True)
+            promotions = []
+            count = queryset.count()
+            while len(promotions) < 3:
+                rand = randint(0, count - 1)
+                item = queryset[rand]
+                if item not in promotions:
+                    promotions.append(item)
         return promotions
 
 
