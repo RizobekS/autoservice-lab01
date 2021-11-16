@@ -176,7 +176,8 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
             queryset = Promotion.objects.filter(active=True)
             promotions = []
             count = queryset.count()
-            while len(promotions) < 3:
+            min_count = min(3, count)  # In case if there are less than 3 Promotions
+            while len(promotions) < min_count:
                 rand = randint(0, count - 1)
                 item = queryset[rand]
                 if item not in promotions:
@@ -189,7 +190,16 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
         if articles.exists():
             articles = articles[:3]
         else:
-            articles = Article.objects.filter(is_news=False, status='published')[:3]
+            # Get random promotion entries
+            queryset = Article.objects.filter(is_news=False, status='published')
+            articles = []
+            count = queryset.count()
+            min_count = min(4, count)  # In case if there is less than 4 articles
+            while len(articles) < min_count:
+                rand = randint(0, count - 1)
+                item = queryset[rand]
+                if item not in articles:
+                    articles.append(item)
         return articles
 
     # Check whether product suits the product

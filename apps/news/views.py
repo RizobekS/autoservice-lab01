@@ -119,7 +119,8 @@ class KnowledgeBaseArticleView(BaseArticleView):
             queryset = Promotion.objects.filter(active=True)
             promotions = []
             count = queryset.count()
-            while len(promotions) < 3:
+            min_count = min(3, count)  # In case if there are less than 3 Promotions
+            while len(promotions) < min_count:
                 rand = randint(0, count - 1)
                 item = queryset[rand]
                 if item not in promotions:
