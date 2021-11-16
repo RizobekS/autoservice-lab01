@@ -190,7 +190,7 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
         if articles.exists():
             articles = articles[:3]
         else:
-            # Get random promotion entries
+            # Get random article entries
             queryset = Article.objects.filter(is_news=False, status='published')
             articles = []
             count = queryset.count()
