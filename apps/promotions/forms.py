@@ -8,7 +8,8 @@ from utils.widgets import CKEditorUploadingWidget, CKEditorWidget
 class PromotionAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['articles'].queryset = Article.objects.filter(is_news=False)
+        self.fields['articles'].queryset = Article.objects.filter(is_news=False).order_by('title')
+        self.fields['products'].queryset = self.fields['products'].queryset.order_by('title')
 
     class Meta:
         fields = ('title', 'url', 'active', 'tags', 'date', 'image', 'thumbnail', 'icon_thumbnail', 'show_at_homepage', 'homepage_description', 'short_description', 'text')
