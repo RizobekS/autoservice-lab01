@@ -104,6 +104,7 @@ class Model(models.Model):
         return {'vendor': self.vendor.name, 'model': self.name}
 
     class Meta:
+        ordering = ('name',)
         indexes = (models.Index(fields=('active',)),)
         verbose_name = 'Модель'
         verbose_name_plural = 'Модели'

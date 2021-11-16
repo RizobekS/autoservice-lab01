@@ -43,9 +43,9 @@ class WorkAdmin(admin.ModelAdmin):
     search_fields = ('title', 'url', 'text')
     actions = (activate, deactivate, clone)
 
-    fields = (('title', 'url'), 'active', 'categories', 'text', 'multiple_images')
+    fields = (('title', 'url'), 'active', 'categories', 'model', 'product', 'text', 'multiple_images')
     prepopulated_fields = {'url': ('title',), }
-    autocomplete_fields = ('categories',)
+    autocomplete_fields = ('categories', 'model', 'product')
     form = WorkAdminForm
     inlines = (ImageInlineAdmin,)
 

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% load render_with_car %}
+{% load render_with_context %}
+{% load car_filter_context %}
 {% load deferred_static %}
 {% load service_url %}
 
@@ -39,7 +40,9 @@
         <div class="col-md-7 col-lg-8">
           <div class="article-text">
 
-            {% render_with_car_context product.description %}
+            {% get_car_filter_context as car_filter_context %} {# Get car_filter context #}
+
+            {% render_with_context product.description car_filter_context works=related_works library='render_works' %}
 
           </div>
 

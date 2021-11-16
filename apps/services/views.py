@@ -11,6 +11,7 @@ from image_cropping.templatetags.cropping import cropped_thumbnail
 
 from apps.cars.utils.mixins import CarFilterPageSettingsMixin
 from utils.breadcrumbs.types import Breadcrumb
+from utils.car_filter import get_car_filter
 from utils.mixins import PageSettingsMixin
 from utils.views import FormDetailView
 from .models import Section, Product
@@ -160,6 +161,7 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
             'call_request_form': CallRequestForm(self.request.POST) if self.request.method == 'post' else CallRequestForm(),
             'promotions': self.get_promotions(),
             'articles': self.get_articles(),
+            'related_works': self.get_related_works(),
             'other_products': self.object.section.active_product_descendants({'id': self.object.id}),
         })
         if self.object.canonical_to_original:
@@ -201,6 +203,19 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
                 if item not in articles:
                     articles.append(item)
         return articles
+
+    def get_related_works(self):
+        """
+            If no car_filter - all active works related to this product are retrieved
+            if car_filter is present - only active works related to this product with the same model as in car_filter are retrieved
+        """
+        queryset = self.object.work_set.filter(active=True)
+        car_filter = get_car_filter(self.request)
+        if car_filter is not None and car_filter.model:
+            works = queryset.filter(model=car_filter.model)
+        else:
+            works = queryset.all()
+        return works
 
     # Check whether product suits the product
     # def get(self, *args, **kwargs):

@@ -1,0 +1,9 @@
+{# Used by render_works templatetag #}
+
+{% if works %}
+  <ul>
+    {% for item in works %}
+      <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}
