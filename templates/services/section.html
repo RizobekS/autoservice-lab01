@@ -34,7 +34,7 @@
           <div class="col-md-7">
 
             {% get_car_filter_context as car_filter_context %} {# Get car_filter context #}
-            {% render_with_context product.description car_filter_context %}
+            {% render_with_context current_section.description car_filter_context %}
 
             {% if child_products %}
               <h5>{{ current_section.title }}: цена за работу</h5>
