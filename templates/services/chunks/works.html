@@ -1,3 +1,4 @@
+{% load cropping %}
 {# Used by render_works templatetag #}
 
 {% if works %}
@@ -6,7 +7,7 @@
 
       {% for item in works %}
         <a href="{{ item.get_absolute_url }}">
-          <img src="{{ item.image_set.first.image.url }}" alt="{{ item.title }}">
+          <img src="{% cropped_thumbnail item.image_set.first.image 'page_thumbnail' %}" alt="{{ item.title }}">
           <span class="slide-caption">{{ item.title }}</span>
         </a>
       {% endfor %}
