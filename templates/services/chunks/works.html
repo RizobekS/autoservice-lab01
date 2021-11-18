@@ -7,7 +7,7 @@
 
       {% for item in works %}
         <a href="{{ item.get_absolute_url }}">
-          <img src="{% cropped_thumbnail item.image_set.first.image 'page_thumbnail' %}" alt="{{ item.title }}">
+          <img src="{% cropped_thumbnail item.image_set.first 'page_thumbnail' %}" alt="{{ item.title }}">
           <span class="slide-caption">{{ item.title }}</span>
         </a>
       {% endfor %}
