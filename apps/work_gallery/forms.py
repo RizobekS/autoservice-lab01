@@ -23,7 +23,7 @@ class WorkAdminForm(forms.ModelForm):
 
     class Meta:
         model = Work
-        fields = ('title', 'url', 'active', 'categories', 'text', 'multiple_images')
+        exclude = tuple()
 
         widgets = {
             'text': CKEditorWidget(),
