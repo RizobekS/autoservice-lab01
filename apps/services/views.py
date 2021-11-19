@@ -215,7 +215,7 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
             works = queryset.filter(model=car_filter.model)
         else:
             works = queryset.all()
-        return works[:5]
+        return works[:4]
 
     # Check whether product suits the product
     # def get(self, *args, **kwargs):
