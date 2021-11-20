@@ -4,7 +4,7 @@ from django.utils.safestring import mark_safe
 from image_cropping import ImageCroppingMixin
 
 from apps.work_gallery.forms import WorkAdminForm
-from apps.work_gallery.models import Category, Image, Work
+from apps.work_gallery.models import Category, Image, Work, VendorModelPack
 from utils.admin_actions import activate, deactivate, clone
 from utils.helpers import admin_reverse, link_tag
 
@@ -36,6 +36,22 @@ class ImageInlineAdmin(ImageCroppingMixin, admin.StackedInline):
         css = {'all': (static('css/custom-admin/image-inlines.css'),)}
 
 
+@admin.register(VendorModelPack)
+class VendorModelPackAdmin(admin.ModelAdmin):
+    list_display = ('name', 'models_count', 'related_products')
+    fields = ('name', 'related_products', 'models')
+    readonly_fields = ('related_products',)
+    filter_horizontal = ('models',)
+
+    @admin.display(description='Всего моделей')
+    def models_count(self, obj):
+        return obj.models.count()
+
+    @admin.display(description='Привязанные услуги')
+    def related_products(self, obj):
+        return ', '.join(item.title for item in obj.product_set.all())
+
+
 @admin.register(Work)
 class WorkAdmin(admin.ModelAdmin):
     list_display = ('title', 'url', 'active', 'category_string', 'images_string')
@@ -43,9 +59,10 @@ class WorkAdmin(admin.ModelAdmin):
     search_fields = ('title', 'url', 'text')
     actions = (activate, deactivate, clone)
 
-    fields = (('title', 'url'), 'active', 'categories', 'model', 'product', 'text', 'multiple_images')
+    fields = (('title', 'url'), 'active', 'categories', 'model_pack', 'products', 'text', 'multiple_images')
     prepopulated_fields = {'url': ('title',), }
-    autocomplete_fields = ('categories', 'model', 'product')
+    autocomplete_fields = ('categories',)
+    filter_horizontal = ('products',)
     form = WorkAdminForm
     inlines = (ImageInlineAdmin,)
 

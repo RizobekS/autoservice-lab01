@@ -83,12 +83,24 @@ class Category(models.Model):
         verbose_name_plural = 'Категории'
 
 
+class VendorModelPack(models.Model):
+    name = models.CharField('Название набора', max_length=200)
+    models = models.ManyToManyField(verbose_name='Модели', to='cars.Model', blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Набор машин (Марка+модель)'
+        verbose_name_plural = 'Наборы машин (Марка+модель)'
+
+
 class Work(models.Model):
     title = models.CharField('Название работы', max_length=256)
     url = AutoSlugField(verbose_name='URL работы', unique=True, populate_from='title', editable=True, max_length=120)
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления. Неактивные работы не отображаются нигде, кроме админ панели', default=True)
-    model = models.ForeignKey(verbose_name='Привязанная машина', to='cars.Model', on_delete=models.SET_NULL, null=True, blank=True)
-    product = models.ForeignKey(verbose_name='Привязанный Товар/Услуга', to='services.Product', on_delete=models.SET_NULL, null=True, blank=True)
+    model_pack = models.ForeignKey(verbose_name='Привязанный набор моделей', to=VendorModelPack, on_delete=models.SET_NULL, null=True, blank=True)
+    products = models.ManyToManyField(verbose_name='Привязанные Товары/Услуги', to='services.Product', blank=True)
     text = models.TextField('Описание работы')
     categories = models.ManyToManyField(verbose_name='Категории работы', to=Category, blank=True)
 

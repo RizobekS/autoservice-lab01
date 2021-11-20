@@ -151,7 +151,8 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
             return super().get_ceo_template(ceo_object, field_name)
 
     def get_context_data(self, **kwargs):
-        kwargs.update({
+        context = super().get_context_data(**kwargs)
+        context.update({
             'image_url': cropped_thumbnail(None, self.object, 'thumbnail_1960x600'),
             'image_alt': self.object.title,
             'happy_clients': StaticInformation.objects.get(key='advantages__happy_clients').value,
@@ -166,7 +167,7 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
         })
         if self.object.canonical_to_original:
             kwargs['canonical_link'] = self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url}))
-        return super().get_context_data(**kwargs)
+        return context
 
     def get_promotions(self):
         """ Get related promotions (each promotion can be related to a product). If no related promotions - select 3 arbitrary ones """
@@ -207,15 +208,18 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
     def get_related_works(self):
         """
             If no car_filter - all active works related to this product are retrieved
-            if car_filter is present - only active works related to this product with the same model as in car_filter are retrieved
+            if car_filter is present - only active works related to this product with the matching model
+            if no model but only vendor in car_filter is present - only active works related to this product with the matching vendors (vendors are retrieved using models)
         """
         queryset = self.object.work_set.filter(active=True)
         car_filter = get_car_filter(self.request)
         if car_filter is not None and car_filter.model:
-            works = queryset.filter(model=car_filter.model)
+            works = queryset.filter(model_pack__models=car_filter.model).distinct()
+        elif car_filter is not None and car_filter.vendor:
+            works = queryset.filter(model_pack__models__vendor=car_filter.vendor).distinct()
         else:
             works = queryset.all()
-        return works[:4]
+        return works[:5]
 
     # Check whether product suits the product
     # def get(self, *args, **kwargs):

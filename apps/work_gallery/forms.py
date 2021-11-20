@@ -2,12 +2,17 @@ from django import forms
 from django.core.validators import validate_image_file_extension
 from transliterate import translit
 
+from apps.services.models import Product
 from apps.work_gallery.models import Work, Image
 from utils.widgets import CKEditorWidget
 
 
 class WorkAdminForm(forms.ModelForm):
     multiple_images = forms.FileField(label='Добавить сразу несколько изображений', widget=forms.ClearableFileInput(attrs={'multiple': True}), required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['products'].queryset = self.fields['products'].queryset.order_by('title')
 
     def clean_multiple_images(self):
         """Make sure only images were uploaded."""

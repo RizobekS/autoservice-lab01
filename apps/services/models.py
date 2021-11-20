@@ -7,7 +7,8 @@ from image_cropping import ImageRatioField
 
 from apps.cars.utils.validators import validate_double_slash_url
 from apps.services.utils.fields import OptimizedManyToManyField
-from apps.services.utils.help_text import DESCRIPTION_HELP_TEXT, TITLE_DATIVE_HELP_TEXT, ACTIVE_HELP_TEXT, VENDOR_PAGE_THUMBNAIL_HELP_TEXT, SUPPORTS_CAR_CONTEXT_HELP_TEXT
+from apps.services.utils.help_text import DESCRIPTION_HELP_TEXT, TITLE_DATIVE_HELP_TEXT, ACTIVE_HELP_TEXT, VENDOR_PAGE_THUMBNAIL_HELP_TEXT, SUPPORTS_CAR_CONTEXT_HELP_TEXT, \
+    SUPPORTS_WORKS_MACROS_HELP_TEXT
 from apps.site_settings.models import Branch
 from apps.tags.models import Tag
 from utils.helpers import format_price
@@ -125,7 +126,7 @@ class Product(SortableMixin):
     price = models.FloatField('Цена за работу (₽)')
 
     short_description = models.CharField('Краткое описание', max_length=255, blank=True)
-    description = models.TextField('Содержание страницы', help_text=SUPPORTS_CAR_CONTEXT_HELP_TEXT)
+    description = models.TextField('Содержание страницы', help_text=' '.join((SUPPORTS_CAR_CONTEXT_HELP_TEXT, SUPPORTS_WORKS_MACROS_HELP_TEXT)))
 
     active = models.BooleanField('Активно', help_text=ACTIVE_HELP_TEXT, default=True)
     section = models.ForeignKey(verbose_name='Родительский раздел', to='Section', on_delete=models.RESTRICT)

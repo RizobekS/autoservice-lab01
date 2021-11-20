@@ -4,8 +4,9 @@ DESCRIPTION_HELP_TEXT = f'''
 Примеры размещения: - для корневого раздела: {admin_example("description--root-section.png")}   - для НЕ корневого раздела: {admin_example("description--section.png")}.
 '''
 
-SUPPORTS_CAR_CONTEXT_HELP_TEXT = 'Поддерживает переменные {{vendor}}, {{model}}, {{year}}, {{modification}}.' \
-                                 'Поддерживает макрос {% works %}. <b>Внимание!</b> Опечатка в макросе приведёт к ошибке сервера.'
+SUPPORTS_CAR_CONTEXT_HELP_TEXT = 'Поддерживает переменные {{vendor}}, {{model}}, {{year}}, {{modification}}.'
+
+SUPPORTS_WORKS_MACROS_HELP_TEXT = 'Поддерживает макрос {% works %}. <b>Внимание!</b> Опечатка в макросе приведёт к ошибке сервера.'
 
 TITLE_DATIVE_HELP_TEXT = f'''
 Используется при выведении надписей типа "Другие работы по <b>ремонту двигателя</b>" или "Услуги по <b>ремонту двигателя</b>"
