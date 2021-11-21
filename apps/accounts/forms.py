@@ -5,6 +5,7 @@ from django.contrib.auth.forms import \
     AuthenticationForm as BaseAuthenticationForm, \
     PasswordChangeForm as BasePasswordChangeForm, UsernameField, \
     PasswordResetForm as BasePasswordResetForm, SetPasswordForm
+from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
@@ -138,12 +139,21 @@ class ShortAppointmentForm(AppointmentForm):
     email_body_template = 'accounts/emails/short_appointment/body.html'
     html_email_body_template = 'accounts/emails/short_appointment/html.html'
 
+    text1 = forms.CharField(widget=forms.Textarea)  # Fake textarea to trap spam bots
+
     def send_mail(self, request):
         self.extra_context = {'datetime': self.instance.datetime}
         return super().send_mail(request)
 
+    def clean(self):
+        form_data = self.cleaned_data
+        print(form_data)
+        if form_data.get('text1', None):
+            raise ValidationError('Ваша заявка была определена как спам', code='spam')
+        return form_data
+
     class Meta:
-        fields = ('full_name', 'phone', 'email', 'branch', 'text')
+        fields = ['full_name', 'phone', 'email', 'branch', 'text']
         model = ShortAppointment
 
 
