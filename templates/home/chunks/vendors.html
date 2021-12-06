@@ -11,7 +11,7 @@
       {% for item in vendors %}
         <li class="partners__item col-sm-4 col-md-2 col-6">
           <a href="{% url 'cars:car' item.url %}">
-            <img loading="lazy" src="{{ item.logo.url }}" alt="Ремонт и обслуживание автомобилей {{ item.name }}">
+            <img loading="lazy" src="{% if item.logo %}{{ item.logo.url }}{% endif %}" alt="Ремонт и обслуживание автомобилей {{ item.name }}">
           </a>
         </li>
       {% endfor %}
