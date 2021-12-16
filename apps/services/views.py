@@ -166,7 +166,7 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
             'other_products': self.object.section.active_product_descendants({'id': self.object.id}),
         })
         if self.object.canonical_to_original:
-            kwargs['canonical_link'] = self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url}))
+            context['canonical_link'] = self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url}))
         return context
 
     def get_promotions(self):
