@@ -16,7 +16,7 @@ def is_active(context: dict, *namespaces: str, class_: str = 'active'):
         raise ValueError('Usage of is_active template tag requires request in context')
 
     for ns in namespaces:
-        if request.resolver_match.view_name.startswith(ns):
+        if request.resolver_match and request.resolver_match.view_name.startswith(ns):
             return class_
     return ''
 
