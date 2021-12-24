@@ -4,7 +4,7 @@ from apps.site_settings.models import StaticInformation
 def og_full_title(title: str) -> dict:
     title_prefix = StaticInformation.objects.get(key='title_prefix').value
     title_suffix = StaticInformation.objects.get(key='title_suffix').value
-    return {'og:title': f'{title_prefix} {title} {title_suffix}'}
+    return {'og:title': ' '.join((title_prefix, title, title_suffix))}
 
 
 def og_image(request, image_field) -> dict:
@@ -40,7 +40,7 @@ def og_thumbnail(request, instance, thumbnail_field: str) -> dict:
 
     :param request: Request instance - used for building absolute url
     :param instance: Model instance, that contain thumbnail field
-    :param thumbnail_field: Name of thumbnail field (image field automatically guessed through thumbnail field)
+    :param thumbnail_field: Name of thumbnail field
     :return: Dictionary, containing all needed values
     """
 
