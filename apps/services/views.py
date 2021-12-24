@@ -99,7 +99,7 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
 
     def get_og_tags(self, **kwargs) -> dict:
         kwargs.update({
-            **og_full_title(self.object.title),
+            **og_full_title(self.object.meta_title if self.object.meta_title else self.object.title),
             'og:description': self.object.short_description,
             **og_thumbnail(self.request, self.object, 'thumbnail_960x585'),
             'og:url': self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url})),

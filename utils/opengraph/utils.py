@@ -2,8 +2,9 @@ from apps.site_settings.models import StaticInformation
 
 
 def og_full_title(title: str) -> dict:
-    title_prefix_obj, title_suffix_obj = StaticInformation.objects.filter(key__in=('title_prefix', 'title_suffix'))
-    return {'og:title': f'{title_prefix_obj.value} {title} {title_suffix_obj.value}'}
+    title_prefix = StaticInformation.objects.get(key='title_prefix')
+    title_suffix = StaticInformation.objects.get(key='title_suffix')
+    return {'og:title': f'{title_prefix} {title} {title_suffix}'}
 
 
 def og_image(request, image_field) -> dict:
