@@ -1,3 +1,11 @@
+from apps.site_settings.models import StaticInformation
+
+
+def og_full_title(title: str) -> dict:
+    title_prefix_obj, title_suffix_obj = StaticInformation.objects.filter(key__in=('title_prefix', 'title_suffix'))
+    return {'og:title': f'{title_prefix_obj.value} {title} {title_suffix_obj.value}'}
+
+
 def og_image(request, image_field) -> dict:
     """
         Shortcut for getting needed thumbnail OpenGraph fields
@@ -48,7 +56,7 @@ def og_thumbnail(request, instance, thumbnail_field) -> dict:
     return data
 
 
-def og_url(request) -> dict:
+def og_current_url(request) -> dict:
     """
         Shortcut for rendering og:url OpenGraph field
 
@@ -56,10 +64,10 @@ def og_url(request) -> dict:
         my_opengraph_data = {
             # Your keys and values
             my_key: my_value,
-            **og_url(request),
+            **og_current_url(request),
         }
 
     :param request: Request instance - used for building absolute url
     :return: Dictionary, containing all needed values
     """
-    return {'og_url': request.build_absolute_uri(request.path)}
+    return {'og:url': request.build_absolute_uri(request.path)}
