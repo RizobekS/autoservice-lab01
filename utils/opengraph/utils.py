@@ -27,7 +27,7 @@ def og_image(request, image_field) -> dict:
             'og:image:height': image_field.height}
 
 
-def og_thumbnail(request, instance, thumbnail_field) -> dict:
+def og_thumbnail(request, instance, thumbnail_field: str) -> dict:
     """
         Shortcut for getting needed thumbnail OpenGraph fields
 
@@ -47,13 +47,12 @@ def og_thumbnail(request, instance, thumbnail_field) -> dict:
     from image_cropping.templatetags.cropping import cropped_thumbnail
 
     ratio_field = instance._meta.get_field(thumbnail_field)
-    image_field = getattr(instance, ratio_field.image_field)  # get Imagefield
 
     thumbnail_url = cropped_thumbnail(None, instance, thumbnail_field)
 
     data = {'og:image': request.build_absolute_uri(thumbnail_url),
-            'og:image:width': image_field.width,
-            'og:image:height': image_field.height}
+            'og:image:width': ratio_field.width,
+            'og:image:height': ratio_field.height}
     return data
 
 
