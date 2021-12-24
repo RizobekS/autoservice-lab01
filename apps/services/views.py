@@ -3,6 +3,7 @@ from typing import List
 
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.template.defaultfilters import truncatewords
 from django.urls import reverse
 from django.utils.html import strip_tags
 from django.views import View
@@ -14,7 +15,7 @@ from utils.breadcrumbs.types import Breadcrumb
 from utils.car_filter import get_car_filter
 from utils.mixins import PageSettingsMixin
 from utils.opengraph import OpengraphMixin
-from utils.opengraph.utils import og_thumbnail, og_full_title
+from utils.opengraph.utils import og_thumbnail
 from utils.views import FormDetailView
 from .models import Section, Product
 from .utils.helpers import service_url
@@ -98,9 +99,13 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
     context_object_name = 'product'
 
     def get_og_tags(self, **kwargs) -> dict:
+        short_description = self.object.meta_description if self.object.meta_description else self.object.short_description
+        if not short_description:
+            short_description = truncatewords(self.object.description, 250)
+
         kwargs.update({
-            **og_full_title(self.object.meta_title if self.object.meta_title else self.object.title),
-            'og:description': self.object.short_description,
+            'og:title': self.object.meta_title if self.object.meta_title else self.object.title,
+            'og:description': short_description,
             **og_thumbnail(self.request, self.object, 'thumbnail_960x585'),
             'og:url': self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url})),
         })
