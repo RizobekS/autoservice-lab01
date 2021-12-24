@@ -13,6 +13,8 @@ from apps.cars.utils.mixins import CarFilterPageSettingsMixin
 from utils.breadcrumbs.types import Breadcrumb
 from utils.car_filter import get_car_filter
 from utils.mixins import PageSettingsMixin
+from utils.opengraph import OpengraphMixin, og_image
+from utils.opengraph.utils import og_thumbnail, og_url
 from utils.views import FormDetailView
 from .models import Section, Product
 from .utils.helpers import service_url
@@ -87,13 +89,22 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSetting
         return super().get_context_data(**kwargs)
 
 
-class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageSettingsMixin, ShortAppointmentMixin):
+class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageSettingsMixin, ShortAppointmentMixin, OpengraphMixin):
     # #### DetailView ####
     template_name = 'services/product.html'
     queryset = Product.objects.filter(active=True)
     slug_field = 'url'
     slug_url_kwarg = 'product_url'
     context_object_name = 'product'
+
+    def get_og_tags(self, **kwargs) -> dict:
+        kwargs.update({
+            'og:title': self.object.title,
+            'og:description': self.object.short_description,
+            **og_thumbnail(self.request, self.object, 'thumbnail_960x585'),
+            **og_url(self.request)
+        })
+        return super().get_og_tags(**kwargs)
 
     def get_form(self, form_class=None):
         """
