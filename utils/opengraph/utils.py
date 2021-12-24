@@ -2,8 +2,8 @@ from apps.site_settings.models import StaticInformation
 
 
 def og_full_title(title: str) -> dict:
-    title_prefix = StaticInformation.objects.get(key='title_prefix')
-    title_suffix = StaticInformation.objects.get(key='title_suffix')
+    title_prefix = StaticInformation.objects.get(key='title_prefix').value
+    title_suffix = StaticInformation.objects.get(key='title_suffix').value
     return {'og:title': f'{title_prefix} {title} {title_suffix}'}
 
 
