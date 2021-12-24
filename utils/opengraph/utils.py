@@ -4,7 +4,7 @@ from apps.site_settings.models import StaticInformation
 def og_full_title(title: str) -> dict:
     title_prefix = StaticInformation.objects.get(key='title_prefix').value
     title_suffix = StaticInformation.objects.get(key='title_suffix').value
-    return {'og:title': ' '.join((title_prefix, title, title_suffix))}
+    return {'og:title': ' '.join(item for item in (title_prefix, title, title_suffix) if item)}
 
 
 def og_image(request, image_field) -> dict:
