@@ -99,13 +99,11 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
     context_object_name = 'product'
 
     def get_og_tags(self, **kwargs) -> dict:
-        short_description = self.object.meta_description if self.object.meta_description else self.object.short_description
-        if not short_description:
-            short_description = truncatewords(self.object.description, 250)
+        meta_context = super(CarFilterPageSettingsMixin, self).as_context()
 
         kwargs.update({
-            'og:title': self.object.meta_title if self.object.meta_title else self.object.title,
-            'og:description': short_description,
+            'og:title': meta_context['page_title'],
+            'og:description': meta_context['meta_description'],
             **og_thumbnail(self.request, self.object, 'thumbnail_960x585'),
             'og:url': self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url})),
         })
