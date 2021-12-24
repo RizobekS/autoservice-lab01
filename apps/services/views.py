@@ -100,12 +100,16 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
 
     def get_og_tags(self, **kwargs) -> dict:
         meta_context = super(CarFilterPageSettingsMixin, self).as_context()
+        if self.object.canonical_to_original:
+            url = self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url}))
+        else:
+            url = self.request.build_absolute_uri(self.request.path)
 
         kwargs.update({
             'og:title': meta_context['page_title'],
             'og:description': meta_context['meta_description'],
             **og_thumbnail(self.request, self.object, 'thumbnail_960x585'),
-            'og:url': self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url})),
+            'og:url': url,
         })
         return super().get_og_tags(**kwargs)
 

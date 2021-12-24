@@ -45,20 +45,3 @@ def og_thumbnail(request, instance, thumbnail_field: str) -> dict:
             'og:image:width': ratio_field.width,
             'og:image:height': ratio_field.height}
     return data
-
-
-def og_current_url(request) -> dict:
-    """
-        Shortcut for rendering og:url OpenGraph field
-
-        Just call this function like this:
-        my_opengraph_data = {
-            # Your keys and values
-            my_key: my_value,
-            **og_current_url(request),
-        }
-
-    :param request: Request instance - used for building absolute url
-    :return: Dictionary, containing all needed values
-    """
-    return {'og:url': request.build_absolute_uri(request.path)}
