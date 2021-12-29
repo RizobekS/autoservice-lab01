@@ -38,7 +38,7 @@ class BaseArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMix
         kwargs.update({
             'og:title': meta_context['page_title'],
             'og:description': meta_context['meta_description'],
-            **og_thumbnail(self.request, self.object, 'thumbnail'),
+            **og_thumbnail(self.request, self.object, 'icon_thumbnail'),
             'og:url': self.request.build_absolute_uri(self.request.path),
         })
         return super().get_og_tags(**kwargs)
