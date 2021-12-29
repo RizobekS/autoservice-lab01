@@ -193,7 +193,7 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, AdvantagesCont
             'articles': self.get_articles(),
             'related_works': self.get_related_works(),
             'other_products': self.object.section.active_product_descendants({'id': self.object.id}),
-            'other_products_aside': len(self.object.description) > 2500,
+            'other_products_aside': len(self.object.description) > 3000,  # Display other products in text if the text is not so long, otherwise in aside bar
         })
         if self.object.canonical_to_original:
             context['canonical_link'] = self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url}))
