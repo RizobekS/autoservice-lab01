@@ -27,7 +27,7 @@ from ..promotions.models import Promotion
 from ..site_settings.models import StaticInformation
 
 
-class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSettingsMixin):
+class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSettingsMixin, OpengraphMixin):
     # #### DetailView ####
     template_name = 'services/section.html'
     queryset = Section.objects.filter(active=True)
@@ -35,6 +35,21 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSetting
     slug_url_kwarg = 'section_url'
     context_object_name = 'current_section'
     object: Section = None  # for typehints
+
+    def get_og_tags(self, **kwargs) -> dict:
+        meta_context = super(CarFilterPageSettingsMixin, self).as_context()
+        if self.object.canonical_to_original:
+            url = self.request.build_absolute_uri(reverse('services:section', kwargs={'section_url': self.object.url}))
+        else:
+            url = self.request.build_absolute_uri(self.request.path)
+
+        kwargs.update({
+            'og:title': meta_context['page_title'],
+            'og:description': meta_context['meta_description'],
+            **og_thumbnail(self.request, self.object, 'thumbnail_960x585'),
+            'og:url': url,
+        })
+        return super().get_og_tags(**kwargs)
 
     # #### SectionsMixin and ProductsMixin ####
 
