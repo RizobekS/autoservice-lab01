@@ -1,29 +1,25 @@
 <script type="application/ld+json">
 {
- "@context": "{{ request.scheme }}://{{ request.get_host }}",
  "@type": "BreadcrumbList",
+ "@context": "http://schema.org",
  "itemListElement":
  [
    {% for breadcrumb in breadcrumbs %}
       {% if forloop.last %}
         {
          "@type": "ListItem",
+         "@context": "http://schema.org",
          "position": {{ forloop.counter }},
-         "item":
-         {
-          "@id": "{{ request.path }}",
-          "name": "{{ breadcrumb.title }}"
-          }
+         "@id": "{{ request.path }}",
+         "name": "{{ breadcrumb.title }}"
         }
       {% else %}
         {
          "@type": "ListItem",
+         "@context": "http://schema.org",
          "position": {{ forloop.counter }},
-         "item":
-         {
-          "@id": "{{ breadcrumb.url }}",
-          "name": "{{ breadcrumb.title }}"
-          }
+         "@id": "{{ breadcrumb.url }}",
+         "name": "{{ breadcrumb.title }}"
         },
       {% endif %}
    {% endfor %}
