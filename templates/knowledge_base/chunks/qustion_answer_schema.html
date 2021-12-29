@@ -1,0 +1,23 @@
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Question",
+    "name": "{{ faq_entry.title }}",
+    "text": "{{ faq_entry.question|striptags }}",
+    "dateCreated": "{{ date|date:"Y-m-dTH:iZ" }}",
+    "author": {
+        "@type": "Person",
+        "name": "{{ faq_entry.asking_name }}"
+    },
+    "answerCount": "1",
+    "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ faq_entry.answer|striptags }}",
+        "dateCreated": "{{ date|date:"Y-m-dTH:iZ" }}",
+        "author": {
+            "@type": "Person",
+            "name": "{{ faq_entry.master.name }}"
+        }
+    }
+}
+</script>
