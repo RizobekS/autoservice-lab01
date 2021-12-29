@@ -38,10 +38,15 @@
       <div class="row">
 
         <div class="col-md-7 col-lg-8">
+
           <div class="article-text">
 
             {% get_car_filter_context as car_filter_context %} {# Get car_filter context #}
             {% render_with_context product.description car_filter_context works=related_works library='render_works' %}
+
+            {% if not other_products_aside %}
+              {% include 'services/chunks/other_products.html' %}
+            {% endif %}
 
           </div>
 
@@ -53,7 +58,9 @@
           {% include 'services/chunks/aside/product_spares_details.html' %}
           {% include 'services/chunks/aside/request_call_form.html' %}
           {% include 'services/chunks/aside/special_offer.html' %}
-          {% include 'services/chunks/aside/other_products.html' %}
+          {% if other_products_aside %}
+            {% include 'services/chunks/aside/other_products.html' %}
+          {% endif %}
 
         </aside><!-- .col-* -->
       </div>
