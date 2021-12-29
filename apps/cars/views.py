@@ -21,11 +21,17 @@ class CarView(TemplateView, CarFilterPageSettingsMixin, OpengraphMixin):
 
     def get_og_tags(self, **kwargs) -> dict:
         meta_context = super(CarFilterPageSettingsMixin, self).as_context()
+        if self.car_filter.model and self.car_filter.model.header_image:
+            image_field = self.car_filter.model.header_image
+        elif self.car_filter.vendor.header_image:
+            image_field = self.car_filter.vendor.header_image
+        else:
+            image_field = self.car_filter.vendor.logo
 
         kwargs.update({
             'og:title': meta_context['page_title'],
             'og:description': meta_context['meta_description'],
-            **og_image(self.request, self.car_filter.vendor.logo),
+            **og_image(self.request, image_field),
             'og:url': self.request.build_absolute_uri(self.request.path),
         })
         return super().get_og_tags(**kwargs)
