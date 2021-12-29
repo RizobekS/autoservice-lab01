@@ -68,6 +68,9 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
   {% endblock %}
 
+  {# schema.org breadcrumbs JSON-LD #}
+  {% include 'chunks/breadcrumbs_schema.html' %}
+
   {% block head_scripts %}{% endblock %}
   <!--[if lt IE 9]>
     <script src="{% static 'js/vendor/html5shiv.min.js' %}"></script>
