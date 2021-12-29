@@ -101,6 +101,10 @@ class ProductAdmin(ImageCroppingMixin, SortableAdmin):
 
     form = ProductAdminForm
 
+    @admin.display('Длина текста')
+    def description_length(self, obj):
+        return len(obj.description)
+
 
 @admin.register(SparePart)
 class SparePartAdmin(ImageCroppingMixin, admin.ModelAdmin):
