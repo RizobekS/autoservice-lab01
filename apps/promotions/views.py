@@ -10,6 +10,8 @@ from apps.promotions.utils.mixins import PromotionsMixin
 from utils.breadcrumbs.types import Breadcrumb
 from utils.breadcrumbs.utils import reverse_bc
 from utils.mixins import PageSettingsMixin
+from utils.opengraph import OpengraphMixin
+from utils.opengraph.utils import og_thumbnail
 from utils.views import FormDetailView
 
 
@@ -39,7 +41,7 @@ class PromotionCategoryView(DetailView, PromotionsMixin, PageSettingsMixin):
         return super().get_ceo_context(**kwargs)
 
 
-class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMixin, ShortAppointmentMixin):
+class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMixin, ShortAppointmentMixin, OpengraphMixin):
     # DetailView
     template_name = 'promotions/promotion.html'
     model = Promotion
@@ -55,6 +57,17 @@ class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMix
     # PageSettingsMixin
     viewname = 'promotions:promotion'
     initial_breadcrumbs = [reverse_bc(PromotionListView)]
+
+    def get_og_tags(self, **kwargs) -> dict:
+        meta_context = super().as_context()
+
+        kwargs.update({
+            'og:title': meta_context['page_title'],
+            'og:description': meta_context['meta_description'],
+            **og_thumbnail(self.request, self.object, 'icon_thumbnail'),
+            'og:url': self.request.build_absolute_uri(self.request.path),
+        })
+        return super().get_og_tags(**kwargs)
 
     def get_current_breadcrumb(self):
         return [Breadcrumb(self.object.title, reverse('promotions:promotion', args=(self.object.url,)))]
