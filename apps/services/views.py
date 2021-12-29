@@ -19,7 +19,7 @@ from utils.opengraph.utils import og_thumbnail
 from utils.views import FormDetailView
 from .models import Section, Product
 from .utils.helpers import service_url
-from .utils.mixins import ProductsMixin, SectionsMixin, SingleSectionMixin
+from .utils.mixins import ProductsMixin, SectionsMixin, SingleSectionMixin, AdvantagesContextMixin
 from ..accounts.forms import CallRequestForm
 from ..accounts.utils.mixins import ShortAppointmentMixin, SparePartAppointmentMixin
 from ..news.models import Article
@@ -27,7 +27,7 @@ from ..promotions.models import Promotion
 from ..site_settings.models import StaticInformation
 
 
-class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSettingsMixin, OpengraphMixin):
+class SectionView(DetailView, SectionsMixin, ProductsMixin, AdvantagesContextMixin, CarFilterPageSettingsMixin, OpengraphMixin):
     # #### DetailView ####
     template_name = 'services/section.html'
     queryset = Section.objects.filter(active=True)
@@ -105,7 +105,7 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, CarFilterPageSetting
         return super().get_context_data(**kwargs)
 
 
-class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageSettingsMixin, ShortAppointmentMixin, OpengraphMixin):
+class ProductView(DetailView, FormDetailView, SingleSectionMixin, AdvantagesContextMixin, CarFilterPageSettingsMixin, ShortAppointmentMixin, OpengraphMixin):
     # #### DetailView ####
     template_name = 'services/product.html'
     queryset = Product.objects.filter(active=True)
@@ -188,10 +188,6 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, CarFilterPageS
         context.update({
             'image_url': cropped_thumbnail(None, self.object, 'thumbnail_1960x600'),
             'image_alt': self.object.title,
-            'happy_clients': StaticInformation.objects.get(key='advantages__happy_clients').value,
-            'orders': StaticInformation.objects.get(key='advantages__orders').value,
-            'positive_reviews': StaticInformation.objects.get(key='advantages__positive_reviews').value,
-            'average_score': StaticInformation.objects.get(key='advantages__average_score').value,
             'call_request_form': CallRequestForm(self.request.POST) if self.request.method == 'post' else CallRequestForm(),
             'promotions': self.get_promotions(),
             'articles': self.get_articles(),

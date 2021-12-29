@@ -4,6 +4,7 @@ from django.db.models import QuerySet
 from django.views.generic.base import ContextMixin
 
 from apps.services.models import Product, Section
+from apps.site_settings.models import StaticInformation
 
 
 class SectionsMixin(ContextMixin):
@@ -65,6 +66,19 @@ class SingleSectionMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         kwargs[self.section_context_name] = self.get_current_section()
         return super().get_context_data(**kwargs)
+
+
+class AdvantagesContextMixin(ContextMixin):
+    """ Adds context variables for block "Наши преимущества" """
+
+    def get_context_data(self, **kwargs):
+        kwargs.update({
+            'happy_clients': StaticInformation.objects.get(key='advantages__happy_clients').value,
+            'orders': StaticInformation.objects.get(key='advantages__orders').value,
+            'positive_reviews': StaticInformation.objects.get(key='advantages__positive_reviews').value,
+            'average_score': StaticInformation.objects.get(key='advantages__average_score').value,
+        })
+        return super(AdvantagesContextMixin, self).get_context_data(**kwargs)
 #
 #
 # class SingleProductMixin(ContextMixin):
