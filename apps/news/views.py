@@ -19,15 +19,29 @@ from utils.breadcrumbs.types import Breadcrumb
 from utils.breadcrumbs.utils import reverse_bc
 from utils.mixins import PageSettingsMixin
 
-
 # Base view for Articles at news page and knowledge_base
-class BaseArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, CommentsMixin):
+from utils.opengraph import OpengraphMixin
+from utils.opengraph.utils import og_thumbnail
+
+
+class BaseArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, CommentsMixin, OpengraphMixin):
     template_name = 'news/article.html'
     slug_field = 'url'
     slug_url_kwarg = 'article_url'
     context_object_name = 'article'
     max_articles = 3
     max_comments = 10
+
+    def get_og_tags(self, **kwargs) -> dict:
+        meta_context = super().as_context()
+
+        kwargs.update({
+            'og:title': meta_context['page_title'],
+            'og:description': meta_context['meta_description'],
+            **og_thumbnail(self.request, self.object, 'thumbnail'),
+            'og:url': self.request.build_absolute_uri(self.request.path),
+        })
+        return super().get_og_tags(**kwargs)
 
     def get_context_data(self, **kwargs):
         kwargs.update({
