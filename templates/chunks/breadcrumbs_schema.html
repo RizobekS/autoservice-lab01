@@ -4,12 +4,20 @@
  "@context": "http://schema.org",
  "itemListElement":
  [
+    {
+       "@type": "ListItem",
+       "@context": "http://schema.org",
+       "position": 1,
+       "@id": "{% url 'home:index' %}",
+       "name": "Главная"
+    }{% if breadcrumbs|length %},{% endif %}
+
    {% for breadcrumb in breadcrumbs %}
       {% if forloop.last %}
         {
          "@type": "ListItem",
          "@context": "http://schema.org",
-         "position": {{ forloop.counter }},
+         "position": {{ forloop.counter|add:1 }},
          "@id": "{{ request.path }}",
          "name": "{{ breadcrumb.title }}"
         }
@@ -17,7 +25,7 @@
         {
          "@type": "ListItem",
          "@context": "http://schema.org",
-         "position": {{ forloop.counter }},
+         "position": {{ forloop.counter|add:1 }},
          "@id": "{{ breadcrumb.url }}",
          "name": "{{ breadcrumb.title }}"
         },
