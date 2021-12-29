@@ -4,18 +4,31 @@ from django.urls import reverse
 from django.views.generic import TemplateView
 
 from utils.car_filter import set_car_filter, get_car_filter
+from utils.opengraph import OpengraphMixin
+from utils.opengraph.utils import og_image
 from .models import *
 from .utils.mixins import CarFilterPageSettingsMixin
 from ..services.models import Section, Product, CarPack
 
 
-class CarView(TemplateView, CarFilterPageSettingsMixin):
+class CarView(TemplateView, CarFilterPageSettingsMixin, OpengraphMixin):
     template_name = 'cars/car.html'
 
     # #### CarFilterPageSettingsMixin ####
 
     viewname = 'cars:car'
     car_filter_context_name = 'car'
+
+    def get_og_tags(self, **kwargs) -> dict:
+        meta_context = super(CarFilterPageSettingsMixin, self).as_context()
+
+        kwargs.update({
+            'og:title': meta_context['page_title'],
+            'og:description': meta_context['meta_description'],
+            **og_image(self.request, self.car_filter.vendor.logo),
+            'og:url': self.request.build_absolute_uri(self.request.path),
+        })
+        return super().get_og_tags(**kwargs)
 
     def get_current_breadcrumb(self):
         return []
