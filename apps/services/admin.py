@@ -101,7 +101,7 @@ class ProductAdmin(ImageCroppingMixin, SortableAdmin):
 
     form = ProductAdminForm
 
-    @admin.display('Длина текста')
+    @admin.display(description='Длина текста')
     def description_length(self, obj):
         return len(obj.description)
 
