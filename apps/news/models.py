@@ -45,7 +45,7 @@ class Article(models.Model):
         return reverse('knowledge_base:article', args=(self.url,))
 
     def get_absolute_url(self):
-        return reverse('knowledge_base:article', args=(self.url,))
+        return reverse('news:article' if self.is_news else 'knowledge_base:article', args=(self.url,))
 
     def active_suitable_section_set(self):
         return self.suitable_sections.filter(active=True)
