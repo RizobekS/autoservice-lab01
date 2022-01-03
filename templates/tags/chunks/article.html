@@ -9,7 +9,7 @@
     {% endif %}
 
     <div class="post-thumbnail">
-      <a href="{% url 'knowledge_base:article' item.url %}">
+      <a href="{{ item.get_absolute_url }}">
         <img src="{% cropped_thumbnail item 'thumbnail' %}" alt="{{ item.title }}">
       </a>
     </div><!-- .post-thumbnail -->
@@ -18,11 +18,11 @@
       <div class="entry-meta">
         <h6 class="author vcard fw-700">
           <span class="screen-reader-text">Автор </span>
-          <a class="url fn n" href="{% url 'knowledge_base:article' item.url %}">{{ item.author.name }}</a>
+          <a class="url fn n" href="{{ item.get_absolute_url }}">{{ item.author.name }}</a>
         </h6>
       </div>
       <h4 class="entry-title">
-        <a href="{% url 'knowledge_base:article' item.url %}" rel="bookmark">
+        <a href="{{ item.get_absolute_url }}" rel="bookmark">
           {{ item.title }}
         </a>
       </h4>
