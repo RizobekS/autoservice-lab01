@@ -67,7 +67,7 @@
                 </main>
               </div>
               {% if root.url != 'others' %}
-                <div class="container s-pt-lg-100"><a href="{% service_url root %}" class="btn btn-darkgrey text-wrap">Полный список работ для {{ car.full_name }}</a></div>
+                <div class="container s-pt-lg-100"><a href="{% service_url root %}" class="btn btn-darkgrey text-wrap">{{ root.title }} {{ car.full_name }}</a></div>
               {% endif %}
             </div>
           {% endfor %}
