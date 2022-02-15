@@ -2,6 +2,7 @@ from random import randint
 from typing import List
 
 from django.contrib import messages
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.template.defaultfilters import truncatewords
 from django.urls import reverse
@@ -24,7 +25,6 @@ from ..accounts.forms import CallRequestForm
 from ..accounts.utils.mixins import ShortAppointmentMixin, SparePartAppointmentMixin
 from ..news.models import Article
 from ..promotions.models import Promotion
-from ..site_settings.models import StaticInformation
 
 
 class SectionView(DetailView, SectionsMixin, ProductsMixin, AdvantagesContextMixin, CarFilterPageSettingsMixin, OpengraphMixin):
@@ -60,7 +60,7 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, AdvantagesContextMix
         return Section.objects.filter(parent_section=self.object)
 
     def get_products_queryset(self):
-        return Product.objects.filter(section=self.object)
+        return Product.objects.filter(Q(section=self.object) | Q(additional_sections=self.object))
 
     # #### CarFilterPageSettingsMixin ####
 

@@ -80,7 +80,7 @@ class ProductAdmin(ImageCroppingMixin, SortableAdmin):
     list_filter = ('active', 'fixed_price', 'show_at_homepage', 'section', 'tag', 'car_pack')
     search_fields = ('title', 'url', 'price', 'time_duration', 'car_pack__name', 'short_description', 'description')
 
-    filter_horizontal = ('spare_parts', 'similar_products')
+    filter_horizontal = ('spare_parts', 'similar_products', 'additional_sections')
     prepopulated_fields = {'url': ('title',), }
     actions = (activate, deactivate, clone)
 
@@ -88,7 +88,7 @@ class ProductAdmin(ImageCroppingMixin, SortableAdmin):
 
     fieldsets = (
         (None, {
-            'fields': (('title', 'url'), 'active', 'show_at_homepage', 'tag', 'section', ('price', 'fixed_price'),
+            'fields': (('title', 'url'), 'active', 'show_at_homepage', 'tag', 'section', 'additional_sections', ('price', 'fixed_price'),
                        'time_duration', 'spare_parts', 'car_pack', 'branches', 'similar_products')
         }),
         ('Текст', {'fields': ('short_description', 'description'), 'classes': ('wide',)}),
