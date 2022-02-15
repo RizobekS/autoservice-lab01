@@ -75,7 +75,7 @@ class Section(SortableMixin):
             exclude_args = {}
 
         products = list(self.product_set.filter(active=True).exclude(**exclude_args).all())
-        for section in self.section_set.filter(active=True).exclude(**exclude_args):
+        for section in self.section_set.filter(active=True):
             products += list(section.product_set.filter(active=True).exclude(**exclude_args).all())
         return products
 
@@ -135,7 +135,7 @@ class Product(SortableMixin):
 
     active = models.BooleanField('Активно', help_text=ACTIVE_HELP_TEXT, default=True)
     section = models.ForeignKey(verbose_name='Родительский раздел', to='Section', on_delete=models.RESTRICT, related_name='child_product_set')
-    additional_sections = models.ManyToManyField(verbose_name='Дополнительные родительские разделы', to='Section', related_name='nephew_product_set')
+    additional_sections = models.ManyToManyField(verbose_name='Дополнительные родительские разделы', to='Section', related_name='nephew_product_set', blank=True)
     show_at_homepage = models.BooleanField('Отображать на главной', help_text='В блоке "Наши услуги"', default=False)
     spare_parts = models.ManyToManyField(verbose_name='Запчасти', to='SparePart', blank=True)
     car_pack = models.ForeignKey(verbose_name='Машины, подходящие под данный товар/услугу', to='CarPack', on_delete=models.DO_NOTHING, null=True, blank=True,
