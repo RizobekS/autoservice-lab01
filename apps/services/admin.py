@@ -75,7 +75,8 @@ class CarPackAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(ImageCroppingMixin, SortableAdmin):
-    list_display = ('title', 'url', 'active', 'section', 'verbose_price', 'tag', 'canonical_to_original', 'show_in_promotions', 'show_at_homepage', 'description_length')
+    list_display = ('title', 'url', 'active', 'section', 'additional_sections_count', 'verbose_price', 'tag',
+                    'canonical_to_original', 'show_in_promotions', 'show_at_homepage', 'description_length')
     list_editable = ('show_at_homepage', 'canonical_to_original', 'show_in_promotions')
     list_filter = ('active', 'fixed_price', 'show_at_homepage', 'section', 'tag', 'car_pack')
     search_fields = ('title', 'url', 'price', 'time_duration', 'car_pack__name', 'short_description', 'description')
@@ -104,6 +105,11 @@ class ProductAdmin(ImageCroppingMixin, SortableAdmin):
     @admin.display(description='Длина текста')
     def description_length(self, obj):
         return len(obj.description)
+
+    @admin.display(description='Доп. родители')
+    def additional_sections_count(self, obj: Product):
+        count = obj.additional_sections.count()
+        return f'({count})' if count != 0 else '-'
 
 
 @admin.register(SparePart)
