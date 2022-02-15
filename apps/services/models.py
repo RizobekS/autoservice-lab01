@@ -51,8 +51,7 @@ class Section(SortableMixin):
     @property
     def product_set(self):
         """ Method for backwards compatibility. After products got additional sections we no longer able to use just product_set """
-        print('c')
-        return self.child_product_set | self.nephew_product_set
+        return self.child_product_set.all() | self.nephew_product_set.all()
 
     def is_root(self) -> bool:
         return not self.parent_section
