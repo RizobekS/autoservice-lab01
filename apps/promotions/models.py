@@ -74,8 +74,11 @@ class Promotion(models.Model):
 
     @display(description='Цена/Скидка')
     def verbose_price(self):
-        price = format_price(self.price, self.get_currency())
-        return f'{price}' if self.fixed_price else f'От {price}'
+        if self.price:
+            price = format_price(self.price, self.get_currency())
+            return f'{price}' if self.fixed_price else f'От {price}'
+        else:
+            return '-'
 
     def get_currency(self):
         return '%' if self.sale else '₽'
