@@ -9,6 +9,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemap_views
 from django.urls import path, include
+from django.views.generic import TemplateView
 from haystack.generic_views import SearchView
 
 from autoservice.sitemap.sitemap import sitemaps
@@ -16,8 +17,7 @@ from utils.views import StaticPageView
 
 static_urlpatterns = [
     path('certificates/', StaticPageView.as_view(template_name='static/certificates.html', viewname='static:certificates'), name='certificates'),
-    path('yandex_808db4c62533456a.html', StaticPageView.as_view(template_name='static/yandex_808db4c62533456a.html',
-                                                                viewname='static:yandex_verification_key'), name='yandex_verification_key'),
+    path('yandex_808db4c62533456a.html', TemplateView.as_view(template_name='static/yandex_808db4c62533456a.html'), name='yandex_verification_key'),
 ]
 
 urlpatterns = [
