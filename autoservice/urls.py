@@ -16,6 +16,8 @@ from utils.views import StaticPageView
 
 static_urlpatterns = [
     path('certificates/', StaticPageView.as_view(template_name='static/certificates.html', viewname='static:certificates'), name='certificates'),
+    path('yandex_808db4c62533456a.html', StaticPageView.as_view(template_name='static/yandex_808db4c62533456a.html',
+                                                                viewname='static:yandex_verification_key'), name='yandex_verification_key'),
 ]
 
 urlpatterns = [
