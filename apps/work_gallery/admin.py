@@ -38,18 +38,18 @@ class ImageInlineAdmin(ImageCroppingMixin, admin.StackedInline):
 
 @admin.register(VendorModelPack)
 class VendorModelPackAdmin(admin.ModelAdmin):
-    list_display = ('name', 'models_count')
-    fields = ('name', 'models')
-    # readonly_fields = ('related_products',)
+    list_display = ('name', 'models_count', 'related_works')
+    fields = ('name', 'related_works', 'models')
+    readonly_fields = ('related_products',)
     filter_horizontal = ('models',)
 
     @admin.display(description='Всего моделей')
     def models_count(self, obj):
         return obj.models.count()
 
-    # @admin.display(description='Привязанные услуги')
-    # def related_products(self, obj):
-    #     return ', '.join(item.title for item in obj.product_set.all())
+    @admin.display(description='Привязанные работы')
+    def related_works(self, obj):
+        return ', '.join(item.title for item in obj.work_set.all())
 
 
 @admin.register(Work)
