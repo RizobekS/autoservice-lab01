@@ -49,7 +49,7 @@ class VendorModelPackAdmin(admin.ModelAdmin):
 
     @admin.display(description='Привязанные услуги')
     def related_products(self, obj):
-        return ', '.join(item.title for item in obj.product_set.all())
+        return ', '.join(item.title for item in obj.models.all())
 
 
 @admin.register(Work)
