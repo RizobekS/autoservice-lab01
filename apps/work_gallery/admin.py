@@ -40,7 +40,7 @@ class ImageInlineAdmin(ImageCroppingMixin, admin.StackedInline):
 class VendorModelPackAdmin(admin.ModelAdmin):
     list_display = ('name', 'models_count', 'related_works')
     fields = ('name', 'related_works', 'models')
-    readonly_fields = ('related_products',)
+    readonly_fields = ('related_works',)
     filter_horizontal = ('models',)
 
     @admin.display(description='Всего моделей')
