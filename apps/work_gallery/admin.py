@@ -39,8 +39,8 @@ class ImageInlineAdmin(ImageCroppingMixin, admin.StackedInline):
 @admin.register(VendorModelPack)
 class VendorModelPackAdmin(admin.ModelAdmin):
     list_display = ('name', 'models_count')
-    fields = ('name', 'related_products', 'models')
-    readonly_fields = ('related_products',)
+    fields = ('name', 'models')
+    # readonly_fields = ('related_products',)
     filter_horizontal = ('models',)
 
     @admin.display(description='Всего моделей')
