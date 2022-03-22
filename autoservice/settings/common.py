@@ -151,7 +151,7 @@ MEDIA_ROOT = join(PROJECT_ROOT, 'run', 'media')
 MEDIA_URL = '/media/'
 
 # Maximum number of fields in single POST/GET
-DATA_UPLOAD_MAX_NUMBER_FIELDS = 30000
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 100000
 
 # ##### DEBUG CONFIGURATION ###############################
 DEBUG = False
