@@ -114,10 +114,16 @@ class ProductAdmin(ImageCroppingMixin, SortableAdmin):
 
 @admin.register(SparePart)
 class SparePartAdmin(ImageCroppingMixin, admin.ModelAdmin):
-    list_display = ('title', 'url', 'verbose_price')
+    list_display = ('title', 'url', 'verbose_price', 'active')
     list_filter = ('fixed_price',)
+    list_editable = ('active',)
     search_fields = ('title', 'url', 'price')
     actions = (clone,)
 
-    fields = ('title', 'url', 'image', 'thumbnail_268x118', ('price', 'fixed_price'))
+    fields = ('title', 'url', 'bound_products', 'active', 'image', 'thumbnail_268x118', ('price', 'fixed_price'))
     prepopulated_fields = {'url': ('title',), }
+    readonly_fields = ('bound_products',)
+
+    @admin.display(description='Привязанные Товары/Услуги')
+    def bound_products(self, obj: SparePart):
+        return ' ,  '.join(item.title for item in obj.product_set.all())

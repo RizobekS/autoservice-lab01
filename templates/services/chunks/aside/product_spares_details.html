@@ -7,7 +7,7 @@
         <li class="nav-item">
             <a class="nav-link active show" href="#widget-tab4" role="tab" data-toggle="tab" aria-selected="true">Работа</a>
         </li>
-        {% if product.spare_parts.exists %}
+        {% if product.active_spare_parts.exists %}
             <li class="nav-item">
                 <a class="nav-link" href="#widget-tab5" role="tab" data-toggle="tab" aria-selected="false">Работа+запчасти</a>
             </li>
@@ -21,15 +21,16 @@
             {% include 'services/chunks/blocks/product_vertical-item.html' %}
 
         </div><!-- eof tab -->
-        {% if product.spare_parts.exists %}
-            <div class="tab-pane fade" id="widget-tab5">
+      {% if product.active_spare_parts.exists %}
+        <div class="tab-pane fade" id="widget-tab5">
 
-                {% include 'services/chunks/blocks/product_vertical-item.html' %}
-                {% for spare_part in product.spare_parts.all %}
-                    {% include 'services/chunks/blocks/spare-part_vertical-item.html' %}
-                {% endfor %}
+          {% include 'services/chunks/blocks/product_vertical-item.html' %}
+          {% for spare_part in product.spare_parts.all %}
+            {% include 'services/chunks/blocks/spare-part_vertical-item.html' %}
+          {% endfor %}
 
-            </div>{% endif %}
+        </div>
+      {% endif %}
     </div><!-- eof tab-content -->
 
 </div>
