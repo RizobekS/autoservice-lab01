@@ -1,17 +1,17 @@
 <div class="widget widget_post_tabs small-tabs">
 
-    <h5 class="widget-title">Стоимость работ</h5>
+  <h5 class="widget-title">Стоимость</h5>
 
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active show" href="#widget-tab4" role="tab" data-toggle="tab" aria-selected="true">Работа</a>
-        </li>
-        {% if product.active_spare_parts.exists %}
-            <li class="nav-item">
-                <a class="nav-link" href="#widget-tab5" role="tab" data-toggle="tab" aria-selected="false">Работа+запчасти</a>
-            </li>
-        {% endif %}
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active show" href="#widget-tab4" role="tab" data-toggle="tab" aria-selected="true">Работа</a>
+    </li>
+    {% if product.active_spare_parts.exists %}
+      <li class="nav-item">
+        <a class="nav-link" href="#widget-tab5" role="tab" data-toggle="tab" aria-selected="false">Работа + запчасти</a>
+      </li>
+    {% endif %}
     </ul>
 
     <!-- Tab panes -->
