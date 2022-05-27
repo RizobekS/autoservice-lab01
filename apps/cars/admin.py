@@ -1,11 +1,21 @@
 from django.contrib import admin
+from django.http import HttpResponse
 from django.templatetags.static import static
 from django.utils.safestring import mark_safe
 from image_cropping import ImageCroppingMixin
 from nested_inline.admin import NestedModelAdmin, NestedStackedInline
 
+from apps.cars.excel import export_cars
 from apps.cars.models import Vendor, Model, Year, Modification
 from utils.admin_actions import activate, deactivate, clone
+
+
+def export_cars_as_excel_view(request, *args, **kwargs):
+    output = export_cars()
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=cars.xlsx'
+    response.write(output)
+    return response
 
 
 @admin.register(Vendor)
@@ -17,6 +27,12 @@ class VendorAdmin(ImageCroppingMixin, admin.ModelAdmin):
     search_fields = ('name', 'model__name', 'model__year__year', 'model__year__modification__name')
     prepopulated_fields = {'url': ('name',), }
     actions = (activate, deactivate, clone)
+
+    def get_urls(self):
+        """ Add export to excel to urls """
+        from django.urls import path
+        info = self.model._meta.app_label, self.model._meta.model_name
+        return [path('export_excel/', export_cars_as_excel_view, name='%s_%s_export_excel' % info)] + super().get_urls()
 
     @admin.display(description='Связанные модели')
     def related_cars(self, obj):
