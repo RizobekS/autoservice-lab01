@@ -44,7 +44,7 @@ class PromotionCategoryView(DetailView, PromotionsMixin, PageSettingsMixin):
 class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMixin, ShortAppointmentMixin, OpengraphMixin):
     # DetailView
     template_name = 'promotions/promotion.html'
-    model = Promotion
+    queryset = Promotion.objects.select_related('category')
     slug_field = 'url'
     slug_url_kwarg = 'promotion_url'
     context_object_name = 'promotion'
@@ -57,6 +57,12 @@ class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMix
     # PageSettingsMixin
     viewname = 'promotions:promotion'
     initial_breadcrumbs = [reverse_bc(PromotionListView)]
+
+    def get_object(self, queryset=None):
+        if self.object is None:
+            self.object = super().get_object(queryset)
+
+        return self.object
 
     def get_og_tags(self, **kwargs) -> dict:
         meta_context = super().as_context()

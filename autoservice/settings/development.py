@@ -35,3 +35,30 @@ DATABASES = {
         'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
     },
 }
+
+LOGGING = {
+    'version': 1,
+    'filters': {
+        'slow_sql': {'()': 'autoservice.logging.filters.SlowSQLQueryFilter'},
+        'require_debug_true': {'()': 'django.utils.log.RequireDebugTrue'}
+    },
+    'handlers': {
+        'sql_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': join(PROJECT_ROOT, 'run', 'logs', 'sql_queries.log')
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': join(PROJECT_ROOT, 'run', 'logs', 'django.log')
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['sql_file'],
+            'filters': ['require_debug_true'],
+        }
+    }
+}

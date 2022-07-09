@@ -13,7 +13,7 @@ from utils.opengraph.utils import og_thumbnail
 
 class WorkGalleryView(ListView, CategoriesMixin, PageSettingsMixin):
     template_name = 'work_gallery/works.html'
-    queryset = Work.objects.filter(active=True)
+    queryset = Work.objects.prefetch_related('image_set', 'categories').filter(active=True)
     context_object_name = 'works'
 
     categories_queryset = Category.objects.exclude(work=None)

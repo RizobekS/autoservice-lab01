@@ -16,7 +16,7 @@ class PromotionsMixin(ContextMixin):
     """
     promotions_context_name: str = 'promotions'
     promotions_max: int = None
-    promotions_queryset: QuerySet = Promotion.objects
+    promotions_queryset: QuerySet = Promotion.objects.select_related('category').prefetch_related('tags', 'articles', 'products')
 
     def get_promotions_queryset(self):
         return self.promotions_queryset

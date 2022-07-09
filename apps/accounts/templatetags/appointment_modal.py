@@ -13,7 +13,7 @@ def appointment_modal(context):
         raise ValueError('Usage of appointment_modal template tag requires request in context')
 
     if request.user.is_authenticated and request.user.carfilter_set.exists():
-        car = request.user.carfilter_set.latest()
+        car = request.user.carfilter_set.select_related('vendor', 'model__vendor', 'year__model__vendor', 'modification__year__model__vendor').latest()
     else:
         car = get_car_filter(request)
 

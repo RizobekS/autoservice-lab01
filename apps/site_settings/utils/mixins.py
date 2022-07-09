@@ -21,9 +21,11 @@ class CEORenderer:
     ceo_key = None
     spaces_regex = re.compile(r'[ ]{2,}')
 
-    def __init__(self, ceo_key=None, ceo_context={}):
+    def __init__(self, ceo_key=None, ceo_context={}, *args, **kwargs):
+        super().__init__(*args, ceo_key=ceo_key, ceo_context=ceo_context, **kwargs)
         self.ceo_key = ceo_key
         self.ceo_context = ceo_context
+        self.__ceo_objects = {}
 
     def _render(self, field_name):
         ceo_object = self.get_ceo_object()
@@ -47,10 +49,20 @@ class CEORenderer:
 
     def get_ceo_object(self) -> CEOSetting:
         key = self.get_ceo_key()
-        ceo_obj = CEOSetting.objects.filter(key=key)
-        if not ceo_obj.exists():
-            raise ImproperlyConfigured(f'CEOSetting with key={key} does not exist')
-        return ceo_obj.first()
+
+        # May not exist since __init__ may not be called
+        if not hasattr(self, '__ceo_objects'):
+            setattr(self, '__ceo_objects', {})
+
+        __ceo_objects = getattr(self, '__ceo_objects')
+
+        if key not in __ceo_objects:
+            ceo_obj = CEOSetting.objects.filter(key=key)
+            if not ceo_obj.exists():
+                raise ImproperlyConfigured(f'CEOSetting with key={key} does not exist')
+            __ceo_objects[key] = ceo_obj.first()
+
+        return __ceo_objects[key]
 
     def get_ceo_context(self, **kwargs) -> Dict[str, Any]:
         return kwargs
