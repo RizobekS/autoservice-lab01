@@ -19,3 +19,6 @@ class MasterAdmin(ImageCroppingMixin, admin.ModelAdmin):
     search_fields = ('name', 'credo')
 
     actions = (activate, deactivate, clone)
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('branch').prefetch_related('positions')

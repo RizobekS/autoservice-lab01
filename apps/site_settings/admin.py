@@ -41,6 +41,9 @@ class BranchAdmin(admin.ModelAdmin):
         emails = obj.get_email_list()
         return f'({len(emails)}) {" ,  ".join(emails)}'
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('emailreceiver_set')
+
 
 @admin.register(CEOSetting)
 class CEOSettingAdmin(admin.ModelAdmin):
@@ -80,3 +83,6 @@ class MenuServiceSortingAdmin(SortableAdmin):
             return super().has_delete_permission(request, obj)
         else:  # Do not allow direct deletion of menu entries
             return False
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('root_section', 'product', 'section')

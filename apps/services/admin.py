@@ -1,5 +1,6 @@
 from adminsortable.admin import SortableAdmin
 from django.contrib import admin
+from django.db.models import Count, Sum, Prefetch
 from django.utils.safestring import mark_safe
 from image_cropping import ImageCroppingMixin
 
@@ -42,13 +43,22 @@ class SectionAdmin(ImageCroppingMixin, SortableAdmin):
 
     @admin.display(description='Дочерние товары/услуги')
     def child_products(self, obj) -> str:
-        child_products = obj.product_set.filter(active=True)
-        return mark_safe(f'<span style="margin-right: 60px">({child_products.count()}) {", ".join(section.title for section in child_products.all())}</span>')
+        child_products = obj.active_child_product_set + obj.active_nephew_product_set
+        count = obj.child_product_count + obj.nephew_product_count
+        return mark_safe(f'<span style="margin-right: 60px">({count}) {", ".join(section.title for section in child_products)}</span>')
 
     @admin.display(description='Дочерние разделы')
     def child_sections(self, obj) -> str:
         section_set = obj.section_set.filter(active=True)
         return mark_safe(f'<span style="margin-right: 60px">({section_set.count()}) {", ".join(section.title for section in section_set.all())}</span>')
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('parent_section__parent_section__parent_section').prefetch_related(
+            Prefetch('child_product_set', queryset=Product.objects.filter(active=True), to_attr='active_child_product_set'),
+            Prefetch('nephew_product_set', queryset=Product.objects.filter(active=True), to_attr='active_nephew_product_set')
+        ).annotate(
+            child_product_count=Count('child_product_set'), nephew_product_count=Count('nephew_product_set')
+        )
 
     class Media:
         js = ('js/custom/admin/copy-event-listeners.js',)
@@ -66,11 +76,14 @@ class CarPackAdmin(admin.ModelAdmin):
 
     @admin.display(description='Всего машин')
     def cars_count(self, obj):
-        return obj.cars.count()
+        return obj.cars_count
 
     @admin.display(description='Привязанные услуги')
     def related_products(self, obj):
         return ', '.join(item.title for item in obj.product_set.all())
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).annotate(cars_count=Count('cars')).prefetch_related('product_set')
 
 
 @admin.register(Product)
@@ -107,9 +120,11 @@ class ProductAdmin(ImageCroppingMixin, SortableAdmin):
         return len(obj.description)
 
     @admin.display(description='Доп. родители')
-    def additional_sections_count(self, obj: Product):
-        count = obj.additional_sections.count()
-        return f'({count})' if count != 0 else '-'
+    def additional_sections_count(self, obj):
+        return f'({obj.additional_sections_count})' if obj.additional_sections_count != 0 else '-'
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).annotate(additional_sections_count=Count('additional_sections'))
 
 
 @admin.register(SparePart)

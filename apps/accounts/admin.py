@@ -23,11 +23,17 @@ class AppointmentAdmin(admin.ModelAdmin):
     list_editable = ('status',)
     list_filter = ('branch', 'status', 'datetime')
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('user', 'branch')
+
 
 @admin.register(ShortAppointment)
 class ShortAppointmentAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'phone', 'email', 'branch', 'datetime')
     list_filter = ('branch', 'datetime')
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('branch')
 
 
 @admin.register(SparePartAppointment)
@@ -35,8 +41,14 @@ class SparePartAppointmentAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'phone', 'car', 'vin', 'branch', 'datetime')
     list_filter = ('branch', 'datetime')
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('branch')
+
 
 @admin.register(CallRequest)
 class CallRequestAdmin(admin.ModelAdmin):
     list_display = ('phone', 'branch', 'datetime')
     list_filter = ('branch', 'datetime')
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('branch')

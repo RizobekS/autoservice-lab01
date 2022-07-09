@@ -25,6 +25,9 @@ class FaqEntryAdmin(admin.ModelAdmin):
     def tag_string(self, obj):
         return ', '.join(item.name for item in obj.tags.all())
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('tags')
+
 
 @admin.register(Symptom)
 class SymptomAdmin(admin.ModelAdmin):
@@ -41,3 +44,6 @@ class SymptomAdmin(admin.ModelAdmin):
     @admin.display(description='Тэги')
     def tag_string(self, obj):
         return ', '.join(item.name for item in obj.tags.all())
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('tags')

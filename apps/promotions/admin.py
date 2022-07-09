@@ -32,6 +32,9 @@ class CategoryAdmin(admin.ModelAdmin):
         obj = CEOSetting.objects.get(key='promotions:promotion')
         return mark_safe(obj.variables.replace('{{', '<b>{{').replace('}}', '}}</b>'))
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('promotion_set')
+
 
 @admin.register(Promotion)
 class PromotionAdmin(ImageCroppingMixin, admin.ModelAdmin):
@@ -54,3 +57,6 @@ class PromotionAdmin(ImageCroppingMixin, admin.ModelAdmin):
         ('CEO настройки', {'fields': ('meta_title', 'meta_header', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
     )
     form = PromotionAdminForm
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('tags')

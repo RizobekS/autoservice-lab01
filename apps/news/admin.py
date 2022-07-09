@@ -46,6 +46,9 @@ class ArticleAdmin(ImageCroppingMixin, admin.ModelAdmin):
         self.message_user(request, ngettext('%d статья была успешно переведена в режим редактирования.', '%d статей были успешно переведены в режим редактирования.',
                                             updated) % updated, messages.SUCCESS)
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('tags')
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
@@ -67,3 +70,6 @@ class CommentAdmin(admin.ModelAdmin):
     @admin.display(description='Ответ на комментарий')
     def reply_to_link(self, obj):
         return admin_reverse(obj.reply_to, str(obj.reply_to)) if obj.reply_to else None
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('author', 'article', 'reply_to')

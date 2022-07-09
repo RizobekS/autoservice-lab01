@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.db.models import Count
 from django.http import HttpResponse
 from django.templatetags.static import static
 from django.utils.safestring import mark_safe
@@ -37,10 +38,13 @@ class VendorAdmin(ImageCroppingMixin, admin.ModelAdmin):
     @admin.display(description='Связанные модели')
     def related_cars(self, obj):
         cars = obj.model_set
-        if obj.model_set.count() > 4:
-            return f'Модели ({obj.model_set.count()})'
+        if obj.model_count > 4:
+            return f'Модели ({obj.model_count})'
         else:
             return ', '.join([car.name for car in cars.all()])
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('model_set').annotate(model_count=Count('model'))
 
 
 class ModificationNestedInline(NestedStackedInline):
@@ -68,10 +72,13 @@ class ModelAdmin(ImageCroppingMixin, NestedModelAdmin):
     @admin.display(description='Года выпуска')
     def detailed_info(self, obj):
         years = obj.year_set
-        if years.count() > 6:
-            return f'{years.count()} разных годов выпуска'
+        if obj.year_count > 6:
+            return f'{obj.year_count} разных годов выпуска'
         else:
             return mark_safe(', '.join([f'{year.year} <span style="color: grey">({year.modification_set.count()})</span>' for year in years.all()]))
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('vendor').prefetch_related('year_set__modification_set').annotate(year_count=Count('year'))
 
     class Media:
         css = {

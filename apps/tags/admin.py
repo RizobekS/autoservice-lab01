@@ -43,3 +43,6 @@ class TagAdmin(admin.ModelAdmin):
     @admin.display(description='Привязанные Симптомы')
     def symptom_string(self, obj):
         return mark_safe(f'({obj.symptom_set.count()}) {" ,  ".join(admin_reverse(item, item.title) for item in obj.symptom_set.all())}')
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('article_set', 'promotion_set', 'product_set', 'faqentry_set', 'symptom_set')

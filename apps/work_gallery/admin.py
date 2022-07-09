@@ -23,6 +23,9 @@ class CategoryAdmin(admin.ModelAdmin):
     def works_string(self, obj):
         return mark_safe(f'({obj.work_set.count()}) {" ,  ".join(admin_reverse(item, item.title) for item in obj.work_set.all())}')
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('work_set')
+
 
 class ImageInlineAdmin(ImageCroppingMixin, admin.StackedInline):
     fieldsets = (
@@ -77,3 +80,6 @@ class WorkAdmin(admin.ModelAdmin):
     def save_related(self, request, form, formsets, change):
         super().save_related(request, form, formsets, change)
         form.save_multiple_images(form.instance)
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('categories', 'image_set')
