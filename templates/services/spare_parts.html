@@ -90,10 +90,12 @@
                       {% field_errors form.text %}
                     </p>
 
-                    <p class="privacy-policy small-text" style="font-size: 10px;">Отправляя данные, я соглашаюсь с <a class="link" target="_blank"
-                                                                                                                      style="text-decoration: underline;"
-                                                                                                                      href="{% url 'editor_pages:privacy' %}">политикой
-                      конфиденциальности</a></p>
+                    <p class="privacy-policy small-text" style="font-size: 10px;">
+                      Отправляя данные, я соглашаюсь с
+                      <a class="link privacy-policy-trigger" target="_blank" style="text-decoration: underline;" href="#" data-toggle="modal" data-target="#modalPrivacyPolicy">
+                        политикой конфиденциальности
+                      </a>
+                    </p>
 
                     <button type="submit" class="btn btn-outline-maincolor small-button">Отправить заявку</button>
                   </div>

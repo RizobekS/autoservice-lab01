@@ -1,0 +1,18 @@
+{% load static %}
+{% load shortcuts %}
+{% load errors %}
+<div class="modal fade" id="modalPrivacyPolicy" tabindex="-1" role="dialog" aria-labelledby="modalPrivacyPolicy" aria-hidden="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span>×</span>
+      </button>
+      <div class="modal-header justify-content-center">
+        <h4 class="modal-title">Политика конфиденциальности</h4>
+      </div>
+      <div class="modal-body" data-content-url="{% static 'privacy-policy.html' %}" data-content-loaded="false">
+
+      </div>
+    </div>
+  </div>
+</div>
