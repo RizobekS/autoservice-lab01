@@ -58,12 +58,12 @@
             {{ branch.name }}
         </td>
     </tr>
-    <tr style="border-collapse:collapse">
-        <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
-            <strong>Дата и время создания заявки:</strong>
-        </td>
-        <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
-            {{ datetime|date:"d E, Y" }}, {{ datetime|time:"H:i" }}
+  <tr style="border-collapse:collapse">
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <strong>Дата и время, указанные пользователем:</strong>
+    </td>
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      {{ datetime|date:"d E, Y" }}, {{ datetime|time:"H:i" }}
         </td>
     </tr>
 {% endblock %}

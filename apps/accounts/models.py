@@ -51,7 +51,7 @@ class Appointment(models.Model):
     car = models.CharField('Автомобиль', max_length=400)
     phone = models.CharField('Телефон', max_length=26)
     branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.DO_NOTHING)
-    datetime = models.DateTimeField('Время')
+    datetime = models.DateTimeField('Дата и время, указанные пользователем')
 
     status = models.CharField('Статус', max_length=20, choices=CHOICES, default='pending')
 
@@ -70,7 +70,7 @@ class ShortAppointment(models.Model):
     email = models.EmailField('Эл. почта', null=True, blank=True)
     branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.DO_NOTHING)
     text = models.TextField('Сообщение', null=True, blank=True)
-    datetime = models.DateTimeField('Дата и время создания', auto_now_add=True)
+    datetime = models.DateTimeField('Дата и время создания заявки', auto_now_add=True)
 
     def __str__(self):
         return f'Мини-заявка от {self.full_name} ({self.datetime.strftime("%m/%d/%Y, %H:%M")})' if self.datetime else f'Мини-заявка от {self.full_name}'
@@ -87,7 +87,7 @@ class SparePartAppointment(models.Model):
     branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.DO_NOTHING)
     vin = models.CharField('VIN номер', max_length=17, null=True, blank=True)
     text = models.TextField('Сообщение', null=True, blank=True)
-    datetime = models.DateTimeField('Дата и время создания', auto_now_add=True)
+    datetime = models.DateTimeField('Дата и время создания заявки', auto_now_add=True)
 
     def __str__(self):
         return f'Заявка на запчасти от {self.full_name} ({self.datetime.strftime("%m/%d/%Y, %H:%M")})' if self.datetime else f'Заявка на запчасти от {self.full_name}'
@@ -100,7 +100,7 @@ class SparePartAppointment(models.Model):
 class CallRequest(models.Model):
     phone = models.CharField('Телефон', max_length=26)
     branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.DO_NOTHING)
-    datetime = models.DateTimeField('Дата и время создания', auto_now_add=True)
+    datetime = models.DateTimeField('Дата и время создания заявки', auto_now_add=True)
 
     def __str__(self):
         return f'Заказ на звонок: {self.phone} ({self.datetime.strftime("%m/%d/%Y, %H:%M")})' if self.datetime else f'Заказ на звонок: {self.phone}'
