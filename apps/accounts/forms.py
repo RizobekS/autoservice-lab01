@@ -7,6 +7,7 @@ from django.contrib.auth.forms import \
     PasswordResetForm as BasePasswordResetForm, SetPasswordForm
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
+from django.forms.fields import DateTimeFormatsIterator
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 
@@ -109,6 +110,7 @@ class AppointmentForm(forms.ModelForm):
     email_body_template = 'accounts/emails/appointment/body.html'
     html_email_body_template = 'accounts/emails/appointment/html.html'
     extra_context = {}
+    datetime = forms.DateTimeField(input_formats=[*DateTimeFormatsIterator(), '%d.%m.%Y %H:%M'], required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -139,7 +141,7 @@ class ShortAppointmentForm(AppointmentForm):
     email_body_template = 'accounts/emails/short_appointment/body.html'
     html_email_body_template = 'accounts/emails/short_appointment/html.html'
 
-    text1 = forms.CharField(widget=forms.Textarea)  # Fake textarea to trap spam bots
+    text1 = forms.CharField(widget=forms.Textarea, required=False)  # Fake textarea to trap spam bots
 
     def send_mail(self, request):
         self.extra_context = {'datetime': self.instance.datetime}
