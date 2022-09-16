@@ -1,6 +1,7 @@
+{% load tz %}
 На сайт {{ site_name }} поступил новый заказ на звонок. Вы получили это сообщение потому что ваша почта зарегистрирована в списке получателей для филиала "{{ branch.name }}".
 --- Детали заявки ---
 
 Номер телефона: {{ phone }}
 Филиал: {{ branch.name }}
-Дата и время: {{ datetime|date:"d E, Y" }}, {{ datetime|time:"H:i" }}
+Дата и время: {{ datetime|timezone:'Europe/Moscow'|date:"d E, Y" }}, {{ datetime|timezone:'Europe/Moscow'|time:"H:i" }}

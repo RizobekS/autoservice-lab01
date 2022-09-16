@@ -1,4 +1,5 @@
 {% extends 'accounts/emails/base.html' %}
+{% load tz %}
 
 {% block title %}
     <p align="left"
@@ -53,16 +54,16 @@
         <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse;vertical-align: top;">
             <strong>Сообщение:</strong>
         </td>
-        <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
-            {{ text|default:'-' }}
-        </td>
+      <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+        {{ text|default:'-' }}
+      </td>
     </tr>
-    <tr style="border-collapse:collapse">
-        <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
-            <strong>Дата и время создания заявки:</strong>
-        </td>
-        <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
-            {{ datetime|date:"d E, Y" }}, {{ datetime|time:"H:i" }}
-        </td>
-    </tr>
+  <tr style="border-collapse:collapse">
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <strong>Дата и время создания заявки:</strong>
+    </td>
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      {{ datetime|timezone:'Europe/Moscow'|date:"d E, Y" }}, {{ datetime|timezone:'Europe/Moscow'|time:"H:i" }}
+    </td>
+  </tr>
 {% endblock %}

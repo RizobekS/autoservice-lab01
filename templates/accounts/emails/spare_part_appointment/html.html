@@ -1,4 +1,5 @@
 {% extends 'accounts/emails/base.html' %}
+{% load tz %}
 {% load admin_reverse %}
 
 {% block title %}
@@ -55,7 +56,7 @@
       <strong>Дата и время создания заявки:</strong>
     </td>
     <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
-      {{ datetime|date:"d E, Y" }}, {{ datetime|time:"H:i" }}
+      {{ datetime|timezone:'Europe/Moscow'|date:"d E, Y" }}, {{ datetime|timezone:'Europe/Moscow'|time:"H:i" }}
     </td>
   </tr>
 {% endblock %}
