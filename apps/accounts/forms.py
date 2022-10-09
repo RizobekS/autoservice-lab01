@@ -111,10 +111,20 @@ class AppointmentForm(forms.ModelForm):
     html_email_body_template = 'accounts/emails/appointment/html.html'
     extra_context = {}
     datetime = forms.DateTimeField(input_formats=[*DateTimeFormatsIterator(), '%d.%m.%Y %H:%M'], required=False)
+    phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['branch'].empty_label = 'Выберите СТО'
+
+    def clean(self):
+        form_data = self.cleaned_data
+
+        if form_data.get('phone1', None):
+            print('Rej')
+            raise ValidationError('Ваша заявка была определена как спам', code='spam')
+
+        return form_data
 
     def send_mail(self, request):
         if not self.is_valid():

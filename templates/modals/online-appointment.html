@@ -36,6 +36,9 @@
               {% field_errors appointment_form.car %}
             </div>
             <div class="form-group has-placeholder">
+              <input type="hidden" class="form-control" placeholder="Ваш телефон" name="{{ appointment_form.phone1.name }}"
+                     value="{% firstof appointment_form.phone1.value %}">
+
               <label for="phoneReg">Ваш телефон:</label>
               <input type="text" class="form-control" id="phoneReg" placeholder="Ваш телефон" name="{{ appointment_form.phone.name }}"
                      value="{% firstof appointment_form.phone.value %}" {% choose appointment_form.datetime.field.required 'required' %}>
