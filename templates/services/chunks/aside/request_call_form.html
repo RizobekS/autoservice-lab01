@@ -10,6 +10,8 @@
       {% for message in messages %}<p class="{{ message.extra_tags }} font-weight-bold">{{ message }}</p>{% endfor %}
 
       <div class="form-group">
+        <input type="hidden" class="form-control-bg" placeholder="Ваш телефон:" size="{{ form.fields.phone.max_length }}"
+               value="{{ form.phone1.value|default_if_none:'' }}" name="{{ form.phone1.name }}">
         <label class="screen-reader-text" for="call-phone">
           Ваш телефон:
         </label>

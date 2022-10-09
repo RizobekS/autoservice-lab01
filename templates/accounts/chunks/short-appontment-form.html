@@ -21,6 +21,9 @@
       </div>
       <div class="col-sm-6">
         <div class="form-group has-placeholder">
+          <input type="hidden" aria-required="true" size="{{ form.fields.phone.max_length }}" value="{{ form.phone1.value|default_if_none:'' }}"
+                 name="{{ form.phone1.name }}" class="form-control" placeholder="Телефон *">
+
           <label for="phone">Телефон *</label><i class="fa fa-phone color-main"></i>
           <input type="text" aria-required="true" size="{{ form.fields.phone.max_length }}" value="{{ form.phone.value|default_if_none:'' }}"
                  name="{{ form.phone.name }}" id="phone" class="form-control" placeholder="Телефон *">

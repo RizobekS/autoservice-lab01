@@ -60,6 +60,9 @@
                       {% field_errors form.full_name %}
                     </p>
                     <p class="form-row form-row-last validate-required" data-priority="20">
+                      <input aria-required="true" size="{{ form.fields.phone.max_length }}" value="{{ form.phone1.value|default_if_none:'' }}" type="hidden"
+                             class="input-text form-control" name="{{ form.phone1.name }}" placeholder="Телефон">
+
                       <label for="phone">Телефон <abbr class="required" title="required">*</abbr></label>
                       <input aria-required="true" size="{{ form.fields.phone.max_length }}" value="{{ form.phone.value|default_if_none:'' }}" type="text"
                              class="input-text form-control" name="{{ form.phone.name }}" id="phone" placeholder="Телефон">
@@ -84,6 +87,9 @@
                       {% field_errors form.branch %}
                     </div>
                     <p class="form-row form-row-wide address-field validate-required" data-priority="70" data-o_class="form-row form-row-wide address-field validate-required">
+                      <textarea type="hidden" style="opacity: 0; height: 0; padding: 0;" class="input-text form-control" name="{{ form.text1.name }}"
+                                placeholder="Номера или названия запчастей">{{ form.text1.value|default_if_none:'' }}</textarea>
+
                       <label for="text">Номера или названия запчастей</label>
                       <textarea type="text" class="input-text form-control" name="{{ form.text.name }}" id="text"
                                 placeholder="Номера или названия запчастей">{{ form.text.value|default_if_none:'' }}</textarea>

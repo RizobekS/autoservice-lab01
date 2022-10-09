@@ -142,6 +142,7 @@ class ShortAppointmentForm(AppointmentForm):
     html_email_body_template = 'accounts/emails/short_appointment/html.html'
 
     text1 = forms.CharField(widget=forms.Textarea, required=False)  # Fake textarea to trap spam bots
+    phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
 
     def send_mail(self, request):
         self.extra_context = {'datetime': self.instance.datetime}
@@ -149,13 +150,14 @@ class ShortAppointmentForm(AppointmentForm):
 
     def clean(self):
         form_data = self.cleaned_data
-        print(form_data)
-        if form_data.get('text1', None):
+
+        if form_data.get('text1', None) or form_data.get('phone1', None):
             raise ValidationError('Ваша заявка была определена как спам', code='spam')
+
         return form_data
 
     class Meta:
-        fields = ['full_name', 'phone', 'email', 'branch', 'text']
+        fields = ['full_name', 'phone', 'phone1', 'email', 'branch', 'text']
         model = ShortAppointment
 
 
@@ -164,9 +166,20 @@ class SparePartAppointmentForm(AppointmentForm):
     email_body_template = 'accounts/emails/spare_part_appointment/body.html'
     html_email_body_template = 'accounts/emails/spare_part_appointment/html.html'
 
+    text1 = forms.CharField(widget=forms.Textarea, required=False)  # Fake textarea to trap spam bots
+    phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
+
     def send_mail(self, request):
         self.extra_context = {'datetime': self.instance.datetime}
         return super().send_mail(request)
+
+    def clean(self):
+        form_data = self.cleaned_data
+
+        if form_data.get('text1', None) or form_data.get('phone1', None):
+            raise ValidationError('Ваша заявка была определена как спам', code='spam')
+
+        return form_data
 
     class Meta:
         fields = ('full_name', 'phone', 'car', 'branch', 'vin', 'text')
@@ -177,11 +190,20 @@ class CallRequestForm(AppointmentForm):
     email_subject_template = 'accounts/emails/call_request/subject.html'
     email_body_template = 'accounts/emails/call_request/body.html'
     html_email_body_template = 'accounts/emails/call_request/html.html'
+    phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
+
+    def clean(self):
+        form_data = self.cleaned_data
+
+        if form_data.get('phone1', None):
+            raise ValidationError('Ваша заявка была определена как спам', code='spam')
+
+        return form_data
 
     def send_mail(self, request):
         self.extra_context = {'datetime': self.instance.datetime}
         return super().send_mail(request)
 
     class Meta:
-        fields = ('phone', 'branch')
+        fields = ('phone', 'phone1', 'branch')
         model = CallRequest
