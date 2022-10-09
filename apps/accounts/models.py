@@ -56,7 +56,7 @@ class Appointment(models.Model):
     status = models.CharField('Статус', max_length=20, choices=CHOICES, default='pending')
 
     def __str__(self):
-        return f'Заявка от {self.full_name}, {self.datetime.strftime("%m/%d/%Y, %H:%M")}'
+        return f'Заявка от {self.full_name}' + (f', {self.datetime.strftime("%m/%d/%Y, %H:%M")}' if self.datetime is not None else '')
 
     class Meta:
         ordering = ['-datetime']
