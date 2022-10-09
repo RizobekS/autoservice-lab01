@@ -51,7 +51,7 @@ class Appointment(models.Model):
     car = models.CharField('Автомобиль', max_length=400)
     phone = models.CharField('Телефон', max_length=26)
     branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.RESTRICT)
-    datetime = models.DateTimeField('Дата и время, указанные пользователем')
+    datetime = models.DateTimeField('Дата и время, указанные пользователем', null=True)
 
     status = models.CharField('Статус', max_length=20, choices=CHOICES, default='pending')
 
