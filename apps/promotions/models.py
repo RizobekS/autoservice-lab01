@@ -48,6 +48,9 @@ class Promotion(models.Model):
     short_description = models.CharField('Краткое описание (до 500 символов)', max_length=500)
     text = models.TextField('Контент')
 
+    specific_branch = models.ForeignKey(verbose_name='Только конкретный филиал', to='site_settings.Branch', on_delete=models.SET_NULL, null=True, blank=True,
+                                        help_text='Если выбран филиал - пользователю не будет предоставлен выбор, а заявка автоматически отправится в выбранный филиал')
+
     fixed_price = models.BooleanField('Фиксированная цена/скидка', help_text='Фикс. цена: "990₽", НЕ фикс. цена: "от 990₽". Фикс. скидка: "15%", НЕ фикс. скидка: "До 15%"',
                                       default=False)
     price = models.FloatField('Цена (₽) / Скидка (%)', null=True, blank=True)
