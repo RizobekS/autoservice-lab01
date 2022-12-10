@@ -22,6 +22,7 @@ class AppointmentAdmin(admin.ModelAdmin):
     list_display = ('user', 'car', 'phone', 'branch', 'status', 'datetime')
     list_editable = ('status',)
     list_filter = ('branch', 'status', 'datetime')
+    ordering = ['-created_date']
 
     def get_queryset(self, request):
         return super().get_queryset(request).select_related('user', 'branch')
