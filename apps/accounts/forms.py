@@ -14,6 +14,8 @@ from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 
 from apps.accounts.models import User, Appointment, ShortAppointment, SparePartAppointment, CallRequest
+from apps.promotions.models import Promotion
+from apps.services.models import Product
 from apps.site_settings.models import StaticInformation
 from utils.shortcuts import add_attrs
 
@@ -130,12 +132,19 @@ class AppointmentForm(forms.ModelForm):
 
         return form_data
 
+    def get_context(self, request):
+        site_name = StaticInformation.objects.get(key='site_name')
+        return {'site_name': site_name.value,
+                'referrer': request.META.get('HTTP_REFERER'),
+                **self.cleaned_data,
+                **self.extra_context}
+
     def send_mail(self, request):
         if not self.is_valid():
             raise ValueError('The form must be valid to send mails')
         branch = self.cleaned_data.get('branch')
-        site_name = StaticInformation.objects.get(key='site_name')
-        context = {'site_name': site_name.value, **self.cleaned_data, **self.extra_context}
+        context = self.get_context(request)
+
         send_mail(
             render_to_string(self.email_subject_template, context=context).replace('\n', ''),
             render_to_string(self.email_body_template, context=context),
@@ -155,13 +164,34 @@ class ShortAppointmentForm(AppointmentForm):
     email_body_template = 'accounts/emails/short_appointment/body.html'
     html_email_body_template = 'accounts/emails/short_appointment/html.html'
 
+    type_model_mapping = {
+        'promotion': ('Акцию', Promotion),
+        'product': ('Продукт', Product)
+    }
+
+    type = forms.ChoiceField(widget=forms.HiddenInput, choices=[(i, i) for i in type_model_mapping.keys()])
+    pk = forms.IntegerField(widget=forms.HiddenInput)
+
     text1 = forms.CharField(widget=forms.Textarea, required=False)  # Fake textarea to trap spam bots
     phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
 
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
+    def get_page_description(self) -> str:
+        """ Returns description related to page from which the form was submitted. I.e. if appointment was sent from Product#4's page,
+        the method will return 'Продукт "Product#4"'. If anything went wrong, ValidationError will be raised. """
+        pk = self.cleaned_data.get('pk')
+        name, Model = self.type_model_mapping.get(self.cleaned_data['type'])
+
+        instance = Model.objects.get(pk=pk)
+        return f'{name} "{instance.title}"'
+
     def send_mail(self, request):
-        self.extra_context = {'datetime': self.instance.datetime}
+        self.extra_context = {
+            'datetime': self.instance.datetime,
+            'service_description': self.get_page_description()
+        }
+
         return super().send_mail(request)
 
     def clean(self):
@@ -173,7 +203,7 @@ class ShortAppointmentForm(AppointmentForm):
         return form_data
 
     class Meta:
-        fields = ['full_name', 'phone', 'phone1', 'email', 'branch', 'text', 'captcha']
+        fields = ['full_name', 'phone', 'phone1', 'email', 'branch', 'text', 'captcha', 'type', 'pk']
         model = ShortAppointment
 
 

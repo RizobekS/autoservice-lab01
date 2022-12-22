@@ -4,15 +4,27 @@
 {% block title %}
     <p align="left"
        style="font-size:18px;line-height:24px;color:#030F1C;font-weight:bold;margin-top:0px;margin-bottom:8px;font-family:HelveticaNeue,sans-serif">
-        На сайте "{{ site_name }}" была зарегистрирована новая заявка.
+      На сайте "{{ site_name }}" была зарегистрирована новая заявка.
     </p>
-    <p align="left"
-       style="font-size:14px;line-height:20px;color:#9A9A9A;margin-top:0px;margin-bottom:30px;font-family:HelveticaNeue,sans-serif">
-        Вы получили это сообщение потому что ваша почта зарегистрирована в списке получателей для филиала "{{ branch.name }}".
-    </p>
+  <p align="left"
+     style="font-size:14px;line-height:20px;color:#9A9A9A;margin-top:0px;margin-bottom:30px;font-family:HelveticaNeue,sans-serif">
+    Вы получили это сообщение потому что ваша почта зарегистрирована в списке получателей для филиала "{{ branch.name }}".
+  </p>
 {% endblock %}
 
 {% block data %}
+  <tr style="border-collapse:collapse">
+    <td width="35%" style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <strong>Страница:</strong>
+    </td>
+    <td width="60%" style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      {% if referrer %}
+        <a href="{{ referrer }}">{{ referrer }}</a>
+      {% else %}
+        Недоступно
+      {% endif %}
+    </td>
+  </tr>
   <tr style="border-collapse:collapse">
     <td width="35%" style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
       <strong>Аккаунт пользователя:</strong>

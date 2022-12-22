@@ -2,6 +2,7 @@
 На сайт {{ site_name }} поступил новый заказ на звонок. Вы получили это сообщение потому что ваша почта зарегистрирована в списке получателей для филиала "{{ branch.name }}".
 --- Детали заявки ---
 
+Страница: {% if referrer %}{{ referrer }}{% else %}Недоступно{% endif %}
 Номер телефона: {{ phone }}
 Филиал: {{ branch.name }}
 Дата и время: {{ datetime|timezone:'Europe/Moscow'|date:"d E, Y" }}, {{ datetime|timezone:'Europe/Moscow'|time:"H:i" }}

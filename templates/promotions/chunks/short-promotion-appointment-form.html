@@ -6,6 +6,9 @@
   <form id="short-appointment-form" class="{% if form.errors or messages %}scroll-to{% endif %} c-mb-10 c-mb-md-20 c-gutter-20" method="POST" novalidate>
 
     {% csrf_token %}
+    <input type="hidden" name="{{ form.type.name }}" value="promotion">
+    <input type="hidden" name="{{ form.pk.name }}" value="{{ promotion.pk }}">
+
     {% non_field_errors form %}
     {% for message in messages %}<p class="{{ message.extra_tags }} font-weight-bold">{{ message }}</p>{% endfor %}
 
