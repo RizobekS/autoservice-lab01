@@ -96,6 +96,11 @@
                       {% field_errors form.text %}
                     </p>
 
+                    <div class="form-group">
+                      {{ form.captcha }}
+                      {% field_errors form.captcha %}
+                    </div>
+
                     <p class="privacy-policy small-text" style="font-size: 10px;">
                       Отправляя данные, я соглашаюсь с
                       <a class="link privacy-policy-trigger" target="_blank" style="text-decoration: underline;" href="#" data-toggle="modal" data-target="#modalPrivacyPolicy">

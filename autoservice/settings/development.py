@@ -1,8 +1,14 @@
+import environ
+
 # Python imports
 from os.path import join
 
 # project imports
 from .common import *
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 DEBUG = True
 
@@ -62,3 +68,6 @@ LOGGING = {
         }
     }
 }
+
+RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY')

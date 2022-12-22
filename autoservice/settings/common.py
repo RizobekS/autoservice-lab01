@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'haystack',  # Search API
     'clear_cache',  # manage.py command to clear all caches
     'adminsortable',  # Sorting admin records
+    'captcha',
 ]
 
 # Middlewares

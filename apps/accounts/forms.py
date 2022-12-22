@@ -1,3 +1,5 @@
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import \
@@ -113,6 +115,8 @@ class AppointmentForm(forms.ModelForm):
     datetime = forms.DateTimeField(input_formats=[*DateTimeFormatsIterator(), '%d.%m.%Y %H:%M'], required=False)
     phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
 
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['branch'].empty_label = 'Выберите СТО'
@@ -142,7 +146,7 @@ class AppointmentForm(forms.ModelForm):
         )
 
     class Meta:
-        fields = ('user', 'full_name', 'car', 'phone', 'branch', 'datetime')
+        fields = ('user', 'full_name', 'car', 'phone', 'branch', 'datetime', 'captcha')
         model = Appointment
 
 
@@ -154,6 +158,8 @@ class ShortAppointmentForm(AppointmentForm):
     text1 = forms.CharField(widget=forms.Textarea, required=False)  # Fake textarea to trap spam bots
     phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
 
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+
     def send_mail(self, request):
         self.extra_context = {'datetime': self.instance.datetime}
         return super().send_mail(request)
@@ -167,7 +173,7 @@ class ShortAppointmentForm(AppointmentForm):
         return form_data
 
     class Meta:
-        fields = ['full_name', 'phone', 'phone1', 'email', 'branch', 'text']
+        fields = ['full_name', 'phone', 'phone1', 'email', 'branch', 'text', 'captcha']
         model = ShortAppointment
 
 
@@ -179,6 +185,8 @@ class SparePartAppointmentForm(AppointmentForm):
     text1 = forms.CharField(widget=forms.Textarea, required=False)  # Fake textarea to trap spam bots
     phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
 
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+
     def send_mail(self, request):
         self.extra_context = {'datetime': self.instance.datetime}
         return super().send_mail(request)
@@ -192,7 +200,7 @@ class SparePartAppointmentForm(AppointmentForm):
         return form_data
 
     class Meta:
-        fields = ('full_name', 'phone', 'car', 'branch', 'vin', 'text')
+        fields = ('full_name', 'phone', 'car', 'branch', 'vin', 'text', 'captcha')
         model = SparePartAppointment
 
 
@@ -201,6 +209,8 @@ class CallRequestForm(AppointmentForm):
     email_body_template = 'accounts/emails/call_request/body.html'
     html_email_body_template = 'accounts/emails/call_request/html.html'
     phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
+
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
     def clean(self):
         form_data = self.cleaned_data
@@ -215,5 +225,5 @@ class CallRequestForm(AppointmentForm):
         return super().send_mail(request)
 
     class Meta:
-        fields = ('phone', 'phone1', 'branch')
+        fields = ('phone', 'phone1', 'branch', 'captcha')
         model = CallRequest

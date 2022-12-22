@@ -56,3 +56,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # how many days a password reset should work. I'd say even one day is too long
 PASSWORD_RESET_TIMEOUT_DAYS = 1
+
+RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY')
