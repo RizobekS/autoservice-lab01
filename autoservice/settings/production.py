@@ -7,7 +7,7 @@ env = environ.Env()
 environ.Env.read_env()
 
 # turn off all debugging
-DEBUG = True
+DEBUG = False
 
 # You will have to determine, which hostnames should be served by Django
 ALLOWED_HOSTS = [env('ALLOWED_HOST')]
