@@ -1,6 +1,14 @@
 {% load static %}
 {% load shortcuts %}
 {% load errors %}
+<script src="{% static 'js/custom/toast.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/toast.css' %}">
+
+<div id="appointment-toast">
+  <div id="img">✓</div>
+  <div id="desc">Заявка успешно отправлена!</div>
+</div>
+
 <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="modalAppointmentForm" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -11,10 +19,10 @@
         <h4 class="modal-title">Онлайн запись</h4>
       </div>
       <div class="modal-body">
-        <form method="POST" action="{% url 'accounts:pa:appointment:new' %}" class="form-register row c-gutter-0">
+        <form id="online-appointment-form" method="POST" action="{% url 'accounts:pa:appointment:new' %}" class="form-register row c-gutter-0" novalidate>
 
           {% csrf_token %}
-          {% non_field_errors form %}
+          {% non_field_errors appointment_form %}
           <div class="col-11 col-md-6">
             <div class="form-group has-placeholder form-group--datetime">
               <input name="{{ appointment_form.datetime.name }}" id="datetimepickerRegister" class="form-control" type="text" placeholder="Удобная дата и время"
@@ -53,7 +61,7 @@
 
             <div class="form-group">
               {{ appointment_form.captcha }}
-              {% field_errors form.captcha %}
+              {% field_errors appointment_form.captcha %}
             </div>
 
             <p class="privacy-policy mb-1 small-text text-center" style="font-size: 10px;">

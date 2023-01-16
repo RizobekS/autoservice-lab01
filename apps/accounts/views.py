@@ -5,8 +5,9 @@ from django.contrib.auth.views import LoginView as BaseLoginView, \
     PasswordResetView as BasePasswordResetView, \
     PasswordResetConfirmView as BasePasswordResetConfirmView, \
     PasswordResetDoneView as BasePasswordResetDoneView, redirect_to_login
-from django.http import HttpRequest, Http404, HttpResponse, HttpResponseRedirect
+from django.http import HttpRequest, Http404, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -86,18 +87,32 @@ class PasswordResetConfirmView(BasePasswordResetConfirmView, PageSettingsMixin):
 class SubmitAppointmentView(View):
 
     def post(self, request):
+        if not request.is_ajax():
+            raise Http404()
+
         data = self.request.POST.copy()
         data['user'] = self.request.user.id if self.request.user.is_authenticated else None
         form = AppointmentForm(data=data)
         if form.is_valid():
             form.send_mail(request)
             form.save()
-            if form.cleaned_data.get('user'):
-                return redirect('accounts:pa:appointment:list')
+
+            # Initial data for the form
+            if request.user.is_authenticated and request.user.carfilter_set.exists():
+                car = request.user.carfilter_set.select_related('vendor', 'model__vendor', 'year__model__vendor', 'modification__year__model__vendor').latest()
             else:
-                return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+                car = get_car_filter(request)
+
+            initial = {
+                'full_name': request.user.get_full_name() if request.user.is_authenticated else '',
+                'car': car.full_name() if car else '',
+            }
+
+            response = {'success': True, **initial}
         else:
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+            response = {'success': False, **form.errors}
+
+        return JsonResponse(response)
 
 
 # ####### PERSONAL AREA #########
