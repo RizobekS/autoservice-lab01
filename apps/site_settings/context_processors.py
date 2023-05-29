@@ -1,6 +1,7 @@
 from django.db.models import Prefetch
 
 from apps.cars.models import CarFilter
+from apps.editor_pages.models import EditorPage
 from apps.services.models import Section
 from apps.site_settings.models import StaticInformation, Branch, MenuServiceSorting
 from utils.car_filter import get_car_filter
@@ -18,6 +19,11 @@ def static_info(request):
         context['garage_cars'] = [car_filter] if car_filter else []
     context['garage_cars_count'] = len(context['garage_cars'])
 
+    context['footer_about'] = [(item.title, item.url)
+                               for item in EditorPage.objects.filter(active=True, show_in_footer=EditorPage.FOOTER_ABOUT)]
+    context['footer_additional_services'] = [(item.title, item.url)
+                                             for item in EditorPage.objects.filter(active=True, show_in_footer=EditorPage.FOOTER_ADDITIONAL_SERVICES)]
+
     return context
 
 
@@ -31,4 +37,9 @@ def menu_data(request):
     for root_sec in root_sections:
         queryset = root_sec.active_menusortingset
         objects[root_sec] = [item.instance for item in queryset if item.instance.active]
-    return {'menu_services': objects}
+
+    menu_editor_pages = [(item.title, item.url)
+                         for item in EditorPage.objects.filter(active=True, show_in_menu=True)]
+
+    return {'menu_services': objects,
+            'menu_editor_pages': menu_editor_pages}

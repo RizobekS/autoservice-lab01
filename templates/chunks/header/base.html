@@ -153,15 +153,20 @@ d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
                     <li class="{% is_active 'static:certificates' %}">
                       <a href="{% url 'static:certificates' %}">Сертификаты</a>
                     </li>
-                    <li class="{% is_active 'static:reviews' %}">
-                      <a href="{% url 'editor_pages:reviews' %}">Отзывы</a>
-                    </li>
+                    {#                    <li class="{% is_active 'static:reviews' %}">#}
+                    {#                      <a href="{% url 'editor_pages:reviews' %}">Отзывы</a>#}
+                    {#                    </li>#}
                     <li class="{% is_active 'work_gallery:list' %}">
                       <a href="{% url 'work_gallery:list' %}">Галерея работ</a>
                     </li>
                     <li class="{% is_active 'news:list' %}">
                       <a href="{% url 'news:list' %}">Новости</a>
                     </li>
+                    {% for title, url in menu_editor_pages %}
+                      <li>
+                        <a href="/{{ url }}">{{ title }}</a>
+                      </li>
+                    {% endfor %}
                   </ul>
                 </li>
                 <li class="{% is_active 'knowledge_base' %}">

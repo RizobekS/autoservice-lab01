@@ -12,7 +12,7 @@ class EditorPageView(DetailView, BreadcrumbsMixin):
     template_name = 'editor_pages/editor_page.html'
 
     def get_object(self, queryset=None):
-        return EditorPage.objects.get(active=True, url=self.url)
+        return EditorPage.objects.get(active=True, url=self.kwargs['url'])
 
     def get_current_breadcrumb(self) -> List[Breadcrumb]:
         return [Breadcrumb(self.object.title, '#')]
