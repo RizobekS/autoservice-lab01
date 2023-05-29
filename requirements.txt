@@ -15,10 +15,11 @@ django-haystack==3.0
 django-image-cropping==1.5.0
 django-js-asset==1.2.2
 django-nested-inline==0.4.3
+django-recaptcha==3.0.0
 easy-thumbnails==2.7.1
 idna==3.2
-mysqlclient @ file:///D:/Coding/Work/Autoservice/mysqlclient-1.4.6-cp37-cp37m-win32.whl
-Pillow==8.2.0
+mysqlclient==2.1.1
+Pillow==9.5.0
 PyMySQL==1.0.2
 pytz==2021.1
 requests==2.26.0
@@ -27,6 +28,7 @@ soupsieve==2.2.1
 sqlparse==0.4.1
 transliterate==1.10.2
 typing-extensions==3.10.0.0
+tzdata==2023.3
 urllib3==1.26.6
 Whoosh==2.7.4
 XlsxWriter==3.0.3
