@@ -44,7 +44,7 @@ urlpatterns = [
 
     # This is the last one, because it can intercept other urls
     path('', include('apps.services.urls', namespace='services')),
-    path('pages/', include('apps.editor_pages.urls', namespace='editor_pages')),
+    path('', include('apps.editor_pages.urls', namespace='editor_pages')),
 ]
 
 if settings.DEBUG:
