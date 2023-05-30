@@ -35,7 +35,7 @@
           <ul>
             {% for title, url in footer_about %}
               <li>
-                <a href="/{{ url }}"><i class="ico-check-circle"></i>{{ title }}</a>
+                <a href="{% url 'editor_pages:editor_page' url %}"><i class="ico-check-circle"></i>{{ title }}</a>
               </li>
             {% endfor %}
           </ul>
@@ -47,7 +47,7 @@
           <ul>
             {% for title, url in footer_additional_services %}
               <li>
-                <a href="/{{ url }}"><i class="ico-check-circle"></i>{{ title }}</a>
+                <a href="{% url 'editor_pages:editor_page' url %}"><i class="ico-check-circle"></i>{{ title }}</a>
               </li>
             {% endfor %}
             <li>

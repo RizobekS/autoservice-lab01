@@ -34,7 +34,6 @@ urlpatterns = [
     path('about/', include('apps.about.urls', namespace='about')),
     path('news/', include('apps.news.urls', namespace='news')),
     path('', include('apps.knowledge_base.urls', namespace='knowledge_base')),
-    path('', include('apps.editor_pages.urls', namespace='editor_pages')),
 
     path('', include((static_urlpatterns, 'static'), namespace='static')),
 
@@ -45,6 +44,7 @@ urlpatterns = [
 
     # This is the last one, because it can intercept other urls
     path('', include('apps.services.urls', namespace='services')),
+    path('pages/', include('apps.editor_pages.urls', namespace='editor_pages')),
 ]
 
 if settings.DEBUG:
