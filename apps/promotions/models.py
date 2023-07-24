@@ -4,6 +4,7 @@ from django.db import models
 from django.urls import reverse
 from image_cropping import ImageRatioField
 
+from apps.promotions.templatetags.promotions_url import get_promotion_url
 from apps.tags.models import Tag
 from utils.helpers import format_price
 
@@ -32,7 +33,9 @@ class Category(models.Model):
 
 
 class Promotion(models.Model):
-    CEO_HELP_TEXT = 'Оставьте поле пустым чтобы использовать маску категории или стандартную маску.'
+    SEO_HELP_TEXT = 'Оставьте поле пустым чтобы использовать маску категории или стандартную маску.'
+    URL_MAX_LENGTH = 2083
+    ABSOLUTE_URL_HELP_TEXT = 'Если заполнить это поле, оно будет использоваться вместо поля "URL акции"'
     IS_SALE_CHOICES = (
         (True, 'Скидка'),
         (False, 'Цена')
@@ -40,6 +43,7 @@ class Promotion(models.Model):
 
     title = models.CharField('Название акции', max_length=500)
     url = AutoSlugField(verbose_name='URL акции', unique=True, populate_from='title', editable=True, max_length=120)
+    absolute_url = models.CharField('Абсолютный URL', null=True, blank=True, help_text=ABSOLUTE_URL_HELP_TEXT, max_length=URL_MAX_LENGTH)
 
     tags = models.ManyToManyField(verbose_name='Тэги', to=Tag, blank=True)
     category = models.ForeignKey(verbose_name='Категория (Тип)', to=Category, on_delete=models.SET_NULL, null=True, blank=True)
@@ -66,11 +70,11 @@ class Promotion(models.Model):
     articles = models.ManyToManyField(verbose_name='Привязанные статьи', to='news.Article', blank=True)
     products = models.ManyToManyField(verbose_name='Привязанные услуги', to='services.Product', blank=True)
 
-    meta_title = models.CharField('Заголовок <title>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
-    meta_header = models.CharField('Заголовок <h1>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
-    meta_description = models.TextField('Meta description', help_text=CEO_HELP_TEXT, null=True, blank=True)
-    meta_keywords = models.TextField('Meta keywords', help_text=CEO_HELP_TEXT, null=True, blank=True)
-    meta_robots = models.TextField('Meta robots', help_text=CEO_HELP_TEXT, null=True, blank=True)
+    meta_title = models.CharField('Заголовок <title>', help_text=SEO_HELP_TEXT, max_length=200, blank=True)
+    meta_header = models.CharField('Заголовок <h1>', help_text=SEO_HELP_TEXT, max_length=200, blank=True)
+    meta_description = models.TextField('Meta description', help_text=SEO_HELP_TEXT, null=True, blank=True)
+    meta_keywords = models.TextField('Meta keywords', help_text=SEO_HELP_TEXT, null=True, blank=True)
+    meta_robots = models.TextField('Meta robots', help_text=SEO_HELP_TEXT, null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -91,7 +95,7 @@ class Promotion(models.Model):
         return ', '.join(item.name for item in self.tags.all())
 
     def reverse_url(self):
-        return reverse('promotions:promotion', args=(self.url,))
+        return get_promotion_url(self)
 
     def get_absolute_url(self):
         return reverse('promotions:promotion', args=(self.url,))

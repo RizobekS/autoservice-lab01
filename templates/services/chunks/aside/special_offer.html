@@ -1,3 +1,4 @@
+{% load promotions_url %}
 {% if promotions %}
 
   {% load cropping %}
@@ -11,7 +12,7 @@
       {% for item in promotions %}
 
         <li class="media align-items-center">
-          <a class="media-image" href="{% url 'promotions:promotion' item.url %}">
+          <a class="media-image" href="{% get_promotion_url item %}">
             <img src="{% cropped_thumbnail item 'icon_thumbnail' %}" alt="{{ item.title }}">
           </a>
 
@@ -23,7 +24,7 @@
 
           <div class="media-body">
             <h4>
-              <a href="{% url 'promotions:promotion' item.url %}">{{ item.title }}</a>
+              <a href="{% get_promotion_url item %}">{{ item.title }}</a>
             </h4>
             <p class="item-meta"><i class="ico-clock-alt color-main"></i>
               {{ item.date|date_delta }}

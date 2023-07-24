@@ -12,7 +12,8 @@ class PromotionAdminForm(forms.ModelForm):
         self.fields['products'].queryset = self.fields['products'].queryset.order_by('title')
 
     class Meta:
-        fields = ('title', 'url', 'active', 'tags', 'date', 'image', 'thumbnail', 'icon_thumbnail', 'show_at_homepage', 'homepage_description', 'short_description', 'text')
+        fields = (
+        'title', 'url', 'absolute_url', 'active', 'tags', 'date', 'image', 'thumbnail', 'icon_thumbnail', 'show_at_homepage', 'homepage_description', 'short_description', 'text')
         widgets = {
             'title': forms.TextInput(attrs={'style': 'width: 400px;'}),
             'url': forms.TextInput(attrs={'style': 'width: 400px;'}),

@@ -38,8 +38,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Promotion)
 class PromotionAdmin(ImageCroppingMixin, admin.ModelAdmin):
-    list_display = ('title', 'url', 'active', 'category', 'tag_string', 'verbose_price', 'date', 'show_at_homepage')
-    list_editable = ('show_at_homepage',)
+    list_display = ('title', 'url', 'absolute_url', 'active', 'category', 'tag_string', 'verbose_price', 'date', 'show_at_homepage')
+    list_editable = ('show_at_homepage', 'absolute_url', 'active')
     list_filter = ('active', 'category', 'tags', 'date', 'fixed_price')
     search_fields = ('title', 'short_description', 'homepage_description', 'text')
     actions = (activate, deactivate, clone)
@@ -49,7 +49,7 @@ class PromotionAdmin(ImageCroppingMixin, admin.ModelAdmin):
     radio_fields = {'sale': admin.HORIZONTAL}
     filter_horizontal = ('articles', 'products')
     fieldsets = (
-        (None, {'fields': (('title', 'url'), 'active', 'category', 'tags', 'specific_branch', 'date', 'sale', ('price', 'fixed_price'))}),
+        (None, {'fields': (('title', 'url', 'absolute_url'), 'active', 'category', 'tags', 'specific_branch', 'date', 'sale', ('price', 'fixed_price'))}),
         ('Привязка к Статьям и Услугам', {'fields': ('articles', 'products'), 'classes': ['collapse']}),
         ('Изображение', {'fields': ('image', 'thumbnail', 'icon_thumbnail'), 'classes': ['wide']}),
         ('Главная страница', {'fields': ('show_at_homepage', 'homepage_description'), 'classes': ['wide', 'collapse']}),
