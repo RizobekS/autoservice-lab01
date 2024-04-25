@@ -13,7 +13,7 @@
             </h5>
           </div>
 
-          {% if item.price %}
+          {% if item.price is not None %}
             <div class="plan-description">
               <h6 class="fw-300 text-uppercase">{% if item.sale %}скидка{% endif %} {% if not item.fixed_price %}{{ item.sale|yesno:"До,От" }}{% endif %}</h6>
             </div>
