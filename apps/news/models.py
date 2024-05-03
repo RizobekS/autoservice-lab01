@@ -76,7 +76,7 @@ class Comment(models.Model):
     article = models.ForeignKey(verbose_name='Статья/Новость', help_text='Статья/Новость, под которой был оставлен комментарий', to=Article, on_delete=models.CASCADE)
     reply_to = models.ForeignKey(verbose_name='Ответ на комментарий', to='Comment', on_delete=models.CASCADE, null=True, blank=True)
     date = models.DateTimeField('Дата создания', auto_now_add=True)
-    visible = models.BooleanField('Отображение', help_text='Снимите галочку вместо удаления.', default=True)
+    visible = models.BooleanField('Отображение', help_text='Снимите галочку вместо удаления.', default=False)
 
     text = models.CharField('Текст комментария', max_length=2000)
 

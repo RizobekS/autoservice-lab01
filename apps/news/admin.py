@@ -53,7 +53,8 @@ class ArticleAdmin(ImageCroppingMixin, admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('admin_title', 'author_link', 'article_link', 'reply_to_link', 'deepcount', 'date', 'visible')
-    list_filter = ('visible', 'date', 'article', 'author')
+    list_filter = ('visible', 'date', 'article')
+    actions = ('hide', 'reveal')
 
     @admin.display(description='')
     def admin_title(self, obj):
@@ -73,3 +74,15 @@ class CommentAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         return super().get_queryset(request).select_related('author', 'article', 'reply_to')
+
+    @admin.display(description='Скрыть')
+    def hide(self, request, queryset):
+        updated = queryset.update(visible=False)
+        self.message_user(request, ngettext('%d комментарий был успешно скрыт.', '%d комментариев были успешно скрыты.',
+                                            updated) % updated, messages.SUCCESS)
+
+    @admin.display(description='Сделать видимыми')
+    def reveal(self, request, queryset):
+        updated = queryset.update(visible=True)
+        self.message_user(request, ngettext('%d комментарий был успешно сделан видимым.', '%d комментариев были успешно сделаны видимыми.',
+                                            updated) % updated, messages.SUCCESS)
