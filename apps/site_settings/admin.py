@@ -2,7 +2,7 @@ from adminsortable.admin import SortableAdmin
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from apps.site_settings.models import EmailReceiver, Branch, StaticInformation, CEOSetting, MenuServiceSorting
+from apps.site_settings.models import EmailReceiver, Branch, StaticInformation, CEOSetting, MenuServiceSorting, BodyRepairEmailReceiver
 from utils.admin_actions import activate, deactivate, clone
 
 admin.site.site_header = 'EuroRepar - Админ панель'
@@ -23,18 +23,21 @@ class StaticInformationAdmin(admin.ModelAdmin):
         return False
 
 
-class EmailReceiverInlineAdmin(admin.StackedInline):
-    extra = 1
-    model = EmailReceiver
-
-
 @admin.register(Branch)
 class BranchAdmin(admin.ModelAdmin):
+    class EmailReceiverInlineAdmin(admin.StackedInline):
+        extra = 1
+        model = EmailReceiver
+
+    class BodyRepairEmailReceiverInlineAdmin(admin.StackedInline):
+        extra = 1
+        model = BodyRepairEmailReceiver
+
     list_display = ('name', 'active', 'address', 'phone', 'receivers_string')
     list_filter = ('active',)
     actions = (activate, deactivate, clone)
 
-    inlines = (EmailReceiverInlineAdmin,)
+    inlines = (EmailReceiverInlineAdmin, BodyRepairEmailReceiverInlineAdmin)
 
     @admin.display(description='Получатели эл. сообщений')
     def receivers_string(self, obj):

@@ -141,17 +141,21 @@ class AppointmentForm(forms.ModelForm):
                 **self.cleaned_data,
                 **self.extra_context}
 
+    def get_receivers(self):
+        branch = self.cleaned_data.get('branch')
+        return branch.get_email_list()
+
     def send_mail(self, request):
         if not self.is_valid():
             raise ValueError('The form must be valid to send mails')
-        branch = self.cleaned_data.get('branch')
+        receivers = self.get_receivers()
         context = self.get_context(request)
 
         send_mail(
             render_to_string(self.email_subject_template, context=context).replace('\n', ''),
             render_to_string(self.email_body_template, context=context),
             settings.DEFAULT_FROM_EMAIL,
-            branch.get_email_list(),
+            receivers,
             fail_silently=True,
             html_message=render_to_string(self.html_email_body_template, context, request=request) if self.html_email_body_template else None
         )
@@ -272,6 +276,10 @@ class BodyRepairAppointmentForm(AppointmentForm):
             'images': self.instance.images.all(),
         })
         return super().send_mail(request)
+
+    def get_receivers(self):
+        branch = self.cleaned_data.get('branch')
+        return branch.get_body_repair_email_list()
 
     class Meta:
         model = BodyRepairAppointment

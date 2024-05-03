@@ -7,10 +7,9 @@ from django.db import models
 from apps.services.utils.help_text import ACTIVE_HELP_TEXT
 
 
-class EmailReceiver(models.Model):
+class BaseEmailReceiver(models.Model):
     name = models.CharField('Имя получателя', max_length=200, null=True, blank=True)
     emails = models.CharField('Эл. почта', max_length=512)
-    foreign_key = models.ForeignKey(verbose_name='Относится к филиалу', to='Branch', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.emails
@@ -20,8 +19,24 @@ class EmailReceiver(models.Model):
         return [item.strip() for item in emails]
 
     class Meta:
+        abstract = True
+
+
+class EmailReceiver(BaseEmailReceiver):
+    foreign_key = models.ForeignKey(verbose_name='Относится к филиалу', to='Branch', on_delete=models.CASCADE)
+
+    class Meta:
         verbose_name = 'Эл. почта получателя'
         verbose_name_plural = 'Эл. почты получателей'
+
+
+class BodyRepairEmailReceiver(BaseEmailReceiver):
+    foreign_key = models.ForeignKey(verbose_name='Относится к филиалу', to='Branch', on_delete=models.CASCADE,
+                                    related_name='body_repair_emails')
+
+    class Meta:
+        verbose_name = 'Эл. почта получателя малярки'
+        verbose_name_plural = 'Эл. почты получателей малярки'
 
 
 class Branch(models.Model):
@@ -35,6 +50,10 @@ class Branch(models.Model):
 
     def get_email_list(self):
         list_of_lists = [item.get_email_list() for item in self.emailreceiver_set.all()]
+        return list(chain(*list_of_lists))
+
+    def get_body_repair_email_list(self):
+        list_of_lists = [item.get_email_list() for item in self.body_repair_emails.all()]
         return list(chain(*list_of_lists))
 
     class Meta:
