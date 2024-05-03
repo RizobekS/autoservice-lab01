@@ -275,8 +275,8 @@ class BodyRepairAppointmentForm(AppointmentForm):
 
     class Meta:
         model = BodyRepairAppointment
-        fields = ['car', 'description', 'branch', 'full_name', 'phone'
-                                                               'captcha']
+        fields = ['car', 'description', 'branch', 'full_name', 'phone',
+                  'captcha']
 
 
 BodyRepairAppointmentImageFormSet = inlineformset_factory(
