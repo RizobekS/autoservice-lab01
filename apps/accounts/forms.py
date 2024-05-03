@@ -266,8 +266,6 @@ class BodyRepairAppointmentForm(AppointmentForm):
     email_body_template = 'accounts/emails/body_repair_appointment/body.html'
     html_email_body_template = 'accounts/emails/body_repair_appointment/html.html'
 
-    captcha = None
-
     def send_mail(self, request):
         self.extra_context.update({
             'datetime': self.instance.datetime,
@@ -278,8 +276,7 @@ class BodyRepairAppointmentForm(AppointmentForm):
     class Meta:
         model = BodyRepairAppointment
         fields = ['car', 'description', 'branch', 'full_name', 'phone'
-                  # 'captcha'
-                  ]
+                                                               'captcha']
 
 
 BodyRepairAppointmentImageFormSet = inlineformset_factory(

@@ -125,13 +125,9 @@ class BodyRepairAppointmentView(View, PageSettingsMixin):
         form = BodyRepairAppointmentForm(request.POST.copy())
         if form.is_valid():
             appointment = form.save()
-            print(appointment)
             formset = BodyRepairAppointmentImageFormSet(request.POST.copy(), request.FILES.copy(), instance=appointment)
 
             if formset.is_valid():
-                print(request.POST)
-                print(request.FILES)
-                print(formset.cleaned_data)
                 formset.save()
                 form.send_mail(self.request)
                 messages.success(self.request, 'Заявка была успешно отправлена ✔', extra_tags='text-success')
@@ -141,8 +137,5 @@ class BodyRepairAppointmentView(View, PageSettingsMixin):
                 formset = BodyRepairAppointmentImageFormSet(request.POST, request.FILES)
         else:
             formset = BodyRepairAppointmentImageFormSet(request.POST, request.FILES)
-
-        print(form.errors)
-        print(formset.errors)
 
         return render(request, 'promotions/body_repair_appointment.html', {'form': form, 'formset': formset})
