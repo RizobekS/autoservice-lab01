@@ -132,3 +132,10 @@ class BodyRepairAppointmentImage(models.Model):
     appointment = models.ForeignKey(verbose_name='Заявка на кузовной ремонт', to='accounts.BodyRepairAppointment',
                                     on_delete=models.CASCADE, related_name='images')
     image = models.ImageField('Изображение', upload_to='body_repair_appointments/')
+
+    def __str__(self):
+        return f'Изображение с "{self.appointment}"'
+
+    class Meta:
+        verbose_name = 'Изображение'
+        verbose_name_plural = 'Изображения'
