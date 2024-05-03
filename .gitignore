@@ -24,3 +24,7 @@ coverage_html
 
 # Do not track environment varibles file
 .env
+
+venv
+dumps
+temp.*

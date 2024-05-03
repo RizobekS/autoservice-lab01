@@ -1,9 +1,13 @@
 from typing import Any, Dict
 
+from django.contrib import messages
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.html import strip_tags
+from django.views import View
 from django.views.generic import DetailView, TemplateView
 
+from apps.accounts.forms import BodyRepairAppointmentForm, BodyRepairAppointmentImageFormSet
 from apps.accounts.utils.mixins import ShortAppointmentMixin
 from apps.promotions.models import Promotion, Category
 from apps.promotions.utils.mixins import PromotionsMixin
@@ -101,3 +105,44 @@ class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMix
 
     def get_context_data(self, **kwargs):
         return super().get_context_data(categories=Category.objects.all(), **kwargs)
+
+
+class BodyRepairAppointmentView(View, PageSettingsMixin):
+    template_name = 'services/spare_parts.html'
+
+    def get(self, request):
+        form = BodyRepairAppointmentForm()
+        formset = BodyRepairAppointmentImageFormSet()
+
+        context = {
+            'form': form,
+            'formset': formset
+        }
+
+        return render(request, 'promotions/body_repair_appointment.html', context=context)
+
+    def post(self, request, *args, **kwargs):
+        form = BodyRepairAppointmentForm(request.POST.copy())
+        if form.is_valid():
+            appointment = form.save()
+            print(appointment)
+            formset = BodyRepairAppointmentImageFormSet(request.POST.copy(), request.FILES.copy(), instance=appointment)
+
+            if formset.is_valid():
+                print(request.POST)
+                print(request.FILES)
+                print(formset.cleaned_data)
+                formset.save()
+                form.send_mail(self.request)
+                messages.success(self.request, 'Заявка была успешно отправлена ✔', extra_tags='text-success')
+                return redirect('promotions:body-repair-appointment')
+            else:
+                form = BodyRepairAppointmentForm(request.POST, request.FILES)
+                formset = BodyRepairAppointmentImageFormSet(request.POST, request.FILES)
+        else:
+            formset = BodyRepairAppointmentImageFormSet(request.POST, request.FILES)
+
+        print(form.errors)
+        print(formset.errors)
+
+        return render(request, 'promotions/body_repair_appointment.html', {'form': form, 'formset': formset})

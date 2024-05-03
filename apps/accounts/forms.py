@@ -9,11 +9,12 @@ from django.contrib.auth.forms import \
     PasswordResetForm as BasePasswordResetForm, SetPasswordForm
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
+from django.forms import inlineformset_factory
 from django.forms.fields import DateTimeFormatsIterator
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
 
-from apps.accounts.models import User, Appointment, ShortAppointment, SparePartAppointment, CallRequest
+from apps.accounts.models import User, Appointment, ShortAppointment, SparePartAppointment, CallRequest, BodyRepairAppointment, BodyRepairAppointmentImage
 from apps.promotions.models import Promotion
 from apps.services.models import Product
 from apps.site_settings.models import StaticInformation
@@ -136,6 +137,7 @@ class AppointmentForm(forms.ModelForm):
         site_name = StaticInformation.objects.get(key='site_name')
         return {'site_name': site_name.value,
                 'referrer': request.META.get('HTTP_REFERER'),
+                'request': request,
                 **self.cleaned_data,
                 **self.extra_context}
 
@@ -218,7 +220,7 @@ class SparePartAppointmentForm(AppointmentForm):
     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
     def send_mail(self, request):
-        self.extra_context = {'datetime': self.instance.datetime}
+        self.extra_context.update({'datetime': self.instance.datetime})
         return super().send_mail(request)
 
     def clean(self):
@@ -251,9 +253,38 @@ class CallRequestForm(AppointmentForm):
         return form_data
 
     def send_mail(self, request):
-        self.extra_context = {'datetime': self.instance.datetime}
+        self.extra_context.update({'datetime': self.instance.datetime})
         return super().send_mail(request)
 
     class Meta:
         fields = ('phone', 'phone1', 'branch', 'captcha')
         model = CallRequest
+
+
+class BodyRepairAppointmentForm(AppointmentForm):
+    email_subject_template = 'accounts/emails/body_repair_appointment/subject.html'
+    email_body_template = 'accounts/emails/body_repair_appointment/body.html'
+    html_email_body_template = 'accounts/emails/body_repair_appointment/html.html'
+
+    captcha = None
+
+    def send_mail(self, request):
+        self.extra_context.update({
+            'datetime': self.instance.datetime,
+            'images': self.instance.images.all(),
+        })
+        return super().send_mail(request)
+
+    class Meta:
+        model = BodyRepairAppointment
+        fields = ['car', 'description', 'branch', 'full_name', 'phone'
+                  # 'captcha'
+                  ]
+
+
+BodyRepairAppointmentImageFormSet = inlineformset_factory(
+    BodyRepairAppointment,
+    BodyRepairAppointmentImage,
+    fields=('image',),
+    extra=1
+)

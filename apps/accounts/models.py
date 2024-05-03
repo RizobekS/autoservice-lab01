@@ -109,3 +109,26 @@ class CallRequest(models.Model):
     class Meta:
         verbose_name = 'Заказ на звонок'
         verbose_name_plural = 'Заказы на звонок'
+
+
+class BodyRepairAppointment(models.Model):
+    car = models.CharField('Автомобиль', max_length=400, null=True, blank=True)
+    description = models.TextField('Описание')
+    branch = models.ForeignKey(verbose_name='Филиал', to='site_settings.Branch', on_delete=models.RESTRICT)
+    full_name = models.CharField('Полное имя', max_length=256)
+    phone = models.CharField('Телефон', max_length=26)
+    datetime = models.DateTimeField('Дата и время создания заявки', auto_now_add=True)
+
+    def __str__(self):
+        return f'Заявка на оценку кузовного ремонта от {self.full_name} ({self.datetime.strftime("%m/%d/%Y, %H:%M")})' \
+            if self.datetime else f'Заявка на оценку кузовного ремонта от {self.full_name}'
+
+    class Meta:
+        verbose_name = 'Заявка на оценку кузовного ремонта'
+        verbose_name_plural = 'Заявки на оценку кузовного ремонта'
+
+
+class BodyRepairAppointmentImage(models.Model):
+    appointment = models.ForeignKey(verbose_name='Заявка на кузовной ремонт', to='accounts.BodyRepairAppointment',
+                                    on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField('Изображение', upload_to='body_repair_appointments/')

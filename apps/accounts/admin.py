@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext as _
 
-from .models import User, Appointment, ShortAppointment, SparePartAppointment, CallRequest
+from .models import User, Appointment, ShortAppointment, SparePartAppointment, CallRequest, BodyRepairAppointment, BodyRepairAppointmentImage
 
 
 @admin.register(User)
@@ -41,6 +41,21 @@ class ShortAppointmentAdmin(admin.ModelAdmin):
 class SparePartAppointmentAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'phone', 'car', 'vin', 'branch', 'datetime')
     list_filter = ('branch', 'datetime')
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('branch')
+
+
+@admin.register(BodyRepairAppointment)
+class BodyRepairAppointmentAdmin(admin.ModelAdmin):
+    class ImageInline(admin.TabularInline):
+        model = BodyRepairAppointmentImage
+        extra = 0
+
+    list_display = ('full_name', 'phone', 'car', 'branch', 'datetime')
+    list_filter = ('branch', 'datetime')
+
+    inlines = [ImageInline]
 
     def get_queryset(self, request):
         return super().get_queryset(request).select_related('branch')

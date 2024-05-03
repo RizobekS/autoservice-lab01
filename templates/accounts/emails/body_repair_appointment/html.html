@@ -1,0 +1,85 @@
+{% extends 'accounts/emails/base.html' %}
+{% load tz %}
+{% load admin_reverse %}
+
+{% block title %}
+  <p align="left"
+     style="font-size:18px;line-height:24px;color:#030F1C;font-weight:bold;margin-top:0px;margin-bottom:8px;font-family:HelveticaNeue,sans-serif">
+    На сайте "{{ site_name }}" была зарегистрирована новая заявка на запчасти.
+  </p>
+{% endblock %}
+
+{% block data %}
+  <tr style="border-collapse:collapse">
+    <td width="35%" style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <strong>Страница:</strong>
+    </td>
+    <td width="60%" style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      {% if referrer %}
+        <a href="{{ referrer }}">{{ referrer }}</a>
+      {% else %}
+        Недоступно
+      {% endif %}
+    </td>
+  </tr>
+  <tr style="border-collapse:collapse">
+    <td width="35%" style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <strong>Указанное полное имя:</strong>
+    </td>
+    <td width="60%" style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      {{ full_name }}
+    </td>
+  </tr>
+  <tr style="border-collapse:collapse">
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <strong>Номер телефона:</strong>
+    </td>
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <a href="http://openweblife.createsend4.com/t/d-i-ftrgl-l-n/" value="{{ phone }}"
+         style="color:#0078be;font-weight:bold;text-decoration:none" target="_blank">{{ phone }}</a>
+    </td>
+  </tr>
+  <tr style="border-collapse:collapse">
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <strong>Автомобиль</strong>
+    </td>
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      {{ car|default:'-' }}
+    </td>
+  </tr>
+  <tr style="border-collapse:collapse">
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <strong>Филиал:</strong>
+    </td>
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      {{ branch.name }}
+    </td>
+  </tr>
+  <tr style="border-collapse:collapse">
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <strong>Описание</strong>
+    </td>
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      {{ description|default:'-' }}
+    </td>
+  </tr>
+  {% for obj in images %}
+    <tr style="border-collapse:collapse">
+      <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+        <strong>Изображение #{{ forloop.counter }}</strong>
+      </td>
+      <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+        <a href="{{ request.scheme }}://
+          {{ request.get_host }}{{ obj.image.url }}">{{ request.scheme }}://{{ request.get_host }}{{ obj.image.url }}</a>
+      </td>
+    </tr>
+  {% endfor %}
+  <tr style="border-collapse:collapse">
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      <strong>Дата и время создания заявки:</strong>
+    </td>
+    <td style="font-family:HelveticaNeue,sans-serif;border-collapse:collapse">
+      {{ datetime|timezone:'Europe/Moscow'|date:"d E, Y" }}, {{ datetime|timezone:'Europe/Moscow'|time:"H:i" }}
+    </td>
+  </tr>
+{% endblock %}

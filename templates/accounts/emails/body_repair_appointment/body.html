@@ -1,0 +1,18 @@
+{% load tz %}
+На сайте {{ site_name }} была зарегистрирована новая заявка на оценку кузовного ремонта
+
+--- Детали заявки ---
+
+Страница: {% if referrer %}{{ referrer }}{% else %}Недоступно{% endif %}
+Полное имя: {{ full_name }}
+Номер телефона: {{ phone }}
+Автомобиль: {{ car|default:'-' }}
+Филиал: {{ branch.name }}
+Описание задачи:
+{{ description|default:'-' }}
+Изображения:
+{% for obj in images %}
+  {{ request.scheme }}://{{ request.get_host }}{{ obj.image.url }}
+{% endfor %}
+
+Дата и время создания заявки: {{ datetime|timezone:'Europe/Moscow'|date:"d E, Y" }}, {{ datetime|timezone:'Europe/Moscow'|time:"H:i" }}
