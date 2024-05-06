@@ -55,6 +55,7 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('admin_title', 'author_link', 'article_link', 'reply_to_link', 'deepcount', 'date', 'visible')
     list_filter = ('visible', 'date', 'article')
     actions = ('hide', 'reveal')
+    list_per_page = 10_000
 
     @admin.display(description='')
     def admin_title(self, obj):
