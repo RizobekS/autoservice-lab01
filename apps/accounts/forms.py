@@ -17,7 +17,7 @@ from django.utils.translation import gettext as _
 from apps.accounts.models import User, Appointment, ShortAppointment, SparePartAppointment, CallRequest, BodyRepairAppointment, BodyRepairAppointmentImage
 from apps.promotions.models import Promotion
 from apps.services.models import Product
-from apps.site_settings.models import StaticInformation
+from apps.site_settings.models import StaticInformation, Branch
 from utils.shortcuts import add_attrs
 
 
@@ -269,6 +269,11 @@ class BodyRepairAppointmentForm(AppointmentForm):
     email_subject_template = 'accounts/emails/body_repair_appointment/subject.html'
     email_body_template = 'accounts/emails/body_repair_appointment/body.html'
     html_email_body_template = 'accounts/emails/body_repair_appointment/html.html'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['branch'].queryset = Branch.objects.filter(body_repair_emails__isnull=False)
 
     def send_mail(self, request):
         self.extra_context.update({
