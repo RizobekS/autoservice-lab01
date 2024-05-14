@@ -114,6 +114,7 @@ class Year(models.Model):
     year = models.PositiveSmallIntegerField('Год выпуска')
 
     model = models.ForeignKey(verbose_name='Модель', to='Model', on_delete=models.CASCADE)
+    active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления', default=True)
 
     def __str__(self):
         return f'{self.model.vendor.name} - {self.model.name} - {self.year}'
@@ -147,6 +148,7 @@ class Modification(models.Model):
     name = models.CharField('Название модификации', max_length=200)
     full_name = models.CharField('Полное название автомобиля', max_length=640, null=True, blank=True)
     year = models.ForeignKey(verbose_name='Года выпуска', to='Year', on_delete=models.CASCADE)
+    active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления', default=True)
 
     def __str__(self):
         if not self.full_name:

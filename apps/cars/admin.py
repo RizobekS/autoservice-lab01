@@ -78,7 +78,7 @@ class ModelAdmin(ImageCroppingMixin, NestedModelAdmin):
             return mark_safe(', '.join([f'{year.year} <span style="color: grey">({year.modification_set.count()})</span>' for year in years.all()]))
 
     def get_queryset(self, request):
-        return super().get_queryset(request).select_related('vendor').prefetch_related('year_set__modification_set').annotate(year_count=Count('year'))
+        return super().get_queryset(request).filter(vendor__active=True).select_related('vendor').prefetch_related('year_set__modification_set').annotate(year_count=Count('year'))
 
     class Media:
         css = {
