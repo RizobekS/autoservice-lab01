@@ -48,12 +48,13 @@ class VendorAdmin(ImageCroppingMixin, admin.ModelAdmin):
 
 
 class ModificationNestedInline(NestedStackedInline):
-    fields = ('name',)
+    fields = ('name', 'active')
     model = Modification
     extra = 1
 
 
 class YearInline(NestedStackedInline):
+    fields = ('year', 'active')
     model = Year
     inlines = (ModificationNestedInline,)
     extra = 1
