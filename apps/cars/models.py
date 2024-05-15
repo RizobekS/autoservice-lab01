@@ -103,6 +103,9 @@ class Model(models.Model):
     def ceo_context(self):
         return {'vendor': self.vendor.name, 'model': self.name}
 
+    def active_year_set(self):
+        return self.year_set.filter(active=True)
+
     class Meta:
         ordering = ('vendor',)
         indexes = (models.Index(fields=('active',)),)
@@ -137,6 +140,9 @@ class Year(models.Model):
 
     def ceo_context(self):
         return {'vendor': self.model.vendor.name, 'model': self.model.name, 'year': self.name}
+
+    def active_modification_set(self):
+        return self.modification_set.filter(active=True)
 
     class Meta:
         indexes = (models.Index(fields=('year',)),)
