@@ -18,16 +18,12 @@ def time_delta(date: datetime.datetime):
 
     now = timezone.now()
 
-    if now.year == date.year:
-        if date > now - timedelta(days=1):
-            hours = round((now - date).seconds / 3600)
-            if hours == 0:
-                return "менее часа назад"
-            else:
-                return get_ending(hours, ('час назад', 'часа назад', 'часов назад'))
+    if date > now - timedelta(days=1):
+        hours = round((now - date).seconds / 3600)
+        if hours == 0:
+            return "менее часа назад"
         else:
-            date_string = date.strftime("%d {}")
-            return date_string.format(MONTHS[date.month - 1])
+            return get_ending(hours, ('час назад', 'часа назад', 'часов назад'))
     else:
         date_string = date.strftime("%d {} %Y")
         return date_string.format(MONTHS[date.month - 1])
