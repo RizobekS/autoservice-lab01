@@ -25,7 +25,7 @@ def time_delta(date: datetime.datetime):
         else:
             return get_ending(hours, ('час назад', 'часа назад', 'часов назад'))
     else:
-        date_string = date.strftime("%d {} %Y")
+        date_string = date.strftime("%d / %m / %y")
         return date_string.format(MONTHS[date.month - 1])
 
 
