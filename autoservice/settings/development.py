@@ -13,6 +13,7 @@ environ.Env.read_env()
 DEBUG = True
 
 STATICFILES_DIRS = [
+    join(PROJECT_ROOT, 'prod_static'),
     join(PROJECT_ROOT, 'static'),
 ]
 
