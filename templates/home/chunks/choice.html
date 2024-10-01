@@ -1,0 +1,17 @@
+<div class="row c-mb-45 c-mb-lg-0">
+                    <div class="intro_layers_wrapper text-center text-xl-left">
+                        <div class="intro_layers">
+                            <div class="divider-20 d-none d-lg-block d-xl-none"></div>
+                            <h3 class="special-heading">Выберите<span class="text-gradient">марку и модель</span>, чтобы узнать стоимость ремонта</h3>
+                            <div class="divider-35 d-none d-md-block"></div>
+                            <p class="big fw-400">Гарантировано низкие цены на ремонт автомобилей любых марок в Санкт-Петербурге по стандартам официальных дилеров</p>
+                            <div class="divider-43 d-none d-md-block"></div>
+                            <div class="intro_layer start-form-main" data-animation="fadeInDown">
+                                <div id="start" class="start d-flex row">
+                  <form method="POST" id="startform" class="start-form form-inline" data-ajax-url="{% url 'cars:ajax-filter' %}">
+                    {% include 'chunks/select-car-form.html' %}
+                  </form>
+                                </div>
+                            </div>
+                        </div> <!-- eof .intro_layers -->
+                    </div> <!-- eof .intro_layers_wrapper -->

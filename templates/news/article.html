@@ -27,7 +27,7 @@
             </div>
 
 
-            {% include 'chunks/aside/social_buttons.html' %}
+            <!--{% include 'chunks/aside/social_buttons.html' %}-->
 
             <div class="item-content">
 
@@ -46,14 +46,12 @@
 											<span class="byline links-grey">
 												{% if article.author %}
                           <span class="author vcard"><i class="fs-14 color-main ico-user"></i>
-                            <a class="url fn n">{{ article.author.name }}</a>
+                            <b>Автор:</b> {{ article.author.name }}
                           </span>
                         {% endif %}
                         <span class="posted-on">
-													<a>
 														<i class="fs-14 color-main ico-clock-alt"></i>
-														{{ article.date|time_delta }}
-													</a>
+														<b>Изменено:</b> {{ article.date|time_delta }}
 												</span>
 												<span class="like-count">
 													<a id="like" data-ajax-url="{% url 'knowledge_base:like' article.url %}">

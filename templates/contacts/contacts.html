@@ -26,20 +26,7 @@
       <div class="row c-mb-40 c-mb-lg-0">
         <div class="col-md-6 col-lg-3">
           <div class="media contact-icon">
-            <div class="icon-styled color-main fs-40"><i class="ico-map"></i></div>
-
-            <div class="media-body">
-              <h6>Адреса СТО</h6>
-              <p>{% for item in navbar_branches %}
-                {{ item.address }}<br/>
-              {% endfor %}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="media contact-icon">
             <div class="icon-styled color-main fs-40"><i class="ico-call"></i></div>
-
             <div class="media-body">
               <h6>Телефоны СТО</h6>
               <p>{% for item in navbar_branches %}
@@ -50,8 +37,16 @@
         </div>
         <div class="col-md-6 col-lg-3">
           <div class="media contact-icon">
+            <div class="icon-styled color-main fs-40"><i class="ico-clock"></i></div>
+            <div class="media-body">
+              <h6>Время работы</h6>
+              <p>{{ schedule }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="media contact-icon">
             <div class="icon-styled color-main fs-40"><i class="ico-email"></i></div>
-
             <div class="media-body">
               <h6>Email</h6>
               <p><a href="mailto:{{ email }}">{{ email }}</a></p>
@@ -60,15 +55,13 @@
         </div>
         <div class="col-md-6 col-lg-3">
           <div class="media contact-icon">
-            <div class="icon-styled color-main fs-40"><i class="ico-clock"></i></div>
-
+            <div class="icon-styled color-main fs-40"><i class="ico-user-alt"></i></div>
             <div class="media-body">
-              <h6>Время работы</h6>
-              <p>{{ schedule }}</p>
+              <h6>Telegram канал</h6>
+              <p><a href="https://t.me/autopremium_eurorepar" target="_blank"><img src="/static/images/telegram_qr.jpg"></a></p>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>

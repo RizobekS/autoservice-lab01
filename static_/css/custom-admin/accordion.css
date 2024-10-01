@@ -1,0 +1,79 @@
+.action-checkbox-column > * {
+    display: none;
+}
+
+/* Accordion styles */
+.tabs {
+    overflow: hidden;
+    margin: 1.4em 0;
+}
+
+.tab {
+    width: 100%;
+    overflow: hidden;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--hairline-color);
+}
+
+.tab:last-child {
+    border: 0;
+}
+
+.tab-label {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6em 1em;
+    font-size: 1.1em;
+    cursor: pointer;
+    color: var(--link-fg);
+    font-weight: 600;
+    /* Icon */
+}
+
+.tab-label:hover {
+    color: var(--link-hover-color);
+}
+
+.tab-label::after {
+    content: "❯";
+    width: 1em;
+    height: 1em;
+    text-align: center;
+    transition: all 0.35s;
+}
+
+.tab-content {
+    overflow: hidden;
+    max-height: 0;
+    transition: all 0.20s;
+}
+
+.tab-close {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1em;
+    font-size: 0.75em;
+    background: #2c3e50;
+    cursor: pointer;
+}
+
+.tab-close:hover {
+    background: #1a252f;
+}
+
+input.tab-toggle {
+    display: none;
+}
+
+input.tab-toggle:checked + .tab-label {
+    background: #79AEC8;
+    color: #fff;
+}
+
+input.tab-toggle:checked + .tab-label::after {
+    transform: rotate(90deg);
+}
+
+input.tab-toggle:checked ~ .tab-content {
+    max-height: 100vh;
+}

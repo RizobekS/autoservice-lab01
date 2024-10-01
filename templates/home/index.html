@@ -31,57 +31,84 @@
   <section class="page_slider ds">
     <div class="ds social-flex d-none d-lg-block">
       <p class="social-icons with-border">
-        {#        <span><a href="{{ facebook }}" class="fa fa-facebook border-icon rounded-icon" title="facebook"></a></span>#}
-        <span><a href="{{ telegram }}" class="fa fa-paper-plane border-icon rounded-icon" title="telegram"></a></span>
-        {#        <span><a href="{{ instagram }}" class="fa fa-instagram border-icon rounded-icon" title="instagram"></a></span>#}
+        <span><a href="{{ vk }}" class="fa fa-vk border-icon rounded-icon" title="Вконтакте" target="_blank"></a></span>
       </p>
     </div>
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div class="intro_layers_wrapper text-center text-xl-left">
-            <div class="intro_layers">
-              <div class="divider-20 d-none d-lg-block d-xl-none"></div>
-              <div class="intro_layer" data-animation="fadeInDown">
-                <h2 class="text-uppercase intro_featured_word">
-                  <span class="color-main">Ремонт</span>
-                  <span class="flex-gradient"><span id="typed-strings"><span>автомобилей</span><span>микроавтобусов</span><span>минивэнов</span></span><span
-                          id="typed"></span></span>
-                </h2>
-              </div>
-              <div class="intro_layer" data-animation="fadeInDown">
-                <h2 class="text-uppercase intro_featured_word">
-                  выберите марку и модель
-                </h2>
-              </div>
-              <div class="intro_layer start-form-main" data-animation="fadeInDown">
-                <div id="start" class="start d-flex row">
-
-                  <form method="POST" id="startform" class="start-form form-inline" data-ajax-url="{% url 'cars:ajax-filter' %}">
-                    {% include 'chunks/select-car-form.html' %}
-                  </form>
-
-                </div>
-              </div>
-            </div> <!-- eof .intro_layers -->
-          </div> <!-- eof .intro_layers_wrapper -->
         </div> <!-- eof .col-* -->
       </div><!-- eof .row -->
     </div><!-- eof .container-fluid -->
     <div class="flexslider" data-nav="false" data-dots="true">
       <ul class="slides">
-        <li class="ds bs cover-image flex-slide">
-          <span class="flexslider-overlay"></span>
-          <img src="{% static 'images/slide01.jpg' %}" alt="">
+        <li class="ds bs cover-image flex-slide" data-slider-bg="{% static 'images/main_slider/slide01.jpg' %}">
+                            <span class="flexslider-overlay"></span>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="intro_layers_wrapper text-center text-xl-left">
+                                            <div class="intro_layers">
+                                                <div class="divider-20 d-none d-lg-block d-xl-none"></div>
+                                                <div class="intro_layer" data-animation="fadeInDown">
+                                                    <h2 class="text-uppercase intro_featured_word">
+                                                        <span class="color-main">Онлайн оценка</span><br>
+                                                        <span class="flex-gradient"><span id="typed-strings0"><span>малярно-кузовного ремонта</span></span><span id="typed" class="typed"></span></span>
+                                                    </h2>
+													<br>
+													<a href="/specials/body-repair-appointment/" class="btn btn-big btn-outline-maincolor2">Заполните форму</a>
+                                                </div>
+                                            </div> <!-- eof .intro_layers -->
+                                        </div> <!-- eof .intro_layers_wrapper -->
+                                    </div>
+                                </div>
+                            </div>
         </li>
-        <li class="ds bs cover-image flex-slide">
-          <span class="flexslider-overlay"></span>
-          <img src="{% static 'images/slide02.jpg' %}" alt="">
+        <li class="ds bs cover-image flex-slide" data-slider-bg="{% static 'images/main_slider/slide02.jpg' %}">
+                            <span class="flexslider-overlay"></span>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="intro_layers_wrapper text-center text-xl-left">
+                                            <div class="intro_layers">
+                                                <div class="divider-20 d-none d-lg-block d-xl-none"></div>
+                                                <div class="intro_layer" data-animation="fadeInDown">
+                                                    <h2 class="text-uppercase intro_featured_word">
+                                                        <span class="color-main">Жидкое стекло</span><br>
+                                                        <span class="flex-gradient"><span id="typed-strings1"><span>от 10 000 руб.</span></span><span id="typed" class="typed"></span></span>
+                                                    </h2>
+													<br>
+													<a href="/specials/pokrytie-kuzova-sostavom-zhidkoe-steklo/" class="btn btn-big btn-outline-maincolor2">Подробнее</a>
+                                                </div>
+                                            </div> <!-- eof .intro_layers -->
+                                        </div> <!-- eof .intro_layers_wrapper -->
+                                    </div>
+                                </div>
+                            </div>
         </li>
-        <li class="ds bs cover-image flex-slide">
-          <span class="flexslider-overlay"></span>
-          <img src="{% static 'images/slide03.jpg' %}" alt="">
+        <li class="ds bs cover-image flex-slide" data-slider-bg="{% static 'images/main_slider/slide03.jpg' %}">
+                            <span class="flexslider-overlay"></span>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="intro_layers_wrapper text-center text-xl-left">
+                                            <div class="intro_layers">
+                                                <div class="divider-20 d-none d-lg-block d-xl-none"></div>
+                                                <div class="intro_layer" data-animation="fadeInDown">
+                                                    <h2 class="text-uppercase intro_featured_word">
+                                                        <span class="color-main">Услуга «Антидождь»<br>в Eurorepar Авто Премиум</span><br>
+                                                        <span class="flex-gradient"><span id="typed-strings2"><span>за 2000 рублей</span></span><span id="typed" class="typed"></span></span>
+                                                    </h2>
+													<br>
+													<a href="/specials/gidrofobnoe-pokrytie-styokol-antidozhd/" class="btn btn-big btn-outline-maincolor2">Заказать</a>
+                                                </div>
+                                            </div> <!-- eof .intro_layers -->
+                                        </div> <!-- eof .intro_layers_wrapper -->
+                                    </div>
+                                </div>
+                            </div>
         </li>
+
       </ul>
     </div> <!-- eof flexslider -->
   </section>
@@ -89,12 +116,14 @@
   <section class="ds s-pt-60 s-pt-md-5 s-pb-0 s-pb-md-15 s-pb-lg-150 choose-us-section c-gutter-10 overflow-visible" id="choose-us">
     <div class="container">
       {% include 'home/chunks/promotions.html' %}
-      {% include 'home/chunks/why-us.html' %}
+      {% include 'home/chunks/choice.html' %}
     </div>
   </section>
 
 
   {% include 'home/chunks/services.html' %}
+  
+    {% include 'home/chunks/why-us.html' %}
 
   {% include 'home/chunks/vendors.html' %}
 

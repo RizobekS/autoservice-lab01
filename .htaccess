@@ -1,0 +1,60 @@
+RewriteEngine On
+
+#Specials
+RewriteRule ^antidozhd-v-podarok/$ /specials/antidozhd-v-podarok/ [R=301,L]
+RewriteRule ^besplatnaja-diagnostika-pri-pervom-poseshhenii/$ /specials/besplatnaya-diagnostika-pri-pervom-poseshenii/ [R=301,L]
+RewriteRule ^to-po-fiksirovannoj-stoimosti-4990-rub/$ /specials/to-za-4990/ [R=301,L]
+RewriteRule ^to-po-fiksirovannoj-stoimosti-4490-rub/$ /specials/to-za-4990/ [R=301,L]
+RewriteRule ^schastlivye-chasy/$ /specials/schastlivye-chasy/ [R=301,L]
+RewriteRule ^sertifikat-na-3000-rublej-novym-klientam/$ /specials/sertifikat-na-3000-rub-novym-klientam/ [R=301,L]
+RewriteRule ^servisnye-akcii/$ /specials/ [R=301,L]
+RewriteRule ^besplatnaja-zamena-masla-v-diskont-servise-avto-premiuma/$ /specials/ [R=301,L]
+
+#Static
+RewriteRule ^company/$ /about/ [R=301,L]
+RewriteRule ^obratnaja-svjaz/$ /contacts/ [R=301,L]
+RewriteRule ^portfolio/$ /raboty/ [R=301,L]
+RewriteRule ^sertifikaty/$ /certificates/ [R=301,L]
+
+#Others
+RewriteRule ^nashi-uslugi/$ / [R=301,L]
+RewriteRule ^podmennyj-avtomobil-besplatno/$ / [R=301,L]
+RewriteRule ^prokat-avtomobilja/$ / [R=301,L]
+RewriteRule ^ceny/$ / [R=301,L]
+RewriteRule ^avto-premium-stal-partnerom-eurorepar-car-service/$ / [R=301,L]
+RewriteRule ^udalenie-katalizatora/$ / [R=301,L]
+RewriteRule ^udalenie-kataliztora/$ / [R=301,L]
+
+#Services
+
+RewriteRule ^remont-kpp/$ /remont-transmissii/ [R=301,L]
+
+RewriteRule ^tehnicheskoe-obsluzhivanie/$ /to/ [R=301,L]
+RewriteRule ^planovoe-to/$ /to/ [R=301,L]
+RewriteRule ^planovoe-to-avtomobilya-i-drugie-raboty-avto-premium-2/$ /to/ [R=301,L]
+RewriteRule ^planovoe-to-na-auto/$ /to/ [R=301,L]
+RewriteRule ^proverka-i-zapravka-kondicionera-1850-rub/$ /zapravka-kondicionera/ [R=301,L]
+RewriteRule ^zamena-grm/$ /zamena-remnya-grm/ [R=301,L]
+RewriteRule ^zamena-filtra/$ /zamena-filtrov/ [R=301,L]
+RewriteRule ^proverka-i-zapravka-kondicionera-1850-rub/$ /zapravka-kondicionera/ [R=301,L]
+RewriteRule ^proverka-i-zapravka-kondicionera-1850-rub/$ /zapravka-kondicionera/ [R=301,L]
+
+RewriteRule ^diagnostika-avtomobilja/$ /diagnostika/ [R=301,L]
+RewriteRule ^diagnostika-avtomobilja-pered-pokupkoj/$ /diagnostika-pered-pokupkoj/ [R=301,L]
+RewriteRule ^diagnostika-jebu-v-diskont-servise-avto-premiuma/$ /diagnostika-ebu/ [R=301,L]
+RewriteRule ^diagnostika-jelektriki-avtomobilja-v-diskont-servise-avto-premium/$ /diagnostika-elektriki/ [R=301,L]
+RewriteRule ^diagnostika-dvigatelja-avtomobilja-ot-500-rublej/$ /diagnostika-dvigatelya/ [R=301,L]
+RewriteRule ^osmotr-hodovoj-i-dvigatelja-besplatno/$ /diagnostika-podveski [R=301,L]
+RewriteRule ^polnaja-diagnostika-avtomobilja/$ /diagnostika/ [R=301,L]
+
+RewriteRule ^chip-tuning/$ /chip-tyuning/ [R=301,L]
+RewriteRule ^mojka-ljuks/$ /mojka-avtomobilya/ [R=301,L]
+RewriteRule ^nanopokrytie-kuzova-mashiny-so-skidkoj-50/$ /nanopokrytie-zhidkoe-steklo/ [R=301,L]
+RewriteRule ^shinomontazh-4/$ /shinomontazh/ [R=301,L]
+RewriteRule ^shinomontazh-specpredlozhenija/$ /shinomontazh/ [R=301,L]
+RewriteRule ^udalenie-neprijatnogo-zapaha-v-salone/$ /dezinfekciya-avtomobilya/ [R=301,L]
+RewriteRule ^zashhita-kuzova-avtomobilja-pljonkami/$ /okleika-zaschitnoi-plenkoi/volkswagen/ [R=301,L]
+
+#Blog
+
+RewriteRule ^blog/kompleksnaya-diagnostika-avtomobilya/$ /diagnostika/ [R=301,L]

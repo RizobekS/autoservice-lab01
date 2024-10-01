@@ -11,7 +11,7 @@
             <img src="{% static 'images/logo_ow.png' %}" alt="{{ site_name }}">
           </a>
 
-          {% for item in navbar_branches|slice:":2" %}
+          {% for item in navbar_branches|slice:":3" %}
             <div class="media side-icon-box">
               <div class="icon-styled color-main">
                 <i class="fa fa-phone"></i>
@@ -27,9 +27,12 @@
               <a href="mailto:">{{ email }}</a>
             </p>
           </div>
+		  	<p class="color-grey">
+			  Пн-Вс <span class="color-darkgrey">9.<sup>00</sup> - 21.<sup>00</sup></span>
+			</p>
         </div>
       </div>
-      <div class="col-md-6 col-lg-3 animate order-md-3 order-lg-2" data-animation="fadeInUp">
+      <div class="col-md-6 col-lg-2 animate order-md-3 order-lg-2" data-animation="fadeInUp">
         <div class="widget widget_page_links">
           <h3>О компании</h3>
           <ul>
@@ -38,39 +41,73 @@
                 <a href="{% url 'editor_pages:editor_page' url %}"><i class="ico-check-circle"></i>{{ title }}</a>
               </li>
             {% endfor %}
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-3 animate order-md-4 order-lg-3" data-animation="fadeInUp">
-        <div class="widget widget_services_links">
-          <h3>Доп услуги</h3>
-          <ul>
             {% for title, url in footer_additional_services %}
               <li>
                 <a href="{% url 'editor_pages:editor_page' url %}"><i class="ico-check-circle"></i>{{ title }}</a>
               </li>
             {% endfor %}
             <li>
-              <a href="https://inomarkispb.ru" target="_blank"><i class="ico-check-circle"></i>Автомобили с пробегом</a>
+              <a href="/knowledge-base/" target="_blank"><i class="ico-check-circle"></i>База знаний</a>
             </li>
           </ul>
         </div>
       </div>
-      <div class="col-md-6 col-lg-3 c-gutter-10 animate order-lg-4" data-animation="fadeInUp">
-        <div class="widget widget_working_hours">
-          <h3>Время работы</h3>
+      <div class="col-md-6 col-lg-2 animate order-md-4 order-lg-3" data-animation="fadeInUp">
+        <div class="widget widget_services_links">
+          <h3>Услуги</h3>
           <ul>
-            <li class="row">
-              <div class="color-grey col-3">
-                Пн-Вс
-              </div>
-              <div class="col-md-9 col-5">
-                <span class="color-darkgrey">9.<sup>00</sup> - 21.<sup>00</sup></span>
-              </div>
-            </li>
+              <li>
+                <a href="/remont/"><i class="ico-check-circle"></i>Ремонт авто</a>
+              </li>
+              <li>
+                <a href="/to/"><i class="ico-check-circle"></i>Техническое обслуживание</a>
+              </li>
+			  <li>
+                <a href="/diagnostika/"><i class="ico-check-circle"></i>Диагностика</a>
+              </li>
+			  <li>
+                <a href="/kuzovnoj-remont/"><i class="ico-check-circle"></i>Кузовной ремонт</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-2 c-gutter-10 animate order-lg-4" data-animation="fadeInUp">
+        <div class="widget widget_services_links">
+          <h3>Что еще</h3>
+          <ul>
+              <li>
+                <a href="/shinomontazh/"><i class="ico-check-circle"></i>Шиномонтаж</a>
+              </li>
+              <li>
+                <a href="/razval-shozhdenie/"><i class="ico-check-circle"></i>Развал-схождение</a>
+              </li>
+			  <li>
+                <a href="/himchistka-salona/"><i class="ico-check-circle"></i>Химчистка</a>
+              </li>
+			  <li>
+                <a href="/polirovka-avtomobilya/"><i class="ico-check-circle"></i>Полировка</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 c-gutter-10 animate order-lg-5" data-animation="fadeInUp">
+        <div class="widget widget_services_links">
+          <h3>Акции</h3>
+          <ul>
+              <li>
+                <a href="/specials/skidka-na-moiku-lux/"><i class="ico-check-circle"></i>Мойка-люкс</a>
+              </li>
+              <li>
+                <a href="/specials/sertifikat-na-3000-rub-novym-klientam/"><i class="ico-check-circle"></i>Сертификат 3000р.</a>
+              </li>
+			  <li>
+                <a href="/specials/besplatnaya-diagnostika-pri-pervom-poseshenii/"><i class="ico-check-circle"></i>Бесплатная диагностика</a>
+              </li>
+
           </ul>
         </div>
       </div>
     </div>
+  <p>Вся содержащаяся на сайте информация носит исключительно ознакомительный характер, не является исчерпывающей и не является публичной офертой, определяемой положениями статьи 437 Гражданского кодекса РФ.</p>
   </div>
 </footer>

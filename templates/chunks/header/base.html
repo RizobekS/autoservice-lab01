@@ -8,7 +8,7 @@
       <div class="row align-items-center">
         <div class="col-lg-12">
           <div class="d-lg-flex justify-content-lg-end align-items-lg-center">
-            <div class="mr-auto">
+            <div class="mr-auto top-logo-wrapper">
               <!--
 if you want to display toplogo info on smaller screens
 than use following CSS classes below:
@@ -25,49 +25,64 @@ if you want to display toplogo info on smaller screens
 than use following CSS classes below:
 d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
 -->
-            <div class="d-flex justify-lg-content-end meta-icons">
-              <div class="media d-none d-md-flex">
-                <div class="icon-styled color-main fs-20">
-                  <i class="ico-email"></i>
-                </div>
-                <div class="media-body">
-                  <h6>Мы на связи</h6>
-                  <ul class="social">
-                    {#                    <li class="social__link  social__link--insta" title="Instagram">#}
-                    {#                      <a href="{{ instagram }}" class="fa fa-instagram  color-bg-icon rounded-icon"></a>#}
-                    {#                    </li>#}
-                    <li class="social__link  social__link--vk" title="ВКонтакте">
-                      <a href="{{ vk }}" class="fab fa-vk color-bg-icon rounded-icon"></a>
-                    </li>
-                    {#                    <li class="social__link  social__link--fb" title="Facebook">#}
-                    {#                      <a href="{{ facebook }}" class="fa fa-facebook  color-bg-icon rounded-icon"></a>#}
-                    {#                    </li>#}
-                    <li class="social__link  social__link--whatsapp" title="Whatsapp">
-                      <a href="{{ whatsapp }}" class="fab fa-whatsapp color-bg-icon rounded-icon"></a>
-                    </li>
-                    <li class="social__link  social__link--email" title="E-mail">
-                      <a href="mailto:{{ email }}" class="far fa-envelope color-bg-icon rounded-icon"></a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              {% for item in navbar_branches|slice:":2" %}
-                <div class="media d-none d-md-flex">
-                  <div class="icon-styled color-main fs-20">
-                    <i class="ico-phone-call"></i>
-                  </div>
-                  <div class="media-body">
-                    <h6> {{ item.address }} </h6>
-                    <p class="fw-400">
-                      <a href="tel:{{ item.phone|extract_phone }}">{{ item.phone }}</a>
-                    </p>
-                  </div>
-                </div>
-              {% endfor %}
+                                    <div class="d-flex justify-lg-content-end meta-icons">
+                                        <div class="media d-none d-md-flex">
+                                            <div class="icon-styled color-main fs-20">
+                                                <i class="ico-phone-call"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h6> Руставели 25 к.2 </h6>
+                                                <p class="fw-400">
+                                                    <a href="tel:+78127021002">+7 (812) 702-10-02</a>
+                                                </p>
+                                            </div>
+                                            <div class="media-bottom">
+                                                <div class="worktime">
+                                                    <span>Пн-Вс с 09:00 до 21:00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media d-none d-md-flex">
+                                            <div class="icon-styled color-main fs-20">
+                                                <i class="ico-phone-call"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h6> Хасанская, 5 </h6>
+                                                <p class="fw-400 d-flex">
+                                                    <a href="tel:+78123254042">+7 (812) 325-40-42</a>
+                                                    <span class="social__link  social__link--tg" title="Telegram">
+                                                        <a href="https://t.me/+79217828310" class="fab fa-paper-plane color-bg-icon rounded-icon" target="_blank"></a>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="media-bottom">
+                                                <div class="worktime">
+                                                    <span>Пн-Вс с 09:00 до 21:00</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="media d-none d-md-flex">
+                                            <div class="icon-styled color-main fs-20">
+                                                <i class="ico-phone-call"></i>
+                                            </div>
+                                            <div class="media-body">
+                                                <h6> Энгельса, 33/1 </h6>
+                                                <p class="fw-400 d-flex">
+                                                    <a href="tel:+78123261807">+7 (812) 326-18-07</a>
+                                                    <span class="social__link  social__link--whatsapp" title="Whatsapp">
+                                                        <a href="https://wa.me/79210981672" class="fab fa-whatsapp color-bg-icon rounded-icon" target="_blank"></a>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="media-bottom">
+                                                <div class="worktime">
+                                                    <span>Пн-Вс с 09:00 до 21:00</span>
+                                                </div>
+                                            </div>
+                                        </div>
               <div class="d-none d-xl-block">
                 <a href="#" class="btn btn-small btn-outline-maincolor btn-appointment" data-toggle="modal"
                    data-target="#modalRegisterForm" title="Онлайн запись">Онлайн запись</a>
-
               </div>
             </div>
           </div>
