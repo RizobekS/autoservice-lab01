@@ -32,3 +32,4 @@ temp.*
 config.json
 temp.txt
 Перезагрузить autoservice-ap.exe
+cars_dump.json
