@@ -48,7 +48,7 @@ class PromotionCategoryView(DetailView, PromotionsMixin, PageSettingsMixin):
 class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMixin, ShortAppointmentMixin, OpengraphMixin):
     # DetailView
     template_name = 'promotions/promotion.html'
-    queryset = Promotion.objects.select_related('category')
+    queryset = Promotion.objects.select_related('category').filter(active=True)
     slug_field = 'url'
     slug_url_kwarg = 'promotion_url'
     context_object_name = 'promotion'

@@ -28,3 +28,7 @@ coverage_html
 venv
 dumps
 temp.*
+
+config.json
+temp.txt
+Перезагрузить autoservice-ap.exe
