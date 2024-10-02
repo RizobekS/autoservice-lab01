@@ -1,0 +1,41 @@
+[
+  {
+    "model": "home.slide",
+    "pk": 1,
+    "fields": {
+      "static_text": "Онлайн оценка",
+      "animated_text": "Малярно-кузовного ремонта",
+      "active": true,
+      "button_text": "Заполните форму",
+      "link": "/specials/body-repair-appointment/",
+      "background_image": "slides/slide01_beLkEZL.jpg",
+      "sorting": 1
+    }
+  },
+  {
+    "model": "home.slide",
+    "pk": 2,
+    "fields": {
+      "static_text": "Жидкое стекло",
+      "animated_text": "ОТ 10 000 РУБ.",
+      "active": true,
+      "button_text": "Подробнее",
+      "link": "/specials/pokrytie-kuzova-sostavom-zhidkoe-steklo/",
+      "background_image": "slides/slide02_ebPoGvM.jpg",
+      "sorting": 2
+    }
+  },
+  {
+    "model": "home.slide",
+    "pk": 3,
+    "fields": {
+      "static_text": "Услуга «Антидождь» в Eurorepar Авто Премиум",
+      "animated_text": "За 2000 рублей",
+      "active": true,
+      "button_text": "Заказать",
+      "link": "/specials/gidrofobnoe-pokrytie-styokol-antidozhd/",
+      "background_image": "slides/slide03.jpg",
+      "sorting": 3
+    }
+  }
+]
