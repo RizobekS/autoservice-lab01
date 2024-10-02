@@ -1,6 +1,7 @@
 from django.views.generic import TemplateView
 
 from apps.cars.utils.mixins import VendorsMixin
+from apps.home.models import Slide
 from apps.masters.utils.mixins import MastersMixin
 from apps.promotions.models import Promotion
 from apps.promotions.utils.mixins import PromotionsMixin
@@ -33,4 +34,5 @@ class IndexView(TemplateView, PromotionsMixin, VendorsMixin, MastersMixin, Produ
     # Add product_promotions to promotions list at homepage
     def get_context_data(self, **kwargs):
         kwargs['product_promotions'] = Product.objects.filter(show_in_promotions=True, active=True)
+        kwargs['main_slides'] = Slide.objects.filter(active=True)
         return super().get_context_data(**kwargs)
