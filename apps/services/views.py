@@ -1,6 +1,9 @@
+import os.path
+from pprint import pprint
 from random import randint
 from typing import List
 
+from django.conf import settings
 from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -220,19 +223,21 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, AdvantagesCont
     def get_articles(self):
         """ Get related articles (each article can be related to a product). If no related articles - select 3 arbitrary ones """
         articles = self.object.article_set.filter(is_news=False, status='published')
-        if articles.exists():
-            articles = articles[:3]
-        else:
+
+        articles = list(articles[:4])
+
+        if len(articles) < 4:
             # Get random article entries
-            queryset = Article.objects.filter(is_news=False, status='published')
-            articles = []
+            queryset = Article.objects.filter(is_news=False, status='published').exclude(id__in=[item.id
+                                                                                                 for item in articles])
+
             count = queryset.count()
-            min_count = min(4, count)  # In case if there is less than 4 articles
+            min_count = min(4, count)  # In case if there are less than 4 articles
             while len(articles) < min_count:
                 rand = randint(0, count - 1)
                 item = queryset[rand]
-                if item not in articles:
-                    articles.append(item)
+                articles.append(item)
+
         return articles
 
     def get_related_works(self):
