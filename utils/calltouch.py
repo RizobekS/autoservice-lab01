@@ -3,12 +3,12 @@ from django.conf import settings
 from django.http import HttpRequest
 
 
-def send_calltouch_request(request: HttpRequest, subject: str, request_number: int, full_name: str = None,
+def send_calltouch_request(request: HttpRequest, subject: str, request_number: int = None, full_name: str = None,
                            phone_number: str = None, email: str = None, **extra_fields):
     assert full_name is not None or phone_number is not None or email is not None
     data = {
         'subject': subject or 'Не указано',
-        'request_number': request_number or 'Не указано',
+        'request_number': request_number,
         'fullName': full_name or 'Не указано',
         'phoneNumber': phone_number,
         'email': email,

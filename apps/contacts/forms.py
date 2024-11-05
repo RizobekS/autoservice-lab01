@@ -4,6 +4,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
 from apps.site_settings.models import StaticInformation
+from utils.calltouch import send_calltouch_request
 
 
 class ContactForm(forms.Form):
@@ -25,4 +26,13 @@ class ContactForm(forms.Form):
             [receiver.value],
             fail_silently=True,
             html_message=render_to_string('contacts/emails/html.html', context, request=request)
+        )
+
+    def send_calltouch_request(self, request):
+        send_calltouch_request(
+            request=request,
+            subject=f'Сообщение из раздела "Контакты"',
+            full_name=self.cleaned_data['name'],
+            email=self.cleaned_data['email'],
+            text=self.cleaned_data['text'],
         )

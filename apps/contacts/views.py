@@ -16,6 +16,7 @@ class ContactsView(FormView, PageSettingsMixin):
     def form_valid(self, form):
         if form.send_mail(self.request):
             messages.success(self.request, '✔ Сообщение было отправлено', extra_tags='text-success')
+            form.send_calltouch_request(self.request)
         else:
             messages.error(self.request, '❌ Сообщение не было отправлено. Что-то пошло не так...', extra_tags='text-danger')
         return super().form_valid(form)
