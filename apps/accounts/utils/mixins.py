@@ -37,6 +37,7 @@ class ShortAppointmentMixin(FormMixin, ProcessFormView):
     def form_valid(self, form):
         form.save()
         form.send_mail(self.request)
+        form.send_calltouch_request(self.request)
         messages.success(self.request, 'Заявка была успешно отправлена ✔', extra_tags='text-success')
         return super().form_valid(form)
 
@@ -53,6 +54,7 @@ class SparePartAppointmentMixin(FormMixin, ProcessFormView):
     def form_valid(self, form):
         obj = form.save()
         form.send_mail(self.request)
+        form.send_calltouch_request(self.request)
         messages.success(self.request, 'Заявка была успешно отправлена ✔', extra_tags='text-success')
         return super().form_valid(form)
 

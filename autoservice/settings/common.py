@@ -2,7 +2,12 @@
 import sys
 from os.path import abspath, basename, dirname, join, normpath
 
+import environ
 from easy_thumbnails.conf import Settings as thumbnail_settings
+
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # ##### PATH CONFIGURATION ################################
 
@@ -247,3 +252,7 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+# Calltouch
+CALLTOUCH_SITE_ID = env.int('CALLTOUCH_SITE_ID')
+CALLTOUCH_MOD_ID = env.str('CALLTOUCH_MOD_ID')

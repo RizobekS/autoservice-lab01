@@ -279,6 +279,7 @@ class SubmitCallRequestView(View):
         if form.is_valid():
             obj = form.save()
             form.send_mail(request)
+            form.send_calltouch_request(self.request)
             messages.success(request, 'Заявка на звонок была успешно отправлена ✔', extra_tags='text-success')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         else:

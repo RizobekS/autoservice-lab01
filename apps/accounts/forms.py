@@ -18,6 +18,7 @@ from apps.accounts.models import User, Appointment, ShortAppointment, SparePartA
 from apps.promotions.models import Promotion
 from apps.services.models import Product
 from apps.site_settings.models import StaticInformation, Branch
+from utils.calltouch import send_calltouch_request
 from utils.shortcuts import add_attrs
 
 
@@ -160,6 +161,18 @@ class AppointmentForm(forms.ModelForm):
             html_message=render_to_string(self.html_email_body_template, context, request=request) if self.html_email_body_template else None
         )
 
+    def send_calltouch_request(self, request):
+        send_calltouch_request(
+            request=request,
+            subject=f'Заявка "Из шапки сайта"',
+            request_number=self.instance.id,
+            full_name=self.cleaned_data['full_name'],
+            phone_number=self.cleaned_data['phone'],
+            car=self.cleaned_data['car'],
+            branch=self.cleaned_data['branch'],
+            appointment_datetime=self.cleaned_data['datetime'],
+        )
+
     class Meta:
         fields = ('user', 'full_name', 'car', 'phone', 'branch', 'datetime', 'captcha')
         model = Appointment
@@ -200,6 +213,18 @@ class ShortAppointmentForm(AppointmentForm):
 
         return super().send_mail(request)
 
+    def send_calltouch_request(self, request):
+        send_calltouch_request(
+            request=request,
+            subject=f'Мини-заявка на {self.get_page_description()}',
+            request_number=self.instance.id,
+            full_name=self.cleaned_data['full_name'],
+            phone_number=self.cleaned_data['phone'],
+            email=self.cleaned_data['email'],
+            branch=self.cleaned_data['branch'],
+            text=self.cleaned_data['text'],
+        )
+
     def clean(self):
         form_data = self.cleaned_data
 
@@ -235,6 +260,19 @@ class SparePartAppointmentForm(AppointmentForm):
 
         return form_data
 
+    def send_calltouch_request(self, request):
+        send_calltouch_request(
+            request=request,
+            subject=f'Заявка на запчасти',
+            request_number=self.instance.id,
+            full_name=self.cleaned_data['full_name'],
+            phone_number=self.cleaned_data['phone'],
+            car=self.cleaned_data['car'],
+            branch=self.cleaned_data['branch'],
+            vin=self.cleaned_data['vin'],
+            text=self.cleaned_data['text'],
+        )
+
     class Meta:
         fields = ('full_name', 'phone', 'car', 'branch', 'vin', 'text', 'captcha')
         model = SparePartAppointment
@@ -255,6 +293,15 @@ class CallRequestForm(AppointmentForm):
             raise ValidationError('Ваша заявка была определена как спам', code='spam')
 
         return form_data
+
+    def send_calltouch_request(self, request):
+        send_calltouch_request(
+            request=request,
+            subject=f'Заявка на звонок',
+            request_number=self.instance.id,
+            phone_number=self.cleaned_data['phone'],
+            branch=self.cleaned_data['branch'],
+        )
 
     def send_mail(self, request):
         self.extra_context.update({'datetime': self.instance.datetime})
@@ -282,14 +329,25 @@ class BodyRepairAppointmentForm(AppointmentForm):
         })
         return super().send_mail(request)
 
+    def send_calltouch_request(self, request):
+        send_calltouch_request(
+            request=request,
+            subject=f'Заявка на оценку кузовного ремонта',
+            request_number=self.instance.id,
+            full_name=self.cleaned_data['full_name'],
+            car=self.cleaned_data['car'],
+            phone_number=self.cleaned_data['phone'],
+            branch=self.cleaned_data['branch'],
+            text=self.cleaned_data['description'],
+        )
+
     def get_receivers(self):
         branch = self.cleaned_data.get('branch')
         return branch.get_body_repair_email_list()
 
     class Meta:
         model = BodyRepairAppointment
-        fields = ['car', 'description', 'branch', 'full_name', 'phone',
-                  'captcha']
+        fields = ['car', 'description', 'branch', 'full_name', 'phone', 'captcha']
 
 
 BodyRepairAppointmentImageFormSet = inlineformset_factory(

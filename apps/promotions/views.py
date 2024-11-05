@@ -130,6 +130,7 @@ class BodyRepairAppointmentView(View, PageSettingsMixin):
             if formset.is_valid():
                 formset.save()
                 form.send_mail(self.request)
+                form.send_calltouch_request(self.request)
                 messages.success(self.request, 'Заявка была успешно отправлена ✔', extra_tags='text-success')
                 return redirect('promotions:body-repair-appointment')
             else:
