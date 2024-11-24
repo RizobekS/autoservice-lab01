@@ -196,6 +196,11 @@ LOGGING = {
             'class': 'logging.FileHandler',
             'filename': join(PROJECT_ROOT, 'run', 'logs', 'django.log')
         },
+        'warning_file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': join(PROJECT_ROOT, 'run', 'logs', 'warning.log')
+        }
     },
     'loggers': {
         'django.db.backends': {
@@ -204,7 +209,7 @@ LOGGING = {
             'filters': ['require_debug_true', 'slow_sql'],
         },
         'django': {
-            'handlers': ['file'],
+            'handlers': ['file', 'warning_file'],
             'level': 'WARNING',
             'propagate': True,
         },
