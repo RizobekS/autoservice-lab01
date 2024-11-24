@@ -59,3 +59,35 @@ PASSWORD_RESET_TIMEOUT_DAYS = 1
 
 RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY')
+
+LOGGING = {
+    'version': 1,
+    'filters': {
+        'slow_sql': {'()': 'autoservice.logging.filters.SlowSQLQueryFilter'},
+        'require_debug_true': {'()': 'django.utils.log.RequireDebugTrue'}
+    },
+    'handlers': {
+        'slow_sql_file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': join(PROJECT_ROOT, 'run', 'logs', 'slow_sql_queries.log')
+        },
+        'file': {
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': join(PROJECT_ROOT, 'run', 'logs', 'django.log')
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['slow_sql_file'],
+            'filters': ['require_debug_true', 'slow_sql'],
+        },
+        'django': {
+            'handlers': ['file'],
+            'level': 'WARNING',
+            'propagate': True,
+        },
+    }
+}

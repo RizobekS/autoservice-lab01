@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     'ckeditor',  # Ckeditor
     'ckeditor_uploader',  # Ckeditor with file upload
     'django_cleanup.apps.CleanupConfig',  # Deletes old images
-    'haystack',  # Search API
+    # 'haystack',  # Search API
     'clear_cache',  # manage.py command to clear all caches
     'adminsortable',  # Sorting admin records
     'captcha',
@@ -196,11 +196,6 @@ LOGGING = {
             'class': 'logging.FileHandler',
             'filename': join(PROJECT_ROOT, 'run', 'logs', 'django.log')
         },
-        'warning_file': {
-            'level': 'WARNING',
-            'class': 'logging.FileHandler',
-            'filename': join(PROJECT_ROOT, 'run', 'logs', 'warning.log')
-        }
     },
     'loggers': {
         'django.db.backends': {
@@ -209,7 +204,7 @@ LOGGING = {
             'filters': ['require_debug_true', 'slow_sql'],
         },
         'django': {
-            'handlers': ['file', 'warning_file'],
+            'handlers': ['file'],
             'level': 'WARNING',
             'propagate': True,
         },
