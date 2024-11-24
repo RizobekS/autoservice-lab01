@@ -24,7 +24,7 @@ class ContactForm(forms.Form):
             render_to_string('contacts/emails/body.txt', context=context),
             settings.DEFAULT_FROM_EMAIL,
             [receiver.value],
-            fail_silently=False,
+            fail_silently=True,
             html_message=render_to_string('contacts/emails/html.html', context, request=request)
         )
 
