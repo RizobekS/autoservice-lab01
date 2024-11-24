@@ -22,5 +22,3 @@ def send_calltouch_request(request: HttpRequest, subject: str, request_number: i
         f'https://api.calltouch.ru/calls-service/RestAPI/requests/{settings.CALLTOUCH_SITE_ID}/register/',
         data=data
     )
-    print(response.json())
-    print(response.status_code)
