@@ -1,14 +1,11 @@
-import os.path
-from pprint import pprint
 from random import randint
 from typing import List
 
-from django.conf import settings
 from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.template.defaultfilters import truncatewords
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.html import strip_tags
 from django.views import View
 from django.views.generic import DetailView, TemplateView
@@ -204,12 +201,16 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, AdvantagesCont
 
     def get_promotions(self):
         """ Get related promotions (each promotion can be related to a product). If no related promotions - select 3 arbitrary ones """
-        promotions = self.object.promotion_set.filter(active=True)
+        promotions = self.object.promotion_set.filter(active=True).filter(
+            Q(active_before__isnull=True) | Q(active_before__gte=timezone.now())
+        )
         if promotions.exists():
             promotions = promotions[:3]
         else:
             # Get random promotion entries
-            queryset = Promotion.objects.filter(active=True)
+            queryset = Promotion.objects.filter(active=True).filter(
+                Q(active_before__isnull=True) | Q(active_before__gte=timezone.now())
+            )
             promotions = []
             count = queryset.count()
             min_count = min(3, count)  # In case if there are less than 3 Promotions

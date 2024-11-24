@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from autoslug import AutoSlugField
 from django.contrib.admin import display
 from django.db import models
@@ -49,6 +51,7 @@ class Promotion(models.Model):
     category = models.ForeignKey(verbose_name='Категория (Тип)', to=Category, on_delete=models.SET_NULL, null=True, blank=True)
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления. Неактивные акции не отображаются нигде, кроме админ панели', default=True)
     date = models.DateField('Дата')
+    active_before = models.DateField('Активно до', null=True, blank=True)
     short_description = models.CharField('Краткое описание (до 500 символов)', max_length=500)
     text = models.TextField('Контент')
 
@@ -99,6 +102,17 @@ class Promotion(models.Model):
 
     def get_absolute_url(self):
         return reverse('promotions:promotion', args=(self.url,))
+
+    def get_active_before(self):
+        """ Return date active_before if available, return last day of year otherwise """
+        if self.active_before:
+            return self.active_before.strftime("%d.%m.%Y")
+
+        last_day_of_year = datetime(datetime.now().year, 12, 31)
+
+        # Format it as %d.%m.%Y
+        formatted_last_day = last_day_of_year.strftime("%d.%m.%Y")
+        return formatted_last_day
 
     class Meta:
         ordering = ('-date',)

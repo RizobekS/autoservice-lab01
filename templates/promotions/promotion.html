@@ -48,6 +48,8 @@
                 </div>
                 <div class="entry-content-main">
                   {{ promotion.text|safe }}
+
+                  <h6>Предложение действует до {{ promotion.get_active_before }}</h6>
                 </div>
               </div>
               <!-- .entry-content -->

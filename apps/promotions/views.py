@@ -1,8 +1,10 @@
 from typing import Any, Dict
 
 from django.contrib import messages
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.html import strip_tags
 from django.views import View
 from django.views.generic import DetailView, TemplateView
@@ -67,6 +69,11 @@ class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMix
             self.object = super().get_object(queryset)
 
         return self.object
+
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            Q(active_before__isnull=True) | Q(active_before__gte=timezone.now())
+        )
 
     def get_og_tags(self, **kwargs) -> dict:
         meta_context = super().as_context()

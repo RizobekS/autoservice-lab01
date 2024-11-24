@@ -1,6 +1,7 @@
 from typing import Dict, Any, List
 
-from django.db.models import QuerySet
+from django.db.models import QuerySet, Q
+from django.utils import timezone
 from django.views.generic.base import ContextMixin
 
 from apps.promotions.models import Promotion
@@ -19,7 +20,9 @@ class PromotionsMixin(ContextMixin):
     promotions_queryset: QuerySet = Promotion.objects.select_related('category').prefetch_related('tags', 'articles', 'products')
 
     def get_promotions_queryset(self):
-        return self.promotions_queryset
+        return self.promotions_queryset.filter(
+            Q(active_before__isnull=True) | Q(active_before__gte=timezone.now())
+        )
 
     def get_promotions(self) -> List[Promotion]:
         promotions = self.get_promotions_queryset().filter(active=True)
