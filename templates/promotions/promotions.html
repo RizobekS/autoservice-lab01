@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load promotions_url %}
+{% load promotions %}
 {% load deferred_static %}
 {% load static %}
 {% load cropping %}
@@ -22,43 +22,77 @@
     <div class="container">
       <div class="row c-mb-30">
         <main class="offset-lg-1 col-lg-10">
-          <div class="row isotope-wrapper masonry-layout">
-            {% for item in promotions %}
-              <div class="col-xl-4 col-md-6">
-                <article class="text-center content-padding vertical-item post type-post status-publish format-standard has-post-thumbnail ls ms">
 
+          {% include 'promotions/chunks/promotions_list.html' %}
 
-                  {% if item.category %}
-                    <div class="tagcloud">
-                      <a href="{% url 'promotions:category' item.category.url %}" class="tag-cloud-link"><span>{{ item.category.name }}</span></a>
-                    </div>
-                  {% endif %}
+          <div class="more-button">
+            <button id="load-promotions-archive" type="button" class="btn btn-outline-darkgrey">Архив акций</button>
+          </div>
 
-                  <div class="item-media post-thumbnail">
-                    <a href="{% get_promotion_url item %}">
-                      <img src="{% cropped_thumbnail item 'thumbnail' %}" alt="{{ item.title }}">
-                    </a>
-                  </div>
-
-                  <div class="item-content">
-                    <header class="entry-header">
-                      <h4 class="entry-title"><a href="{% get_promotion_url item %}" rel="bookmark">{{ item.title }}</a></h4>
-                    </header>
-                    <div class="entry-content">
-                      {{ item.short_description|safe }}
-                    </div>
-                    <div class="more-button">
-                      <a href="{% get_promotion_url item %}" class="btn btn-small btn-outline-maincolor">Подробнее</a>
-                    </div>
-                  </div>
-
-
-                </article><!-- #post-## -->
-              </div>
-            {% endfor %}
+          <div id="promotions-archive" data-url="{% url 'promotions:archived' %}" class="d-none">
+            <h2 class="text-uppercase intro_featured_word mb-4 mt-5">Архив акций</h2>
           </div>
         </main>
       </div>
     </div>
   </section>
+{% endblock %}
+
+
+{% block body_scripts %}
+  <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+
+  <script>
+    document.getElementById("load-promotions-archive").addEventListener("click", function () {
+      let archiveElement = document.getElementById("promotions-archive");
+      let dataUrl = archiveElement.getAttribute("data-url");
+
+      if (!dataUrl) {
+        console.error("Data URL not found on #promotions-archive");
+        return;
+      }
+
+      fetch(dataUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.text(); // Assuming the response contains HTML
+        })
+        .then(html => {
+          document.getElementById("load-promotions-archive").remove(); // Remove the button
+          archiveElement.classList.remove("d-none"); // Show the archive element
+          archiveElement.insertAdjacentHTML("beforeend", html); // Append fetched HTML
+
+          // Ensure Isotope re-runs layout after new items are added
+          document.querySelectorAll(".isotope-wrapper.masonry-layout.archived").forEach((grid) => {
+            function updateLayout() {
+              let layoutMode = ($(grid).hasClass('masonry-layout')) ? 'masonry' : 'fitRows';
+              let columnWidth = ($(grid).children('.col-md-4').length) ? '.col-md-4' : false;
+              $(grid).isotope({
+                percentPosition: true,
+                layoutMode: layoutMode,
+                masonry: {
+                  //TODO for big first element in grid - giving smaller element to use as grid
+                  // columnWidth: '.isotope-wrapper > .col-md-4'
+                  columnWidth: columnWidth
+                }
+              });
+            }
+
+            // Adjust selector if needed
+            if (grid && typeof Isotope !== "undefined") {
+              updateLayout()
+            } else {
+              console.warn("Isotope is not available or .promotions-grid not found.");
+            }
+
+            imagesLoaded(grid, function () {
+              updateLayout()
+            });
+          });
+        })
+        .catch(error => console.error("Error fetching promotions archive:", error));
+    });
+  </script>
 {% endblock %}

@@ -4,9 +4,9 @@ from autoslug import AutoSlugField
 from django.contrib.admin import display
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 from image_cropping import ImageRatioField
 
-from apps.promotions.templatetags.promotions_url import get_promotion_url
 from apps.tags.models import Tag
 from utils.helpers import format_price
 
@@ -98,6 +98,7 @@ class Promotion(models.Model):
         return ', '.join(item.name for item in self.tags.all())
 
     def reverse_url(self):
+        from apps.promotions.templatetags.promotions import get_promotion_url
         return get_promotion_url(self)
 
     def get_absolute_url(self):
@@ -113,6 +114,9 @@ class Promotion(models.Model):
         # Format it as %d.%m.%Y
         formatted_last_day = last_day_of_year.strftime("%d.%m.%Y")
         return formatted_last_day
+
+    def is_active(self):
+        return self.active and (self.active_before is None or timezone.now().date() < self.active_before)
 
     class Meta:
         ordering = ('-date',)

@@ -114,6 +114,14 @@ class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMix
         return super().get_context_data(categories=Category.objects.all(), **kwargs)
 
 
+def get_archived_promotions(request):
+    promotions = Promotion.objects.filter(
+        Q(active=False) |
+        Q(active_before__isnull=False, active_before__lt=timezone.now())
+    )
+    return render(request, 'promotions/chunks/promotions_list.html', {'promotions': promotions, 'archived': True})
+
+
 class BodyRepairAppointmentView(View, PageSettingsMixin):
     template_name = 'services/spare_parts.html'
 

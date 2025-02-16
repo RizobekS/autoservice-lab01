@@ -1,0 +1,49 @@
+{% load cropping %}
+{% load promotions %}
+
+<div class="row isotope-wrapper masonry-layout {% if archived %}archived{% endif %}">
+  {% for item in promotions %}
+    <div class="col-xl-4 col-md-6">
+      <article
+        class="text-center content-padding vertical-item post type-post status-publish format-standard has-post-thumbnail ls ms">
+
+
+        <div class="tagcloud">
+          <a href="{% get_promotion_url item %}"
+             class="tag-cloud-link"><span>
+            {% if item.is_active %}
+              Срок действия: {{ item.get_active_before }}
+            {% elif item.active_before %}
+              Истекло: {{ item.active_before|date:"d.m.Y" }}
+            {% else %}
+              Истекло
+            {% endif %}
+            </span></a>
+        </div>
+
+        <div class="item-media post-thumbnail">
+          <a {% if item.is_active %}href="{% get_promotion_url item %}"{% endif %}>
+            <img src="{% cropped_thumbnail item 'thumbnail' %}" alt="{{ item.title }}">
+          </a>
+        </div>
+
+        <div class="item-content">
+          <header class="entry-header">
+            <h4 class="entry-title"><a {% if item.is_active %}href="{% get_promotion_url item %}"{% endif %}
+                                       rel="bookmark">{{ item.title }}</a></h4>
+          </header>
+          <div class="entry-content">
+            {{ item.short_description|safe }}
+          </div>
+          {% if item.is_active %}
+            <div class="more-button">
+              <a href="{% get_promotion_url item %}" class="btn btn-small btn-outline-maincolor">Подробнее</a>
+            </div>
+          {% endif %}
+        </div>
+
+
+      </article><!-- #post-## -->
+    </div>
+  {% endfor %}
+</div>

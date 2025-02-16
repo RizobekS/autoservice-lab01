@@ -125,6 +125,28 @@ d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
                 </ul>
               </div>
               <ul class="nav sf-menu">
+                <li class="{% is_active 'static' 'work_gallery' %}">
+                  <a href="{% url 'about:about' %}">О нас</a>
+                  <ul>
+                    <li class="{% is_active 'static:certificates' %}">
+                      <a href="{% url 'static:certificates' %}">Сертификаты</a>
+                    </li>
+                    {#                    <li class="{% is_active 'static:reviews' %}">#}
+                    {#                      <a href="{% url 'editor_pages:reviews' %}">Отзывы</a>#}
+                    {#                    </li>#}
+                    <li class="{% is_active 'work_gallery:list' %}">
+                      <a href="{% url 'work_gallery:list' %}">Галерея работ</a>
+                    </li>
+                    <li class="{% is_active 'news:list' %}">
+                      <a href="{% url 'news:list' %}">Новости</a>
+                    </li>
+                    {% for title, url in menu_editor_pages %}
+                      <li>
+                        <a href="{% url 'editor_pages:editor_page' url %}">{{ title }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </li>
                 <li class="{% is_active 'promotions' %}">
                   <a href="{% url 'promotions:list' %}">Акции</a>
                 </li>
@@ -160,28 +182,6 @@ d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
                 <!-- eof features -->
                 <li>
                   <a href="{% url 'services:spare_parts' %}">Запчасти</a>
-                </li>
-                <li class="{% is_active 'static' 'work_gallery' %}">
-                  <a href="{% url 'about:about' %}">О нас</a>
-                  <ul>
-                    <li class="{% is_active 'static:certificates' %}">
-                      <a href="{% url 'static:certificates' %}">Сертификаты</a>
-                    </li>
-                    {#                    <li class="{% is_active 'static:reviews' %}">#}
-                    {#                      <a href="{% url 'editor_pages:reviews' %}">Отзывы</a>#}
-                    {#                    </li>#}
-                    <li class="{% is_active 'work_gallery:list' %}">
-                      <a href="{% url 'work_gallery:list' %}">Галерея работ</a>
-                    </li>
-                    <li class="{% is_active 'news:list' %}">
-                      <a href="{% url 'news:list' %}">Новости</a>
-                    </li>
-                    {% for title, url in menu_editor_pages %}
-                      <li>
-                        <a href="{% url 'editor_pages:editor_page' url %}">{{ title }}</a>
-                      </li>
-                    {% endfor %}
-                  </ul>
                 </li>
                 <li class="{% is_active 'knowledge_base' %}">
                   <a href="{% url 'knowledge_base:list' %}">База знаний</a>
