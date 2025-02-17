@@ -21,10 +21,13 @@
             </span></a>
         </div>
 
-        <div class="item-media post-thumbnail">
+        <div class="item-media post-thumbnail {% if archived %}archived{% endif %}">
           <a {% if item.is_active %}href="{% get_promotion_url item %}"{% endif %}>
             <img src="{% cropped_thumbnail item 'thumbnail' %}" alt="{{ item.title }}">
           </a>
+          {% if archived %}
+            <div class="archived-overlay"><span>Акция завершена</span></div>
+          {% endif %}
         </div>
 
         <div class="item-content">
