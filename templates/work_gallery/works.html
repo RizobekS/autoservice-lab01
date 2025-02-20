@@ -35,7 +35,7 @@
 
           <div class="row isotope-wrapper masonry-layout c-gutter-10 c-mb-30" data-filters=".gallery-filters">
 
-            {% for item in works %}{% with image=item.image_set.first %}
+            {% for item in works %}{% with image=item.get_main_image %}
               <div class="col-xl-4 col-md-6 {% for category in item.categories.all %}{{ category.url }} {% endfor %}"
                    data-url="{% url 'work_gallery:single' item.url %}">
 

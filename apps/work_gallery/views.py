@@ -23,7 +23,7 @@ class WorkGalleryView(ListView, CategoriesMixin, PageSettingsMixin):
 
 class SingleWorkView(DetailView, PageSettingsMixin, OpengraphMixin):
     template_name = 'work_gallery/work.html'
-    queryset = Work.objects.filter(active=True)
+    queryset = Work.objects.filter(active=True).order_by('-id')
     slug_field = 'url'
     slug_url_kwarg = 'work_url'
     context_object_name = 'work'

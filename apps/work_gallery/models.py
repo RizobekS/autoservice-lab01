@@ -98,6 +98,9 @@ class VendorModelPack(models.Model):
 class Work(models.Model):
     title = models.CharField('Название работы', max_length=256)
     url = AutoSlugField(verbose_name='URL работы', unique=True, populate_from='title', editable=True, max_length=120)
+    main_image = models.OneToOneField(verbose_name='Основное изображение', to='work_gallery.Image', null=True, blank=True,
+                                      on_delete=models.SET_NULL, related_name='+',
+                                      help_text='Добавленные изображения появятся тут после сохранения')
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления. Неактивные работы не отображаются нигде, кроме админ панели', default=True)
     model_pack = models.ForeignKey(verbose_name='Привязанный набор моделей', to=VendorModelPack, on_delete=models.SET_NULL, null=True, blank=True)
     products = models.ManyToManyField(verbose_name='Привязанные Товары/Услуги', to='services.Product', blank=True)
@@ -109,6 +112,9 @@ class Work(models.Model):
 
     def get_absolute_url(self):
         return reverse('work_gallery:single', args=(self.url,))
+
+    def get_main_image(self):
+        return self.main_image if self.main_image else self.image_set.first()
 
     class Meta:
         ordering = ['id']

@@ -33,3 +33,7 @@ class WorkAdminForm(forms.ModelForm):
         widgets = {
             'text': CKEditorWidget(),
         }
+
+    class Media:
+        js = ['admin/js/main_image_preview.js']
+        css = {'all': ['admin/css/main_image_preview.css']}

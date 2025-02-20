@@ -1,0 +1,22 @@
+#image-preview-tooltip {
+    cursor: pointer;
+    position: absolute;
+    width: 150px;
+    padding: 4px;
+    margin: 0;
+    background: #fff;
+    opacity: 0;
+    transition: opacity 0.2s;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.4);
+}
+
+#image-preview-tooltip img {
+    display: block;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+#image-preview-tooltip.show {
+    opacity: 1 !important;
+}

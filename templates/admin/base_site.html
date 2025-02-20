@@ -1,0 +1,10 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrahead %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/image_preview.css' %}">
+{% endblock %}
+
+{% block extrastyle %}
+  <script src="{% static 'js/image_preview.js' %}"></script>
+{% endblock %}
