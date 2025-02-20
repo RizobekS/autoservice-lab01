@@ -138,6 +138,9 @@ d-sm-flex justify-lg-content-end justify-content-sm-between align-items-center
                     <li class="{% is_active 'news:list' %}">
                       <a href="{% url 'news:list' %}">Новости</a>
                     </li>
+                    <li class="{% is_active 'masters:about' %}">
+                      <a href="{% url 'masters:about' %}">Наша команда</a>
+                    </li>
                     {% for title, url in menu_editor_pages %}
                       <li>
                         <a href="{% url 'editor_pages:editor_page' url %}">{{ title }}</a>
