@@ -102,7 +102,7 @@ class ProductAdmin(ImageCroppingMixin, SortableAdmin):
 
     fieldsets = (
         (None, {
-            'fields': (('title', 'url'), 'active', 'show_at_homepage', 'tag', 'section', 'additional_sections', ('price', 'fixed_price'),
+            'fields': (('title', 'url'), 'active', 'show_at_homepage', 'warranty', 'tag', 'section', 'additional_sections', ('price', 'fixed_price'),
                        'time_duration', 'spare_parts', 'car_pack', 'branches', 'similar_products')
         }),
         ('Текст', {'fields': ('short_description', 'description'), 'classes': ('wide',)}),

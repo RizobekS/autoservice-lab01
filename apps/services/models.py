@@ -141,6 +141,7 @@ class Product(SortableMixin):
     car_pack = models.ForeignKey(verbose_name='Машины, подходящие под данный товар/услугу', to='CarPack', on_delete=models.DO_NOTHING, null=True, blank=True,
                                  help_text='Выберите набор машин, для которого подходит данный товар/услуга')
     tag = models.ForeignKey(verbose_name='Тег', to=Tag, on_delete=models.SET_NULL, null=True, blank=True)
+    warranty = models.IntegerField('Гарантия', help_text='Укажите 0, чтобы не выводить', default=6)
 
     branches = models.ManyToManyField(verbose_name='Филиалы', to=Branch, help_text='Филиалы, которые оказывают данную услугу')
 

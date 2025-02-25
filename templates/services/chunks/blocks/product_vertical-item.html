@@ -18,8 +18,10 @@
         <b>Длительность:</b> {{ product.time_duration }}
       {% endif %}
       <br/>
-      <i class="fa fa-shield color-main"></i>
-      <b>Гарантия:</b> 6 месяцев
+      {% if product.warranty %}
+        <i class="fa fa-shield color-main"></i>
+        <b>Гарантия:</b> {{ product.warranty }} месяцев
+      {% endif %}
     </p>
   </div>
 </div>
