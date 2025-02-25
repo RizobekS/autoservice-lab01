@@ -17,8 +17,11 @@ class MastersMixin(ContextMixin):
     masters_max: int = None
     masters_additional_kwargs: dict = {}
 
+    def get_masters_queryset(self):
+        return Master.objects.prefetch_related('positions').filter(active=True, **self.masters_additional_kwargs)
+
     def get_masters(self) -> List[Master]:
-        masters = Master.objects.prefetch_related('positions').filter(active=True, **self.masters_additional_kwargs)
+        masters = self.get_masters_queryset()
         return masters[:self.masters_max] if self.masters_max else masters
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:
