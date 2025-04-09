@@ -1,7 +1,6 @@
 @charset "utf-8";
 
-@import url("https://fonts.googleapis.com/css?family=Montserrat Alternates:100,200,300,400,500,600,700");
-@import url("https://fonts.googleapis.com/css?family=Mulish:500");
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans:ital,wght@0,1..1000;1,1..1000");
 
 @import url("../fonts/icomoon/style.css");
 
@@ -117,7 +116,7 @@ html {
 
 body {
     background-color: #fff;
-    font-family: "Montserrat Alternates", sans-serif;
+    font-family: "Sofia Sans", sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 24px;
@@ -1367,7 +1366,7 @@ select {
 }
 
 .btn.fa span {
-    font-family: "Montserrat Alternates", sans-serif;
+    font-family: "Sofia Sans", sans-serif;
 }
 
 /* media elements */
@@ -20647,7 +20646,7 @@ start-form-modal - на модалке
 
 .xdsoft_datetimepicker {
     padding: 0;
-    font-family: "Montserrat Alternates", sans-serif;
+    font-family: "Sofia Sans", sans-serif;
     font-size: 16px;
     font-weight: 300;
     color: #fff;

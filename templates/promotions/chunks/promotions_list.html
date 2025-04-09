@@ -12,7 +12,7 @@
           <a href="{% get_promotion_url item %}"
              class="tag-cloud-link"><span>
             {% if item.is_active %}
-              Срок действия: {{ item.get_active_before }}
+              Действует до: {{ item.get_active_before }}
             {% elif item.active_before %}
               Истекло: {{ item.active_before|date:"d.m.Y" }}
             {% else %}
