@@ -1,8 +1,6 @@
 class CarFilterUtilsMixin:
     vendor = None
     model = None
-    year = None
-    modification = None
 
     def existing_attributes(self) -> list:
         existing_attrs = []
@@ -10,10 +8,6 @@ class CarFilterUtilsMixin:
             existing_attrs.append(self.vendor)
             if self.model:
                 existing_attrs.append(self.model)
-                if self.year:
-                    existing_attrs.append(self.year)
-                    if self.modification:
-                        existing_attrs.append(self.modification)
         return existing_attrs
 
     def full_name(self) -> str:

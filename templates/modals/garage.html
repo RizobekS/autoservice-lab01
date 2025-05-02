@@ -9,8 +9,10 @@
         {% for item in garage_cars %}
           <li class="garage_modal_item">
             <a href="{% url 'cars:car' item.url_args %}">
+              {% if item.vendor.logo %}
               <img loading="lazy" src="{{ item.vendor.logo.url }}" alt="{{ item.vendor.name }}">
-              <span class="product-title fw-500">{{ item.vendor.name }} {{ item.model.name }} - {{ item.year.name }}</span>
+              {% endif %}
+              <span class="product-title fw-500">{{ item.vendor.name }} {{ item.model.name }}</span>
             </a>
             <div class="d-flex justify-content-between shop-item">
               <p>{{ item.modification.name }}</p>

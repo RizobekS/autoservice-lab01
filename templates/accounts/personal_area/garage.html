@@ -48,7 +48,6 @@
                       <th class="product-remove">&nbsp;</th>
                       <th>&nbsp;</th>
                       <th class="product-name">Автомобиль</th>
-                      <th class="product-subtotal">Год</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -70,9 +69,6 @@
                           <a href="{% url 'cars:car' car_filter.url_args %}"><b>{{ car_filter.model }}</b><br>{{ car_filter.modification.name }}</a>
                         </td>
 
-                        <td class="product-subtotal" data-title="Total">
-                          <span class="amount">{{ car_filter.year.name }}</span>
-                        </td>
                       </tr>
                     {% endfor %}
 

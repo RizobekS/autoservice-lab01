@@ -23,10 +23,10 @@ class CarFilter(models.Model, CarFilterUtilsMixin):
         return f'Filter #{self.id} {f" - {self.user} : " if self.user else ":"} {self.modification}'
 
     def __repr__(self):
-        return f'CarFilter(user="{self.user}", vendor="{self.vendor.name}", model="{self.model.name}", year="{self.year.year}", modification="{self.modification.name}")'
+        return f'CarFilter(user="{self.user}", vendor="{self.vendor.name}", model="{self.model.name}")'
 
     def is_full(self) -> bool:
-        return bool(self.vendor) and bool(self.model) and bool(self.year) and bool(self.modification)
+        return bool(self.vendor) and bool(self.model)
 
     def ceo_context(self):
         return self.existing_attributes()[-1].ceo_context()

@@ -1,15 +1,24 @@
 from django.db.models import Q
 from django.http import JsonResponse
 from django.urls import reverse
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 
 from utils.car_filter import set_car_filter, get_car_filter
 from utils.opengraph import OpengraphMixin
 from utils.opengraph.utils import og_image
 from .models import *
 from .utils.mixins import CarFilterPageSettingsMixin
+from .utils.types import CarUrls
 from ..services.models import Section, Product, CarPack
 
+
+class RedirectOldCarUrls(RedirectView):
+    permanent = True
+
+    def get_redirect_url(self, *args, **kwargs):
+        urls: CarUrls = kwargs.get('urls')
+        new_car_urls = '/'.join([urls.vendor, urls.model])
+        return reverse('cars:car', args=[new_car_urls])
 
 class CarView(TemplateView, CarFilterPageSettingsMixin, OpengraphMixin):
     template_name = 'cars/car.html'
@@ -54,10 +63,6 @@ class CarView(TemplateView, CarFilterPageSettingsMixin, OpengraphMixin):
         # Find all car_pack's that include current car_filter
         kwargs = {'cars__year__model__vendor': self.car_filter.vendor,
                   'cars__year__model': self.car_filter.model}
-        if self.car_filter.year:
-            kwargs['cars__year'] = self.car_filter.year
-            if self.car_filter.modification:
-                kwargs['cars'] = self.car_filter.modification
         car_packs = CarPack.objects.filter(**kwargs)
 
         products = list(Product.objects.filter(active=True).filter(Q(car_pack__in=car_packs) | Q(car_pack__isnull=True)))
@@ -120,7 +125,7 @@ def ajax_filter(request):
         # Construct reverse url according to url_args[] and view_name hidden fields values and selected car
         viewname = request.POST.get('view_name')
         args = request.POST.getlist('url_args[]')
-        args.append(car_filter.url_args())
+        args.extend(car_filter.url_args())
         url = reverse(viewname, args=args)
 
     else:

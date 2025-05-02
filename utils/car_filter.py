@@ -14,7 +14,7 @@ def get_car_filter(request) -> Optional[CarFilter]:
     # Store car_filter in per request caches for furtuher calls
     car_filter = request.cache.get('car_filter', False)  # False if not in cache
     if car_filter is False:
-        queryset = CarFilter.objects.select_related('vendor', 'model__vendor', 'year__model__vendor', 'modification__year__model__vendor').filter(id=filter_id)
+        queryset = CarFilter.objects.select_related('vendor', 'model__vendor').filter(id=filter_id)
         car_filter = queryset.first()
         request.cache.set('car_filter', car_filter)
 

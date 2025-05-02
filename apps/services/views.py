@@ -8,10 +8,11 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import strip_tags
 from django.views import View
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView, RedirectView
 from image_cropping.templatetags.cropping import cropped_thumbnail
 
 from apps.cars.utils.mixins import CarFilterPageSettingsMixin
+from apps.cars.utils.types import CarUrls
 from utils.breadcrumbs.types import Breadcrumb
 from utils.car_filter import get_car_filter
 from utils.mixins import PageSettingsMixin
@@ -25,6 +26,17 @@ from ..accounts.forms import CallRequestForm
 from ..accounts.utils.mixins import ShortAppointmentMixin, SparePartAppointmentMixin
 from ..news.models import Article
 from ..promotions.models import Promotion
+
+
+class RedirectOldSectionCarUrls(RedirectView):
+    permanent = True
+
+    def get_redirect_url(self, *args, **kwargs):
+        obj_url = kwargs.get('section_url') or kwargs.get('product_url')
+        urls: CarUrls = kwargs.get('urls')
+        print("DEBUG:", urls)
+        new_args = '/'.join([urls.vendor, urls.model])
+        return reverse('services:section_car' if 'section_url' in kwargs else 'services:product_car', args=[obj_url, new_args])
 
 
 class SectionView(DetailView, SectionsMixin, ProductsMixin, AdvantagesContextMixin, CarFilterPageSettingsMixin, OpengraphMixin):

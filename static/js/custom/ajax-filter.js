@@ -12,10 +12,6 @@ $(function () {
                 choices['vendor'] = window.choices[i];
             } else if (id === 'model') {
                 choices['model'] = window.choices[i];
-            } else if (id === 'year') {
-                choices['year'] = window.choices[i];
-            } else if (id === 'modification') {
-                choices['modification'] = window.choices[i];
             }
         }
 
@@ -67,8 +63,6 @@ $(function () {
                 success: function (data) {
                     choices['vendor'].clearStore().setChoices(data['vendor'], 'value', 'label', true);
                     choices['model'].clearStore().setChoices(data['model'], 'value', 'label', true);
-                    choices['year'].clearStore().setChoices(data['year'], 'value', 'label', true);
-                    choices['modification'].clearStore().setChoices(data['modification'], 'value', 'label', true);
                     if (data['url'])
                         url = data['url'];
                 },

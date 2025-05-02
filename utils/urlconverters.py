@@ -1,5 +1,5 @@
 class BaseModelUrlFilter:
-    regex = '.+'
+    regex = r'[a-z0-9\-]+'
 
     @property
     def model_class(self):

@@ -12,15 +12,6 @@ def car_breadcrumbs(car_filter: CarFilter) -> list:
     if car_filter.model:
         bc = Breadcrumb(car_filter.model.name, reverse('cars:car', args=(car_filter.model.url_args(),)))
         breadcrumbs.append(bc)
-        if car_filter.year:
-            if car_filter.modification:
-                name = f'{car_filter.year.name}, {car_filter.modification.name}'
-                args = car_filter.modification.url_args()
-            else:
-                name = car_filter.year.name
-                args = car_filter.year.url_args()
-            bc = Breadcrumb(name, reverse('cars:car', args=(args, )))
-            breadcrumbs.append(bc)
 
     return breadcrumbs
 
