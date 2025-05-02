@@ -26,6 +26,4 @@ urlpatterns = [
 
     path('<section_filter:section_url>/', SectionView.as_view(), name='section'),
     path('<product_filter:product_url>/', ProductView.as_view(), name='product'),
-    path('<section_filter:section_url>/<car_converter:urls>/', SectionView.as_view(), name='section_car'),
-    path('<product_filter:product_url>/<car_converter:urls>/', ProductView.as_view(), name='product_car'),
 ]
