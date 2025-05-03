@@ -46,6 +46,15 @@ RewriteRule ^diagnostika-jelektriki-avtomobilja-v-diskont-servise-avto-premium/$
 RewriteRule ^diagnostika-dvigatelja-avtomobilja-ot-500-rublej/$ /diagnostika-dvigatelya/ [R=301,L]
 RewriteRule ^osmotr-hodovoj-i-dvigatelja-besplatno/$ /diagnostika-podveski [R=301,L]
 RewriteRule ^polnaja-diagnostika-avtomobilja/$ /diagnostika/ [R=301,L]
+RewriteRule ^remont-dvigatelja/ford--focus-iii--2017--34235/$ /remont-dvigatelja/ford/focus-iii/ [R=301,L]
+RewriteRule ^rulevoe-upravlenie/ford--focus-iii--2017--34235/$ /rulevoe-upravlenie/ford/focus-iii/ [R=301,L]
+RewriteRule ^ford--focus-iii--2017--34235/$ /ford/focus-iii/ [R=301,L]
+RewriteRule ^ford--focus-iii--2017--34235/$ /ford/focus-iii/ [R=301,L]
+Redirect 301 /remont-dvigatelja/ford--focus-iii--2017--34235/ /remont-dvigatelja/ford/focus-iii/
+Redirect 301 /rulevoe-upravlenie/ford--focus-iii--2017--34235/ /rulevoe-upravlenie/ford/focus-iii/
+Redirect 301 /ford--focus-iii--2017--34235/ /ford/focus-iii/
+RewriteCond %{REQUEST_URI} ^/[^/]+/[^/]+/focus-ii
+RewriteRule ^([^/]+)/([^/]+)/focus-ii(/.*)?$ /$1/$2/focus-2 [R=301,L]
 
 RewriteRule ^chip-tuning/$ /chip-tyuning/ [R=301,L]
 RewriteRule ^mojka-ljuks/$ /mojka-avtomobilya/ [R=301,L]
