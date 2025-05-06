@@ -9,19 +9,10 @@ class CarUrls:
     __slots__ = ('vendor', 'model', 'year', 'modification')
 
     def __init__(self, vendor=None, model=None, year=None, modification=None):
-        self.vendor = vendor
-        self.model = model
-        try:
-            self.year = int(year) if year and str(year).isdigit() else None
-        except (ValueError, TypeError):
-            self.year = None
-        try:
-            self.modification = int(modification) if modification and str(modification).isdigit() else None
-        except (ValueError, TypeError):
-            self.modification = None
+        self.vendor, self.model, self.year, self.modification = vendor, model, int(year) if year is not None else None, int(modification) if modification is not None else None
 
     def __repr__(self):
-        return f'{self.vendor} {self.model}'
+        return f'{self.vendor} {self.model} {self.year} {self.modification}'
 
     def exists(self) -> bool:
         value = Vendor.objects.filter(url__exact=self.vendor, active=True).exists()
@@ -34,7 +25,7 @@ class CarUrls:
             Save to database as CarFilter
         """
         car_filter = None
-        kwargs = {'model': None}
+        kwargs = {'model': None, 'year': None, 'modification': None}
 
         obj = Vendor.objects.filter(url__exact=self.vendor, active=True)
         kwargs['vendor'] = exists_or_404(obj)

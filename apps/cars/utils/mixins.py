@@ -79,11 +79,20 @@ class CarFilterPageSettingsMixin(PageSettingsMixin):
         if car_filter:
             last_url = breadcrumbs[-1].url if len(breadcrumbs) else '/cars/'
 
-            car_filter_url = "/".join(car_filter.vendor.url_args())
+            car_filter_url = "--".join(car_filter.vendor.url_args())
             breadcrumbs.append(Breadcrumb(car_filter.vendor.name, f'{last_url}{car_filter_url}/'))
             if car_filter.model:
-                car_filter_url = "/".join(car_filter.model.url_args())
+                car_filter_url = "--".join(car_filter.model.url_args())
                 breadcrumbs.append(Breadcrumb(car_filter.model.name, f'{last_url}{car_filter_url}/'))
+                if car_filter.year:
+                    if car_filter.modification:
+                        name = f'{car_filter.year.name} {car_filter.modification.name}'
+                        url_args = car_filter.modification.url_args()
+                    else:
+                        name = car_filter.year.name
+                        url_args = car_filter.year.url_args()
+                    car_filter_url = "--".join(url_args)
+                    breadcrumbs.append(Breadcrumb(name, f'{last_url}{car_filter_url}/'))
         return breadcrumbs
 
     def get_ceo_context(self, **kwargs):
@@ -92,6 +101,8 @@ class CarFilterPageSettingsMixin(PageSettingsMixin):
             kwargs.update({
                 'vendor': car_filter.vendor.name if car_filter.vendor else '',
                 'model': car_filter.model.name if car_filter.model else '',
+                'year': car_filter.year.name if car_filter.year else '',
+                'modification': car_filter.modification.name if car_filter.modification else '',
             })
         return super().get_ceo_context(**kwargs)
 
