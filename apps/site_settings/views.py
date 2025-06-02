@@ -1,6 +1,10 @@
 from django.shortcuts import render
 
 
+def cookie_policy(request):
+    return render(request, "site_settings/cookies.html")
+
+
 def handler404(request, *args, **kwargs):
     return render(request, "http_errors/404.html", context={'page_title': '404'}, status=404)
 

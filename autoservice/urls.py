@@ -11,6 +11,7 @@ from django.contrib.sitemaps import views as sitemap_views
 from django.urls import path, include
 from django.views.generic import TemplateView
 from haystack.generic_views import SearchView
+from apps.site_settings import views
 
 from autoservice.sitemap.sitemap import sitemaps
 from utils.views import StaticPageView
@@ -21,6 +22,7 @@ static_urlpatterns = [
 ]
 
 urlpatterns = [
+    path("cookie-policy/", views.cookie_policy, name="cookie_policy"),
     path('sitemap.xml', sitemap_views.index, {'sitemaps': sitemaps}),
     path('sitemap-<section>.xml', sitemap_views.sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
