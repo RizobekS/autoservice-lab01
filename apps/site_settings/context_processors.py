@@ -5,6 +5,7 @@ from apps.editor_pages.models import EditorPage
 from apps.services.models import Section
 from apps.site_settings.models import StaticInformation, Branch, MenuServiceSorting
 from utils.car_filter import get_car_filter
+from autoservice.settings.common import SMARTCAPTCHA_CLIENT_KEY
 
 
 def static_info(request):
@@ -43,3 +44,8 @@ def menu_data(request):
 
     return {'menu_services': objects,
             'menu_editor_pages': menu_editor_pages}
+
+def smartcaptcha_keys(request):
+    return {
+        'SMARTCAPTCHA_CLIENT_KEY': SMARTCAPTCHA_CLIENT_KEY,
+    }

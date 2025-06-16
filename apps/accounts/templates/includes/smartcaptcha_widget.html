@@ -1,0 +1,21 @@
+<script src="https://smartcaptcha.yandexcloud.net/captcha.js" defer></script>
+
+<div id="captcha-container" class="smart-captcha" data-sitekey="{{ widget.sitekey }}">
+  <input type="hidden" name="smart-token" id="smartcaptcha_token">
+</div>
+
+<script>
+  window.addEventListener('load', function () {
+    if (window.smartCaptcha) {
+      smartCaptcha.render(
+        document.querySelector('.smart-captcha'),
+        {
+          sitekey: '{{ widget.sitekey }}',
+          callback: function (token) {
+            document.getElementById('smartcaptcha_token').value = token;
+          }
+        }
+      );
+    }
+  });
+</script>

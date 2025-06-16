@@ -1,5 +1,4 @@
-from captcha.fields import ReCaptchaField
-from captcha.widgets import ReCaptchaV2Checkbox
+from .fields import SmartCaptchaField, SmartCaptchaWidget
 from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import \
@@ -119,10 +118,11 @@ class AppointmentForm(forms.ModelForm):
     datetime = forms.DateTimeField(input_formats=[*DateTimeFormatsIterator(), '%d.%m.%Y %H:%M'], required=False)
     phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
 
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+    captcha = SmartCaptchaField()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['captcha'].form = self
         self.fields['branch'].empty_label = 'Выберите СТО'
 
     def clean(self):
@@ -194,7 +194,7 @@ class ShortAppointmentForm(AppointmentForm):
     text1 = forms.CharField(widget=forms.Textarea, required=False)  # Fake textarea to trap spam bots
     phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
 
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+    captcha = SmartCaptchaField()
 
     def get_page_description(self) -> str:
         """ Returns description related to page from which the form was submitted. I.e. if appointment was sent from Product#4's page,
@@ -246,7 +246,7 @@ class SparePartAppointmentForm(AppointmentForm):
     text1 = forms.CharField(widget=forms.Textarea, required=False)  # Fake textarea to trap spam bots
     phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
 
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+    captcha = SmartCaptchaField()
 
     def send_mail(self, request):
         self.extra_context.update({'datetime': self.instance.datetime})
@@ -284,7 +284,7 @@ class CallRequestForm(AppointmentForm):
     html_email_body_template = 'accounts/emails/call_request/html.html'
     phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
 
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+    captcha = SmartCaptchaField()
 
     def clean(self):
         form_data = self.cleaned_data
