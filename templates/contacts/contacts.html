@@ -30,6 +30,7 @@
             <div class="media-body">
               <h6>Телефоны СТО</h6>
               <p>{% for item in navbar_branches %}
+                <span>{{ item.address }}</span><br>
                 <a href="tel:{{ item.phone|extract_phone }}">{{ item.phone }}</a><br/>
               {% endfor %}</p>
             </div>
