@@ -16,7 +16,10 @@
               <div class="icon-styled color-main">
                 <i class="fa fa-phone"></i>
               </div>
-              <p class="media-body color-grey"><a href="tel:{{ item.phone|extract_phone }}">{{ item.phone }}</a></p>
+              <p class="media-body">
+                <span class="color-white">{{ item.address }}</span><br>
+                <span class="color-grey"><a href="tel:{{ item.phone|extract_phone }}">{{ item.phone }}</a></span>
+              </p>
             </div>
           {% endfor %}
           <div class="media side-icon-box">
