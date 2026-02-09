@@ -1,0 +1,13 @@
+{% load shortcuts menu_utils strings service_url static %}
+
+<div {# {% if not image_url %} style="background-image: url('{% static 'img/title-bg.jpg' %}')"{% endif %} #}
+  class="{# {% if not blur %}header_absolute{% endif %} #} s-parallax ds bs s-overlay">
+  <!--topline section visible only on small screens|-->
+
+  <!--eof topline-->
+  <!-- header with single Bootstrap column only for navigation and includes. Used with topline and toplogo sections. Menu toggler must be in toplogo section -->
+
+
+  {% block page_title %}
+  {% endblock %}
+</div>

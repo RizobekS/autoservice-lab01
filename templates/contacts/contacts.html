@@ -71,7 +71,7 @@
     <div class="container-fluid">
       <div class="row align-items-center c-gutter-85">
         <div class="col-xl-6 col-lg-6 col-md-6 col-xs-12">
-          <div class="animate page_map" id="map" data-animation="scaleAppear">
+          <div class="animate page_map" id="map" data-animation="scaleAppear" data-branches="{{ map_branches_json|default:''|escape }}">
           </div>
           <!--.col-* -->
         </div>

@@ -1,6 +1,8 @@
+import json
 from random import randint
 from typing import List
 
+from django import forms
 from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -27,6 +29,22 @@ from ..accounts.utils.mixins import ShortAppointmentMixin, SparePartAppointmentM
 from ..news.models import Article
 from ..promotions.models import Promotion
 
+
+
+def _branches_to_map_payload(qs):
+    payload = []
+    for b in qs:
+        if b.latitude is None or b.longitude is None:
+            continue
+        payload.append({
+            "id": b.id,
+            "name": b.name,
+            "address": b.address,
+            "phone": b.phone,
+            "lat": float(b.latitude),
+            "lon": float(b.longitude),
+        })
+    return payload
 
 class RedirectOldSectionCarUrls(RedirectView):
     permanent = True
@@ -72,7 +90,7 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, AdvantagesContextMix
         return Section.objects.filter(parent_section=self.object)
 
     def get_products_queryset(self):
-        return Product.objects.filter(Q(section=self.object) | Q(additional_sections=self.object))
+        return Product.objects.filter(Q(section=self.object) | Q(additional_sections=self.object)).exclude(template_without_design=True)
 
     # #### CarFilterPageSettingsMixin ####
 
@@ -145,12 +163,27 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, AdvantagesCont
             Override branch choices to contain only supported branches.
             This function works both for ShortAppointmentForm and CallRequestForm (because both forms use the same choices field, I guess)
         """
-        form_class = super().get_form(form_class)
-        choices = [(item.id, item.name) for item in self.object.branches.get_queryset()]
-        if len(choices) > 1:
-            choices.insert(0, ('', 'Выберите СТО'))
-        form_class.fields['branch'].choices = choices
-        return form_class
+        form = super().get_form(form_class)
+
+        branches_qs = self.object.branches.all()
+        choices = [(item.id, item.name) for item in branches_qs]
+
+        # 1 филиал -> прячем селект, подставляем значение
+        if len(choices) == 1:
+            only_branch = branches_qs.first()
+            only_id = only_branch.id
+            form.fields['branch'].choices = [(only_id, only_branch.name)]
+            form.fields['branch'].initial = only_id
+            form.fields['branch'].widget = forms.HiddenInput()
+
+            form.selected_branch = only_branch
+        else:
+            # 2+ филиала -> текущая логика
+            if len(choices) > 1:
+                choices.insert(0, ('', 'Выберите СТО'))
+            form.fields['branch'].choices = choices
+
+        return form
 
     def dispatch(self, request, *args, **kwargs):
         self.object: Product = None  # for typehints
@@ -195,8 +228,17 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, AdvantagesCont
         else:  # If not, use default one
             return super().get_ceo_template(ceo_object, field_name)
 
+    def get_template_names(self):
+        self.object = self.get_object()
+        if getattr(self.object, 'template_without_design', False):
+            return ['services/product_without_design.html']
+        return [self.template_name]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # branches for this product
+        branches_qs = self.object.branches.filter(active=True)
         context.update({
             'image_url': cropped_thumbnail(None, self.object, 'thumbnail_1960x600'),
             'image_alt': self.object.title,
@@ -206,7 +248,11 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, AdvantagesCont
             'related_works': self.get_related_works(),
             'other_products': self.object.section.active_product_descendants({'id': self.object.id}),
             'other_products_aside': len(self.object.description) > 3000,  # Display other products in text if the text is not so long, otherwise in aside bar
+            'branches_for_map': branches_qs,
+            'map_branches_json': json.dumps(_branches_to_map_payload(branches_qs), ensure_ascii=False)
         })
+        if getattr(self.object, 'template_without_design', False):
+            context['meta_robots'] = 'noindex, nofollow'
         if self.object.canonical_to_original:
             context['canonical_link'] = self.request.build_absolute_uri(reverse('services:product', kwargs={'product_url': self.object.url}))
         return context

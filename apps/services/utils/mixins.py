@@ -47,7 +47,7 @@ class ProductsMixin(ContextMixin):
         return self.products_queryset
 
     def get_products(self) -> List[Product]:
-        products = self.get_products_queryset().filter(active=True)
+        products = self.get_products_queryset().filter(active=True).exclude(template_without_design=True)
         return products[:self.products_max] if self.products_max else products
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:

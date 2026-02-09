@@ -55,7 +55,7 @@ sitemaps = {
     # Services
     **service_sitemaps(),  # All products and sections (active and not canonical) with all possible car filters
     'sections': sitemap_factory(Section.objects.filter(active=True)),
-    'products': sitemap_factory(Product.objects.filter(active=True)),  # Bare products
+    'products': sitemap_factory(Product.objects.filter(active=True).exclude(template_without_design=True)),  # Bare products
 
     'tags': sitemap_factory(Tag.objects.all()),
 

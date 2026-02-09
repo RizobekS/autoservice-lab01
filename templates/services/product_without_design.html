@@ -1,0 +1,57 @@
+{% extends 'base_landing.html' %}
+{% load render_with_context %}
+{% load car_filter_context %}
+{% load deferred_static %}
+{% load service_url %}
+{% load cropping %}
+{% load static %}
+
+{% block links %}
+  {% deferred_style 'css/shop.css' 'color-switcher-link' %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
+{% endblock %}
+
+
+{% block header %}
+    {% include 'services/chunks_for_template_without_design/title.html' %}
+{% endblock %}
+
+{% block main %}
+
+  <section class="ls s-pt-50 s-pb-20 s-pt-lg-100 s-pb-lg-90 s-pt-xl-150 s-pb-xl-140 c-gutter-60 c-mb-30 c-mb-lg-0 service-single">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-7 col-lg-8">
+          <div class="article-text">
+            {% get_car_filter_context as car_filter_context %}
+            {% render_with_context product.description car_filter_context works=related_works library='render_works' %}
+          </div>
+
+          {# форма заявки оставляем #}
+          {% include 'accounts/chunks/short-appontment-form.html' %}
+        </div>
+
+        <aside class="col-md-5 col-lg-4">
+          {% include 'services/chunks/aside/product_spares_details.html' %}
+          {% include 'services/chunks/aside/request_call_form.html' %}
+
+        </aside>
+
+      </div>
+
+      {# прогресс бары можно оставить, если они не выглядят как “сайт” #}
+      {% include 'services/chunks/progress_bars.html' %}
+    </div>
+  </section>
+
+  {# Блок "Наши филиалы" пока оставим на пункт 3, потому что мы будем делать отдельную логику отображения для лендинга #}
+  {% include 'home/chunks/our-branches.html' %}
+
+{% endblock %}
+
+{% block body_scripts %}
+  <script src="{% static 'js/custom/ajax-filter.js' %}"></script>
+  <script src="{% static 'js/custom/scroll-to.js' %}"></script>
+  <div id="mapScript" data-url="{{ map_link }}"></div>
+{% endblock %}

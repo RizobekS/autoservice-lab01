@@ -89,8 +89,8 @@ class CarPackAdmin(admin.ModelAdmin):
 @admin.register(Product)
 class ProductAdmin(ImageCroppingMixin, SortableAdmin):
     list_display = ('title', 'url', 'active', 'section', 'additional_sections_count', 'verbose_price', 'tag',
-                    'canonical_to_original', 'show_in_promotions', 'show_at_homepage', 'description_length')
-    list_editable = ('show_at_homepage', 'canonical_to_original', 'show_in_promotions')
+                    'canonical_to_original', 'show_in_promotions', 'show_at_homepage', 'template_without_design', 'description_length')
+    list_editable = ('show_at_homepage', 'canonical_to_original', 'show_in_promotions', 'template_without_design')
     list_filter = ('active', 'fixed_price', 'show_at_homepage', 'section', 'tag', 'car_pack')
     search_fields = ('title', 'url', 'price', 'time_duration', 'car_pack__name', 'short_description', 'description')
 
@@ -102,7 +102,7 @@ class ProductAdmin(ImageCroppingMixin, SortableAdmin):
 
     fieldsets = (
         (None, {
-            'fields': (('title', 'url'), 'active', 'show_at_homepage', 'warranty', 'tag', 'section', 'additional_sections', ('price', 'fixed_price'),
+            'fields': (('title', 'url'), 'active', 'show_at_homepage', 'template_without_design', 'warranty', 'tag', 'section', 'additional_sections', ('price', 'fixed_price'),
                        'time_duration', 'spare_parts', 'car_pack', 'branches', 'similar_products')
         }),
         ('Текст', {'fields': ('short_description', 'description'), 'classes': ('wide',)}),

@@ -71,8 +71,8 @@ class Section(SortableMixin):
             Find all descendant products (direct child products, child section's child products)
         :return: List of products
         """
-        if exclude_args is None:
-            exclude_args = {}
+        exclude_args = exclude_args or {}
+        exclude_args.setdefault('template_without_design', True)
 
         products = list(self.product_set.filter(active=True).exclude(**exclude_args).all())
         for section in self.section_set.filter(active=True):
@@ -137,6 +137,7 @@ class Product(SortableMixin):
     section = models.ForeignKey(verbose_name='Родительский раздел', to='Section', on_delete=models.RESTRICT, related_name='child_product_set')
     additional_sections = models.ManyToManyField(verbose_name='Дополнительные родительские разделы', to='Section', related_name='nephew_product_set', blank=True)
     show_at_homepage = models.BooleanField('Отображать на главной', help_text='В блоке "Наши услуги"', default=False)
+    template_without_design = models.BooleanField('Шаблон без дизайна', help_text='Шаблон без дизайна, для контекстной рекламы"', default=False)
     spare_parts = models.ManyToManyField(verbose_name='Запчасти', to='SparePart', blank=True)
     car_pack = models.ForeignKey(verbose_name='Машины, подходящие под данный товар/услугу', to='CarPack', on_delete=models.DO_NOTHING, null=True, blank=True,
                                  help_text='Выберите набор машин, для которого подходит данный товар/услуга')

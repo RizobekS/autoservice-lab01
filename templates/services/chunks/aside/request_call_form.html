@@ -20,12 +20,20 @@
         {% field_errors form.phone %}
       </div>
 
-      <div class="form-group choices-plain choices-plain--field">
-        <div class="select bg-white">
-          {{ form.branch }}
+      {% if form.branch.field.widget.input_type == 'hidden' %}
+        {{ form.branch }}
+        <div class="form-group has-placeholder">
+          <label>СТО</label><i class="fa fa-map-marker color-main"></i>
+          <input type="text" class="form-control" value="{{ form.selected_branch.name }}" readonly>
         </div>
-        {% field_errors form.branch %}
-      </div>
+      {% else %}
+        <div class="form-group choices-plain choices-plain--field">
+          <div class="select">
+            {{ form.branch }}
+          </div>
+          {% field_errors form.branch %}
+        </div>
+      {% endif %}
 
       <div class="form-group">
         {{ form.captcha }}

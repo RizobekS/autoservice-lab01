@@ -1,3 +1,5 @@
+import json
+
 from django.db.models import Prefetch
 
 from apps.cars.models import CarFilter
@@ -10,7 +12,23 @@ from autoservice.settings.common import SMARTCAPTCHA_CLIENT_KEY
 
 def static_info(request):
     context = {item.key: item.value for item in StaticInformation.objects.filter(add_to_context=True)}
-    context['navbar_branches'] = list(Branch.objects.filter(active=True).order_by('-id'))
+    branches = list(Branch.objects.filter(active=True).order_by('-id'))
+    context['navbar_branches'] = branches
+
+    # NEW: map payload for pages that don't override it (home, contacts)
+    payload = []
+    for b in branches:
+        if b.latitude is None or b.longitude is None:
+            continue
+        payload.append({
+            "id": b.id,
+            "name": b.name,
+            "address": b.address,
+            "phone": b.phone,
+            "lat": float(b.latitude),
+            "lon": float(b.longitude),
+        })
+    context["map_branches_json"] = json.dumps(payload, ensure_ascii=False)
 
     if request.user.is_authenticated:
         query_set = CarFilter.objects.select_related('vendor', 'model__vendor', 'year__model__vendor', 'modification__year__model__vendor').filter(user=request.user)
@@ -37,7 +55,10 @@ def menu_data(request):
     objects = {}
     for root_sec in root_sections:
         queryset = root_sec.active_menusortingset
-        objects[root_sec] = [item.instance for item in queryset if item.instance.active]
+        objects[root_sec] = [
+            item.instance for item in queryset
+            if item.instance.active and not getattr(item.instance, 'template_without_design', False)
+        ]
 
     menu_editor_pages = [(item.title, item.url)
                          for item in EditorPage.objects.filter(active=True, show_in_menu=True)]

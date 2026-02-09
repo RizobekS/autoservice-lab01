@@ -44,6 +44,8 @@ class Branch(models.Model):
     active = models.BooleanField('Активно', help_text=ACTIVE_HELP_TEXT, default=True)
     address = models.CharField('Адрес', max_length=240)
     phone = models.CharField('Тел. номер', max_length=20)
+    latitude = models.DecimalField('Широта', max_digits=18, decimal_places=14, null=True, blank=True)
+    longitude = models.DecimalField('Долгота', max_digits=18, decimal_places=14, null=True, blank=True)
 
     def __str__(self):
         return self.name

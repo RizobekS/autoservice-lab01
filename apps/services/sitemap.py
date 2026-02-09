@@ -43,7 +43,7 @@ def service_sitemaps() -> Dict[str, type]:
 
             sitemaps[section.url] = _sitemap_factory(section, cached_car_packs[None])
 
-        for product in Product.objects.filter(active=True, canonical_to_original=False):
+        for product in Product.objects.filter(active=True, canonical_to_original=False).exclude(template_without_design=True):
 
             if product.car_pack not in cached_car_packs:  # Create cached car pack for the product's car pack if does not exist
                 cached_car_packs[product.car_pack] = create_cached_car_url_list(product.car_pack)
