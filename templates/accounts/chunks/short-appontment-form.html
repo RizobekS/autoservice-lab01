@@ -45,14 +45,24 @@
           {% field_errors form.email %}
         </div>
       </div>
-      <div class="col-sm-6">
-        <div class="form-group choices-plain choices-plain--field">
-          <div class="select">
-            {{ form.branch }}
+      {% if form.branch.field.widget.input_type == 'hidden' %}
+        {{ form.branch }}
+        <div class="col-sm-6">
+          <div class="form-group has-placeholder">
+            <label>СТО</label><i class="fa fa-map-marker color-main"></i>
+            <input type="text" class="form-control" value="{{ form.selected_branch.name }}" readonly>
           </div>
-          {% field_errors form.branch %}
         </div>
-      </div>
+      {% else %}
+        <div class="col-sm-6">
+          <div class="form-group choices-plain choices-plain--field">
+            <div class="select">
+              {{ form.branch }}
+            </div>
+            {% field_errors form.branch %}
+          </div>
+        </div>
+      {% endif %}
 
 
       <div class="col-sm-12">
