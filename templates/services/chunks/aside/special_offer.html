@@ -26,8 +26,9 @@
             <h4>
               <a href="{% get_promotion_url item %}">{{ item.title }}</a>
             </h4>
-            <p class="item-meta"><i class="ico-clock-alt color-main"></i>
-              {{ item.date|date_delta }}
+            <p class="item-meta">
+              <i class="ico-clock-alt color-main m-0"></i>Действует до:<br>
+              {{ item.get_active_before }}
             </p>
           </div>
         </li>

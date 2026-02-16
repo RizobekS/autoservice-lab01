@@ -259,15 +259,17 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, AdvantagesCont
 
     def get_promotions(self):
         """ Get related promotions (each promotion can be related to a product). If no related promotions - select 3 arbitrary ones """
+        today = timezone.now().date()
+
         promotions = self.object.promotion_set.filter(active=True).filter(
-            Q(active_before__isnull=True) | Q(active_before__gte=timezone.now())
+            Q(active_before__isnull=True) | Q(active_before__gte=today)
         )
         if promotions.exists():
             promotions = promotions[:3]
         else:
             # Get random promotion entries
             queryset = Promotion.objects.filter(active=True).filter(
-                Q(active_before__isnull=True) | Q(active_before__gte=timezone.now())
+                Q(active_before__isnull=True) | Q(active_before__gte=today)
             )
             promotions = []
             count = queryset.count()

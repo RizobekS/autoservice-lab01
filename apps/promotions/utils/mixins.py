@@ -20,8 +20,9 @@ class PromotionsMixin(ContextMixin):
     promotions_queryset: QuerySet = Promotion.objects.select_related('category').prefetch_related('tags', 'articles', 'products')
 
     def get_promotions_queryset(self):
+        today = timezone.now().date()
         return self.promotions_queryset.filter(
-            Q(active_before__isnull=True) | Q(active_before__gte=timezone.now())
+            Q(active_before__isnull=True) | Q(active_before__gte=today)
         )
 
     def get_promotions(self) -> List[Promotion]:

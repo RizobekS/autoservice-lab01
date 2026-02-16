@@ -71,8 +71,9 @@ class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMix
         return self.object
 
     def get_queryset(self):
+        today = timezone.now().date()
         return super().get_queryset().filter(
-            Q(active_before__isnull=True) | Q(active_before__gte=timezone.now())
+            Q(active_before__isnull=True) | Q(active_before__gte=today)
         )
 
     def get_og_tags(self, **kwargs) -> dict:
@@ -115,9 +116,10 @@ class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMix
 
 
 def get_archived_promotions(request):
+    today = timezone.now().date()
     promotions = Promotion.objects.filter(
         Q(active=False) |
-        Q(active_before__isnull=False, active_before__lt=timezone.now())
+        Q(active_before__isnull=False, active_before__lt=today)
     )
     return render(request, 'promotions/chunks/promotions_list.html', {'promotions': promotions, 'archived': True})
 

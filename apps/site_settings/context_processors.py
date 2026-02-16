@@ -1,6 +1,9 @@
 import json
 
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
+
+from django.utils import timezone
+from apps.promotions.models import Promotion
 
 from apps.cars.models import CarFilter
 from apps.editor_pages.models import EditorPage
@@ -42,6 +45,13 @@ def static_info(request):
                                for item in EditorPage.objects.filter(active=True, show_in_footer=EditorPage.FOOTER_ABOUT)]
     context['footer_additional_services'] = [(item.title, item.url)
                                              for item in EditorPage.objects.filter(active=True, show_in_footer=EditorPage.FOOTER_ADDITIONAL_SERVICES)]
+
+    today = timezone.now().date()
+    context['footer_promotions'] = (
+        Promotion.objects.filter(active=True, show_in_footer=True)
+        .filter(Q(active_before__isnull=True) | Q(active_before__gte=today))
+        .order_by('-date')[:5]
+    )
 
     return context
 

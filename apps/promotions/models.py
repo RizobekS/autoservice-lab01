@@ -52,6 +52,11 @@ class Promotion(models.Model):
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления. Неактивные акции не отображаются нигде, кроме админ панели', default=True)
     date = models.DateField('Дата')
     active_before = models.DateField('Активно до', null=True, blank=True)
+    show_in_footer = models.BooleanField(
+        'Выводить в футере',
+        default=False,
+        help_text='Если включено, акция показывается в футере (при условии, что она активна).'
+    )
     short_description = models.CharField('Краткое описание (до 500 символов)', max_length=500)
     text = models.TextField('Контент')
 
@@ -116,7 +121,8 @@ class Promotion(models.Model):
         return formatted_last_day
 
     def is_active(self):
-        return self.active and (self.active_before is None or timezone.now().date() < self.active_before)
+        today = timezone.now().date()
+        return self.active and (self.active_before is None or today <= self.active_before)
 
     class Meta:
         ordering = ('-date',)

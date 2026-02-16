@@ -1,5 +1,6 @@
 {% load strings %}
 {% load static %}
+{% load promotions %}
 
 <footer class="page_footer text-center text-md-left ds ms s-pt-65 s-pt-lg-125 s-pb-lg-35 c-gutter-40 main-footer">
   <div class="container">
@@ -98,16 +99,18 @@
         <div class="widget widget_services_links">
           <h3>Акции</h3>
           <ul>
+            {% for promo in footer_promotions %}
+              {% get_promotion_url promo as promo_url %}
+              {% if promo_url %}
+                <li>
+                  <a href="{{ promo_url }}"><i class="ico-check-circle"></i>{{ promo.title }}</a>
+                </li>
+              {% endif %}
+            {% empty %}
               <li>
-                <a href="/specials/skidka-na-moiku-lux/"><i class="ico-check-circle"></i>Мойка-люкс</a>
+                <a href="{% url 'promotions:list' %}"><i class="ico-check-circle"></i>Смотреть все акции</a>
               </li>
-              <li>
-                <a href="/specials/sertifikat-na-3000-rub-novym-klientam/"><i class="ico-check-circle"></i>Сертификат 3000р.</a>
-              </li>
-			  <li>
-                <a href="/specials/besplatnaya-diagnostika-pri-pervom-poseshenii/"><i class="ico-check-circle"></i>Бесплатная диагностика</a>
-              </li>
-
+            {% endfor %}
           </ul>
         </div>
       </div>
