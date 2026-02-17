@@ -14,9 +14,6 @@ class CarsSitemap(Sitemap):
             for model in vendor.active_model_set():
                 urls.append((vendor.url, model.url))
 
-                for year in model.active_year_set():
-                    for modification in year.active_modification_set():
-                        urls.append((vendor.url, model.url, str(year.year), str(modification.id)))
         return urls
 
     def location(self, item):
