@@ -55,6 +55,12 @@ Redirect 301 /rulevoe-upravlenie/ford--focus-iii--2017--34235/ /rulevoe-upravlen
 Redirect 301 /ford--focus-iii--2017--34235/ /ford/focus-iii/
 RewriteCond %{REQUEST_URI} ^/[^/]+/[^/]+/focus-ii
 RewriteRule ^([^/]+)/([^/]+)/focus-ii(/.*)?$ /$1/$2/focus-2 [R=301,L]
+RewriteRule ^skoda/octavia/1999/29012/$ /skoda/octavia/ [R=301,L]
+RewriteRule ^skoda/octavia/2000/29063/$ /skoda/octavia/ [R=301,L]
+RewriteRule ^skoda/octavia/2004/29068/$ /skoda/octavia/ [R=301,L]
+Redirect 301 /skoda/octavia/1999/29012/ /skoda/octavia/
+Redirect 301 /skoda/octavia/2000/29063/ /skoda/octavia/
+Redirect 301 /skoda/octavia/2004/29068/ /skoda/octavia/
 
 RewriteRule ^chip-tuning/$ /chip-tyuning/ [R=301,L]
 RewriteRule ^mojka-ljuks/$ /mojka-avtomobilya/ [R=301,L]
