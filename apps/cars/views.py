@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponsePermanentRedirect
 from django.urls import reverse, NoReverseMatch
 from django.views.generic import TemplateView, RedirectView
 
@@ -27,6 +27,14 @@ class CarView(TemplateView, CarFilterPageSettingsMixin, OpengraphMixin):
 
     viewname = 'cars:car'
     car_filter_context_name = 'car'
+
+    def dispatch(self, request, *args, **kwargs):
+        urls = kwargs.get("urls")
+        # если пришли с /vendor/model/year/modification -> 301 на /vendor/model
+        if urls and (urls.year is not None or urls.modification is not None):
+            canonical = reverse('cars:car', args=[f'{urls.vendor}/{urls.model}'])
+            return HttpResponsePermanentRedirect(canonical)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_og_tags(self, **kwargs) -> dict:
         meta_context = super(CarFilterPageSettingsMixin, self).as_context()

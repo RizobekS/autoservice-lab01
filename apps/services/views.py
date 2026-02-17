@@ -5,7 +5,7 @@ from typing import List
 from django import forms
 from django.contrib import messages
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import strip_tags
@@ -96,6 +96,14 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, AdvantagesContextMix
 
     viewname = 'services:section'
     viewname_suffix = '_car'
+
+    def dispatch(self, request, *args, **kwargs):
+        urls = kwargs.get("urls")
+        if urls and (urls.year is not None or urls.modification is not None):
+            obj_url = kwargs.get('section_url')
+            canonical = reverse('services:section_car', args=[obj_url, f'{urls.vendor}/{urls.model}'])
+            return HttpResponsePermanentRedirect(canonical)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_initial_breadcrumbs(self) -> List[Breadcrumb]:
         breadcrumbs = []
@@ -198,6 +206,14 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, AdvantagesCont
 
     viewname = 'services:product'
     viewname_suffix = '_car'
+
+    def dispatch(self, request, *args, **kwargs):
+        urls = kwargs.get("urls")
+        if urls and (urls.year is not None or urls.modification is not None):
+            obj_url = kwargs.get('product_url')
+            canonical = reverse('services:product_car', args=[obj_url, f'{urls.vendor}/{urls.model}'])
+            return HttpResponsePermanentRedirect(canonical)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_initial_breadcrumbs(self) -> List[Breadcrumb]:
         breadcrumbs = []
