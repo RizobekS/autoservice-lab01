@@ -20,7 +20,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <![endif]-->
   <meta name="description" content="{{ meta_description }}">
-  <meta name="facebook-domain-verification" content="mwgauk8esb5robpinck7p4yerjzo8b" />
 
   {% if meta_robots %}
     <meta name="robots" content="{{ meta_robots }}">
@@ -76,46 +75,11 @@
     <script src="{% static 'js/vendor/respond.min.js' %}"></script>
     <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
     <![endif]-->
-	<!— Top.Mail.Ru counter —>
-<script type="text/javascript">
-var _tmr = window._tmr || (window._tmr = []);
-_tmr.push({id: "3577984", type: "pageView", start: (new Date()).getTime()});
-(function (d, w, id) {
- if (d.getElementById(id)) return;
- var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
- ts.src = "https://top-fwz1.mail.ru/js/code.js";
- var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
- if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
-})(document, window, "tmr-code");
-</script>
-<noscript><div><img src="https://top-fwz1.mail.ru/counter?id=3577984;js=na" style="position:absolute;left:-9999px;" alt="Top.Mail.Ru" /></div></noscript>
-<!— /Top.Mail.Ru counter —>
-  <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
-    w[l] = w[l] || [];
-    w[l].push({
-      'gtm.start':
-        new Date().getTime(), event: 'gtm.js'
-    });
-    var f = d.getElementsByTagName(s)[0],
-      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-    j.async = true;
-    j.src =
-      'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-    f.parentNode.insertBefore(j, f);
-  })(window, document, 'script', 'dataLayer', 'GTM-MHS3F2G');</script>
-  <!-- End Google Tag Manager -->
 
   {% block extra_styles %}
   {% endblock %}
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript>
-  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MHS3F2G"
-          height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-<!-- End Google Tag Manager (noscript) -->
 <!--[if lt IE 9]>
 <div class="bg-danger text-center">You are using an <strong>outdated</strong> browser. Please <a
   href="http://browsehappy.com/" class="color-main">upgrade your browser</a> to
@@ -156,6 +120,20 @@ _tmr.push({id: "3577984", type: "pageView", start: (new Date()).getTime()});
 
   </div><!-- eof #box_wrapper -->
 </div><!-- eof #canvas -->
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+
+    ym(57512014, 'init', {webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/57512014" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
 <script src="{% static 'js/vendor/modernizr-2.6.2.min.js' %}"></script>
 <script src="{% static 'js/compressed.js' %}"></script>
 <script src="{% static 'js/utils.js' %}"></script>
@@ -164,8 +142,6 @@ _tmr.push({id: "3577984", type: "pageView", start: (new Date()).getTime()});
 <script src="{% static 'js/custom/ajax-search.js' %}"></script>
 <script src="{% static 'js/privacy-policy.js' %}"></script>
 <script src="{% static 'js/custom/online-appointment.js' %}"></script>
-<!-- Google Map Script -->
-<!--     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0pr5xCHpaTGv12l73IExOHDJisBP2FK4&callback=initGoogleMap"></script> -->
 
 {% block body_scripts %}{% endblock %}
 {% include 'site_settings/cookie_notification.html' %}
