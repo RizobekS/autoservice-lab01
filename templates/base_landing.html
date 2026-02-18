@@ -34,13 +34,7 @@
     <link rel="canonical" href="{{ request.build_absolute_uri }}"/>
   {% endif %}
 
-  {% if car_filter.vendor.favicon %}
-    <link rel="icon" href="{{ car_filter.vendor.favicon.url }}" type="image/png">
-  {% elif car.vendor.favicon %}
-    <link rel="icon" href="{{ car.vendor.favicon.url }}" type="image/png">
-  {% else %}
-    <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
-  {% endif %}
+  <link rel="icon" href="{% static 'favicon_for_without_template.png' %}" type="image/png">
 
   <link rel="preload" href="{% static 'fonts/icomoon/icomoon.eot?scgqpa' %}" as="style">
   <link rel="preload" href="{% static 'fonts/icomoon/icomoon.eot?scgqpa#iefix' %}" as="style">
