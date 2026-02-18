@@ -32,7 +32,6 @@ class CachedCarsAll:
             for item in cursor.fetchall():
                 urls.add((item[0],))  # vendor
                 urls.add((item[0], item[1]))  # vendor + model
-                urls.add((item[0], item[1], str(item[2]), str(item[3])))  # vendor + model + year + modification
         return list(urls)
 
 
@@ -73,7 +72,6 @@ class CachedCarsCarPack:
             for item in cursor.fetchall():
                 urls.add((item[0],))  # vendor
                 urls.add((item[0], item[1]))  # vendor + model
-                urls.add((item[0], item[1], str(item[2]), str(item[3])))  # vendor + model + year + modification
         return list(urls)
 
 
