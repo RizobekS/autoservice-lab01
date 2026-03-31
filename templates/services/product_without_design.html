@@ -22,7 +22,7 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-md-7 col-lg-8">
+        <div class="col-md-7 col-lg-8 order-2 order-md-1">
           <div class="article-text">
             {% get_car_filter_context as car_filter_context %}
             {% render_with_context product.description car_filter_context works=related_works library='render_works' %}
@@ -32,7 +32,7 @@
           {% include 'accounts/chunks/short-appontment-form.html' %}
         </div>
 
-        <aside class="col-md-5 col-lg-4">
+        <aside class="col-md-5 col-lg-4 order-1 order-md-2">
           {% include 'services/chunks/aside/request_call_form.html' %}
 
         </aside>
