@@ -69,6 +69,7 @@ class Promotion(models.Model):
     sale = models.BooleanField('Цена/Скидка', default=False, choices=IS_SALE_CHOICES)
 
     show_at_homepage = models.BooleanField('Отображать на главной', default=False)
+    homepage_title = models.CharField('Заголовок акции для главной страницы', max_length=500, blank=True)
     homepage_description = models.CharField('Краткое описание для главной страницы (до 500 символов)', max_length=500, blank=True)
 
     image = models.ImageField('Изображение акции', help_text='Возможность обрезки появится после сохранения', upload_to='promotions/', max_length=256)

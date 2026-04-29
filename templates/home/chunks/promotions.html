@@ -9,7 +9,11 @@
 
           <div class="plan-name">
             <h5 class="text-uppercase hyphenate">
-              {{ item.title }}
+              {% if item.homepage_title %}
+                {{ item.homepage_title }}
+              {% else %}
+                {{ item.title }}
+              {% endif %}
             </h5>
           </div>
 

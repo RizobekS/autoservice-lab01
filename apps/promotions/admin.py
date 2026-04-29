@@ -41,7 +41,7 @@ class PromotionAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_display = ('title', 'url', 'absolute_url', 'active', 'active_before', 'show_in_footer', 'category', 'tag_string', 'verbose_price', 'date', 'show_at_homepage')
     list_editable = ('show_at_homepage', 'absolute_url', 'active', 'show_in_footer')
     list_filter = ('active', 'category', 'tags', 'date', 'fixed_price')
-    search_fields = ('title', 'short_description', 'homepage_description', 'text')
+    search_fields = ('title', 'short_description', 'homepage_description', 'homepage_title', 'text')
     actions = (activate, deactivate, clone)
 
     prepopulated_fields = {'url': ('title',), }
@@ -52,7 +52,7 @@ class PromotionAdmin(ImageCroppingMixin, admin.ModelAdmin):
         (None, {'fields': (('title', 'url', 'absolute_url'), 'active', 'show_in_footer', 'category', 'tags', 'specific_branch', 'date', 'active_before', 'sale', ('price', 'fixed_price'))}),
         ('Привязка к Статьям и Услугам', {'fields': ('articles', 'products'), 'classes': ['collapse']}),
         ('Изображение', {'fields': ('image', 'thumbnail', 'icon_thumbnail'), 'classes': ['wide']}),
-        ('Главная страница', {'fields': ('show_at_homepage', 'homepage_description'), 'classes': ['wide', 'collapse']}),
+        ('Главная страница', {'fields': ('show_at_homepage','homepage_title', 'homepage_description'), 'classes': ['wide', 'collapse']}),
         ('Текст', {'fields': ('short_description', 'text'), 'classes': ['wide']}),
         ('CEO настройки', {'fields': ('meta_title', 'meta_header', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
     )
