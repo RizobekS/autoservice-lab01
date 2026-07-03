@@ -8,7 +8,7 @@ from utils.widgets import CKEditorWidget
 
 
 class WorkAdminForm(forms.ModelForm):
-    multiple_images = forms.FileField(label='Добавить сразу несколько изображений', widget=forms.ClearableFileInput(attrs={'multiple': True}), required=False)
+    multiple_images = forms.FileField(label='Добавить сразу несколько изображений', required=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
