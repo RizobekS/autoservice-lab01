@@ -21,10 +21,10 @@ def export_cars_as_excel_view(request, *args, **kwargs):
 
 @admin.register(Vendor)
 class VendorAdmin(ImageCroppingMixin, admin.ModelAdmin):
-    list_display = ('name', 'url', 'active', 'related_cars')
-    list_filter = ('active',)
-    list_editable = ('active',)
-    fields = (('name', 'url'), 'logo', 'favicon', 'active', 'header_image', 'header_crop')
+    list_display = ('name', 'url', 'catalog', 'active', 'related_cars')
+    list_filter = ('catalog', 'active')
+    list_editable = ('catalog', 'active')
+    fields = (('name', 'url'), 'catalog', 'logo', 'favicon', 'active', 'header_image', 'header_crop')
     search_fields = ('name', 'model__name', 'model__year__year', 'model__year__modification__name')
     prepopulated_fields = {'url': ('name',), }
     actions = (activate, deactivate, clone)

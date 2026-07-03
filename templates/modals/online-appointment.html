@@ -9,12 +9,14 @@
   <div id="desc">Заявка успешно отправлена!</div>
 </div>
 
-<div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="modalAppointmentForm" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade bd-modal-lg" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="modalAppointmentForm" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span>×</span>
-      </button>
+      <div class="d-flex justify-content-end px-3">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span class="justify-content-end">×</span>
+        </button>
+      </div>
       <div class="modal-header justify-content-center">
         <h4 class="modal-title">Онлайн запись</h4>
       </div>
@@ -24,55 +26,68 @@
           {% csrf_token %}
           {% non_field_errors appointment_form %}
           <div class="col-11 col-md-6">
-            <div class="form-group has-placeholder form-group--datetime">
-              <input name="{{ appointment_form.datetime.name }}" id="datetimepickerRegister" class="form-control" type="text" placeholder="Удобная дата и время"
+            <div class="form-group has-placeholder form-group--datetime tw-my-1">
+              <input name="{{ appointment_form.datetime.name }}" id="datetimepickerRegister"
+                     class="bg-neutral-200 tw-px-6 tw-py-5 tw-my-1 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main"
+                     type="text" placeholder="Удобная дата и время"
                 {% if appointment_form.datetime.field.required %} required{% endif %}>
             </div>
             {% field_errors appointment_form.datetime %}
           </div>
           <div class="col-11 col-md-6">
-            <div class="form-group has-placeholder">
+            <div class="form-group has-placeholder tw-my-1">
               <label for="nameReg">Имя:</label>
-              <input type="text" class="form-control" id="nameReg" placeholder="Имя" name="{{ appointment_form.full_name.name }}"
+              <input type="text" class="bg-neutral-200 tw-px-6 tw-py-5 tw-my-1 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main"
+                     id="nameReg" placeholder="Имя" name="{{ appointment_form.full_name.name }}"
                      value="{% firstof appointment_form.full_name.value %}" {% choose appointment_form.datetime.field.required 'required' %}>
               {% field_errors appointment_form.full_name %}
             </div>
-            <div class="form-group has-placeholder">
+            <div class="form-group has-placeholder tw-my-1">
               <label for="carReg">Автомобиль:</label>
-              <input type="text" class="form-control" id="carReg" placeholder="Автомобиль" name="{{ appointment_form.car.name }}"
+              <input type="text" class="bg-neutral-200 tw-px-6 tw-py-5 tw-my-1 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main"
+                     id="carReg" placeholder="Автомобиль" name="{{ appointment_form.car.name }}"
                      value="{% firstof appointment_form.car.value %}" {% choose appointment_form.datetime.field.required 'required' %}>
               {% field_errors appointment_form.car %}
             </div>
-            <div class="form-group has-placeholder">
-              <input type="hidden" class="form-control" placeholder="Ваш телефон" name="{{ appointment_form.phone1.name }}"
+            <div class="form-group has-placeholder tw-my-1">
+              <input type="hidden" class="bg-neutral-200 tw-px-6 tw-py-5 tw-my-1 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main"
+                     placeholder="Ваш телефон" name="{{ appointment_form.phone1.name }}"
                      value="{% firstof appointment_form.phone1.value %}">
 
               <label for="phoneReg">Ваш телефон:</label>
-              <input type="text" class="form-control" id="phoneReg" placeholder="Ваш телефон" name="{{ appointment_form.phone.name }}"
+              <input type="text" class="bg-neutral-200 tw-px-6 tw-py-5 tw-my-1 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main"
+                     id="phoneReg" placeholder="Ваш телефон" name="{{ appointment_form.phone.name }}"
                      value="{% firstof appointment_form.phone.value %}" {% choose appointment_form.datetime.field.required 'required' %}>
               {% field_errors appointment_form.phone %}
             </div>
-            <div class="form-group choices-plain choices-plain--field">
+            <div class="form-group choices-plain choices-plain--field tw-my-2">
               <div class="select">
                 {{ appointment_form.branch }}
               </div>
               {% field_errors appointment_form.branch %}
             </div>
 
-            <div class="form-group">
+            <div class="form-group tw-my-1">
               {{ appointment_form.captcha }}
               {% field_errors appointment_form.captcha %}
             </div>
 
-            <p class="privacy-policy mb-1 small-text text-center" style="font-size: 10px;">
+            <p class="privacy-policy tw-my-1 small-text text-center">
               Отправляя данные, я соглашаюсь с
-              <a class="link privacy-policy-trigger" target="_blank" style="text-decoration: underline;" href="#" data-toggle="modal" data-target="#modalPrivacyPolicy">
+              <a class="link privacy-policy-trigger text-main-two hover-text-main" target="_blank" style="text-decoration: underline;" href="#" data-toggle="modal" data-target="#modalPrivacyPolicy">
                 политикой конфиденциальности
               </a>
             </p>
 
             <div class="modal-footer d-flex justify-content-center mt-2">
-              <button type="submit" class="btn btn-small btn-maincolor log-btn">Записаться</button>
+              <button type="submit"
+                      class="btn btn-main hover-style-two button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-black tw-tracking-2-percent"
+                      data-block="button">
+                <span class="button__flair"></span>
+                <span class="button__label">
+                  Записаться
+                </span>
+              </button>
             </div>
 
           </div>

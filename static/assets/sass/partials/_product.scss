@@ -1,0 +1,33 @@
+/* Product css start */
+.wishlist-btn.active {
+    color: var(--vs-theme-color1);
+
+    i {
+        font-weight: 900;
+        color: var(--vs-theme-color1);
+    }
+}
+
+.action-buttons {
+    transform: translateY(-100%) translateX(-50%);
+}
+
+.select-option-btn {
+    transform: translateY(100%) translateX(-50%);
+}
+
+.product-item {
+    &:hover {
+        .action-buttons {
+            transform: translateY(-50%) translateX(-50%);
+            top: 50% !important;
+        }
+
+        .select-option-btn {
+            transform: translateY(0) translateX(-50%);
+            margin-bottom: 28px;
+        }
+    }
+}
+
+/* Product css end */

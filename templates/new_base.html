@@ -1,0 +1,218 @@
+{% load deferred_static %}
+{% load appointment_modal %}
+{% load static %}
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html lang="ru" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html lang="ru" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html lang="ru" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="ru" class="no-js">
+<!--<![endif]-->
+
+<head>
+  <title>{{ title_prefix }} {{ page_title }} {{ title_suffix }}</title>
+  <meta charset="utf-8">
+  {% block language_head_scripts %}{% endblock %}
+  <!--[if IE]>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <![endif]-->
+  <meta name="description" content="{{ meta_description }}">
+
+  {% if meta_robots %}
+    <meta name="robots" content="{{ meta_robots }}">
+  {% elif canonical_link and canonical_link != request.build_absolute_uri %}
+    <meta name="robots" content="noindex, follow">
+  {% else %}
+    <meta name="robots" content="index, follow">
+  {% endif %}
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  {# Opengraph tags #}
+  {% for key, value in opengraph_metatags.items %}
+    <meta property="{{ key }}" content="{{ value }}"/>
+  {% endfor %}
+
+  {% if canonical_link %}
+    <link rel="canonical" href="{{ canonical_link }}"/>
+  {% else %}
+    <link rel="canonical" href="{{ request.build_absolute_uri }}"/>
+  {% endif %}
+
+  {% if car_filter.vendor.favicon %}
+    <link rel="icon" href="{{ car_filter.vendor.favicon.url }}" type="image/png">
+  {% elif car.vendor.favicon %}
+    <link rel="icon" href="{{ car.vendor.favicon.url }}" type="image/png">
+  {% else %}
+    <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
+  {% endif %}
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+  <!-- font awesome -->
+  <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+  <!-- aos -->
+  <link rel="stylesheet" href="{% static 'assets/css/aos.css' %}">
+  <!-- Swiper slider -->
+  <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.min.css' %}">
+  <!-- magnific popup -->
+  <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+  <!-- Main css -->
+
+  <!--  Old styles-->
+  <link rel="stylesheet" href="{% static 'css/utils.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/from_old_style.css' %}">
+
+  {% block links %}
+    {% deferred_style 'css/shop.css' 'color-switcher-link' %}
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+  {% endblock %}
+
+  {# schema.org breadcrumbs JSON-LD #}
+  {% include 'chunks/breadcrumbs_schema.html' %}
+
+  {% block head_scripts %}{% endblock %}
+  <!--[if lt IE 9]>
+    <script src="{% static 'js/vendor/html5shiv.min.js' %}"></script>
+    <script src="{% static 'js/vendor/respond.min.js' %}"></script>
+    <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <![endif]-->
+
+  {% block extra_styles %}
+  {% endblock %}
+</head>
+<body>
+  <!-- ==================== Preloader Start ==================== -->
+  <div class="loader-mask">
+    <div class="loader-center d-flex flex-column align-items-center tw-gap-8">
+      <div class="">
+        <img src="{% static 'images/logo_ow.png' %}" alt="{{ site_name }}" class="logo-w-200-px">
+      </div>
+      <div class="loader">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+  <!-- ==================== Preloader End ==================== -->
+
+
+<!--[if lt IE 9]>
+<div class="bg-danger text-center">You are using an <strong>outdated</strong> browser. Please <a
+  href="http://browsehappy.com/" class="text-main hover-text-main hover-text-underline">upgrade your browser</a> to
+  improve your experience.
+</div><![endif]-->
+
+{% if not request.user.is_authenticated %}
+  {% load login_modal %}
+  {% login_modal %}
+{% endif %}
+{% appointment_modal %}
+
+{% block modals %}
+{% endblock %}
+
+    <!-- ==================== Overlay Start ==================== -->
+  <div class="overlay"></div>
+  <!-- ==================== Overlay End ==================== -->
+
+  <!-- ==================== Sidebar Overlay End ==================== -->
+  <div class="side-overlay"></div>
+  <!-- ==================== Sidebar Overlay End ==================== -->
+
+  <!-- Custom Toast Message start -->
+  <div id="toast-container"></div>
+  <!-- Custom Toast Message End -->
+
+  <!-- ==================== Scroll to Top End Here ==================== -->
+  <div class="progress-wrap cursor-big">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+    </svg>
+  </div>
+  <!-- ==================== Scroll to Top End Here ==================== -->
+
+  <!-- Custom Cursor Start -->
+  <div class="cursor"></div>
+  <span class="dot"></span>
+  <!-- Custom Cursor End -->
+
+  {% include 'chunks/header/top_header.html' %}
+  <div class="position-relative">
+    {% include 'chunks/header/new_base.html' %}
+  </div>
+
+
+
+
+
+
+{% include 'modals/privacy-policy.html' %}
+  <div id="smooth-wrapper" class="">
+    <div id="smooth-content">
+        <main>
+          {% block page_title %}
+          {% endblock %}
+          {% block main %}
+
+          {% endblock %}
+          {% include 'chunks/new_footer.html' %}
+        </main>
+    </div>
+  </div>
+
+
+  <!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+
+    ym(57512014, 'init', {webvisor:true, clickmap:true, referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/57512014" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+<script src="{% static 'js/vendor/modernizr-2.6.2.min.js' %}"></script>
+<script src="{% static 'js/compressed.js' %}"></script>
+
+
+<script src="{% static 'js/custom/ajax-remove-car-modal.js' %}"></script>
+<script src="{% static 'js/custom/ajax-search.js' %}"></script>
+<script src="{% static 'js/privacy-policy.js' %}"></script>
+<script src="{% static 'js/custom/online-appointment.js' %}"></script>
+
+<!-- Jquery js -->
+<script src="{% static 'assets/js/jquery-3.7.1.min.js' %}"></script>
+<!-- Bootstrap Bundle Js -->
+<script src="{% static 'assets/js/boostrap.bundle.min.js' %}"></script>
+<!-- aos -->
+<script src="{% static 'assets/js/aos.js' %}"></script>
+<!-- GSAP Plugins -->
+<script src="{% static 'assets/js/gsap-plugin.js' %}"></script>
+<!-- custom GSAP -->
+<script src="{% static 'assets/js/custom-gsap.js' %}"></script>
+<!-- swiper -->
+<script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
+<!-- swiper -->
+<script src="{% static 'assets/js/magnific-popup.min.js' %}"></script>
+<!-- counter up -->
+<script src="{% static 'assets/js/counterup.min.js' %}"></script>
+<!-- count down -->
+<script src="{% static 'assets/js/count-down.js' %}"></script>
+<!-- main js -->
+<script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="{% static 'js/utils.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+{% block body_scripts %}{% endblock %}
+
+{% include 'site_settings/cookie_notification.html' %}
+</body>
+
+</html>

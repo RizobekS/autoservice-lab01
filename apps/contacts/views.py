@@ -7,16 +7,19 @@ from utils.mixins import PageSettingsMixin
 
 
 class ContactsView(FormView, PageSettingsMixin):
-    template_name = 'contacts/contacts.html'
+    template_name = 'contacts/new_contacts.html'
     viewname = 'contacts:contacts'
 
     form_class = ContactForm
     success_url = reverse_lazy('contacts:contacts')
 
     def form_valid(self, form):
+        form.save()
+
         if form.send_mail(self.request):
-            messages.success(self.request, '✔ Сообщение было отправлено', extra_tags='text-success')
+            messages.success(self.request, 'Сообщение было отправлено', extra_tags='text-success')
             form.send_calltouch_request(self.request)
         else:
-            messages.error(self.request, '❌ Сообщение не было отправлено. Что-то пошло не так...', extra_tags='text-danger')
+            messages.error(self.request, 'Сообщение не было отправлено. Что-то пошло не так...', extra_tags='text-danger')
+
         return super().form_valid(form)

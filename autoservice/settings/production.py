@@ -26,16 +26,16 @@ DATABASES = {
 
 # Email sending
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = False
 EMAIL_HOST = env('EMAIL_HOST')
-EMAIL_PORT = 25
+EMAIL_PORT = env.int('EMAIL_PORT')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS')
+EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL', default=EMAIL_HOST_USER)
 
 # ##### SECURITY CONFIGURATION ############################
 
-# TODO: Make sure, that sensitive information uses https
-# TODO: Evaluate the following settings, before uncommenting them
 # redirects all requests to https
 # SECURE_SSL_REDIRECT = True
 # session cookies will only be set, if https is used
@@ -57,13 +57,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # how many days a password reset should work. I'd say even one day is too long
 PASSWORD_RESET_TIMEOUT_DAYS = 1
 
-RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY')
-RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY')
 
 LOGGING = {
     'version': 1,
     'filters': {
-        'slow_sql': {'()': 'autoservice.logging.filters.SlowSQLQueryFilter'},
+        'slow_sql': {'()': 'autoservice.my_logging.filters.SlowSQLQueryFilter'},
         'require_debug_true': {'()': 'django.utils.log.RequireDebugTrue'}
     },
     'handlers': {

@@ -1,0 +1,85 @@
+{% extends 'new_base.html' %}
+{% load static string_time_delta %}
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+{% block main %}
+<!-- =============================== Blog section start ============================= -->
+<section class="vs-section space space-extra-bottom py-110">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="vs-blog vs-blog--single mb-0 pe-lg-4">
+          {% if article.image %}
+            <div class="vs-blog__img--figure">
+              <div class="vs-blog__img--link w-100">
+                <img src="{{ article.image.url }}" alt="{{ article.title }}" class="vs-blog__img w-100">
+              </div>
+            </div>
+          {% endif %}
+          <div class="tw-mt-11">
+            <div class="vs-blog__meta">
+              {% if article.author %}
+                <a class="vs-blog__meta--link" href="#">
+                  <i class="fa-regular fa-user"></i>{{ article.author.name }}
+                </a>
+              {% endif %}
+              <a class="vs-blog__meta--link" href="#">
+                <i class="fa-regular fa-calendar-days"></i>{{ article.date|date:"d.m.Y" }}
+              </a>
+              <a class="vs-blog__meta--link" href="#comments">
+                <i class="fa-regular fa-comment"></i>{{ article.comment_set.count }}
+              </a>
+              <a class="vs-blog__meta--link" id="like" data-ajax-url="{% url 'knowledge_base:like' article.url %}">
+                <i class="fa {% if liked %}text-main fa-heart{% else %}fa-heart-circle{% endif %}"></i>{{ article.like_set.count }}
+              </a>
+            </div>
+            <h2 class="splitTextStyleOne">{{ article.title }}</h2>
+
+            {% if article.navigation %}
+              <div class="tw-mt-8">
+                {% include 'news/chunks/navigation.html' with navigation=article.navigation %}
+              </div>
+            {% endif %}
+
+            <div class="tw-mt-705">
+              {{ article.text|safe }}
+            </div>
+          </div>
+
+
+          <div id="comments" class="vs-comments-wrap">
+            <h4 class="blog-inner-title">Комментарии</h4>
+            {% if comments %}
+            {% include 'news/chunks/comments/new-comment-list.html' %}
+            {% else %}
+            <p>Комментарии пока нет</p>
+            {% endif %}
+          </div>
+
+
+          <div class="vs-comment-form">
+            <div id="respond" class="comment-respond">
+              <div class="form-title mb-2">
+                <h4 class="blog-inner-title">Оставить комментарий</h4>
+              </div>
+              {% include 'news/chunks/comments/new-comment-form.html' %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        {% include 'news/chunks/info_sidebar.html' %}
+      </div>
+    </div>
+  </div>
+</section>
+<!-- =============================== Blog section end ============================= -->
+{% endblock %}
+
+{% block body_scripts %}
+  <script src="{% static 'js/custom/comment-reply.js' %}"></script>
+  <script src="{% static 'js/custom/ajax-like.js' %}"></script>
+{% endblock %}

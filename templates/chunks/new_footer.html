@@ -1,0 +1,207 @@
+{% load strings %}
+{% load static cropping %}
+{% load promotions %}
+
+ <!-- ==================== Footer Start Here ==================== -->
+<footer class="footer position-relative z-1 mt-auto overflow-hidden">
+  <div class="pb-80-px pt-110 bg-dark-light-three position-relative z-1">
+    <div class="position-absolute tw-start-0 tw-end-0 h-100 w-100 z-n1">
+      <img src="{% static 'assets/images/bg/dotted-glob-bg.png' %}" alt="Dotted Glob">
+    </div>
+
+    <div class="container container-two">
+
+      <div class="pt-80-px">
+        <div class="row gy-5">
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+            <div class="max-w-370-px">
+              <a href="/" class="">
+                <img src="{% static 'images/logo_ow.png' %}" alt="Logo">
+              </a>
+              {% for item in navbar_branches|slice:":3" %}
+              <div class="d-flex align-items-center tw-gap-3 tw-mt-7">
+                <span class="text-main text-30-px tw-pe-1">
+                  <i class="fa-regular fa-phone-volume"></i>
+                </span>
+                <span class="tw-h-12 tw-w-05 bg-neutral-700"></span>
+                <div class="">
+                  <p class="text-dark-light tw-mt-1 fw-medium text-capitalize">
+                    {{ item.address }}
+                  </p>
+                  <a href="tel:{{ item.phone|extract_phone }}"
+                     class="text--white fw-semibold hover-text-main">
+                    {{ item.phone }}
+                  </a>
+                </div>
+              </div>
+              {% endfor %}
+              <div class="tw-mt-705 d-flex align-items-center tw-gap-4">
+
+                <ul class="list-unstyled d-flex align-items-center tw-gap-105">
+                  {% if twitter %}
+                  <li class="">
+                    <a href="{{ twitter }}" target="_blank"
+                      class="tw-w-11 tw-h-11 bg-dark-light text--white tw-text-base d-flex justify-content-center align-items-center rounded-circle hover-text-main tw-duration-300 border border-white-10">
+                      <i class="fa-brands fa-twitter"></i>
+                    </a>
+                  </li>
+                  {% endif %}
+
+                  {% if vk %}
+                  <li class="">
+                    <a href="{{ vk }}" target="_blank"
+                      class="tw-w-11 tw-h-11 bg-dark-light text--white tw-text-base d-flex justify-content-center align-items-center rounded-circle hover-text-main tw-duration-300 border border-white-10">
+                      <i class="fa-brands fa-vk"></i>
+                    </a>
+                  </li>
+                  {% endif %}
+
+                  {% if whatsapp %}
+                  <li class="">
+                    <a href="{{ whatsapp }}" target="_blank"
+                      class="tw-w-11 tw-h-11 bg-dark-light text--white tw-text-base d-flex justify-content-center align-items-center rounded-circle hover-text-main tw-duration-300 border border-white-10">
+                      <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                  </li>
+                  {% endif %}
+
+                  {% if telegram %}
+                  <li class="">
+                    <a href="{{ telegram }}" target="_blank"
+                      class="tw-w-11 tw-h-11 bg-dark-light text--white tw-text-base d-flex justify-content-center align-items-center rounded-circle hover-text-main tw-duration-300 border border-white-10">
+                      <i class="fa-brands fa-telegram"></i>
+                    </a>
+                  </li>
+                  {% endif %}
+
+                  {% if facebook %}
+                  <li class="">
+                    <a href="{{ facebook }}" target="_blank"
+                      class="tw-w-11 tw-h-11 bg-dark-light text--white tw-text-base d-flex justify-content-center align-items-center rounded-circle hover-text-main tw-duration-300 border border-white-10">
+                      <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                  </li>
+                  {% endif %}
+
+                  {% if instagram %}
+                  <li class="">
+                    <a href="{{ instagram }}" target="_blank"
+                      class="tw-w-11 tw-h-11 bg-dark-light text--white tw-text-base d-flex justify-content-center align-items-center rounded-circle hover-text-main tw-duration-300 border border-white-10">
+                      <i class="fa-brands fa-instagram"></i>
+                    </a>
+                  </li>
+                  {% endif %}
+
+                  {% if youtube %}
+                  <li class="">
+                    <a href="{{ youtube }}" target="_blank"
+                      class="tw-w-11 tw-h-11 bg-dark-light text--white tw-text-base d-flex justify-content-center align-items-center rounded-circle hover-text-main tw-duration-300 border border-white-10">
+                      <i class="fa-brands fa-youtube"></i>
+                    </a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+            <div class="">
+              <h4 class="border-bottom-black-main text-white tw-pb-5 tw-mb-9 max-w-275-px">Полезные ссылки</h4>
+              <div class="d-flex flex-sm-row flex-column tw-gap-5 justify-content-between pe-xl-5">
+                <div class="d-flex flex-column tw-gap-5">
+                  {% for title, url in footer_about %}
+                  <div class="d-flex align-items-center tw-gap-3">
+                    <span class="d-flex text-main tw-text-lg">
+                      <i class="fa-regular fa-angles-right"></i>
+                    </span>
+                    <a href="{% url 'editor_pages:editor_page' url %}"
+                      class="text-dark-light fw-bold hover-text-white hover-underline text-capitalize">{{ title }}</a>
+                  </div>
+                  {% endfor %}
+
+                  {% for title, url in footer_additional_services %}
+                  <div class="d-flex align-items-center tw-gap-3">
+                    <span class="d-flex text-main tw-text-lg">
+                      <i class="fa-regular fa-angles-right"></i>
+                    </span>
+                    <a href="{% url 'editor_pages:editor_page' url %}"
+                      class="text-dark-light fw-bold hover-text-white hover-underline text-capitalize">{{ title }}</a>
+                  </div>
+                  {% endfor %}
+                  <div class="d-flex align-items-center tw-gap-3">
+                    <span class="d-flex text-main tw-text-lg">
+                      <i class="fa-regular fa-angles-right"></i>
+                    </span>
+                    <a href="/knowledge-base/"
+                      class="text-dark-light fw-bold hover-text-white hover-underline text-capitalize">База знаний</a>
+                  </div>
+                </div>
+                <div class="d-flex flex-column tw-gap-5">
+                  <div class="d-flex align-items-center tw-gap-3">
+                    <span class="d-flex text-main tw-text-lg">
+                      <i class="fa-regular fa-angles-right"></i>
+                    </span>
+                    <a href="/remont/"
+                      class="text-dark-light fw-bold hover-text-white hover-underline text-capitalize">Ремонт авто</a>
+                  </div>
+                  <div class="d-flex align-items-center tw-gap-3">
+                    <span class="d-flex text-main tw-text-lg">
+                      <i class="fa-regular fa-angles-right"></i>
+                    </span>
+                    <a href="/to/"
+                      class="text-dark-light fw-bold hover-text-white hover-underline text-capitalize">Техническое обслуживание</a>
+                  </div>
+                  <div class="d-flex align-items-center tw-gap-3">
+                    <span class="d-flex text-main tw-text-lg">
+                      <i class="fa-regular fa-angles-right"></i>
+                    </span>
+                    <a href="/diagnostika/"
+                      class="text-dark-light fw-bold hover-text-white hover-underline text-capitalize">
+                      Диагностика
+                    </a>
+                  </div>
+                  <div class="d-flex align-items-center tw-gap-3">
+                    <span class="d-flex text-main tw-text-lg">
+                      <i class="fa-regular fa-angles-right"></i>
+                    </span>
+                    <a href="/kuzovnoj-remont/"
+                      class="text-dark-light fw-bold hover-text-white hover-underline text-capitalize">Кузовной ремонт</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+            <div class="">
+              <h4 class="border-bottom-black-main text-white tw-pb-5 tw-mb-9">Последние работы</h4>
+              <div class="d-grid tw-gap-3 grid-col-3">
+                {% for item in work_gallery_queryset_footer %}{% with image=item.get_main_image %}
+                <a href="{% cropped_thumbnail image 'page_thumbnail' %}"
+                  class="gallery-popup tw-rounded-lg border border-2 border-main overflow-hidden hover-item-overlay position-relative">
+                  <img src="{% cropped_thumbnail image 'page_thumbnail' %}" alt="{% if image.alt %}{{ image.alt }}{% else %}{{ image.image.name }}{% endif %}"
+                    class="w-100 h-100 object-fit-cover">
+                </a>
+                {% endwith %}{% endfor %}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- bottom Footer -->
+  <div class="border-top bg-black border-dashed border-neutral-800 border-0 tw-py-8 position-relative z-1">
+    <div class="container container-two">
+      <div class="d-flex align-items-center justify-content-center tw-gap-4 flex-wrap">
+        <p class="text-dark-light text-line-1 fw-semibold">
+          &copy; <span class="fw-semibold text-main">ГК «Авто Премиум»</span> <script>document.write(new Date().getFullYear());</script>
+          Все права защищены.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- ==================== Footer End Here ==================== -->

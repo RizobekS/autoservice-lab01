@@ -1,0 +1,46 @@
+/* Service Two css start */
+
+.text-vertical-style {
+    writing-mode: sideways-lr;
+}
+
+.text-stroke {
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #0707075c;
+    transition: .3s linear;
+    &:hover {
+        -webkit-text-stroke-color: #070707;
+    }
+}
+
+.hover-border-top-bottom {
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: calc(100% + 1px);
+        border-top: 7px solid var(--vs-theme-color1);
+        border-bottom: 7px solid var(--vs-theme-color1);
+        z-index: 2;
+        inset-inline-start: 0;
+        inset-block-start: 50%;
+        transform: translateY(-50%) scaleY(1.1);
+        pointer-events: none;
+        border-radius: inherit;
+        transition: inherit;
+    }
+    &:hover::before {
+        transform: translateY(-50%) scaleY(1);
+    }
+}
+
+.bottom-border-only::before {
+    border-top: 0;
+}
+
+.service-two-item__content {
+    padding-bottom: clamp(1.5rem, 0.3462rem + 2.4038vw, 2.75rem);
+}
+/* Service Two css end */

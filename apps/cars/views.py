@@ -1,14 +1,17 @@
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponsePermanentRedirect
 from django.urls import reverse, NoReverseMatch
+from django.utils import timezone
 from django.views.generic import TemplateView, RedirectView
 
 from utils.car_filter import set_car_filter, get_car_filter
+from utils.helpers import format_price
 from utils.opengraph import OpengraphMixin
 from utils.opengraph.utils import og_image
 from .models import *
 from .utils.mixins import CarFilterPageSettingsMixin
 from .utils.types import CarUrls
+from ..promotions.models import Promotion
 from ..services.models import Section, Product, CarPack
 
 
@@ -21,7 +24,7 @@ class RedirectOldCarUrls(RedirectView):
         return reverse('cars:car', args=[new_car_urls])
 
 class CarView(TemplateView, CarFilterPageSettingsMixin, OpengraphMixin):
-    template_name = 'cars/car.html'
+    template_name = 'cars/new_car.html'
 
     # #### CarFilterPageSettingsMixin ####
 
@@ -65,7 +68,96 @@ class CarView(TemplateView, CarFilterPageSettingsMixin, OpengraphMixin):
             extra_context = self._root_sections()
 
         context.update(extra_context)
+        context.update(self._new_template_context())
         return context
+
+    def _new_template_context(self):
+        today = timezone.now().date()
+        root_sections = list(Section.objects.filter(active=True, parent_section=None).prefetch_related(
+            'section_set',
+            'child_product_set',
+            'nephew_product_set',
+        ))
+
+        repair_section = self._find_section(root_sections, ('remont', 'repair'), ('ремонт',))
+        maintenance_section = self._find_section(
+            root_sections,
+            ('tehnicheskoe', 'tekhnicheskoe', 'obsluzhivanie', 'maintenance'),
+            ('техничес', 'обслуж'),
+        )
+        diagnostics_section = self._find_section(root_sections, ('diagnost',), ('диагност',))
+
+        without_car_section = self._find_section(root_sections, ('shinniy', 'shinnyi', 'detailing'), ('шинны', 'детейл'))
+        shinniy_section = self._find_section(root_sections, ('shinniy', 'shinnyi'), ('шинны',))
+        detailing_section = self._find_section(root_sections, ('detailing',), ('детейл',))
+
+        return {
+            'active_promotions': Promotion.objects.filter(active=True).filter(
+                Q(active_before__isnull=True) | Q(active_before__gte=today)
+            )[:6],
+            'car_vendors': Vendor.objects.filter(active=True),
+            'car_models': self._model_links(),
+            'car_model_groups': self._model_groups(),
+            'related_car_vendors': self._related_vendor_links(),
+            'related_car_vendor_catalog_title': self.car_filter.vendor.catalog_title(),
+            'car_root_sections': root_sections,
+            'repair_section': repair_section,
+            'repair_pricing_sections': self._repair_pricing_sections(repair_section),
+            'maintenance_section': maintenance_section,
+            'diagnostics_section': diagnostics_section,
+            'without_car_section': without_car_section,
+            'shinniy_section': shinniy_section,
+            'detailing_section': detailing_section,
+        }
+
+    @staticmethod
+    def _find_section(sections, url_keywords, title_keywords):
+        for section in sections:
+            section_url = section.url.lower()
+            section_title = section.title.lower()
+            if any(keyword in section_url for keyword in url_keywords) or any(keyword in section_title for keyword in title_keywords):
+                return section
+        return None
+
+    def _model_groups(self):
+        groups = {}
+        for model in self.car_filter.vendor.active_model_set():
+            key = model.name[:1].upper() if model.name else '#'
+            groups.setdefault(key, []).append(self._model_link(model))
+        return [{'title': title, 'models': groups[title]} for title in sorted(groups)]
+
+    @staticmethod
+    def _model_link(model):
+        return {
+            'name': model.name,
+            'url': reverse('cars:car', args=[f'{model.vendor.url}/{model.url}']),
+        }
+
+    def _model_links(self):
+        return [self._model_link(model) for model in self.car_filter.vendor.active_model_set()]
+
+    def _related_vendor_links(self):
+        vendor = self.car_filter.vendor
+        if not vendor.catalog:
+            return Vendor.objects.none()
+        return Vendor.objects.filter(active=True, catalog=vendor.catalog).exclude(pk=vendor.pk)
+
+    @staticmethod
+    def _repair_pricing_sections(repair_section):
+        if not repair_section:
+            return []
+
+        sections = []
+        for section in repair_section.active_section_set():
+            products = list(section.active_product_set())
+            prices = [product.price for product in products if product.price is not None]
+
+            section.pricing_products = products
+            section.pricing_min_price = f'От {format_price(min(prices), Product.get_currency())}' if prices else ''
+            section.pricing_has_hidden_products = len(products) > 6
+            sections.append(section)
+
+        return sections
 
     def _root_section_products(self):
         # Find all car_pack's that include current car_filter
@@ -141,14 +233,22 @@ def ajax_filter(request):
             try:
                 url = reverse(viewname, args=args)
             except NoReverseMatch:
-                url = reverse('home:index')
+                if viewname == 'cars:car' and len(args) >= 2:
+                    url = reverse('cars:car', args=['/'.join(args[-2:])])
+                else:
+                    url = reverse('home:index')
         else:
             url = reverse('home:index')
     else:
         url = reverse('home:index')
 
     vendor_set = [{'value': item.id, 'label': item.name, 'selected': vendor == item} for item in Vendor.objects.filter(active=True)]
-    model_set = [{'value': item.id, 'label': item.name, 'selected': model == item} for item in Model.objects.filter(vendor=vendor, active=True)] if vendor else []
+    model_set = [{
+        'value': item.id,
+        'label': item.name,
+        'selected': model == item,
+        'url': reverse('cars:car', args=[f'{item.vendor.url}/{item.url}']),
+    } for item in Model.objects.filter(vendor=vendor, active=True)] if vendor else []
 
     vendor_set.insert(0, {'value': '', 'label': Vendor._meta.verbose_name, 'selected': not vendor, 'placeholder': True})
     model_set.insert(0, {'value': '', 'label': Model._meta.verbose_name, 'selected': not model, 'placeholder': True})

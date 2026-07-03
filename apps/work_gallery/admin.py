@@ -58,12 +58,12 @@ class VendorModelPackAdmin(admin.ModelAdmin):
 
 @admin.register(Work)
 class WorkAdmin(admin.ModelAdmin):
-    list_display = ('title', 'url', 'active', 'category_string', 'main_image_url')
+    list_display = ('title', 'url', 'active', 'category_string', 'main_image_url', 'cost_of_work', 'spare_part_of_work')
     list_filter = ('active', 'categories')
     search_fields = ('title', 'url', 'text')
     actions = (activate, deactivate, clone)
 
-    fields = (('title', 'url'), 'main_image', 'active', 'categories', 'model_pack', 'products', 'text', 'multiple_images')
+    fields = (('title', 'url'), 'main_image', 'active', 'categories', 'model_pack', 'products', 'cost_of_work', 'spare_part_of_work', 'text', 'multiple_images')
     prepopulated_fields = {'url': ('title',), }
     autocomplete_fields = ('categories',)
     filter_horizontal = ('products',)

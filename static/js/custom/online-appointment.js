@@ -1,103 +1,99 @@
-const $form = $('#online-appointment-form'),
-    closeBtn = document.querySelector('#modalRegisterForm button.close'),
-    fullNameSelector = document.querySelector('input[name=full_name]'),
-    carSelector = document.querySelector('input[name=car]'),
-    phoneSelector = document.querySelector('input[name=phone]'),
-    captchaSelector = document.querySelector('#id_captcha'),
-    branchSelector = document.querySelector('#id_branch');
+(function ($) {
+    const formSelector = '#online-appointment-form, #home-appointment-form';
 
-const mapping = {
-    full_name: {
-        populateErrors: (errors) => {
-            populateInputWithErrors(errors, fullNameSelector)
-        },
-        clear: () => {
-            fullNameSelector.value = '';
-            fullNameSelector.parentElement.querySelector('small.text-warning')?.remove()
-        },
-        setValue: (value) => {
-            fullNameSelector.value = value
+    function showToast() {
+        if (typeof launch_toast === 'function') {
+            launch_toast();
+            return;
         }
-    },
-    car: {
-        populateErrors: (errors) => {
-            populateInputWithErrors(errors, carSelector)
-        },
-        clear: () => {
-            carSelector.value = '';
-            carSelector.parentElement.querySelector('small.text-warning')?.remove()
-        },
-        setValue: (value) => {
-            carSelector.value = value
+
+        if (typeof toastMessage === 'function') {
+            toastMessage(
+                'success',
+                'Success',
+                'Заявка успешно отправлена!',
+                'fa-solid fa-circle-check'
+            );
         }
-    },
-    phone: {
-        populateErrors: (errors) => {
-            populateInputWithErrors(errors, phoneSelector)
-        },
-        clear: () => {
-            phoneSelector.value = '';
-            phoneSelector.parentElement.querySelector('small.text-warning')?.remove()
-        },
-        setValue: (value) => {
-            phoneSelector.value = value
-        }
-    },
-    captcha: {
-        populateErrors: (errors) => {
-            populateInputWithErrors(errors, captchaSelector)
-        },
-        clear: () => {
-            grecaptcha.reset();
-            captchaSelector.parentElement.querySelector('small.text-warning')?.remove()
-        },
-    },
-    branch: {
-        populateErrors: (errors) => {
-            populateInputWithErrors(errors, branchSelector.parentElement.parentElement.parentElement.parentElement)
-        },
-        clear: () => {
-            branchSelector.querySelector('option').value = '';
-            branchSelector.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('small.text-warning')?.remove()
-        },
     }
 
-}
-
-function populateInputWithErrors(errors, selector) {
-    console.log(errors, ' for ', name)
-    console.log(selector)
-    for (const error of errors) {
-        selector.insertAdjacentHTML('afterend', `<small class="text-warning">${error}</small>`);
+    function getFieldContainer($field) {
+        const $group = $field.closest('.form-group, .col-sm-6, .col-sm-12, .col-11, .col-12');
+        return $group.length ? $group : $field.parent();
     }
-}
 
-$form.on('submit', function (e) {
-    e.preventDefault();
+    function clearErrors($form) {
+        $form.find('small.text-warning.js-ajax-field-error').remove();
+    }
 
-    $.ajax($form.attr('action'), {
-        type: $form.attr('method'),
-        data: $form.serializeArray(),
-        success: function (data, status, xhr) {
-            console.log(data)
-            const {success, ...errors} = data;
+    function clearForm($form, data) {
+        $form.find('input, textarea').not('[type="hidden"], [name="csrfmiddlewaretoken"]').val('');
+        $form.find('select').prop('selectedIndex', 0);
 
-            if (success) {
-                for (const [name, obj] of Object.entries(mapping)) {
-                    if (Object.hasOwn(data, name))
-                        obj.setValue(data[name])
-                    else
-                        obj.clear();
+        if (data.full_name) {
+            $form.find('[name="full_name"]').val(data.full_name);
+        }
+
+        if (data.car) {
+            $form.find('[name="car"]').val(data.car);
+        }
+
+        if (typeof grecaptcha !== 'undefined') {
+            $form.find('.g-recaptcha').each(function () {
+                const widgetId = $(this).data('widget-id');
+                try {
+                    if (widgetId !== undefined) {
+                        grecaptcha.reset(widgetId);
+                    } else {
+                        grecaptcha.reset();
+                    }
+                } catch (error) {
+                    grecaptcha.reset();
                 }
-                closeBtn.click();
-                launch_toast();
-            } else {
-                for (const [name, fieldErrors] of Object.entries(errors)) {
-                    mapping[name].populateErrors(fieldErrors);
-                    console.log(document.querySelector(`input[name=${name}]`))
-                    document.querySelector(`input[name=${name}]`)
+            });
+        }
+    }
+
+    function populateErrors($form, errors) {
+        Object.entries(errors).forEach(function ([name, fieldErrors]) {
+            const $field = $form.find(`[name="${name}"]`).first();
+            const $container = $field.length ? getFieldContainer($field) : $form;
+
+            fieldErrors.forEach(function (error) {
+                $container.append(`<small class="text-warning js-ajax-field-error">${error}</small>`);
+            });
+        });
+    }
+
+    $(document).on('submit', formSelector, function (e) {
+        e.preventDefault();
+
+        const $form = $(this);
+
+        clearErrors($form);
+
+        $.ajax($form.attr('action'), {
+            type: $form.attr('method') || 'POST',
+            data: $form.serializeArray(),
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            success: function (data) {
+                const {success, ...errors} = data;
+
+                if (success) {
+                    clearForm($form, data);
+                    $('#modalRegisterForm button.close').trigger('click');
+                    showToast();
+                } else {
+                    populateErrors($form, errors);
                 }
+            },
+            error: function () {
+                populateErrors($form, {
+                    __all__: ['Не удалось отправить заявку. Попробуйте еще раз.']
+                });
             }
-        }
-    })
-})
+        });
+    });
+})(jQuery);

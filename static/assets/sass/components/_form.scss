@@ -1,0 +1,162 @@
+/* ================================= Form Css Start =========================== */
+.outline-0 {
+    outline: 0;
+}
+
+.placeholder-text-light::placeholder {
+    color: #989797;
+}
+
+.select-arrow-white {
+    --bs-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+/* Change calendar icon color */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    /* white icon */
+    opacity: .6;
+    cursor: pointer;
+}
+
+/* Autofill Css */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active {
+    -webkit-transition: background-color 5000s ease-in-out 0s;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    -webkit-text-fill-color: hsl(var(--heading-color)) !important;
+    caret-color: hsl(var(--heading-color));
+}
+
+/* Autofill Css End */
+
+/* Number Arrow None */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
+
+/* Custom Checkbox & Radio Css Start */
+.common-check {
+    display: flex;
+    align-items: center;
+    margin-block-end: 16px;
+
+    &:last-child {
+        margin-block-end: 0;
+    }
+
+    a {
+        display: inline;
+    }
+
+    &.common-radio {
+        .form-check-input {
+            border-radius: 50%;
+
+            &:checked {
+                background-color: transparent !important;
+
+                &::after {
+                    visibility: visible;
+                    opacity: 1;
+                    -webkit-transform: translate(-50%, -50%) scale(1);
+                    transform: translate(-50%, -50%) scale(1);
+                }
+
+                &::before {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .form-check-input {
+        transition: .2s linear;
+        box-shadow: none;
+        background-color: transparent;
+        box-shadow: none !important;
+        border: 0;
+        position: relative;
+        border-radius: 3px;
+        width: 18px;
+        height: 18px;
+        border: 1px solid hsl(var(--white)/.50);
+        cursor: pointer;
+        transition: .2s linear;
+        margin-block-start: 0;
+        margin-left: 0;
+
+        &::before {
+            position: absolute;
+            content: "\f00c";
+            font-family: "Font Awesome 6 Pro";
+            font-weight: 900;
+            color: hsl(var(--white));
+            font-size: 12px;
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
+            transform: translate(-50%, -50%);
+            transition: .2s linear;
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        &::after {
+            position: absolute;
+            content: "";
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
+            -webkit-transform: translate(-50%, -50%) scale(.2);
+            transform: translate(-50%, -50%) scale(.2);
+            width: 10px;
+            height: 10px;
+            background-color: var(--main);
+            border-radius: 50%;
+            transition: .2s linear;
+            z-index: 1;
+            visibility: hidden;
+            opacity: 0;
+        }
+
+        &:checked {
+            background-color: var(--main) !important;
+            border-color: var(--neutral-200) !important;
+            box-shadow: none;
+
+            &[type=checkbox] {
+                background-image: none;
+            }
+
+            &::before {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+/* Custom Checkbox & Radio Css End */
+
+/* ================================= Form Css End =========================== */

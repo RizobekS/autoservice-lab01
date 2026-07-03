@@ -1,0 +1,48 @@
+{% load static cropping %}
+
+<!-- ========================= Blog two section start ========================== -->
+<section class="blog-two py-110 section-bg">
+    <div class="container">
+        <div class="section-heading tw-mb-11 text-center">
+            <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2" data-aos="fade-up" data-aos-duration="800"
+                data-aos-delay="100">
+                <span class="tw-w-10 tw-h-05 bg-main triangle-left"></span>
+                <span class="text-main fw-semibold tw-text-lg text-uppercase">Материалы по теме</span>
+                <span class="tw-w-10 tw-h-05 bg-main triangle-right"></span>
+            </div>
+            <h2 class="">Блог и новости</h2>
+        </div>
+
+        <div class="row gy-5">
+          {% for item in articles %}
+            <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ forloop.counter }}00">
+                <div class="blog-two-item">
+                    <a href="{% url 'knowledge_base:article' item.url %}"
+                        class="w-100 d-flex tw-rounded-xl overflow-hidden hover-animation-white scale-up-wrapper hover-bg-main-light tw-max-h-332-px">
+                        <img src="{% cropped_thumbnail item 'thumbnail' %}" class="object-fit-cover scale-up__img w-100 h-100"
+                            alt="{{ item.title }}">
+                    </a>
+                    <div class="tw-mt-8">
+                        <h3 class="h4">
+                            <a href="{% url 'knowledge_base:article' item.url %}" class="hover-text-main">
+                              {{ item.title }}
+                            </a>
+                        </h3>
+                        <div class="tw-mt-6">
+                            <a href="{% url 'knowledge_base:article' item.url %}"
+                                class="text-capitalize fw-bold tw-text-xl text-heading hover-text-main group group-item d-flex align-items-center tw-gap-205">
+                                Подробнее
+                                <span
+                                    class="tw-w-8 tw-h-8 d-flex align-items-center justify-content-center rounded-circle text-white bg-main-two tw-duration-300 group-hover-bg-main tw-text-sm">
+                                    <i class="fa-solid fa-arrow-up-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- ========================= Blog two section end ========================== -->

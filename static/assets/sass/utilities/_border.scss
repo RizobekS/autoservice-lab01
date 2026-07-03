@@ -1,0 +1,92 @@
+// border
+@each $color, $shades in $colors {
+  @each $shade, $value in $shades {
+    .border-#{$color}-#{$shade} {
+      border-color: var(--#{$color}-#{$shade}) !important;
+    }
+  }
+}
+
+// hover border
+@each $color, $shades in $colors {
+  @each $shade, $value in $shades {
+    .hover-border-#{$color}-#{$shade} {
+      &:hover {
+        border-color: var(--#{$color}-#{$shade}) !important;
+      }
+    }
+  }
+}
+
+// focus border
+@each $color, $shades in $colors {
+  @each $shade, $value in $shades {
+    .focus-border-#{$color}-#{$shade} {
+      &:focus {
+        border-color: var(--#{$color}-#{$shade}) !important;
+      }
+    }
+  }
+}
+
+.border {
+  &-main {
+    border-color: var(--vs-theme-color1) !important;
+  }
+
+  &-main-two {
+    border-color: var(--vs-theme-color2) !important;
+  }
+  &-white-03 {
+    border-color: #FFFFFF4D !important;
+  }
+  &-white-05 {
+    border-color: #FFFFFF0D !important;
+  }
+  &-white-10 {
+    border-color: #FFFFFF1A !important;
+  }
+  &-black-15 {
+    border-color: #00000026 !important;
+  }
+}
+
+.hover-border {
+  &-main {
+    &:hover {
+      border-color: var(--vs-theme-color1) !important;
+    }
+  }
+
+  &-main-two {
+    &:hover {
+      border-color: var(--vs-theme-color2) !important;
+    }
+  }
+}
+.focus-border {
+  &-main {
+    &:focus {
+      border-color: var(--vs-theme-color1) !important;
+    }
+  }
+
+  &-main-two {
+    &:focus {
+      border-color: var(--vs-theme-color2) !important;
+    }
+  }
+}
+
+.tw-border {
+  &-dashed {
+    border-style: dashed !important;
+  }
+  &-9-px {
+    border-width: 9px !important;
+  }
+}
+
+.border-transparent {
+  border-color: transparent !important;
+}

@@ -1,0 +1,50 @@
+/* ======================== Section Heading Css start ========================== */
+.triangle-left {
+    position: relative;
+
+    &::before {
+        position: absolute;
+        content: "";
+        inset-inline-end: 0;
+        inset-block-start: 50%;
+        transform: translateY(-50%);
+        width: 12px;
+        height: 12px;
+        background-color: var(--vs-theme-color1);
+        clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    }
+}
+
+.triangle-right {
+    position: relative;
+
+    &::before {
+        position: absolute;
+        content: "";
+        inset-inline-start: 0;
+        inset-block-start: 50%;
+        transform: translateY(-50%);
+        width: 12px;
+        height: 12px;
+        background-color: var(--vs-theme-color1);
+        clip-path: polygon(0 0, 0 100%, 100% 50%);
+    }
+}
+
+
+.small-left-align {
+    @media (max-width: 575px) {
+        display: flex;
+        flex-direction: column;
+        text-align: start !important;
+    }
+}
+
+
+
+.cta-one {
+    @media (max-width: 991px) { 
+        padding-block: 80px;
+    }
+}
+/* ======================== Section Heading Css end ========================== */

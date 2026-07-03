@@ -17,7 +17,7 @@ from autoservice.sitemap.sitemap import sitemaps
 from utils.views import StaticPageView
 
 static_urlpatterns = [
-    path('certificates/', StaticPageView.as_view(template_name='static/certificates.html', viewname='static:certificates'), name='certificates'),
+    path('certificates/', StaticPageView.as_view(template_name='static/new_certificates.html', viewname='static:certificates'), name='certificates'),
     path('yandex_808db4c62533456a.html', TemplateView.as_view(template_name='static/yandex_808db4c62533456a.html'), name='yandex_verification_key'),
 ]
 
@@ -27,7 +27,7 @@ urlpatterns = [
     path('sitemap-<section>.xml', sitemap_views.sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
     path('', include('apps.home.urls', namespace='home')),
-    path('cars/', include('apps.cars.urls', namespace='cars')),
+    path('', include('apps.cars.urls', namespace='cars')),
     path('specials/', include('apps.promotions.urls', namespace='promotions')),
     path('account/', include('apps.accounts.urls', namespace='accounts')),
     path('tags/', include('apps.tags.urls', namespace='tags')),

@@ -1,0 +1,90 @@
+{% extends 'new_base.html' %}
+{% load deferred_static %}
+{% load cropping %}
+{% load static %}
+
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+{% block main %}
+<!-- =============================== Product section start ============================= -->
+<section class="product py-110">
+    <div class="container">
+        <div class="tw-mb-10 d-flex align-items-center justify-content-between tw-gap-4 flex-wrap">
+            <span id="works-count" class="text-uppercase fw-semibold tw-text-lg">Показано {{ works_shown_count }} из {{ works_total_count }} работ</span>
+            <div class="">
+                <select
+                    id="work-category-filter"
+                    class="form-control form-select bg-neutral-200 border-neutral-200 focus-border-main shadow-none tw-text-lg fw-semibold text-body text-capitalize tw-ps-5 tw-py-3 tw-rounded">
+                  <option value="" {% if not selected_category %}selected{% endif %}>Все</option>
+                  {% for item in categories %}
+                  <option value="{{ item.url }}" {% if selected_category == item.url %}selected{% endif %}>{{ item.name }}</option>
+                  {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div id="works-grid" class="row gy-4">
+          {% for item in works %}{% with image=item.get_main_image %}
+            <div class="col-xl-4 col-sm-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ forloop.counter }}00">
+                <div class="product-item z-1 overflow-hidden group group-item">
+                    <div
+                        class="d-block hover-animation-white scale-up-wrapper position-relative tw-rounded-md overflow-hidden z-1 bg-light-dark tw-h-320-px bg-neutral-200">
+                        <a href="{% url 'work_gallery:single' item.url %}"
+                            class="w-100 h-100 d-block tw-rounded-md overflow-hidden d-flex justify-content-center align-items-center">
+                            <img src="{% cropped_thumbnail image 'list_thumbnail' max_size=image.max_size %}" class=""
+                                 alt="{% if image.alt %}{{ image.alt }}{% else %}{{ image.image.name }}{% endif %}">
+                        </a>
+                    </div>
+                    <div class="tw-mt-505">
+                        <div class="d-flex align-items-center justify-content-start tw-gap-4">
+                          {% for category in item.categories.all %}
+                            <span class="tw-text-sm fw-bold text-uppercase text-neutral-600">{{ category.name }}</span>
+                          {% endfor %}
+                        </div>
+                        <h2 class="tw-text-lg">
+                            <a href="{% url 'work_gallery:single' item.url %}" class="text-uppercase group-hover-text-main">{{ item.title }}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+          {% endwith %}{% endfor %}
+        </div>
+
+        <ul id="works-pagination" class="list-unstyled vs-pagination mt-res-60-px d-flex tw-gap-3 flex-wrap">
+          {% if is_paginated %}
+            {% if page_obj.has_previous %}
+              <li class="">
+                <a href="?{% if selected_category %}category={{ selected_category }}&{% endif %}page={{ page_obj.previous_page_number }}"
+                   class="tw-h-12 tw-w-13 bg-neutral-200 hover-bg-main hover-text-white tw-duration-300 text-heading tw-text-xl d-flex justify-content-center align-items-center tw-rounded-md fw-bold">
+                  <i class="fa-solid fa-angles-left"></i>
+                </a>
+              </li>
+            {% endif %}
+            {% for page_number in paginator.page_range %}
+              <li class="">
+                <a href="?{% if selected_category %}category={{ selected_category }}&{% endif %}page={{ page_number }}"
+                   class="tw-h-12 tw-w-13 {% if page_obj.number == page_number %}bg-main text-white{% else %}bg-neutral-200 hover-bg-main hover-text-white text-heading{% endif %} tw-duration-300 tw-text-xl d-flex justify-content-center align-items-center tw-rounded-md fw-bold">
+                  {{ page_number }}
+                </a>
+              </li>
+            {% endfor %}
+            {% if page_obj.has_next %}
+              <li class="">
+                <a href="?{% if selected_category %}category={{ selected_category }}&{% endif %}page={{ page_obj.next_page_number }}"
+                   class="tw-h-12 tw-w-13 bg-neutral-200 hover-bg-main hover-text-white tw-duration-300 text-heading tw-text-xl d-flex justify-content-center align-items-center tw-rounded-md fw-bold">
+                  <i class="fa-solid fa-angles-right"></i>
+                </a>
+              </li>
+            {% endif %}
+          {% endif %}
+        </ul>
+    </div>
+</section>
+<!-- =============================== Product section end ============================= -->
+{% endblock %}
+
+{% block body_scripts %}
+  <script src="{% static 'assets/js/custom/new_gallery-work.js' %}"></script>
+{% endblock %}

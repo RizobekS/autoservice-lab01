@@ -1,0 +1,82 @@
+{% extends 'new_base.html' %}
+{% load deferred_static %}
+{% load static strings %}
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+
+{% block main %}
+
+<!-- =========================== Personal area Appointment list start ====================================== -->
+<section class="service-details py-110">
+    <div class="container">
+        <div class="row gy-5">
+            <div class="col-lg-8">
+                <div class="pe-xl-4">
+                    <figure
+                        class="hover-animation-white split-reveal position-relative overflow-hidden group-item group tw-rounded-xl d-inline-flex">
+                        <div class="split-reveal-element origin-left">
+                            <h1 class="text-heading">Записи на сервис</h1>
+                        </div>
+                    </figure>
+                    <div class="tw-mt-11">
+
+                      {% if object_list %}
+
+                      <table class="w-100 shop_table shop_table_responsive my_account_orders account-orders-table">
+                      <thead>
+                      <tr class="text-center">
+                        <th class="tw-p-5 text-main-two"><span class="nobr">Запись</span></th>
+                        <th class="tw-p-5 text-main-two"><span class="nobr">Дата и время</span></th>
+                        <th class="tw-p-5 text-main-two"><span class="nobr">Статус</span></th>
+                        <th class="tw-p-5 text-main-two"><span class="nobr">Автомобиль</span>
+                        </th>
+                      </tr>
+                      </thead>
+
+                      <tbody>
+                      {% for item in object_list %}
+                        <tr class="woocommerce-orders-table__row woocommerce-orders-table__row--status-processing order text-center">
+                          <td class="tw-p-5 text-main-two hover-text-main tw-duration-300" data-title="Order">
+                            <a>#{{ item.id }}</a>
+                          </td>
+                          <td class="tw-p-5" data-title="Date">
+                            <time datetime="{{ item.datetime }}">{{ item.datetime|date:"d E, Y" }}<br>{{ item.datetime|time:"H:i" }}</time>
+                          </td>
+                          <td class="tw-p-5" data-title="Status">
+                            {{ item.get_status_display|break_words }}
+                          </td>
+                          <td class="tw-p-5" data-title="Car">
+                            {{ item.car }}
+                          </td>
+                        </tr>
+                      {% endfor %}
+
+                      </tbody>
+                    </table>
+                  {% else %}
+                    <div class="woocommerce-message woocommerce-message--info woocommerce-Message woocommerce-Message--info woocommerce-info">
+                      <!--<a class="woocommerce-Button btn btn-maincolor" href="shop-right.html">Go shop</a>-->
+                      Вы еще ни разу не записывались на наш сервис =(
+                    </div>
+                  {% endif %}
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="d-flex flex-column tw-gap-8">
+
+                    {% include 'accounts/personal_area/chunks/new_sidebar.html' %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- =========================== Personal area Appointment list end ====================================== -->
+
+{% endblock %}

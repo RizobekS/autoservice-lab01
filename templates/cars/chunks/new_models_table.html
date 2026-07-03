@@ -1,0 +1,48 @@
+<section class="product-details py-110">
+  <div class="container">
+    <div class="section-heading tw-mb-11 text-center">
+      <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2" data-aos="fade-up">
+        <span class="tw-w-10 tw-h-05 bg-main triangle-left"></span>
+        <span class="text-main fw-semibold tw-text-lg text-uppercase">Модели {{ car.vendor.name }}</span>
+        <span class="tw-w-10 tw-h-05 bg-main triangle-right"></span>
+      </div>
+      <h2 class="splitTextStyleOne">Выберите свою модель</h2>
+    </div>
+
+    <div class="car-model-tabs">
+      <ul class="list-unstyled nav nav-pills justify-content-center tw-gap-42-px active-main tw-pb-6 tw-mb-9 border-bottom border-neutral-300" role="tablist">
+        {% for group in car_model_groups %}
+          <li class="nav-item" role="presentation">
+            <button class="nav-link tw-rounded-lg p-0 bg-transparent rounded-0 text-heading text-uppercase tw-text-lg fw-semibold font-body hover-text-main {% if forloop.first %}active{% endif %} " id="model-tab-{{ forloop.counter }}"
+                    data-bs-toggle="pill" data-bs-target="#model-tab-pane-{{ forloop.counter }}"
+                    type="button" role="tab" aria-controls="model-tab-pane-{{ forloop.counter }}"
+                    aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+              {{ group.title }}
+            </button>
+          </li>
+        {% endfor %}
+      </ul>
+
+      <div class="tab-content">
+        {% for group in car_model_groups %}
+          <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="model-tab-pane-{{ forloop.counter }}" role="tabpanel" aria-labelledby="model-tab-{{ forloop.counter }}" tabindex="0">
+            <div class="row justify-content-center">
+              <div class="col-lg-8">
+                <div class="row">
+                  {% for model in group.models %}
+                    <div class="col-md-6">
+                      <a href="{{ model.url }}" class="car-model-link d-flex align-items-center text-heading fw-bold hover-text-main">
+                        <i class="fa-regular fa-angles-right me-3"></i>
+                        <span>{{ car.vendor.name }} {{ model.name }}</span>
+                      </a>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

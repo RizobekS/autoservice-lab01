@@ -1,0 +1,127 @@
+{% extends 'static/new_base.html' %}
+{% load deferred_static %}
+{% load static %}
+
+
+{% block main %}
+<!-- =============================== About Product Description section start ============================= -->
+<div class="tw-pt-15 tw-mt-705 tw-mb-15">
+    <div class="container">
+      <div class="tw-mb-7">
+          <h2 class="h3">Мы ценим вашу обратную связь!</h2>
+      </div>
+        <ul class="list-unstyled nav nav-pills tw-gap-42-px active-main tw-pb-6 tw-mb-9 border-bottom border-neutral-300"
+            id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button
+                    class="nav-link p-0 bg-transparent rounded-0 text-heading text-uppercase tw-text-lg fw-semibold font-body hover-text-main active"
+                    id="pills-Description-tab" data-bs-toggle="pill" data-bs-target="#pills-Description"
+                    type="button" role="tab" aria-controls="pills-Description"
+                    aria-selected="true">Отзывы на СТО Энгельса</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button
+                    class="nav-link p-0 bg-transparent rounded-0 text-heading text-uppercase tw-text-lg fw-semibold font-body hover-text-main"
+                    id="pills-AdditionalInformation-tab" data-bs-toggle="pill"
+                    data-bs-target="#pills-AdditionalInformation" type="button" role="tab"
+                    aria-controls="pills-AdditionalInformation"
+                    aria-selected="false">Отзывы на СТО Хасанская</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button
+                    class="nav-link p-0 bg-transparent rounded-0 text-heading text-uppercase tw-text-lg fw-semibold font-body hover-text-main"
+                    id="pills-Reviews-tab" data-bs-toggle="pill" data-bs-target="#pills-Reviews"
+                    type="button" role="tab" aria-controls="pills-Reviews"
+                    aria-selected="false">Отзывы на СТО Руставели</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-Description" role="tabpanel"
+                aria-labelledby="pills-Description-tab" tabindex="0">
+                <div class="">
+                    <iframe id="myReviews__block-widget" style="max-width:1180px;width: 100%;height: 100%;border: none;outline: none;padding: 0;margin: 0" title="Виджет с отзывами «Плитка» от MyReviews"></iframe>
+                </div>
+                <script src="https://myreviews.dev/widget/dist/index.js" defer></script>
+                <script>
+                    (function (){
+                      var myReviewsInit = function () {
+                        new window.myReviews.TileWidget({
+                        uuid: "6de9972d-973e-4e3f-8b1f-855cc5be30fd",
+                        name: "g77442672",
+                        additionalFrame:"none",
+                        lang:"ru",
+                        widgetId: "1"
+                        }).init();
+
+                      };
+                    if (document.readyState === "loading") {
+                      document.addEventListener('DOMContentLoaded', function () {
+                          myReviewsInit()
+                      })
+                    } else {
+                      myReviewsInit()
+                    }
+                    })()
+                </script>
+            </div>
+            <div class="tab-pane fade" id="pills-AdditionalInformation" role="tabpanel"
+                aria-labelledby="pills-AdditionalInformation-tab" tabindex="0">
+                <div class="">
+                    <iframe id="myReviews__block-widget" style="max-width:1180px;width: 100%;height: 100%;border: none;outline: none;padding: 0;margin: 0" title="Виджет с отзывами «Плитка» от MyReviews"></iframe>
+                </div>
+                <script src="https://myreviews.dev/widget/dist/index.js" defer></script>
+                <script>
+                    (function (){
+                      var myReviewsInit = function () {
+                        new window.myReviews.TileWidget({
+                        uuid: "35846fd1-98cb-462b-9549-738a43f93a4d",
+                        name: "g37226663",
+                        additionalFrame:"none",
+                        lang:"ru",
+                        widgetId: "1"
+                        }).init();
+
+                      };
+                    if (document.readyState === "loading") {
+                      document.addEventListener('DOMContentLoaded', function () {
+                          myReviewsInit()
+                      })
+                    } else {
+                      myReviewsInit()
+                    }
+                    })()
+                </script>
+            </div>
+            <div class="tab-pane fade" id="pills-Reviews" role="tabpanel"
+                aria-labelledby="pills-Reviews-tab" tabindex="0">
+                <div class="">
+                  <iframe id="myReviews__block-widget" style="max-width:1180px;width: 100%;height: 100%;border: none;outline: none;padding: 0;margin: 0" title="Виджет с отзывами «Плитка» от MyReviews"></iframe>
+                </div>
+                <script src="https://myreviews.dev/widget/dist/index.js" defer></script>
+                <script>
+                    (function (){
+                      var myReviewsInit = function () {
+                        new window.myReviews.TileWidget({
+                        uuid: "163b57fc-5dfa-4253-ae1f-8f65f11fd9f0",
+                        name: "g20118454",
+                        additionalFrame:"none",
+                        lang:"ru",
+                        widgetId: "2"
+                        }).init();
+
+                      };
+                    if (document.readyState === "loading") {
+                      document.addEventListener('DOMContentLoaded', function () {
+                          myReviewsInit()
+                      })
+                    } else {
+                      myReviewsInit()
+                    }
+                    })()
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- =============================== About Product Description section end ============================= -->
+{% endblock %}

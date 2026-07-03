@@ -1,0 +1,50 @@
+/* Font Size Class Start */
+.text {
+  &-inherit {
+      font-size: inherit;
+  }
+  &-36-px {
+    font-size: clamp(1.5rem, 0.9615rem + 2.1635vw, 2.25rem);
+  }
+  &-30-px {
+    font-size: clamp(1.25rem, 1.9489rem + -0.091vw, 1.875rem);
+  }
+  &-40-px {
+    font-size: 40px;
+  }
+  &-60-px {
+    font-size: clamp(2.25rem, 0.8654rem + 2.8846vw, 3.75rem);
+  }
+  &-140-px {
+    font-size: clamp(4.5rem, 0.0962rem + 5.5288vw, 8.75rem) !important;
+  }
+}
+
+@each $property, $value in $font-sizes {
+  .tw-text-#{$property} {
+    font-size: $value;
+  }
+}  
+/* Font Size Class End */
+
+
+@each $property, $value in $spaces {
+    .tw-text-#{$property} {
+      font-size: $value;
+    }
+}  
+
+.text-lg-res {
+  font-size: 16px;
+  @media (min-width: 1200px) {
+    font-size: 18px;
+  }
+}
+
+.text-res-24-px {
+  font-size: 24px;
+  @media (max-width: 1200px) {
+    font-size: 18px;
+  }
+}
+/* Font Size Class End */

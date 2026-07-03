@@ -1,0 +1,84 @@
+{% load shortcuts menu_utils strings service_url static %}
+
+<!-- ========================== Top Header start ================================== -->
+<div class="top-header bg-main-two overflow-hidden d-md-block d-none tw-z-99">
+    <div class="container max-w-1610-px">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center tw-gap-5">
+
+                <div class="d-flex align-items-center tw-gap-205 group">
+                    <span class="text-white tw-text-xl d-flex group-hover-text-main tw-duration-200">
+                        <i class="fa-regular fa-envelope"></i>
+                    </span>
+                    <a href="mailto:{{ email }}" class="text-white fw-bold tw-text-base">{{ email }}</a>
+                </div>
+
+            </div>
+            <div class="d-flex tw-gap-5 bg-main before-bg-end position-relative z-1 tw-ps-4 triangle-shape">
+                <div class="tw-py-405 d-flex align-items-center tw-gap-3">
+                    <span class="text-white fw-bold tw-text-base">
+                        <i class="fa-solid fa-clock"></i>
+                    </span>
+                    <span class="text-white fw-bold tw-text-base text-capitalize">{{ schedule }}</span>
+                </div>
+                <div class="d-flex tw-gap-05">
+                    <span class="tw-w-px h-100 bg-white-50"></span>
+                    <span class="tw-w-px h-100 bg-white-50"></span>
+                </div>
+                <div class="tw-py-405">
+                    <ul class="list-unstyled d-flex align-items-center tw-gap-4">
+                      {% if vk %}
+                        <li>
+                            <a href="{{ vk }}" class="tw-text-base text-white hover-scale-20" target="_blank" rel=”nofollow”>
+                                <i class="fa-brands fa-vk"></i>
+                            </a>
+                        </li>
+                      {% endif %}
+
+                      {% if whatsapp %}
+                        <li>
+                            <a href="{{ whatsapp }}" class="tw-text-base text-white hover-scale-20" target="_blank" rel=”nofollow”>
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </a>
+                        </li>
+                      {% endif %}
+
+                      {% if telegram %}
+                        <li>
+                            <a href="{{ telegram }}" class="tw-text-base text-white hover-scale-20" target="_blank" rel=”nofollow”>
+                                <i class="fa-brands fa-telegram"></i>
+                            </a>
+                        </li>
+                      {% endif %}
+
+                      {% if facebook %}
+                        <li>
+                            <a href="{{ facebook }}" class="tw-text-base text-white hover-scale-20" target="_blank" rel=”nofollow”>
+                                <i class="fa-brands fa-facebook"></i>
+                            </a>
+                        </li>
+                      {% endif %}
+
+                      {% if instagram %}
+                        <li>
+                            <a href="{{ instagram }}" class="tw-text-base text-white hover-scale-20" target="_blank" rel=”nofollow”>
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                        </li>
+                      {% endif %}
+
+                      {% if youtube %}
+                        <li>
+                            <a href="{{ youtube }}" class="tw-text-base text-white hover-scale-20" target="_blank" rel=”nofollow”>
+                                <i class="fa-brands fa-youtube"></i>
+                            </a>
+                        </li>
+                      {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ========================== Top Header end ================================== -->

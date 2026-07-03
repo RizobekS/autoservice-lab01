@@ -1,0 +1,39 @@
+{% extends 'new_base.html' %}
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+{% block main %}
+<section class="vs-section space space-extra-bottom py-110">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="vs-blog vs-blog--single mb-0 pe-lg-4">
+          <div class="tw-mt-11">
+            <div class="vs-blog__meta">
+              {% if symptom.master %}
+                <a class="vs-blog__meta--link" href="#">
+                  <i class="fa-regular fa-user"></i>{{ symptom.master.name }}
+                </a>
+              {% endif %}
+              {% if symptom.date %}
+                <a class="vs-blog__meta--link" href="#">
+                  <i class="fa-regular fa-calendar-days"></i>{{ symptom.date|date:"d.m.Y" }}
+                </a>
+              {% endif %}
+            </div>
+            <h2 class="splitTextStyleOne">{{ symptom.title }}</h2>
+            <div class="tw-mt-705">
+              {{ symptom.answer|safe }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        {% include 'news/chunks/info_sidebar.html' %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

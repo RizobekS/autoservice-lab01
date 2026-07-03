@@ -1,0 +1,46 @@
+{% extends 'new_base.html' %}
+{% load deferred_static %}
+{% load static field_tags errors %}
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+{% block main %}
+
+<!-- =========================== Password reset done start ====================================== -->
+<section class="service-details py-110">
+    <div class="container">
+        <div class="row gy-5">
+            <div class="col-lg-12">
+                <div class="pe-xl-4 d-flex align-items-center justify-content-center">
+                    <div class="tw-mt-11">
+                      <h4 class="success text-center">Ссылка на сброс пароля была отправлена на указанную почту ✔</h4>
+                      <h6 class="mt-0 text-center tw-py-5">Иногда сообщения попадают в папку "спам"</h6>
+                      <p class="tw-py-5 text-center">
+                        <a href="{% url 'home:index' %}" class="btn btn-main hover-style-two button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-black tw-tracking-2-percent"
+                           data-block="button"
+                        >
+                          <span class="button__flair"></span>
+                          <span class="button__label">
+                            Главная
+                          </span>
+                        </a>
+                        <a href="{% url 'accounts:login' %}" class="tw-mx-3 btn btn-main hover-style-two button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-black tw-tracking-2-percent"
+                           data-block="button"
+                        >
+                          <span class="button__flair"></span>
+                          <span class="button__label">
+                            Вход
+                          </span>
+                        </a>
+                      </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- =========================== Password reset done end ====================================== -->
+
+{% endblock %}

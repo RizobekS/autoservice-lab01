@@ -1,0 +1,14 @@
+{% if info_material_tags %}
+  <div class="widget">
+    <h3 class="wp-block-heading border-bottom-black-main text-heading border-neutral-300 tw-pb-5">
+      Тэги
+    </h3>
+    <div class="tagcloud">
+      {% for item in info_material_tags %}
+        <a href="{% url 'tags:single' item.url %}" class="tag-cloud-link">
+          {{ item.name }}
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

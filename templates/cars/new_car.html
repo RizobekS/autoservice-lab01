@@ -1,0 +1,522 @@
+{% extends 'new_base.html' %}
+{% load cropping %}
+{% load static %}
+{% load service_url %}
+{% load iterables %}
+{% load promotions %}
+
+{% block page_title %}
+  {% if car.model.header_image %}
+    {% cropped_thumbnail car.model 'header_crop' as image_url %}
+  {% elif car.vendor.header_image %}
+    {% cropped_thumbnail car.vendor 'header_crop' as image_url %}
+  {% endif %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+{% block extra_styles %}
+  <style>
+    .car-page .swiper-slide { height: auto; }
+    .car-page__select {
+      min-height: 58px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: #101010;
+      color: #fff;
+    }
+    .car-page__select option { color: #111; }
+    .car-service-card {
+      height: 100%;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .car-service-card__icon {
+      width: 68px;
+      height: 68px;
+      flex: 0 0 68px;
+    }
+    .car-model-tabs .nav-link {
+      border: 1px solid #e8e8e8;
+      color: var(--heading-color);
+      font-weight: 700;
+      min-width: 58px;
+      text-align: center;
+    }
+    .car-model-tabs .nav-link.active {
+      background: var(--main-color);
+      border-color: var(--main-color);
+      color: #fff;
+    }
+    .car-model-link {
+      border-bottom: 1px solid #ececec;
+      padding: 10px 0;
+    }
+    .pricing-products-toggle {
+      border: 0;
+      background: transparent;
+      color: var(--main-color);
+      font-weight: 700;
+      padding: 0;
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+<div class="car-page">
+  {% if not car.model %}
+    <section class="banner-five section-bg position-relative z-1 overflow-hidden">
+    <div class="position-absolute w-100 h-100 z-n1 tw-start-0 tw-end-0 bottom-0 top-0">
+        <img src="{% static 'assets/images/shapes/banner-five-dotted.png' %}" alt="Banner five" class="w-100 h-100 object-fit-cover">
+    </div>
+
+    <!-- Banner start -->
+    <div class="tw-py-6">
+        <div class="container">
+            <div class="bg-white tw-p-32-px d-flex flex-md-row flex-column" data-aos="fade-up" data-aos-duration="800"
+                data-aos-delay="100">
+              {% if active_promotions %}
+                <div class="d-flex overflow-hidden flex-grow-1">
+                    <div class="swiper banner-slider w-100">
+                        <div class="swiper-wrapper">
+                          {% for promotion in active_promotions %}
+                            <div class="swiper-slide">
+                              <a href="{% get_promotion_url promotion %}" class="banner-five-content tw-p-60-px bg-img background-img overflow-hidden z-1 position-relative d-flex align-items-center breadcrumb-overlay overlay-60"
+                                    data-background-image="{{ promotion.image.url }}">
+                              </a>
+                            </div>
+                          {% endfor %}
+                        </div>
+                        <div class="position-absolute end-0 bottom-0 z-3 tw-p-60-px d-flex">
+                            <div class="banner-slider-pagination text-end z-3 d-flex"></div>
+                        </div>
+                    </div>
+                </div>
+              {% endif %}
+
+                <div class="banner-five-form flex-grow-1 bg-main tw-px-32-px tw-py-12 w-100 d-flex flex-column">
+                    <h2 class="h5 text-white text-uppercase tw-mb-6">Выбрать свой автомобиль</h2>
+                    <form id="car-model-form"
+                          class="d-flex flex-column tw-gap-3"
+                          method="POST"
+                          data-ajax-url="{% url 'cars:ajax-filter' %}">
+                      {% csrf_token %}
+<!--                      <input type="text" class="border border-neutral-800 tw-py-5 tw-px-505 tw-rounded-lg shadow-none outline-0 w-100" value="{{ car.vendor.name }}" readonly>-->
+                        <select id="car-vendor-select"
+                                name="vendor"
+                                class="form-control form-select tw-rounded tw-py-4 tw-px-5 text-heading text-capitalize font-heading fw-semibold"
+                                required>
+                          <option disabled value="">Выберите марку</option>
+                          {% for vendor in car_vendors %}
+                            <option value="{{ vendor.id }}" {% if car.vendor.id == vendor.id %}selected{% endif %}>
+                              {{ vendor.name }}
+                            </option>
+                          {% endfor %}
+                        </select>
+                      <select id="car-model-select"
+                            name="model"
+                            class="form-control form-select tw-rounded tw-py-4 tw-px-5 text-heading text-capitalize font-heading fw-semibold" required>
+                            <option disabled value="" {% if not car.model %}selected{% endif %}>Выберите модель</option>
+                            <option>Выберите модель</option>
+                            {% for model in car.vendor.active_model_set %}
+                            <option value="{{ model.id }}"
+                                    data-url="{% url 'cars:car' model.vendor.url|add:'/'|add:model.url %}"
+                                    {% if car.model.id == model.id %}selected{% endif %}>
+                              {{ model.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit"
+                            class="btn btn-main-two hover-style-two button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder tw-tracking-2-percent w-100 tw-rounded"
+                            data-block="button">
+                            <span class="button__flair"></span>
+                            <span class="button__label">
+                                Узнать цены
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Banner End -->
+  {% if maintenance_section %}
+  <!-- Category Start -->
+  <!-- ===================================== Category Start ======================================= -->
+  <div class="category tw-pb-16 tw-pt-5 overflow-hidden">
+      <div class="container">
+          <div class="position-relative">
+              <div class="swiper category-slider">
+                  <div class="swiper-wrapper">
+                    {% for item in maintenance_section.active_section_set|merge:maintenance_section.active_product_set %}
+                      <div class="swiper-slide d-flex justify-content-center">
+                          <a href="{% service_url item %}" class="group group-item" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                              <img src="{% cropped_thumbnail item 'thumbnail_80x80' %}"
+                                         alt="{{ item.title }}"
+                                         class="tw-w-100-px tw-h-100-px bg-neutral-200 rounded-circle d-flex align-items-center justify-content-center mx-auto">
+                              <div class="tw-mt-4 text-center">
+                                  <span class="tw-text-lg font-heading fw-bold d-block text-heading text-uppercase">
+                                    {{ item.title }}
+                                  </span>
+                              </div>
+                          </a>
+                      </div>
+                    {% endfor %}
+                  </div>
+              </div>
+
+              <button type="button"
+                  class="tw-w-10 tw-h-10 bg-white hover-bg-main text-main hover-text-white rounded-circle d-sm-flex d-none justify-content-center align-items-center tw-duration-500 common-shadow tw-text-lg position-absolute top-50 translate-middle-y end-100 z-1 category-slider-button-prev">
+                  <i class="fa-solid fa-angle-left"></i>
+              </button>
+              <button type="button"
+                  class="tw-w-10 tw-h-10 bg-white hover-bg-main text-main hover-text-white rounded-circle d-sm-flex d-none justify-content-center align-items-center tw-duration-500 common-shadow tw-text-lg position-absolute top-50 translate-middle-y start-100 z-1 category-slider-button-next">
+                  <i class="fa-solid fa-angle-right"></i>
+              </button>
+          </div>
+      </div>
+  </div>
+  <!-- ===================================== Category End ======================================= -->
+  <!-- Category End -->
+  {% endif %}
+
+</section>
+  {% endif %}
+
+{% if car.model %}
+  {% if repair_section %}
+  <!-- ============================== Pricing plan two section start ===========================  -->
+  {% include 'cars/chunks/pricing_plan_services.html' %}
+  <!-- ============================== Pricing plan two section end ===========================  -->
+  {% endif %}
+
+  {% if maintenance_section %}
+  {% include 'cars/chunks/new_maintenance_services.html' %}
+  {% endif %}
+
+  {% include 'cars/chunks/offer_section.html' %}
+
+{% endif %}
+
+
+
+
+  {% if not car.model and sections %}
+    {% include 'cars/chunks/new_vendor_services.html' %}
+  {% endif %}
+
+  {% if not car.model %}
+<!-- ========================== Promo Banner section start ====================================== -->
+<section class="promo-banner overflow-hidden mb-5">
+    <div class="container">
+        <div class="row tw-rounded-2xl overflow-hidden">
+            <div class="col-lg-6 px-0" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                <div class="tw-px-40-px tw-py-14 bg-img background-img overflow-hidden z-1 breadcrumb-overlay overlay-60"
+                    data-background-image="{{ car.vendor.header_image.url }}">
+                    <span class="h5 text-white fw-bolder text-uppercase tw-mb-205">Акции</span>
+                    <h2 class="text-36-px tw-mb-6 text-uppercase text-white splitTextStyleOne max-w-250-px">
+                      Услуги детейлинга
+                    </h2>
+                    <div class="countdown" id="countdown1">
+                        <ul class="list-unstyled countdown-list d-flex align-items-center tw-gap-1 flex-wrap">
+                            <li
+                                class="countdown-list__item tw-py-105 tw-px-305 text-heading flex-align tw-gap-1 tw-text-base fw-bold common-shadow tw-rounded-lg bg-yellow-deep">
+                                <span class="days"></span>
+                            </li>
+                            <li class="text-white tw-text-xl tw-leading-none">:</li>
+                            <li
+                                class="countdown-list__item tw-py-105 tw-px-305 text-heading flex-align tw-gap-1 tw-text-base fw-bold common-shadow tw-rounded-lg bg-yellow-deep">
+                                <span class="hours"></span>
+                            </li>
+                            <li class="text-white tw-text-xl tw-leading-none">:</li>
+                            <li
+                                class="countdown-list__item tw-py-105 tw-px-305 text-heading flex-align tw-gap-1 tw-text-base fw-bold common-shadow tw-rounded-lg bg-yellow-deep">
+                                <span class="minutes"></span>
+                            </li>
+                            <li class="text-white tw-text-xl tw-leading-none">:</li>
+                            <li
+                                class="countdown-list__item tw-py-105 tw-px-305 text-heading flex-align tw-gap-1 tw-text-base fw-bold common-shadow tw-rounded-lg bg-yellow-deep">
+                                <span class="seconds"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tw-mt-9">
+                      {% service_url detailing_section as url %}
+                        <a href="{{ url }}"
+                            class="btn btn-white hover-style-one button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 tw-px-6 tw-py-4 active--translate-y-2 text-uppercase fw-bolder tw-tracking-2-percent hover-text-white group"
+                            data-block="button">
+                            <span class="button__flair"></span>
+                            <span class="button__label">
+                                Подробнее
+                                <span
+                                    class="tw-ps-2 tw-text-lg tw-leading-none d-sm-inline-flex d-none text-main group-hover-text-white tw-duration-300">
+                                    <i class="fa-solid fa-arrow-right-long"></i>
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 px-0" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                <div class="tw-px-40-px tw-py-14 bg-img background-img overflow-hidden z-1"
+                    data-background-image="{% static 'assets/images/bg/promo-banner-bg2.png' %}">
+                    <span class="h5 text-main fw-bolder text-uppercase tw-mb-205">Скидки</span>
+                    <h2 class="text-36-px tw-mb-6 text-uppercase text-white splitTextStyleOne max-w-250-px">
+                      Шинный центр
+                    </h2>
+                    <div class="countdown" id="countdown2">
+                        <ul class="list-unstyled countdown-list d-flex align-items-center tw-gap-1 flex-wrap">
+                            <li
+                                class="countdown-list__item tw-py-105 tw-px-305 text-heading flex-align tw-gap-1 tw-text-base fw-bold common-shadow tw-rounded-lg bg-yellow-deep">
+                                <span class="days"></span>
+                            </li>
+                            <li class="text-white tw-text-xl tw-leading-none">:</li>
+                            <li
+                                class="countdown-list__item tw-py-105 tw-px-305 text-heading flex-align tw-gap-1 tw-text-base fw-bold common-shadow tw-rounded-lg bg-yellow-deep">
+                                <span class="hours"></span>
+                            </li>
+                            <li class="text-white tw-text-xl tw-leading-none">:</li>
+                            <li
+                                class="countdown-list__item tw-py-105 tw-px-305 text-heading flex-align tw-gap-1 tw-text-base fw-bold common-shadow tw-rounded-lg bg-yellow-deep">
+                                <span class="minutes"></span>
+                            </li>
+                            <li class="text-white tw-text-xl tw-leading-none">:</li>
+                            <li
+                                class="countdown-list__item tw-py-105 tw-px-305 text-heading flex-align tw-gap-1 tw-text-base fw-bold common-shadow tw-rounded-lg bg-yellow-deep">
+                                <span class="seconds"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tw-mt-9">
+                      {% service_url shinniy_section as url %}
+                        <a href="{{ url }}"
+                            class="btn btn-white hover-style-three button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 tw-px-6 tw-py-4 active--translate-y-2 text-uppercase fw-bolder tw-tracking-2-percent hover-text-white group"
+                            data-block="button">
+                            <span class="button__flair"></span>
+                            <span class="button__label">
+                                Подробнее
+                                <span
+                                    class="tw-ps-2 tw-text-lg tw-leading-none d-sm-inline-flex d-none text-main group-hover-text-white tw-duration-300">
+                                    <i class="fa-solid fa-arrow-right-long"></i>
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ========================== Promo Banner section end ====================================== -->
+{% endif %}
+
+  {% if diagnostics_section %}
+    <section class="feature py-110 section-bg">
+      <div class="container">
+        <div class="section-heading tw-mb-11 text-center">
+          <div class="d-inline-flex align-items-center">
+            <span class="tw-w-10 tw-h-05 bg-main triangle-left"></span>
+            <span class="text-main fw-semibold tw-text-lg text-uppercase mx-2">Компьютерная</span>
+            <span class="tw-w-10 tw-h-05 bg-main triangle-right"></span>
+          </div>
+          <h2 class="splitTextStyleOne tw-mt-2">Диагностика {{ car.full_name }}</h2>
+        </div>
+        <div class="row gy-4">
+          {% for item in diagnostics_section.active_section_set|merge:diagnostics_section.active_product_set %}
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-duration="{{ forloop.counter }}00">
+              <div class="d-flex align-items-center tw-gap-5 border border-neutral-200 tw-rounded-lg bg-white common-shadow-three">
+                <a href="{% service_url item %}" class="feature-item d-flex align-items-center tw-gap-5 tw-p-6 h-100 group">
+                  <span class="bg-main tw-rounded d-flex justify-content-center align-items-center tw-w-14 tw-h-14 text-white tw-text-lg">
+                    <i class="fa-solid fa-check-double"></i>
+                  </span>
+                  <span class="h5 tw-text-xl text-capitalize fw-semibold tw-duration-500 group-hover-text-main">{{ item.title }}</span>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {% include 'chunks/new_testimonials.html' %}
+
+  {% if not car.model %}
+    {% include 'cars/chunks/new_models_table.html' %}
+  {% endif %}
+
+{% if related_car_vendors %}
+<!-- ============================== brand slider section start ============================ -->
+<section class="py-110">
+    <div class="container">
+        <div class="d-flex align-items-end justify-content-between tw-gap-6 tw-mb-10 flex-wrap">
+            <div class="section-heading">
+                <h2 class="splitTextStyleOne text-uppercase h5" data-aos="fade-up">Какие еще {{ related_car_vendor_catalog_title|lower }} марки мы обслуживаем</h2>
+            </div>
+        </div>
+
+        <div class="brand-slider-wrapper">
+            <div class="brand-slider swiper">
+                <div class="swiper-wrapper align-items-center border-right-none-not-last">
+                    {% for vendor in related_car_vendors %}
+                      <div class="swiper-slide me-0 tw-py-4 border tw-border-dashed border-neutral-300 tw-h-114-px tw-px-4 d-flex justify-content-center align-items-center tw-h-100-px">
+                          <a href="{% url 'cars:car' vendor.url %}" class="text-center d-flex align-items-center justify-content-center w-100 h-100" data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ forloop.counter }}00">
+                              {% if vendor.logo %}
+                                <img src="{{ vendor.logo.url }}" alt="Ремонт и обслуживание автомобилей {{ vendor.name }}" class="mw-100 mh-100">
+                              {% else %}
+                                <span class="h6 text-heading mb-0">{{ vendor.name }}</span>
+                              {% endif %}
+                          </a>
+                      </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ============================== brand slider section end ============================ -->
+{% endif %}
+
+{% if not car.model %}
+<!-- ============================== Pricing plan two section start ===========================  -->
+{% include 'cars/chunks/pricing_plan_services.html' %}
+<!-- ============================== Pricing plan two section end ===========================  -->
+{% endif %}
+
+</div>
+{% endblock %}
+
+{% block body_scripts %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("car-model-form");
+      const vendorSelect = document.getElementById("car-vendor-select");
+      const modelSelect = document.getElementById("car-model-select");
+
+      if (form && vendorSelect && modelSelect) {
+        const ajaxUrl = form.dataset.ajaxUrl;
+        const csrfInput = form.querySelector("[name=csrfmiddlewaretoken]");
+        const csrfToken = csrfInput ? csrfInput.value : "";
+
+        function fillSelect(select, items) {
+          select.innerHTML = "";
+
+          items.forEach(function (item) {
+            const option = document.createElement("option");
+            option.value = item.value;
+            option.textContent = item.label;
+            option.selected = Boolean(item.selected);
+            option.disabled = Boolean(item.placeholder);
+            if (item.url) {
+              option.dataset.url = item.url;
+            }
+            select.appendChild(option);
+          });
+        }
+
+        function postCarFilter(extraData) {
+          const formData = new FormData(form);
+
+          Object.keys(extraData || {}).forEach(function (key) {
+            formData.set(key, extraData[key]);
+          });
+
+          return fetch(ajaxUrl, {
+            method: "POST",
+            headers: {
+              "X-CSRFToken": csrfToken,
+              "X-Requested-With": "XMLHttpRequest"
+            },
+            body: formData
+          }).then(function (response) {
+            if (!response.ok) {
+              throw new Error("Car filter request failed");
+            }
+            return response.json();
+          });
+        }
+
+        vendorSelect.addEventListener("change", function () {
+          modelSelect.disabled = true;
+
+          postCarFilter({ model: "" })
+            .then(function (data) {
+              fillSelect(modelSelect, data.model || []);
+            })
+            .catch(function (error) {
+              console.error("Car model loading error:", error);
+            })
+            .finally(function () {
+              modelSelect.disabled = false;
+            });
+        });
+
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          if (!vendorSelect.value || !modelSelect.value) {
+            if (!vendorSelect.value) {
+              vendorSelect.focus();
+            } else {
+              modelSelect.focus();
+            }
+            return;
+          }
+
+          postCarFilter({ view_name: "cars:car" })
+            .then(function (data) {
+              const selectedModel = modelSelect.options[modelSelect.selectedIndex];
+              const selectedModelUrl = selectedModel ? selectedModel.dataset.url : "";
+
+              if (data.url && data.url !== "/") {
+                window.location.href = data.url;
+              } else if (selectedModelUrl) {
+                window.location.href = selectedModelUrl;
+              }
+            })
+            .catch(function (error) {
+              console.error("Car redirect error:", error);
+            });
+        });
+      }
+
+      document.querySelectorAll(".pricing-products-toggle").forEach(function (button) {
+        button.addEventListener("click", function () {
+          const card = button.closest(".pricing-item");
+          const isExpanded = button.dataset.expanded === "true";
+
+          card.querySelectorAll(".pricing-product-extra").forEach(function (item) {
+            item.classList.toggle("d-none", isExpanded);
+          });
+
+          button.dataset.expanded = isExpanded ? "false" : "true";
+          button.textContent = isExpanded ? button.dataset.showText : button.dataset.hideText;
+        });
+      });
+
+      if (window.Swiper) {
+        if (document.querySelector(".car-promotions-slider")) {
+          new Swiper(".car-promotions-slider", {
+            loop: true,
+            navigation: {
+              nextEl: ".car-promotions-next",
+              prevEl: ".car-promotions-prev"
+            }
+          });
+        }
+
+        if (document.querySelector(".car-maintenance-slider")) {
+          new Swiper(".car-maintenance-slider", {
+            slidesPerView: 1,
+            spaceBetween: 24,
+            pagination: {
+              el: ".car-maintenance-pagination",
+              clickable: true
+            },
+            breakpoints: {
+              768: { slidesPerView: 2 },
+              1200: { slidesPerView: 3 }
+            }
+          });
+        }
+      }
+    });
+  </script>
+{% endblock %}

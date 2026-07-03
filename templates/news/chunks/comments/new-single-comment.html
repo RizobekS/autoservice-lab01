@@ -1,0 +1,33 @@
+{% load string_time_delta %}
+
+<div id="{{ comment.tag_id }}" class="vs-post-comment">
+  <div class="vs-post-comment-inner">
+    <div class="comment-content">
+      <div class="content-header">
+        <h5 class="name">{{ comment.author.get_full_name }}</h5>
+        <span class="commented-on">{{ comment.date|time_delta }}</span>
+      </div>
+      <p class="text">
+        {{ comment.text }}
+      </p>
+    </div>
+  </div>
+  {% if comment.level < 5 %}
+  <div class="reply_and_edit">
+    <a href="#" id="id_reply_to" class="replay-btn" rel="nofollow" data-reply-id="{{ comment.id }}"
+       aria-label="Ответ на комментарий пользователя {{ comment.author.get_full_name }}">
+      Ответить
+      <i class="fa-solid fa-reply"></i>
+    </a>
+  </div>
+  {% endif %}
+</div>
+{% if comment.child_comments %}
+<ul class="list-unstyled children">
+  {% for comment in comment.child_comments.all %}
+  <li class="vs-comment-item">
+    {% include 'news/chunks/comments/new-single-comment.html' %}
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}

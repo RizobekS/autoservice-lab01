@@ -1,0 +1,90 @@
+/* ================================== rtl css start ================================== */
+[dir="rtl"] {
+    .triangle-shape::after {
+        clip-path: polygon(0% 0, 0% 100%, 100% 100%);
+    }
+
+    .logo-bg-shape::after {
+        clip-path: polygon(0 0, 100% 100%, 100% 0%);
+    }
+
+    .triangle-left::before {
+        clip-path: polygon(0 0, 0 100%, 100% 50%);
+    }
+
+    .triangle-right::before {
+        clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    }
+
+    .left-right-gradient::before {
+        transform: rotate(-180deg);
+    }
+
+    .left-right-gradient::after {
+        transform: rotate(180deg);
+    }
+
+    .dashed-arrow-right::before {
+        transform: translateY(-50%) rotate(180deg);
+    }
+
+    .choose-us-item__icon::before {
+        height: 28px;
+        inset-block-end: -14px;
+        transform: rotate(12deg);
+    }
+
+    .percentage {
+        -webkit-transform: translateX(50%);
+        transform: translateX(50%);
+    }
+
+    .btn-shape {
+        clip-path: polygon(0 0, 80% 0%, 100% 100%, 0% 100%);
+    }
+
+
+    /* Font Awesome 6 pro icon support start */
+    .fa-arrow-up-right {
+        --fa: "\e09d";
+    }
+
+    .fa-arrow-right-long,
+    .fa-long-arrow-right {
+        --fa: "\f177";
+    }
+
+    .fa-arrow-left-long,
+    .fa-long-arrow-left {
+        --fa: "\f178";
+    }
+
+    .fa-arrow-right {
+        --fa: "\f060";
+    }
+
+    .fa-angle-double-right,
+    .fa-angles-right {
+        --fa: "\f100";
+    }
+
+    .fa-angle-double-left,
+    .fa-angles-left {
+        --fa: "\f101";
+    }
+
+    /* Font Awesome 6 pro icon support end */
+
+
+    /* Default RTL support start */
+    .form-select {
+        background-position: left .75rem center;
+    }
+
+    .common-check .form-check-input::before {
+        transform: translate(50%, -50%);
+    }
+    /* Default RTL support end */
+}
+
+/* ================================== rtl css End ================================== */

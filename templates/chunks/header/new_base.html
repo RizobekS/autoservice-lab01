@@ -1,0 +1,383 @@
+{% load shortcuts menu_utils strings service_url static %}
+
+{% include 'modals/new_search.html' %}
+
+<!-- ==================== Mobile Menu Start Here ==================== -->
+<div
+  class="mobile-menu d-lg-none d-block scroll-sm position-fixed bg-white tw-w-300-px tw-h-screen overflow-y-auto tw-z-99999 tw--translate-x-full tw-pb-68 ">
+
+  <button type="button"
+          class="close-button position-absolute tw-end-0 top-0 tw-me-2 tw-mt-2 tw-w-8 tw-h-8 rounded-circle d-flex justify-content-center align-items-center text-neutral-900 bg-white hover-bg-neutral-900 hover-text-white tw-text-2xl">
+    <i class="fa-regular fa-xmark"></i>
+  </button>
+
+  <div class="mobile-menu__inner ">
+    <div class="tw-p-6 bg-main-two">
+      <a href="/" class="mobile-menu__logo">
+        <img src="{% static 'images/logo_ow.png' %}" alt="{{ site_name }}">
+      </a>
+    </div>
+    <div class="mobile-menu__menu tw-p-6 ">
+      <!-- Nav menu Start -->
+      <ul class="list-unstyled nav-menu d-lg-flex align-items-center nav-menu--mobile d-block">
+
+        <li class="nav-menu__item has-submenu position-relative">
+          <a href="javascript:void(0)">О нас</a>
+          <ul
+            class="nav-submenu scroll-sm position-absolute tw-start-0 top-100 tw-w-max bg-white tw-rounded-md overflow-hidden tw-p-2 tw-duration-200 tw-z-99 list-unstyled">
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative {% is_active 'about:about' %}">
+              <a href="{% url 'about:about' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                О компании</a>
+            </li>
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative {% is_active 'static:certificates' %}">
+              <a href="{% url 'static:certificates' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Сертификаты</a>
+            </li>
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative {% is_active 'work_gallery:list' %}">
+              <a href="{% url 'work_gallery:list' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Галерея работ</a>
+            </li>
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative {% is_active 'news:list' %}">
+              <a href="{% url 'news:list' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Новости</a>
+            </li>
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative {% is_active 'masters:about' %}">
+              <a href="{% url 'masters:about' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Наша команда</a>
+            </li>
+            {% for title, url in menu_editor_pages %}
+              <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative">
+                <a href="{% url 'editor_pages:editor_page' url %}"
+                   class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                  {{ title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+
+        <li class="nav-menu__item text-uppercase {% is_active 'promotions' %}">
+          <a href="{% url 'promotions:list' %}" class="hover-text-main">Акции</a>
+        </li>
+
+        <li class="nav-menu__item has-submenu pages-menu text-uppercase">
+          <a href="javascript:void(0)">Услуги и цены</a>
+          <!-- mega menu start -->
+          <div
+            class="mega-menu tw-p-6 tw-rounded-lg scroll-sm nav-submenu position-absolute tw-start-0 top-100 tw-w-max bg-white tw-rounded-md tw-duration-200 tw-z-99">
+            <div class="row g-4 row-cols-1 row-cols-lg-3 row-cols-xl-5">
+              {% for root_section, entries in menu_services.items %}
+                {% service_url root_section as url %}
+              <div class="col">
+                <div class="mega-menu-item group-item">
+                  {% if root_section.url != 'others' %}
+                    <a {% if root_section.url != 'others' %}href="{{ url }}"{% endif %}
+                       class="fw-bold text-uppercase text-heading d-block tw-pb-4 tw-mb-6 border-bottom border-neutral-300 tw-text-2xl hover-text-main font-heading border-bottom-black-main text-heading border-neutral-300">
+                      {{ root_section.title|break_words }}
+                    </a>
+                    {% else %}
+                    <span
+                      class="fw-bold text-uppercase text-heading d-block tw-pb-4 tw-mb-6 border-bottom border-neutral-300 tw-text-2xl font-heading border-bottom-black-main text-heading border-neutral-300">
+                      {{ root_section.title|break_words }}
+                    </span>
+                    {% endif %}
+                  <ul class="list-unstyled d-flex flex-column tw-gap-4">
+                    {% for item in entries %}  {# Iterating over MenuServiceSorting objects, not Product and Section #}
+                        {% service_url item as url %}
+                    <li>
+                      <a href="{{ url }}"
+                         class="nav-submenu__link text-heading fw-semibold w-100 text-uppercase d-block tw-py-1 tw-rounded hover-text-main d-flex align-items-center tw-gap-4">
+                            <span class="d-flex tw-leading-none">
+                                <i class="fa-solid fa-angles-right"></i>
+                            </span>
+                        {{ item.title }}
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <!-- mega menu end -->
+        </li>
+
+        <li class="nav-menu__item text-uppercase {% is_active 'services' %}">
+          <a href="{% url 'services:spare_parts' %}" class="hover-text-main">Запчасти</a>
+        </li>
+
+        <li class="nav-menu__item has-submenu position-relative {% is_active 'knowledge_base:list' %}">
+          <a href="javascript:void(0)">База знаний</a>
+          <ul
+            class="nav-submenu scroll-sm position-absolute tw-start-0 top-100 tw-w-max bg-white tw-rounded-md overflow-hidden tw-p-2 tw-duration-200 tw-z-99 list-unstyled">
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative">
+              <a href="{% url 'knowledge_base:faq' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Вопрос-ответ</a>
+            </li>
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative">
+              <a href="{% url 'knowledge_base:symptom-list' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Симптомы</a>
+            </li>
+
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative">
+              <a href="{% url 'knowledge_base:blog' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Статьи</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-menu__item text-uppercase {% is_active 'contacts' %}">
+          <a href="{% url 'contacts:contacts' %}" class="hover-text-main">Контакты</a>
+        </li>
+
+
+        <li class="nav-menu__item has-submenu position-relative">
+          <a href="javascript:void(0)">Наши СТО</a>
+          <ul
+            class="nav-submenu scroll-sm position-absolute tw-start-0 top-100 tw-w-max bg-white tw-rounded-md overflow-hidden tw-p-2 tw-duration-200 tw-z-99 list-unstyled">
+            {% for item in navbar_branches|slice:":3" %}
+              <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative">
+                <div class="d-flex align-items-center tw-gap-205 group">
+                <span class="tw-text-xl d-flex group-hover-text-main tw-duration-200">
+                      <i class="fa-regular fa-phone-volume"></i>
+                  </span>
+                  <p class="media-body">
+                    <span class="fw-bold tw-text-base text-capitalize">{{ item.address }}</span><br>
+                    <a href="tel:{{ item.phone|extract_phone }}"
+                       class="text-main-two group-hover-text-main tw-text-base text-capitalize">
+                      {{ item.phone }}
+                    </a>
+                  </p>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+      </ul>
+      <!-- Nav menu End  -->
+    </div>
+  </div>
+</div>
+<!-- ==================== Mobile Menu End Here ==================== -->
+
+<!-- ==================== Header Start Here ==================== -->
+<header class="header tw-transition-all tw-z-99 header-style-absolute ">
+  <div class="container max-w-1610-px">
+    <nav class="d-flex align-items-center justify-content-between position-relative">
+      <!-- Logo Start -->
+      <div class="logo">
+        <a href="/" class="link">
+          <img src="{% static 'images/logo_ow.png' %}" alt="{{ site_name }}" class="logo-w-200-px">
+        </a>
+      </div>
+      <!-- Logo End  -->
+
+      <!-- Menu Start  -->
+      <div class="header-menu d-lg-block d-none">
+        <!-- Nav menu Start -->
+        <ul class="list-unstyled nav-menu d-lg-flex align-items-center tw-gap-6 nav-menu-white">
+
+          <li class="nav-menu__item has-submenu position-relative">
+            <a href="javascript:void(0)">О нас</a>
+            <ul
+            class="nav-submenu scroll-sm position-absolute tw-start-0 top-100 tw-w-max bg-white tw-rounded-md overflow-hidden tw-p-2 tw-duration-200 tw-z-99 list-unstyled">
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative {% is_active 'about:about' %}">
+              <a href="{% url 'about:about' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                О компании</a>
+            </li>
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative {% is_active 'static:certificates' %}">
+              <a href="{% url 'static:certificates' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Сертификаты</a>
+            </li>
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative {% is_active 'work_gallery:list' %}">
+              <a href="{% url 'work_gallery:list' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Галерея работ</a>
+            </li>
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative {% is_active 'news:list' %}">
+              <a href="{% url 'news:list' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Новости</a>
+            </li>
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative {% is_active 'masters:about' %}">
+              <a href="{% url 'masters:about' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Наша команда</a>
+            </li>
+            {% for title, url in menu_editor_pages %}
+              <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative">
+                <a href="{% url 'editor_pages:editor_page' url %}"
+                   class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                  {{ title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+          </li>
+
+          <li class="nav-menu__item text-uppercase {% is_active 'promotions' %}">
+            <a href="{% url 'promotions:list' %}" class="hover-text-main">Акции</a>
+          </li>
+
+          <li class="nav-menu__item has-submenu pages-menu text-uppercase">
+            <a href="javascript:void(0)">Услуги и цены</a>
+            <!-- mega menu start -->
+            <div
+              class="mega-menu tw-p-6 tw-rounded-lg scroll-sm nav-submenu position-absolute tw-start-0 top-100 tw-w-max bg-white tw-rounded-md tw-duration-200 tw-z-99">
+              <div class="row g-4 row-cols-1 row-cols-lg-3 row-cols-xl-5">
+                {% for root_section, entries in menu_services.items %}
+                  {% service_url root_section as url %}
+                <div class="col">
+                  <div class="mega-menu-item group-item">
+                    {% if root_section.url != 'others' %}
+                    <a {% if root_section.url != 'others' %}href="{{ url }}"{% endif %}
+                       class="fw-bold text-uppercase text-heading d-block tw-pb-4 tw-mb-6 border-bottom border-neutral-300 tw-text-2xl hover-text-main font-heading border-bottom-black-main text-heading border-neutral-300">
+                      {{ root_section.title|break_words }}
+                    </a>
+                    {% else %}
+                    <span
+                      class="fw-bold text-uppercase text-heading d-block tw-pb-4 tw-mb-6 border-bottom border-neutral-300 tw-text-2xl font-heading border-bottom-black-main text-heading border-neutral-300">
+                      {{ root_section.title|break_words }}
+                    </span>
+                    {% endif %}
+                    <ul class="list-unstyled d-flex flex-column tw-gap-4">
+                      {% for item in entries %}  {# Iterating over MenuServiceSorting objects, not Product and Section #}
+                        {% service_url item as url %}
+                      <li>
+                        <a href="{{ url }}"
+                           class="nav-submenu__link text-heading fw-semibold w-100 text-uppercase d-block tw-py-1 tw-rounded hover-text-main d-flex align-items-center tw-gap-4">
+                            <span class="d-flex tw-leading-none">
+                                <i class="fa-solid fa-angles-right"></i>
+                            </span>
+                          {{ item.title }}
+                        </a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <!-- mega menu end -->
+          </li>
+
+          <li class="nav-menu__item text-uppercase {% is_active 'services' %}">
+            <a href="{% url 'services:spare_parts' %}" class="hover-text-main">Запчасти</a>
+          </li>
+
+          <li class="nav-menu__item has-submenu position-relative {% is_active 'knowledge_base:list' %}">
+          <a href="javascript:void(0)">База знаний</a>
+          <ul
+            class="nav-submenu scroll-sm position-absolute tw-start-0 top-100 tw-w-max bg-white tw-rounded-md overflow-hidden tw-p-2 tw-duration-200 tw-z-99 list-unstyled">
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative">
+              <a href="{% url 'knowledge_base:faq' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Вопрос-ответ</a>
+            </li>
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative">
+              <a href="{% url 'knowledge_base:symptom-list' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Симптомы</a>
+            </li>
+
+            <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative">
+              <a href="{% url 'knowledge_base:blog' %}"
+                 class="nav-submenu__link hover-bg-neutral-200 text-heading fw-semibold w-100 text-uppercase d-block tw-py-2 tw-px-305 tw-rounded">
+                Статьи</a>
+            </li>
+          </ul>
+        </li>
+
+          <li class="nav-menu__item text-uppercase {% is_active 'contacts' %}">
+            <a href="{% url 'contacts:contacts' %}" class="hover-text-main">Контакты</a>
+          </li>
+        </ul>
+        <!-- Nav menu End  -->
+      </div>
+      <!-- Menu End  -->
+
+      <!-- Header Right start -->
+      <div class="d-lg-block d-none  align-self-center">
+        <div class="d-flex align-items-center tw-gap-6 flex-shrink-0">
+
+          <div class="phone-info d-xxl-flex d-none align-items-center tw-gap-205">
+                <span class="d-flex tw-w-10 tw-h-10 bg-main rounded-circle justify-content-center align-items-center">
+                    <i class="fa-sharp fa-regular fa-location-check text-white"></i>
+                </span>
+                <div class="nav-menu__item has-submenu position-relative">
+                  <a href="javascript:void(0)" class="text-white hover-text-main">Наши СТО</a>
+                  <ul
+                    class="nav-submenu scroll-sm position-absolute tw-start-0 top-100 tw-w-max bg-white tw-rounded-md overflow-hidden tw-p-2 tw-duration-200 tw-z-99 list-unstyled">
+                    {% for item in navbar_branches|slice:":3" %}
+                    <li class="nav-submenu__item d-block tw-rounded tw-duration-200 position-relative">
+                      <div class="d-flex align-items-center tw-gap-205 group">
+                      <span class="tw-text-xl d-flex group-hover-text-main tw-duration-200">
+                            <i class="fa-regular fa-phone-volume"></i>
+                        </span>
+                        <p class="media-body">
+                          <span class="fw-bold tw-text-base text-capitalize">{{ item.address }}</span><br>
+                          <a href="tel:{{ item.phone|extract_phone }}"
+                             class="text-main-two group-hover-text-main tw-text-base text-capitalize">
+                            {{ item.phone }}
+                          </a>
+                        </p>
+                      </div>
+                    </li>
+                  {% endfor %}
+                  </ul>
+                </div>
+          </div>
+          <div class="position-relative d-xxl-flex d-none align-items-center justify-content-center">
+            <span class="tw-w-05 tw-h-8 bg-main"></span>
+            <span
+              class="tw-w-2 tw-h-2 bg-main rounded-circle position-absolute top-50 start-50 translate-middle"></span>
+          </div>
+
+          <div class="d-flex align-items-center tw-gap-505">
+            {% if user.is_authenticated %}
+            <a href="{% url 'accounts:pa:index' %}" type="button" title="Личный кабинет"
+                    class="text--white tw-duration-300 tw-text-xl hover-text-main">
+              <i class="fa-regular fa-circle-user"></i>
+            </a>
+            {% else %}
+            <a data-toggle="modal" data-target="#modalLoginForm" title="Войти"
+                    class="text--white tw-duration-300 tw-text-xl hover-text-main">
+              <i class="fa-regular fa-circle-user"></i>
+            </a>
+            {% endif %}
+            <button type="button"
+                    class="text--white tw-duration-300 tw-text-xl hover-text-main search-popup__button">
+              <i class="fa-regular fa-magnifying-glass"></i>
+            </button>
+          </div>
+
+          <div class="d-xl-block d-none">
+            <a href="#"
+               class="btn btn-main hover-style-two button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-black tw-tracking-2-percent"
+               data-block="button"
+               data-toggle="modal"
+               data-target="#modalRegisterForm" title="Онлайн запись">
+              <span class="button__flair"></span>
+              <span class="button__label">Онлайн запись</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="toggle-mobileMenu leading-none d-lg-none ms-3 text-white tw-text-3xl">
+        <i class="fa-regular fa-bars-staggered"></i>
+      </button>
+      <!-- Header Right End  -->
+    </nav>
+  </div>
+</header>
+<!-- ==================== Header End Here ==================== -->

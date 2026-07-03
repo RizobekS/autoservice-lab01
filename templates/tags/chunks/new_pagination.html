@@ -1,0 +1,37 @@
+{% load numbers %}
+
+<ul class="list-unstyled vs-pagination mt-res-60-px d-flex tw-gap-3 flex-wrap">
+  {% if current_page != page_numbers|first %}
+  <li class="">
+    <a href="{% if tag %}{% url 'tags:single' tag.url %}{% else %}{% url 'tags:all' %}{% endif %}?page={{ current_page|sub:1 }}"
+       class="tw-h-12 tw-w-13 bg-neutral-200 hover-bg-main hover-text-white tw-duration-300 text-heading tw-text-xl d-flex justify-content-center align-items-center tw-rounded-md fw-bold">
+      <i class="fa-solid fa-angles-left"></i>
+    </a>
+  </li>
+  {% endif %}
+  {% for n in page_numbers %}
+    {% if n == current_page %}
+    <li class="">
+      <a href="javascript:void(0)"
+         class="tw-h-12 tw-w-13 bg-neutral-200 bg-main text-white tw-duration-300 text-heading tw-text-xl d-flex justify-content-center align-items-center tw-rounded-md fw-bold">
+      {{ n }}
+      </a>
+    </li>
+    {% else %}
+    <li class="">
+      <a href="{% if tag %}{% url 'tags:single' tag.url %}{% else %}{% url 'tags:all' %}{% endif %}?page={{ n }}"
+         class="tw-h-12 tw-w-13 bg-neutral-200 hover-bg-main hover-text-white tw-duration-300 text-heading tw-text-xl d-flex justify-content-center align-items-center tw-rounded-md fw-bold">
+        {{ n }}
+      </a>
+    </li>
+    {% endif %}
+  {% endfor %}
+  {% if current_page != page_numbers|last %}
+  <li class="">
+    <a href="{% if tag %}{% url 'tags:single' tag.url %}{% else %}{% url 'tags:all' %}{% endif %}?page={{ current_page|add:1 }}"
+       class="tw-h-12 tw-w-13 bg-neutral-200 hover-bg-main hover-text-white tw-duration-300 text-heading tw-text-xl d-flex justify-content-center align-items-center tw-rounded-md fw-bold">
+      <i class="fa-solid fa-angles-right"></i>
+    </a>
+  </li>
+  {% endif %}
+</ul>

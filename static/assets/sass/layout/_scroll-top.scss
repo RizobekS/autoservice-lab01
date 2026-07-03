@@ -1,0 +1,70 @@
+/* ===================== Scroll to Top Start ================================= */
+.progress-wrap {
+  position: fixed;
+  inset-inline-end: 16px;
+  inset-block-end: 16px;
+  height: 46px;
+  width: 46px;
+  cursor: pointer;
+  display: block;
+  border-radius: 50px;
+  box-shadow: 0px 0px 20px 0px #00000038;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+  background-color: #fff;
+  @media screen and (max-width: 991px) {
+    inset-inline-end: 24px;
+    inset-block-end: 24px;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+  }
+  &.active-progress {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  &:hover {
+    transform: scale(1.06);
+  }
+  &::after {
+    position: absolute;
+    font-family: "Font Awesome 6 Pro";
+    font-weight: 900;
+    content: "\e4b4";
+    text-align: center;
+    height: 46px;
+    width: 46px;
+    line-height: 46px;
+    font-size: 18px;
+    inset-inline-start: 0;
+    inset-block-start: 0;
+    cursor: pointer;
+    display: block;
+    z-index: 1;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+    color: hsl(var(--main)) !important;
+    @media screen and (max-width: 991px) {
+      height: 40px;
+      width: 40px;
+      line-height: 40px;
+    }
+  }
+}
+
+.progress-wrap svg path {
+  fill: none;
+}
+.progress-wrap svg.progress-circle path {
+  stroke: var(--vs-theme-color1);
+  stroke-width: 5;
+  box-sizing: border-box;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+}
+/* ===================== Scroll to Top End ================================= */

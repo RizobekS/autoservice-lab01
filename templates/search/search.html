@@ -1,12 +1,14 @@
 {% load guess_url %}
 
 {% if query %}
+  <div class="search-results-list d-flex flex-column tw-gap-3">
     {% for result in object_list %}
-        <p>
-            {# TODO: обновить вёрстку #}
-            <a href="{% guess_url result.object %}">{{ result.object.title }}</a>
-        </p>
+      <a href="{% guess_url result.object %}"
+         class="text-main-two hover-text-main tw-duration-300">
+        {{ result.object.title }}
+      </a>
     {% empty %}
-        <p>По вашему запросу ничего не найдено.</p>
+      <p class="mb-0 text-heading">По вашему запросу ничего не найдено.</p>
     {% endfor %}
+  </div>
 {% endif %}

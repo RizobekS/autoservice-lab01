@@ -1,0 +1,20 @@
+/* Service Css start */
+.dashed-arrow-right::before {
+    position: absolute;
+    content: "";
+    width: 32px;
+    height: 18px;
+    background-image: url("../images/icons/dashed-arrow-right.png");
+    background-repeat: no-repeat;
+    inset-inline-start: 100%;
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    @media (max-width: 1199px) {
+        display: none;
+    }
+}
+
+.last-dashed-arrow-right-none > div:last-child .dashed-arrow-right::before {
+    display: none;
+}
+/* Service Css end */

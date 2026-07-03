@@ -1,45 +1,50 @@
-{% extends 'base.html' %}
+{% extends 'new_base.html' %}
 {% load deferred_static %}
 {% load static string_time_delta %}
 
 
-{% block links %}
-  {% deferred_style 'css/shop.css' 'color-switcher-link' %}
-  <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
-{% endblock %}
-
-
-{% block header %}
-  {% include 'chunks/header/title.html' with page_header="Страница не найдена" %}
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' with page_header="Страница не найдена" %}
 {% endblock %}
 
 
 
 {% block main %}
-  <section class="ls s-py-60 s-py-lg-120 s-parallax s-overlay error-404 not-found page_404">
+<!-- ============================= Not Found Section start ============================ -->
+<section class="not-found py-110">
     <div class="container">
-      <div class="divider-5"></div>
-      <div class="row">
-        <div class="col-sm-12 text-center">
-
-          <header class="page-header">
-            <img src="{% static 'img/404.png' %}" alt="404">
-            <p class="fw-900">
-              <span class="color-main">Неудача!</span> <span class="color-dark">Нет такой страницы.</span>
-            </p>
-          </header>
-          <!-- .page-header -->
-
-          <div class="page-content">
-            <div class="mt-40">
-              <a href="/" class="btn btn-small btn-maincolor">Перейти на главную</a> <span class="color-dark m-25">или</span>
-              <a onclick="history.back()" href="#" class="btn btn-small btn-outline-maincolor">Вернуться на предыдущую</a>
+        <div class="text-center">
+            <div class="">
+                <img src="{% ststic 'assets/images/shapes/error-img.png' %}" alt="Error Image">
             </div>
-          </div>
-          <!-- .page-content -->
+            <div class="tw-mt-6 max-w-576-px mx-auto">
+                <h2 class="text-capitalize">“ Неудача! ”</h2>
+                <p class="max-w-530-px mx-auto tw-mt-4">
+                  Нет такой страницы.
+                </p>
+                <div class="tw-mt-6">
+                  <a href="/"
+                      class="btn btn-main hover-style-one button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-white tw-tracking-2-percent"
+                      data-block="button">
+                      <span class="button__flair"></span>
+                      <span class="button__label">
+                          Перейти на главную
+                      </span>
+                  </a>
+                  <span class="text-main-two">или</span>
+
+                  <a onclick="history.back()" href="#"
+                     class="btn btn-main hover-style-one button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-white tw-tracking-2-percent"
+                     data-block="button">
+                    <span class="button__flair"></span>
+                    <span class="button__label">
+                      Вернуться на предыдущую
+                    </span>
+                  </a>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="divider-7"></div>
     </div>
-  </section>
+</section>
+<!-- ============================= Not Found Section end ============================ -->
 {% endblock %}

@@ -1,0 +1,11 @@
+/* Breadcrumb css start */
+.breadcrumb {
+    padding: 180px 0 90px;
+    @media (min-width: 768px) {
+        padding: 240px 0 100px;
+    }
+    @media (min-width: 992px) {
+        padding: 345px 0 150px;
+    }
+}
+/* Breadcrumb css end */

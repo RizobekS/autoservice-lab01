@@ -20,13 +20,10 @@ $(function () {
 
             // Show dropdown of unselected field
             for (let key in choices) {
-                if (choices['vendor'].getValue(true) === '') {
-                    choices['vendor'].showDropdown();
-                    return;
-                }
-                if (choices['model'].getValue(true) === '') {
-                    choices['model'].showDropdown();
-                    return;
+                if (choices[key].getValue(true) === '') {
+                    choices[key].showDropdown();
+                    complete = false;
+                    break;
                 }
             }
             // Redirect to specified url

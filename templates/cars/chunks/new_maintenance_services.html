@@ -1,0 +1,52 @@
+{% load service_url cropping %}
+{% load iterables %}
+
+<!-- ============================ Choose us four section start ========================= -->
+<section class="choose-us pt-110 position-relative z-1 mb-5">
+    <div class="position-absolute top-0 start-50 translate-middle-x z-n1 tw-mt-11 w-100 text-center pointer-events-none"
+        data-aos="fade-up">
+        <h2 class="text-140-px text-neutral-100 pointer-events-none d-md-block d-none">Техническое обслуживание</h2>
+    </div>
+
+    <div class="container">
+        <div class="section-heading tw-mb-11 text-center z-2 position-relative small-left-align">
+            <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2" data-aos="fade-up" data-aos-duration="800"
+                data-aos-delay="100">
+                <span class="tw-w-10 tw-h-05 bg-main triangle-left"></span>
+                <span class="text-main fw-semibold tw-text-lg text-uppercase">Техническое обслуживание</span>
+                <span class="tw-w-10 tw-h-05 bg-main triangle-right"></span>
+            </div>
+            <h2 class="">Профессиональный сервис {{ car.full_name }} </h2>
+        </div>
+
+        <div class="row gy-5">
+          {% for item in maintenance_section.active_section_set|merge:maintenance_section.active_product_set %}
+            <div class="col-md-4 col-sm-6">
+                <div class="d-flex flex-column tw-gap-12">
+                    <div class="d-flex align-items-start tw-gap-6 justify-content-start choose-us-item flex-xxl-row animation-item"
+                         data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ forloop.counter }}00">
+                        <span class="flex-shrink-0">
+                          {% if item.icon %}
+                            <img src="{{ item.icon.url }}" alt="{{ item.title }}"
+                                class="animate__flipInY">
+                          {% else %}
+                            <img src="{% cropped_thumbnail item 'thumbnail_80x80'  %}" alt="{{ item.title }}"
+                                 class="animate__flipInY">
+                          {% endif %}
+                        </span>
+                        <div class="text-start">
+                            <h2 class="h5 text-capitalize hover-text-main tw-duration-300">
+                              <a href="{% service_url item %}">{{ item.title }}</a>
+                            </h2>
+                            <p class="tw-mt-4 fw-medium max-w-310-px">
+                              {{ item.short_description }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- ============================ Choose us four section end ========================= -->

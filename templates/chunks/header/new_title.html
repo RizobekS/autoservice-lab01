@@ -1,0 +1,21 @@
+{% load static %}
+
+{% block page_title %}
+<!-- ==================== Breadcrumb Start Here ==================== -->
+<section class="breadcrumb bg-neutral-900 bg-img background-img mb-0 breadcrumb-overlay overlay-80"
+    data-background-image="{% if image_url %}{{ image_url }}{% else %}{% static 'img/title-bg.jpg' %}{% endif %}">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div>
+                    <h1 class="text-40-px text-center mb-lg-4 mb-md-3 mb-2 text-white text-capitalize">{{ page_header }}</h1>
+                    <ul class="list-unstyled d-flex align-items-center justify-content-center tw-gap-4">
+                      {% include 'chunks/header/chunks/new_breadcrumbs.html' %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==================== Breadcrumb End Here ==================== -->
+{% endblock %}

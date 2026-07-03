@@ -1,0 +1,173 @@
+{% extends 'new_base.html' %}
+{% load render_with_context %}
+{% load iterables %}
+{% load car_filter_context %}
+{% load deferred_static %}
+{% load service_url %}
+{% load cropping %}
+{% load static %}
+
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+{% block extra_styles %}
+  <style>
+    .product-details-progress .percentage {
+      transform: translateX(8px) !important;
+      inset-inline-start: min(var(--progress-position, 0%), calc(100% - 48px)) !important;
+    }
+
+    .product-details-progress .percentage::after {
+      left: 8px;
+      transform: rotate(45deg);
+    }
+
+    .product-description-content img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+{% endblock %}
+
+
+{% block main %}
+<!-- =========================== Services product start ====================================== -->
+<section class="team-details py-110">
+    <div class="container">
+        <div class="row gy-4">
+            <div class="col-lg-6">
+                <div class="pe-xl-5 h-100">
+                    <figure
+                        class="hover-animation-white split-reveal position-relative overflow-hidden group-item group tw-rounded-xl d-inline-flex h-100">
+                        <div class="split-reveal-element origin-left">
+                            <div
+                                class="hover-animation-white scale-up-wrapper position-relative overflow-hidden h-100">
+                                <img src="{% cropped_thumbnail product 'thumbnail_960x585' %}"
+                                    class="object-fit-cover scale-up__img w-100 h-100"
+                                    alt="{{ product.title }}">
+                            </div>
+                        </div>
+                    </figure>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="">
+                    <div class="section-heading tw-mb-6">
+                      <p class="tw-mt-4 text-capitalize max-w-576-px">mixsofter From installing new wells
+                            to repairing plumbing systems, our team offers fast, rel scently maintain
+                            wireless scenarios after intermandated applications. coordinate multifunctional
+                            functionalities reliable.
+                      </p>
+                    </div>
+                    <div class="d-flex flex-column tw-gap-6 tw-mt-6 tw-mb-6" data-aos="fade-up"
+                        data-aos-duration="800" data-aos-delay="250">
+                        <div class="">
+                            <span class="fw-bold tw-mb-2 text-heading text-uppercase tw-text-lg font-heading">
+                              Стоимость: {{ product_price }}
+                            </span>
+                            <div class="progress-container product-details-progress border border-main rounded-pill tw-py-105 tw-px-1"
+                                data-percentage="{{ product_price_percent }}" style="--progress-position: {% if product_price_percent >= 40 %}{{ product_price_percent }}{% else %}40{% endif %}%;">
+                                <div class="progress tw-h-105 rounded-pill"></div>
+                                <div class="percentage active text-white d-md-block d-none">0%</div>
+                            </div>
+                        </div>
+                        {% if product_duration %}
+                        <div class="">
+                            <span class="fw-bold tw-mb-2 text-heading text-uppercase tw-text-lg font-heading">
+                              Длительность: {{ product_duration }}
+                            </span>
+                            <div class="progress-container product-details-progress border border-main rounded-pill tw-py-105 tw-px-1"
+                                data-percentage="{{ product_duration_percent }}" style="--progress-position: {% if product_duration_percent >= 50 %}{{ product_duration_percent }}{% else %}50{% endif %}%;">
+                                <div class="progress tw-h-105 rounded-pill"></div>
+                                <div class="percentage active text-white d-md-block d-none">0%</div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="tw-mt-10">
+                        <a href="#"
+                            class="btn btn-main hover-style-one button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-white tw-tracking-2-percent"
+                            data-block="button"
+                            data-toggle="modal"
+                            data-target="#modalRegisterForm" title="Онлайн запись">
+                            <span class="button__flair"></span>
+                            <span class="button__label">
+                                Записаться
+                                <span class="tw-ps-2 tw-text-sm d-sm-inline-flex d-none"><i
+                                        class="fa-solid fa-plus"></i></span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      <div class="tw-mt-16">
+        {% get_car_filter_context as car_filter_context %} {# Get car_filter context #}
+        {% render_with_context product.description car_filter_context %}
+      </div>
+    </div>
+</section>
+<!-- =========================== Services product end ====================================== -->
+
+<!-- ============================= Master Advise section start ========================= -->
+<section class="testimonials bg-img background-img gradient-black-bg position-relative z-1 overflow-hidden"
+    data-background-image="{% static 'assets/images/bg/testimonials-bg-img.png' %}">
+    <div class="curve-arrow-shape d-lg-block d-none">
+        <img src="{% static 'assets/images/shapes/curve-round-arrow.png' %}" alt="Curve Arrow">
+    </div>
+
+    <div class="left-triangle-shape position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="py-110">
+                        <div class="section-heading tw-mb-12">
+                            <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2" data-aos="fade-up"
+                                data-aos-duration="800" data-aos-delay="100">
+                                <span class="tw-w-10 tw-h-05 bg-main triangle-left"></span>
+                                <span class="text-main fw-semibold tw-text-lg text-uppercase">Мнение специалиста</span>
+                            </div>
+                            <h2 class="text-white" data-aos="fade-up">Мастер советует</h2>
+                        </div>
+                        <div class="max-w-700-px">
+                            <div class="swiper testimonials-slider">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="testimonials-item" data-aos="fade-up" data-aos-duration="1000"
+                                            data-aos-delay="100">
+                                          {% if product.master_advise %}
+                                            <p
+                                                class="animate-left-right animation-delay-1 h3 text-white fw-normal line-height-15">
+                                              {{ product.master_advise }}
+                                            </p>
+                                          {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 d-lg-block d-none" data-aos="fade-up" data-aos-duration="1000"
+                    data-aos-delay="100">
+                    <div class="text-center h-100 d-flex flex-column justify-content-end align-items-end">
+                        <img src="{% static 'assets/images/thumbs/testimonials-big-img.png' %}" alt="Big Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ============================= Master Advise section end ========================= -->
+
+{% include 'services/chunks/new_other_products.html' %}
+
+{% include 'services/chunks/new_progress_bars.html' %}
+
+{% include 'services/chunks/new_articles.html' %}
+
+{% endblock %}
+

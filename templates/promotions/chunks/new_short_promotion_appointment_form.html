@@ -1,0 +1,114 @@
+{% load errors %}
+
+<div class="vs-comment-form">
+  <div id="respond" class="comment-respond">
+    <div class="form-title">
+      <h4 class="blog-inner-title">Оставить заявку</h4>
+      <p class="form-text">
+        Заполните форму и получите лучшее предложение на обслуживание вашего автомобиля
+      </p>
+    </div>
+
+    <form id="promotion-short-appointment-form"
+          method="POST"
+          class="{% if form.errors or messages %}scroll-to{% endif %} row gx-20 gy-20"
+          novalidate>
+      {% csrf_token %}
+
+      <input type="hidden" name="{{ form.type.name }}" value="promotion">
+      <input type="hidden" name="{{ form.pk.name }}" value="{{ promotion.pk }}">
+      <input type="hidden" name="{{ form.phone1.name }}" value="{{ form.phone1.value|default_if_none:'' }}">
+
+      {% non_field_errors form %}
+
+      {% for message in messages %}
+        <div class="col-12">
+          <p class="{{ message.extra_tags }} fw-bold">{{ message }}</p>
+        </div>
+      {% endfor %}
+
+      <div class="col-md-6 form-group">
+        <input type="text"
+               name="{{ form.full_name.name }}"
+               value="{{ form.full_name.value|default_if_none:'' }}"
+               class="form-control"
+               placeholder="Ваше имя *"
+               required>
+        {% field_errors form.full_name %}
+      </div>
+
+      <div class="col-md-6 form-group">
+        <input type="text"
+               name="{{ form.phone.name }}"
+               id="promotionPhone"
+               value="{{ form.phone.value|default_if_none:'' }}"
+               class="form-control"
+               placeholder="Ваш телефон *"
+               required>
+        {% field_errors form.phone %}
+      </div>
+
+      <div class="col-md-6 form-group">
+        <input type="email"
+               name="{{ form.email.name }}"
+               value="{{ form.email.value|default_if_none:'' }}"
+               class="form-control"
+               placeholder="Email">
+        {% field_errors form.email %}
+      </div>
+
+      <div class="col-md-6 form-group">
+        {% if promotion.specific_branch %}
+          <input type="hidden" name="{{ form.branch.name }}" value="{{ promotion.specific_branch.id }}">
+          <input type="text" style="border: 1px dashed rgba(6, 47, 52, 0.4);"
+                 class="tw-py-4 tw-px-505 tw-rounded-lg shadow-none outline-0 focus-border-main w-100 form-select select-arrow-dark"
+                 value="{{ promotion.specific_branch }}"
+                 disabled>
+        {% else %}
+          {{ form.branch }}
+          {% field_errors form.branch %}
+        {% endif %}
+      </div>
+
+      <div class="col-12 form-group">
+        <textarea name="{{ form.text.name }}"
+                  rows="6"
+                  class="form-control"
+                  placeholder="Укажите детали">{{ form.text.value|default_if_none:'' }}</textarea>
+        {% field_errors form.text %}
+
+        <textarea style="opacity: 0; height: 0; padding: 0;"
+                  name="{{ form.text1.name }}"
+                  placeholder="Укажите детали"></textarea>
+      </div>
+
+      <div class="col-12 form-group">
+        {{ form.captcha }}
+        {% field_errors form.captcha %}
+      </div>
+
+      <div class="col-12">
+        <div class="custom-checkbox notice">
+            <span class="checkmark"></span>
+            Отправляя данные, я соглашаюсь с
+            <a class="link privacy-policy-trigger text-main-two hover-text-main"
+               style="text-decoration: underline;"
+               href="#"
+               data-toggle="modal"
+               data-target="#modalPrivacyPolicy">
+              политикой конфиденциальности
+            </a>
+        </div>
+      </div>
+
+      <div class="col-12 form-group mb-0">
+        <button type="submit"
+                class="btn btn-main hover-style-one button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-neutral-light tw-tracking-2-percent tw-mt-4"
+                data-block="button">
+          <span class="button__flair"></span>
+          <span class="button__label">Отправить</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

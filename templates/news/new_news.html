@@ -1,0 +1,30 @@
+{% extends 'new_base.html' %}
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+{% block main %}
+<!-- =============================== Blog section start ============================= -->
+<section class="vs-section space space-extra-bottom py-110">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="pe-lg-4">
+          {% if page_heading %}
+            <h2 class="tw-mb-8">{{ page_heading }}</h2>
+          {% endif %}
+          {% for item in news %}
+            {% include 'news/chunks/info_material_card.html' %}
+          {% endfor %}
+          {% include 'news/chunks/pagination.html' %}
+        </div>
+      </div>
+      <div class="col-lg-4">
+        {% include 'news/chunks/info_sidebar.html' %}
+      </div>
+    </div>
+  </div>
+</section>
+<!-- =============================== Blog section end ============================= -->
+{% endblock %}

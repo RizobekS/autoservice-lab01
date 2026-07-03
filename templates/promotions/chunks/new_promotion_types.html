@@ -1,0 +1,28 @@
+{% if categories %}
+
+<div class="widget">
+  <div class="widget_categories">
+    <h3 class="wp-block-heading border-bottom-black-main text-heading border-neutral-300 tw-pb-5">
+      Типы акции
+    </h3>
+    <ul class="list-unstyled">
+      {% for item in categories %}
+      <li>
+        <a href="{% url 'promotions:category' item.url %}">
+          <span class="">
+              <span class="icon">
+                  <i class="fa-solid fa-angles-right"></i>
+              </span>
+              {{ item.name }}
+          </span>
+          <span class="number">
+              {{ item.promotions_count }}
+          </span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endif %}

@@ -1,0 +1,106 @@
+{% extends 'new_base.html' %}
+{% load static %}
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+{% block extra_styles %}
+  <style>
+    .promotion-archived img {
+      filter: brightness(60%);
+    }
+
+    .promotion-archived__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      pointer-events: none;
+    }
+
+    .promotion-archived__overlay span {
+      color: #fff;
+      font-size: 22px;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-align: center;
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+<section class="blog-two py-110 section-bg">
+  <div class="container">
+
+    {% include 'promotions/chunks/new_promotions_list.html' %}
+
+    <div class="section-heading tw-mt-14 tw-mb-0 text-center" id="archive-button-wrap">
+      <a id="load-promotions-archive"
+         class="btn btn-main hover-style-two button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-black tw-tracking-2-percent"
+         data-block="button"
+         data-url="{% url 'promotions:archived' %}">
+        <span class="button__flair"></span>
+        <span class="button__label">Архив акций</span>
+      </a>
+    </div>
+
+    <div id="promotions-archive" class="d-none tw-mt-14">
+      <div class="section-heading tw-mb-11 text-center">
+        <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2">
+          <span class="tw-w-10 tw-h-05 bg-main triangle-left"></span>
+          <span class="text-main fw-semibold tw-text-lg text-uppercase">Архив акций</span>
+          <span class="tw-w-10 tw-h-05 bg-main triangle-right"></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block body_scripts %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById("load-promotions-archive");
+    const archiveElement = document.getElementById("promotions-archive");
+    const buttonWrap = document.getElementById("archive-button-wrap");
+
+    if (!button || !archiveElement) return;
+
+    button.addEventListener("click", function () {
+      const dataUrl = button.dataset.url;
+
+      fetch(dataUrl)
+        .then(response => {
+          if (!response.ok) throw new Error("Archive request failed");
+          return response.text();
+        })
+        .then(html => {
+          archiveElement.classList.remove("d-none");
+          archiveElement.insertAdjacentHTML("beforeend", html);
+          buttonWrap.remove();
+
+          const archiveAosItems = archiveElement.querySelectorAll("[data-aos]");
+
+          archiveAosItems.forEach(function (item) {
+            item.classList.remove("aos-init", "aos-animate");
+
+            // fallback: если AOS опять решит быть мебелью
+            item.classList.add("aos-init", "aos-animate");
+          });
+
+          if (window.AOS) {
+            setTimeout(function () {
+              AOS.refreshHard();
+            }, 100);
+          }
+        })
+        .catch(error => console.error("Error fetching promotions archive:", error));
+    });
+  });
+</script>
+{% endblock %}

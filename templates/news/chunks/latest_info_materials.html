@@ -1,0 +1,33 @@
+{% load cropping %}
+{% load static %}
+
+{% if latest_info_materials %}
+  <div class="widget">
+    <h3 class="wp-block-heading border-bottom-black-main text-heading border-neutral-300 tw-pb-5">
+      Последние записи
+    </h3>
+    <div class="recent-post-wrap">
+      {% for item in latest_info_materials %}
+        <div class="recent-post">
+          <div class="media-img">
+            <a href="{{ item.get_absolute_url }}">
+              {% if item.image %}
+                <img src="{% cropped_thumbnail item 'icon_thumbnail' %}" alt="{{ item.title }}">
+              {% endif %}
+            </a>
+          </div>
+          <div class="media-body">
+            {% if item.date %}
+              <div class="recent-post-meta">
+                <span>{{ item.date|date:"d.m.Y" }}</span>
+              </div>
+            {% endif %}
+            <h4 class="post-title">
+              <a href="{{ item.get_absolute_url }}">{% if item.question %}Вопрос: {{ item.title|default:item.question }}{% else %}{{ item.title }}{% endif %}</a>
+            </h4>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}

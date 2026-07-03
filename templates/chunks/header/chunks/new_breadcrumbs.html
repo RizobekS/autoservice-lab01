@@ -1,0 +1,28 @@
+<li>
+  <a href="{% url 'home:index' %}" class="text-white hover--translate-y-1 hover-underline fw-bold tw-text-md text-capitalize">
+    <i class="las la-home"></i> Главная
+  </a>
+</li>
+{% for breadcrumb in breadcrumbs %}
+{% if forloop.last %}
+<li>
+  <span class="text-white tw-text-base tw-leading-none d-flex">
+      <i class="fa-solid fa-angles-right"></i>
+  </span>
+</li>
+<li>
+  <span class="text-main fw-bold tw-text-md text-capitalize">{{ breadcrumb.title }}</span>
+
+{% else %}
+<li>
+  <span class="text-white tw-text-base tw-leading-none d-flex">
+      <i class="fa-solid fa-angles-right"></i>
+  </span>
+</li>
+<li>
+  <a href="{{ breadcrumb.url }}" class="text-white hover--translate-y-1 hover-underline fw-bold tw-text-md text-capitalize">
+    {{ breadcrumb.title }}
+  </a>
+</li>
+{% endif %}
+{% endfor %}

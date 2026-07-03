@@ -1,0 +1,27 @@
+/* ================================= Tab Css Start =========================== */
+.common-tab {
+    .nav-item {
+        .nav-link {
+            &.active {
+                color: hsl(var(--white)) !important;
+                background-color: var(--vs-theme-color1) !important;
+            }
+
+            &:hover {
+                color: var(--vs-theme-color1);
+            }
+        }
+    }
+}
+
+.active-main {
+    .nav-item {
+        .nav-link {
+            &.active {
+                color: var(--vs-theme-color1) !important;
+            }
+        }
+    }
+}
+
+/* ================================= Tab Css End =========================== */

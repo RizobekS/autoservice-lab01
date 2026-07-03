@@ -1,0 +1,15 @@
+
+
+<div class="col-sm-12">
+  <div class="d-flex align-items-center tw-gap-5 border border-neutral-200 tw-p-205 tw-rounded-lg">
+    <a href="{% url 'knowledge_base:symptom' item.url %}" class="d-inline-flex align-items-center me-2 gap-3">
+      <span
+        class="bg-main tw-rounded d-flex justify-content-center align-items-center tw-w-14 tw-h-14 text-white tw-text-lg">
+          <i class="fa-solid fa-check-double"></i>
+      </span>
+      <span class="h5 tw-text-xl fw-semibold hover-text-main tw-duration-300">
+        {{ item.title }}
+      </span>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+/* Counter three css start */
+.cols-4 {
+    display: grid;
+    gap: 28px;
+    grid-template-columns: 1fr;
+    
+    @media (min-width: 400px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    @media (min-width: 992px) {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+    }
+}
+
+/* Counter three css end */

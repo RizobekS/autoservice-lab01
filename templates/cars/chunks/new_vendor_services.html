@@ -1,0 +1,64 @@
+{% load static iterables service_url cropping %}
+
+{% if repair_section %}
+
+<!-- ========================= Weekly best selling section start ================================ -->
+<section class="weekly-best-selling pt-110 tw-pb-11">
+    <div class="container">
+
+        <div class="d-flex align-items-end justify-content-between tw-gap-6 tw-mb-12 flex-wrap">
+            <div class="section-heading max-w-645-px">
+                <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2" data-aos="fade-up"
+                    data-aos-duration="800" data-aos-delay="100">
+                    <span class="text-main fw-semibold tw-text-lg text-uppercase">Наши услуги</span>
+                    <span class="tw-w-10 tw-h-05 bg-main triangle-right"></span>
+                </div>
+                <h2 class="splitTextStyleOne text-uppercase" data-aos="fade-up">Ремонт {{ car.vendor.name }}</h2>
+            </div>
+        </div>
+
+        <div class="row gy-4">
+            <div class="col-xl-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                <div class="tw-px-40-px tw-py-14 bg-img background-img overflow-hidden z-1 h-100 d-flex flex-column justify-content-between tw-rounded-xl overflow-hidden"
+                    data-background-image="{% static 'assets/images/bg/weekly-best-selling-bg.png' %}">
+                    <div class="">
+                        <span class="h5 text-main fw-bolder text-uppercase tw-mb-205">15% discount</span>
+                        <h2 class="text-36-px text-uppercase text-heading splitTextStyleOne max-w-250-px">upgrade tire models</h2>
+                    </div>
+                    <div class="tw-mt-6">
+                        <a href="product.html"
+                            class="btn btn-white hover-style-one button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group tw-px-4 tw-py-205 active--translate-y-2 text-uppercase fw-bolder tw-tracking-2-percent hover-text-white group common-shadow tw-text-base"
+                            data-block="button">
+                            <span class="button__flair"></span>
+                            <span class="button__label">
+                                SHOP NOW
+                                <span
+                                    class="tw-ps-2 tw-text-lg tw-leading-none d-sm-inline-flex d-none group-hover-text-white tw-duration-300">
+                                    <i class="fa-solid fa-arrow-right-long"></i>
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7">
+                <div class="grid-cols-res-3 d-grid tw-gap-5">
+                  {% for section in repair_section.active_section_set|merge:repair_section.active_product_set|slice:":9" %}
+                    <a href="{% service_url section %}" class="tw-pt-6 tw-ps-6 tw-pe-6 tw-pb-16 bg-neutral-light tw-rounded-md group group-item position-relative overflow-hidden" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                        <span class="text-heading tw-text-lg fw-bolder mb-lg-3 text-uppercase d-block tw-duration-500 group-hover-text-main">{{ section.title }}</span>
+                        <div class="position-absolute tw-end-0 bottom-0 tw-me-405 tw-mb-4 group-hover-item-scale-12 tw-duration-500">
+                          {% if section.icon %}
+                          <img src="{{ section.icon.url }}" alt="{{ section.title }}">
+                          {% else %}
+                          <img src="{% cropped_thumbnail section 'thumbnail_80x80'  %}" alt="{{ section.title }}">
+                          {% endif %}
+                        </div>
+                    </a>
+                  {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endif %}

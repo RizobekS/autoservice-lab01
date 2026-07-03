@@ -13,7 +13,7 @@ from django.views.generic.edit import FormView
 
 from apps.news.forms import CommentForm
 from apps.news.models import Article, Like
-from apps.news.utils.mixins import LatestArticlesMixin, CommentsMixin
+from apps.news.utils.mixins import LatestArticlesMixin, CommentsMixin, InfoMaterialsSidebarMixin
 from apps.promotions.models import Promotion
 from utils.breadcrumbs.types import Breadcrumb
 from utils.breadcrumbs.utils import reverse_bc
@@ -24,8 +24,8 @@ from utils.opengraph import OpengraphMixin
 from utils.opengraph.utils import og_thumbnail
 
 
-class BaseArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, CommentsMixin, OpengraphMixin):
-    template_name = 'news/article.html'
+class BaseArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMixin, CommentsMixin, InfoMaterialsSidebarMixin, OpengraphMixin):
+    template_name = 'news/new_article.html'
     slug_field = 'url'
     slug_url_kwarg = 'article_url'
     context_object_name = 'article'
@@ -85,6 +85,7 @@ class BaseArticleView(DetailView, FormView, PageSettingsMixin, LatestArticlesMix
 class KnowledgeBaseArticleView(BaseArticleView):
     queryset = Article.objects.filter(is_news=False)  # Check only among knowledge_base articles
     latest_articles_queryset = Article.objects.filter(is_news=False)  # Retrieve only knowledge_base articles
+    info_material_type = 'articles'
 
     viewname = 'knowledge_base:article'
     initial_breadcrumbs = [reverse_bc(viewname='knowledge_base:list')]
@@ -146,6 +147,7 @@ class KnowledgeBaseArticleView(BaseArticleView):
 class NewsArticleView(BaseArticleView):
     queryset = Article.objects.filter(is_news=True)  # Exclude articles from knowledge_base
     latest_articles_queryset = Article.objects.filter(is_news=True)  # Retrieve only news articles
+    info_material_type = 'news'
 
     viewname = 'news:article'
     initial_breadcrumbs = [reverse_bc(viewname='news:list')]
@@ -159,13 +161,29 @@ class NewsArticleView(BaseArticleView):
 
 
 # News list page
-class ArticleListView(ListView, PageSettingsMixin):
-    template_name = 'news/news.html'
+class ArticleListView(ListView, PageSettingsMixin, InfoMaterialsSidebarMixin):
+    template_name = 'news/new_news.html'
     ordering = '-date'
     context_object_name = 'news'
     queryset = Article.objects.filter(status='published', is_news=True)
+    paginate_by = 10
+    info_material_type = 'news'
+    page_heading = 'Новости'
 
     viewname = 'news:list'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.setdefault('page_heading', self.page_heading)
+        return context
+
+
+class BlogListView(ArticleListView):
+    template_name = 'news/new_blog.html'
+    queryset = Article.objects.filter(status='published', is_news=False)
+    info_material_type = 'articles'
+    page_heading = 'Статьи'
+    viewname = 'knowledge_base:blog'
 
 
 def like_view(request, article_url):

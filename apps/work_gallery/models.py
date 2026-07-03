@@ -22,6 +22,7 @@ class Image(models.Model):
     work = models.ForeignKey(verbose_name='Работа', to='Work', on_delete=models.CASCADE)
     list_thumbnail = ImageRatioField(verbose_name='Обрезка изображения', help_text='Для списка всех работ', image_field='image', free_crop=True)
     page_thumbnail = ImageRatioField(verbose_name='Обрезка изображения (1170x780)', help_text='Для индивидуальной страницы работы', image_field='image', size='1170x780')
+    page_thumbnail_384x550 = ImageRatioField(verbose_name='Обрезка изображения (384x550)', help_text='Для главной страницы страницы работы', image_field='image', size='384x550')
 
     __original_image = None
 
@@ -104,6 +105,8 @@ class Work(models.Model):
     active = models.BooleanField('Активно', help_text='Снимите галочку с "Активно" вместо удаления. Неактивные работы не отображаются нигде, кроме админ панели', default=True)
     model_pack = models.ForeignKey(verbose_name='Привязанный набор моделей', to=VendorModelPack, on_delete=models.SET_NULL, null=True, blank=True)
     products = models.ManyToManyField(verbose_name='Привязанные Товары/Услуги', to='services.Product', blank=True)
+    cost_of_work = models.PositiveIntegerField(verbose_name='Стоимость работы', null=True, blank=True)
+    spare_part_of_work = models.PositiveIntegerField(verbose_name='Стоимость запчасти', null=True, blank=True)
     text = models.TextField('Описание работы')
     categories = models.ManyToManyField(verbose_name='Категории работы', to=Category, blank=True)
 

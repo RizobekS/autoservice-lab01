@@ -1,0 +1,23 @@
+<!-- ==================== Search Popup Start Here ==================== -->
+<div class="search-popup bg-white tw-py-17 tw-px-4 d-flex align-items-center justify-content-center bg-white">
+  <div class="container">
+    <div class="tw-pb-15">
+      <button type="button"
+              class="search-popup__close d-flex justify-content-center align-items-center text-white tw-text-2xl tw-w-16 tw-h-16 bg-main rounded-circle mx-auto hover-bg-main-two">
+        <i class="fa-regular fa-xmark"></i>
+      </button>
+    </div>
+    <form id="search" method="GET" action="{% url 'haystack_search' %}" class="search-popup__form position-relative tw-pt-6">
+      <input type="search" name="q" class="search-popup__input text-black" placeholder="Поиск...">
+      <button type="submit"
+              class="tw-text-3xl tw-leading-none text-black position-absolute tw-end-0 top-50 translate-middle-y">
+        <i class="ph ph-magnifying-glass"></i>
+      </button>
+    </form>
+    <div class="search-popup__results tw-mt-8 tw-pt-6 border-top border-neutral-200"
+         style="max-height: 18vh; overflow-y: auto;">
+
+    </div>
+  </div>
+</div>
+<!-- ==================== Search Popup End Here ==================== -->

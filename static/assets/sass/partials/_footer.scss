@@ -1,0 +1,41 @@
+/* Footer Css Start */
+.border-bottom-black-main {
+    position: relative;
+    border-bottom: 3px solid #FFFFFF26;
+}
+
+.border-bottom-black-main::before {
+    position: absolute;
+    content: "";
+    width: 80px;
+    height: 3px;
+    background-color: var(--vs-theme-color1);
+    bottom: -3px;
+    inset-inline-start: 0;
+}
+
+.style-black::before {
+    background-color: var(--vs-theme-color2);
+}
+
+.hover-item-overlay {
+    &::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color: var(--vs-theme-color1);
+        transform: scale(.4);
+        visibility: hidden;
+        opacity: 0;
+        transition: .3s linear;
+    }
+
+    &:hover::before {
+        transform: scale(1);
+        visibility: visible;
+        opacity: .4;
+    }
+}
+
+/* Footer Css End */

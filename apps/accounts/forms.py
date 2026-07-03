@@ -22,7 +22,7 @@ from utils.shortcuts import add_attrs
 
 
 class RegistrationForm(BaseUserCreationForm):
-    CLASSES = 'form-control text-center woocommerce-Input woocommerce-Input--text input-text'
+    CLASSES = 'bg-neutral-200 tw-px-6 tw-py-5 tw-my-1 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main'
 
     password1 = forms.CharField(label='Пароль', strip=False,
                                 widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'class': CLASSES + ' divider-20', 'placeholder': 'Пароль'}))
@@ -30,7 +30,7 @@ class RegistrationForm(BaseUserCreationForm):
                                 widget=forms.PasswordInput(attrs={'autocomplete': 'new-password', 'class': CLASSES, 'placeholder': 'Повторите пароль'}))
 
     class Meta:
-        CLASSES = 'form-control text-center woocommerce-Input woocommerce-Input--text input-text'
+        CLASSES = 'bg-neutral-200 tw-px-6 tw-py-5 tw-my-1 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main'
 
         model = User
         fields = ('first_name', 'last_name', 'middle_name', 'email', 'password1', 'password2')
@@ -54,16 +54,16 @@ class AuthenticationForm(BaseAuthenticationForm):
         'invalid_login': 'Пожалуйста введите верный адрес эл. почты и/или пароль.',
         'inactive': _("This account is inactive."),
     }
-    username = UsernameField(widget=forms.EmailInput(attrs={'autofocus': True, 'placeholder': 'Электронная почта', 'class': 'form-control'}))
+    username = UsernameField(widget=forms.EmailInput(attrs={'autofocus': True, 'placeholder': 'Электронная почта', 'class': 'bg-neutral-200 tw-px-6 tw-py-5 tw-my-3 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main'}))
     password = forms.CharField(label=_("Password"), strip=False,
-                               widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'placeholder': 'Пароль', 'class': 'form-control'}))
+                               widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'placeholder': 'Пароль', 'class': 'bg-neutral-200 tw-px-6 tw-py-5 tw-my-3 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main'}))
 
 
 class PasswordResetForm(BasePasswordResetForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         PLACEHOLDERS = {'email': 'Эл. почта'}
-        CLASSES = 'form-control woocommerce-Input woocommerce-Input--text input-text'
+        CLASSES = 'bg-neutral-200 tw-px-6 tw-py-5 tw-my-3 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main'
         add_attrs(self, placeholders=PLACEHOLDERS, classes=CLASSES)
 
 
@@ -71,7 +71,7 @@ class NewPasswordForm(SetPasswordForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         PLACEHOLDERS = {'new_password1': 'Новый пароль', 'new_password2': 'Подтверждение пароля'}
-        CLASSES = 'form-control woocommerce-Input woocommerce-Input--text input-text'
+        CLASSES = 'bg-neutral-200 tw-px-6 tw-py-5 tw-my-3 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main'
         add_attrs(self, placeholders=PLACEHOLDERS, classes=CLASSES)
 
 
@@ -87,7 +87,7 @@ class ProfileEditForm(forms.ModelForm):
             'middle_name': 'Отчество',
             'email': 'Email',
         }
-        CLASSES = 'form-control woocommerce-Input woocommerce-Input--text input-text'
+        CLASSES = 'bg-neutral-200 tw-px-6 tw-py-5 tw-my-1 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main'
         add_attrs(self, placeholders=PLACEHOLDERS, classes=CLASSES)
 
     class Meta:
@@ -106,7 +106,7 @@ class PasswordChangeForm(BasePasswordChangeForm):
             'new_password1': 'Новый пароль',
             'new_password2': 'Повторите новый пароль'
         }
-        CLASSES = 'form-control woocommerce-Input woocommerce-Input--password input-text'
+        CLASSES = 'bg-neutral-200 tw-px-6 tw-py-5 tw-my-1 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main'
         add_attrs(self, placeholders=PLACEHOLDERS, classes=CLASSES)
 
 
@@ -124,6 +124,9 @@ class AppointmentForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['captcha'].form = self
         self.fields['branch'].empty_label = 'Выберите СТО'
+        self.fields['branch'].widget.attrs.update({
+            'class': 'placeholder-text-light bg-dark-light border border-neutral-800 tw-py-5 tw-px-505 tw-rounded-lg shadow-none outline-0 focus-border-main w-100 text-dark-light form-select select-arrow-white'
+        })
 
     def clean(self):
         form_data = self.cleaned_data
@@ -171,10 +174,11 @@ class AppointmentForm(forms.ModelForm):
             car=self.cleaned_data['car'],
             branch=self.cleaned_data['branch'],
             appointment_datetime=self.cleaned_data['datetime'],
+            text=self.cleaned_data.get('text', ''),
         )
 
     class Meta:
-        fields = ('user', 'full_name', 'car', 'phone', 'branch', 'datetime', 'captcha')
+        fields = ('user', 'full_name', 'car', 'phone', 'branch', 'datetime', 'text', 'captcha')
         model = Appointment
 
 
@@ -195,6 +199,15 @@ class ShortAppointmentForm(AppointmentForm):
     phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
 
     captcha = SmartCaptchaField()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['branch'].empty_label = 'Выберите СТО'
+        self.fields['branch'].widget.attrs.update({
+            'class': 'tw-py-4 tw-px-505 tw-rounded-lg shadow-none outline-0 focus-border-main w-100 form-select select-arrow-dark',
+            'style': 'border: 1px dashed rgba(6, 47, 52, 0.4);'
+        })
 
     def get_page_description(self) -> str:
         """ Returns description related to page from which the form was submitted. I.e. if appointment was sent from Product#4's page,
@@ -247,6 +260,14 @@ class SparePartAppointmentForm(AppointmentForm):
     phone1 = forms.CharField(required=False)  # Fake phone field to trap spam bots
 
     captcha = SmartCaptchaField()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['branch'].empty_label = 'Выберите СТО'
+        self.fields['branch'].widget.attrs.update({
+            'class': 'bg-neutral-200 tw-px-6 tw-py-5 outline-0 border tw-duration-300 border-neutral-300 w-100 focus-border-main form-select select-arrow-dark'
+        })
 
     def send_mail(self, request):
         self.extra_context.update({'datetime': self.instance.datetime})

@@ -24,7 +24,7 @@ from utils.mixins import PageSettingsMixin
 
 
 class RegisterView(FormView, PageSettingsMixin):
-    template_name = 'accounts/register.html'
+    template_name = 'accounts/new_register.html'
     form_class = RegistrationForm
     success_url = reverse_lazy('home:index')
 
@@ -39,7 +39,7 @@ class RegisterView(FormView, PageSettingsMixin):
 
 
 class LoginView(BaseLoginView, PageSettingsMixin):
-    template_name = 'accounts/login.html'
+    template_name = 'accounts/new_login.html'
     authentication_form = AuthenticationForm
 
     viewname = 'accounts:login'
@@ -53,7 +53,7 @@ class LoginView(BaseLoginView, PageSettingsMixin):
 
 
 class PasswordResetView(BasePasswordResetView, PageSettingsMixin):
-    template_name = 'accounts/password_reset/reset_password.html'
+    template_name = 'accounts/password_reset/new_reset_password.html'
     success_url = reverse_lazy('accounts:password:done')
     form_class = PasswordResetForm
     subject_template_name = 'accounts/emails/password_reset/reset-link-subject.html'
@@ -65,7 +65,7 @@ class PasswordResetView(BasePasswordResetView, PageSettingsMixin):
 
 
 class PasswordResetDoneView(BasePasswordResetDoneView, PageSettingsMixin):
-    template_name = 'accounts/password_reset/reset_done.html'
+    template_name = 'accounts/password_reset/new_reset_done.html'
 
     initial_breadcrumbs = [reverse_bc(LoginView)]
     viewname = 'accounts:password:done'
@@ -87,8 +87,7 @@ class PasswordResetConfirmView(BasePasswordResetConfirmView, PageSettingsMixin):
 class SubmitAppointmentView(View):
 
     def post(self, request):
-        if not request.is_ajax():
-            raise Http404()
+        is_ajax = request.headers.get('x-requested-with') == 'XMLHttpRequest'
 
         data = self.request.POST.copy()
         data['user'] = self.request.user.id if self.request.user.is_authenticated else None
@@ -113,7 +112,15 @@ class SubmitAppointmentView(View):
         else:
             response = {'success': False, **form.errors}
 
-        return JsonResponse(response)
+        if is_ajax:
+            return JsonResponse(response)
+
+        if response['success']:
+            messages.success(request, 'Заявка была успешно отправлена', extra_tags='text-success')
+        else:
+            messages.error(request, 'Проверьте поля формы и попробуйте еще раз', extra_tags='text-danger')
+
+        return redirect(request.META.get('HTTP_REFERER') or reverse('home:index'))
 
 
 # ####### PERSONAL AREA #########
@@ -121,7 +128,7 @@ class SubmitAppointmentView(View):
 
 @method_decorator(login_required, name='dispatch')
 class PersonalAreaIndex(TemplateView, PersonalAreaMixin):
-    template_name = 'accounts/personal_area/index.html'
+    template_name = 'accounts/personal_area/new_index.html'
 
     def get_current_breadcrumb(self):
         return []
@@ -129,7 +136,7 @@ class PersonalAreaIndex(TemplateView, PersonalAreaMixin):
 
 @method_decorator(login_required, name='dispatch')
 class AppointmentListView(ListView, PersonalAreaMixin):
-    template_name = 'accounts/personal_area/appointment_list.html'
+    template_name = 'accounts/personal_area/new_appointment_list.html'
     current_breadcrumb = Breadcrumb('Записи на сервис', reverse_lazy('accounts:pa:appointment:list'))
 
     def get_queryset(self):
@@ -138,7 +145,7 @@ class AppointmentListView(ListView, PersonalAreaMixin):
 
 @method_decorator(login_required, name='dispatch')
 class PersonalAreaGarage(View, PersonalAreaMixin):
-    template_name = 'accounts/personal_area/garage.html'
+    template_name = 'accounts/personal_area/new_garage.html'
     current_breadcrumb = Breadcrumb('Гараж', reverse_lazy('accounts:pa:garage'))
 
     def get(self, request, id=None):
@@ -170,7 +177,7 @@ class PersonalAreaEdit(View, PersonalAreaMixin):
         Provides both forms for profile editing and password changing.
         POST data handled by other views
     """
-    template_name = 'accounts/personal_area/edit.html'
+    template_name = 'accounts/personal_area/new_edit.html'
     current_breadcrumb = Breadcrumb('Редактировать профиль', reverse_lazy('accounts:pa:edit'))
 
     def get(self, request: HttpRequest):

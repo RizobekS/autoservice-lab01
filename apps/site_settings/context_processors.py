@@ -4,6 +4,7 @@ from django.db.models import Prefetch, Q
 
 from django.utils import timezone
 from apps.promotions.models import Promotion
+from apps.work_gallery.models import Work
 
 from apps.cars.models import CarFilter
 from apps.editor_pages.models import EditorPage
@@ -52,6 +53,8 @@ def static_info(request):
         .filter(Q(active_before__isnull=True) | Q(active_before__gte=today))
         .order_by('-date')[:5]
     )
+
+    context['work_gallery_queryset_footer'] = (Work.objects.prefetch_related('image_set', 'categories').filter(active=True).order_by('-id')[:6])
 
     return context
 

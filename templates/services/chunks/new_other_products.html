@@ -1,0 +1,78 @@
+{% load static render_with_context iterables car_filter_context service_url cropping %}
+
+{% if other_products %}
+<!-- ===================== Service Two section start ========================= -->
+<section class="service-two py-110 position-relative z-1 section-bg overflow-hidden">
+    <div class="position-absolute tw-start-0 bottom-0 z-n1 tw--ms-140-px left-to-right">
+        <img src="{% static 'assets/images/shapes/jeep-car.png' %}" alt="jeep card">
+    </div>
+    <div class="section-heading tw-mb-11 text-center max-w-576-px mx-auto">
+        <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2" data-aos="fade-up" data-aos-duration="800"
+            data-aos-delay="100">
+            <span class="tw-w-10 tw-h-05 bg-main triangle-left"></span>
+            <span class="text-main fw-semibold tw-text-lg text-uppercase">Что еще</span>
+            <span class="tw-w-10 tw-h-05 bg-main triangle-right"></span>
+        </div>
+        <h2 class="splitTextStyleOne">Другие работы по {{ current_section.title_dative }}</h2>
+    </div>
+
+
+    <div class="position-relative max-w-1524-px mx-auto">
+        <div class="container">
+            <div class="swiper service-two-slider">
+                <div class="swiper-wrapper">
+                  {% for item in other_products %}
+                    <div class="swiper-slide">
+                        <div data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ forloop.counter }}00">
+                            <div
+                                class="service-two-item group group-item social-icon-hover common-shadow-four bg-white h-100 hover-border-top-bottom tw-duration-500 position-relative overflow-hidden animation-item">
+                                <div
+                                    class="d-block hover-animation-white scale-up-wrapper position-relative overflow-hidden z-1">
+                                    <a href="{% service_url item %}" class="w-100 h-100 d-block">
+                                        <img src="{% cropped_thumbnail item 'thumbnail_960x585' %}"
+                                            class="object-fit-cover scale-up__img w-100 h-100"
+                                            alt="{{ item.title }}">
+                                    </a>
+                                </div>
+                                <div class="tw-p-705 tw-pb-16 d-flex tw-gap-30-px">
+                                    <div class="">
+                                        <h2 class="text-vertical-style text-uppercase fw-bolder text-36-px text-stroke">
+                                            Услуга - {{ forloop.counter|stringformat:"02d" }}
+                                        </h2>
+                                    </div>
+                                    <div class="">
+                                        <h2 class="h5">
+                                            <a href="{% service_url item %}" class="hover-text-main">{{ item.title }}</a>
+                                        </h2>
+                                        <p class="d-block text-neutral-500 fw-medium tw-mt-6 tw-mb-4">
+                                          {{ item.short_description }}
+                                        </p>
+                                    </div>
+                                    <a href="{% service_url item %}"
+                                        class="tw-w-15 tw-h-13 tw-text-2xl text-white bg-main-two group-hover-bg-main tw-duration-300 d-flex align-items-center justify-content-center position-absolute tw-end-0 bottom-0">
+                                        <i class="fa-light fa-arrow-right-long"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  {% endfor %}
+                </div>
+                <div class="service-two-slider-pagination style-dark tw-mt-13 d-xxl-none d-flex justify-content-center"></div>
+            </div>
+        </div>
+
+        <div class="d-xxl-flex d-none">
+            <button type="button"
+            class="tw-w-14 tw-h-14 bg-white hover-bg-main text-heading hover-text-white rounded-circle d-flex justify-content-center align-items-center tw-duration-500 common-shadow tw-text-xl position-absolute top-50 translate-middle-y end-100 z-1 service-two-slider-button-prev">
+            <i class="fa-regular fa-arrow-left-long"></i>
+        </button>
+        <button type="button"
+            class="tw-w-14 tw-h-14 bg-white hover-bg-main text-heading hover-text-white rounded-circle d-flex justify-content-center align-items-center tw-duration-500 common-shadow tw-text-xl position-absolute top-50 translate-middle-y start-100 z-1 service-two-slider-button-next">
+            <i class="fa-regular fa-arrow-right-long"></i>
+        </button>
+        </div>
+    </div>
+</section>
+<!-- ===================== Service Two section end ========================= -->
+{% endif %}

@@ -19,15 +19,15 @@ def template_name(obj: Union[Article, Promotion, Master]) -> str:
     folder = 'tags/chunks/'
 
     if isinstance(obj, Article):
-        name = 'article.html'
+        name = 'new_article.html'
     elif isinstance(obj, Promotion):
-        name = 'promotion.html'
+        name = 'new_promotion.html'
     elif isinstance(obj, Product):
-        name = 'product.html'
+        name = 'new_product.html'
     elif isinstance(obj, Symptom):
-        name = 'symptom.html'
+        name = 'new_symptom.html'
     elif isinstance(obj, FaqEntry):
-        name = 'faq_entry.html'
+        name = 'new_faq_entry.html'
     else:
         raise ValueError(f'obj must be instance of Article, Promotion or Master, got {type(obj)} instead')
 

@@ -1,0 +1,66 @@
+{% load promotions %}
+{% load cropping %}
+
+<div class="row gy-5">
+  {% for item in promotions %}
+    <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-duration="800">
+      <div class="blog-two-item {% if archived %}promotion-archived{% endif %}">
+        <div class="position-relative">
+          <a {% if item.is_active %}href="{% get_promotion_url item %}"{% endif %}
+             class="w-100 d-flex tw-rounded-xl overflow-hidden hover-animation-white scale-up-wrapper hover-bg-main-light tw-max-h-332-px">
+            <img src="{% cropped_thumbnail item 'thumbnail' %}"
+                 class="object-fit-cover scale-up__img w-100 h-100"
+                 alt="{{ item.title }}">
+          </a>
+
+          {% if archived %}
+            <div class="promotion-archived__overlay">
+              <span>Акция завершена</span>
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="tw-mt-8">
+          <div class="d-flex align-items-center tw-gap-3 tw-mb-3">
+            <span class="fw-bold tw-text-base text-uppercase text-heading">
+              {{ item.category }}
+            </span>
+            <span class="tw-w-px bg-main-two tw-h-3"></span>
+            <span class="fw-bold tw-text-base text-uppercase text-neutral-600">
+              {% if item.is_active %}
+                До {{ item.get_active_before }}
+              {% elif item.active_before %}
+                Истекло {{ item.active_before|date:"d.m.Y" }}
+              {% else %}
+                Истекло
+              {% endif %}
+            </span>
+          </div>
+
+          <h3 class="h4">
+            <a {% if item.is_active %}href="{% get_promotion_url item %}"{% endif %}
+               class="hover-text-main">
+              {{ item.title }}
+            </a>
+          </h3>
+
+          {% if item.is_active %}
+            <div class="tw-mt-6">
+              <a href="{% get_promotion_url item %}"
+                 class="text-capitalize fw-bold tw-text-xl text-heading hover-text-main group group-item d-flex align-items-center tw-gap-205">
+                Подробнее
+                <span class="tw-w-8 tw-h-8 d-flex align-items-center justify-content-center rounded-circle text-white bg-main-two tw-duration-300 group-hover-bg-main tw-text-sm">
+                  <i class="fa-solid fa-arrow-up-right"></i>
+                </span>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <div class="col-12 text-center">
+      <p class="fw-bold tw-text-lg">Акций пока нет.</p>
+    </div>
+  {% endfor %}
+</div>

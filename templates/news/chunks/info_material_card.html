@@ -1,0 +1,53 @@
+{% load cropping %}
+{% load static %}
+
+<div class="vs-blog">
+  <img src="{% static 'assets/images/icons/vs-blog-ele1.svg' %}" alt="{{ item.title }}" class="vs-blog__ele1">
+  {% if item.image %}
+    <div class="vs-blog__img--figure">
+      <a class="vs-blog__img--link w-100" href="{{ item.get_absolute_url }}">
+        <img src="{% cropped_thumbnail item 'thumbnail' %}" alt="{{ item.title }}" class="vs-blog__img w-100">
+      </a>
+    </div>
+  {% endif %}
+  <div class="vs-blog__content">
+    <div class="vs-blog__meta">
+      {% if item.author %}
+        <a class="vs-blog__meta--link" href="#">
+          <i class="fa-regular fa-user"></i>{{ item.author.name }}
+        </a>
+      {% elif item.master %}
+        <a class="vs-blog__meta--link" href="#">
+          <i class="fa-regular fa-user"></i>{{ item.master.name }}
+        </a>
+      {% endif %}
+      {% if item.date %}
+        <a class="vs-blog__meta--link" href="#">
+          <i class="fa-regular fa-calendar-days"></i>{{ item.date|date:"d.m.Y" }}
+        </a>
+      {% endif %}
+      {% if item.comment_set %}
+        <a class="vs-blog__meta--link" href="{{ item.get_absolute_url }}#comments">
+          <i class="fa-regular fa-comment"></i>{{ item.comment_set.count }}
+        </a>
+      {% endif %}
+    </div>
+    <a class="vs-blog__heading--link" href="{{ item.get_absolute_url }}">
+      <h2 class="vs-blog__heading">
+        {% if item.question %}Вопрос: {{ item.title|default:item.question }}{% else %}{{ item.title }}{% endif %}
+      </h2>
+    </a>
+    <p class="vs-blog__desc">
+      {% if item.short_description %}
+        {{ item.short_description|safe }}
+      {% elif item.question %}
+        {{ item.question }}
+      {% else %}
+        {{ item.answer|striptags|truncatechars:250 }}
+      {% endif %}
+    </p>
+    <a href="{{ item.get_absolute_url }}" class="vs-blog__link">
+      Читать далее<i class="fa-solid fa-arrow-right"></i>
+    </a>
+  </div>
+</div>

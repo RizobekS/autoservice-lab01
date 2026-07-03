@@ -1,0 +1,88 @@
+/* ========================== Banner One section start ============================= */
+.banner {
+    padding: 180px 0 112px;
+
+    @media (min-width: 992px) {
+        padding: 260px 0 112px;
+    }
+}
+
+.banner-padding {
+    padding: 140px 0 120px;
+
+    @media (min-width: 992px) {
+        padding: 227px 0 212px;
+    }
+}
+
+.banner-padding-four {
+    padding: 140px 0 120px;
+
+     @media (min-width: 768px) {
+        padding: 220px 0 120px;
+    }
+
+    @media (min-width: 992px) {
+        padding: 300px 0 212px;
+    }
+}
+
+.banner-img {
+    inset-inline-start: 50%;
+}
+
+.wheel-img {
+    top: 30%;
+    inset-inline-start: 73%;
+}
+
+.tw-mt-150-px {
+    margin-block-start: clamp(3.75rem, -1.4423rem + 10.8173vw, 9.375rem);
+}
+
+.section-overlay::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    top: 0;
+    left: 0;
+    opacity: .4;
+    z-index: -1;
+}
+
+.plain-stair-shape {
+    clip-path: polygon(0 94%, 100% 0, 100% 100%, 0 100%);
+}
+
+.pagination-absolute-bottom {
+    position: absolute;
+    bottom: 0;
+    inset-inline-start: 0;
+    margin-bottom: 60px;
+
+    @media (min-width: 992px) {
+        margin-bottom: 94px;
+    }
+}
+
+
+.banner-contents {
+    visibility: hidden;
+    opacity: 0;
+    transition: .6s;
+}
+
+.swiper-slide-active .banner-contents {
+    visibility: visible;
+    opacity: 1;
+}
+
+.res-margin {
+    @media (max-width: 991px) {
+        margin-top: 36px;
+    }
+}
+
+/* ========================== Banner One section end ============================= */

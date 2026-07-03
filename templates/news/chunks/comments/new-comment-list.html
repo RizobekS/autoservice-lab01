@@ -1,0 +1,7 @@
+<ul class="list-unstyled">
+  {% for comment in comments %}
+  <li class="vs-comment-item">
+    {% include 'news/chunks/comments/new-single-comment.html' %}
+  </li>
+  {% endfor %}
+</ul>

@@ -1,12 +1,14 @@
 {% load static %}
 
 {% with form=login_form %}
-  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="modalLoginForm" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+  <div class="modal fade bd-modal-lg" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="modalLoginForm" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span>×</span>
-        </button>
+        <div class="d-flex justify-content-end px-3">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span class="justify-content-end text-res-24-px">×</span>
+          </button>
+        </div>
         <div class="row c-gutter-0">
           <div class="col-12 col-lg-6 login-form-main">
             <div class="modal-header justify-content-center">
@@ -17,7 +19,6 @@
                 {% csrf_token %}
                 {% for field in form %}
                   <div class="form-group has-placeholder">
-                    <label for="{{ field.auto_id }}">{{ field.label }}</label>
                     {{ field }}
                     {% for error in field.errors %}
                       <small class="text-warning">{{ error }}</small>
@@ -25,13 +26,20 @@
                   </div>
                 {% endfor %}
                 <div class="modal-password">
-                  <a href="{% url 'accounts:password:reset' %}" class="modal-password-btn">Забыли пароль?</a>
+                  <a href="{% url 'accounts:password:reset' %}" class="my-2 tw-duration-300 hover-text-main text-main hover-underline">Забыли пароль?</a>
                 </div>
                 <div class="modal-password">
-                  Если у вас еще нет личного кабинета <a href="{% url 'accounts:register' %}" class="modal-password-btn">зарегистрируйтесь</a> и получайте скидки с каждого заказа.
+                  Если у вас еще нет личного кабинета <a href="{% url 'accounts:register' %}" class="tw-duration-300 text-main hover-text-main hover-underline">зарегистрируйтесь</a> и получайте скидки с каждого заказа.
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                  <button type="submit" class="btn btn-small btn-maincolor log-btn">Войти</button>
+                  <button type="submit"
+                          class="btn btn-main hover-style-two button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-black tw-tracking-2-percent"
+                          data-block="button">
+                    <span class="button__flair"></span>
+                    <span class="button__label">
+                      Войти
+                    </span>
+                  </button>
                 </div>
               </form>
             </div>

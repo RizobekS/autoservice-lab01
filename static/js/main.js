@@ -382,98 +382,169 @@
     }
 
     function initYandexMap() {
+        var $mapEl = $('#map');
+        if (!$mapEl.length) return;
 
-        ymaps.ready(function() {
-            console.log('ymaps.ready');
+        if (typeof ymaps === 'undefined') {
+            console.log('ymaps is undefined (script not loaded yet)');
+            return;
+        }
 
-            var iconContent = "<div class='icon-styled color-main fs-56'><i class='fa fa-map-marker'></i></div>";
-            var iconSize = [36, 41];
-            // var circleLayout = ymaps.templateLayoutFactory.createClass('<div class="placemark_layout_container"><div class="circle_layout">#</div></div>');
+        // Забираем JSON филиалов из data-branches
+        var branchesRaw = $mapEl.attr('data-branches') || $mapEl.data('branches');
+        var branches = [];
 
+        try {
+            if (typeof branchesRaw === 'string' && branchesRaw.trim()) {
+                branches = JSON.parse(branchesRaw);
+            } else if (Array.isArray(branchesRaw)) {
+                branches = branchesRaw;
+            } else if (branchesRaw && typeof branchesRaw === 'object') {
+                branches = branchesRaw;
+            }
+        } catch (e) {
+            console.log('Failed to parse data-branches JSON', e, branchesRaw);
+            branches = [];
+        }
 
-            var myMap = new ymaps.Map('map', {
-                    center: [59.976569378119905, 30.4160871289825],
-                    zoom: 12
-                }, {
-                    searchControlProvider: 'yandex#search'
-                }),
+        // Нормализация: иногда прилетает объект, а не массив
+        if (branches && !Array.isArray(branches)) {
+            branches = [branches];
+        }
 
-                // Создаём макет содержимого.
-                // MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
-                //     '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
-                // ),
+        if (!branches.length) {
+            console.log('No branches provided for map');
+            return;
+        }
 
-                myPlacemark_01 = new ymaps.Placemark([60.00960156407456, 30.32629749999995], {
-                    iconContent: iconContent,
-                    hintContent: 'Энгельса, 33/1',
-                    // balloonContent: 'АвтоПремиум'
-                }, {
-                    // Опции.
-                    // Необходимо указать данный тип макета.
-                    iconLayout: 'default#imageWithContent',
-                    // iconLayout: circleLayout,
-                    // Своё изображение иконки метки.
-                    iconImageHref: '',
-                    // Размеры метки.
-                    // iconShape: {
-                    //     type: 'Circle',
-                    //     // Круг описывается в виде центра и радиуса
-                    //     coordinates: [0, 0],
-                    //     radius: 30
-                    // }
-                    iconImageSize: iconSize,
-                    iconContentSize: iconSize,
-                    // Смещение левого верхнего угла иконки относительно
-                    // её "ножки" (точки привязки).
-                    // iconImageOffset: [-12, -14]
-                }),
+        // --- ВАЖНО: карта не создаётся, если контейнер ещё "0x0" из-за анимации/верстки ---
+        function waitForVisibleContainer(maxTries, delayMs, cb) {
+            var tries = 0;
 
-                myPlacemark_02 = new ymaps.Placemark([59.93665943024874, 30.479307499999983], {
-                    iconContent: iconContent,
-                    hintContent: 'Хасанская, 5',
-                    // balloonContent: 'АвтоПремиум'
-                }, {
-                    // Опции.
-                    // Необходимо указать данный тип макета.
-                    iconLayout: 'default#imageWithContent',
-                    // Своё изображение иконки метки.
-                    iconImageHref: '',
-                    // Размеры метки.
-                    iconImageSize: iconSize,
-                    iconContentSize: iconSize,
-                    // Смещение левого верхнего угла иконки относительно
-                    // её "ножки" (точки привязки).
-                    // iconImageOffset: [-12, -14]
-                }),
+            function check() {
+                var el = $mapEl.get(0);
+                if (!el) return;
 
-                myPlacemark_03 = new ymaps.Placemark([60.005938, 30.437250], {
-                    iconContent: iconContent,
-                    hintContent: 'Руставели 25 к.2',
-                    // balloonContent: 'АвтоПремиум'
-                }, {
-                    // Опции.
-                    // Необходимо указать данный тип макета.
-                    iconLayout: 'default#imageWithContent',
-                    // Своё изображение иконки метки.
-                    iconImageHref: '',
-                    // Размеры метки.
-                    iconImageSize: iconSize,
-                    iconContentSize: iconSize,
-                    // Смещение левого верхнего угла иконки относительно
-                    // её "ножки" (точки привязки).
-                    // iconImageOffset: [-12, -14]
-                });
+                // иногда помогают минимальные размеры
+                if (!$mapEl.height()) {
+                    $mapEl.css('min-height', '320px');
+                }
 
-            myMap.geoObjects.add(myPlacemark_01);
-            myMap.geoObjects.add(myPlacemark_02);
-            myMap.geoObjects.add(myPlacemark_03);
+                var rect = el.getBoundingClientRect();
+                var ok = rect.width > 10 && rect.height > 10;
+
+                if (ok) return cb();
+
+                tries++;
+                if (tries >= maxTries) {
+                    console.log('Map container is still not visible/sized, aborting init');
+                    return;
+                }
+                setTimeout(check, delayMs);
+            }
+
+            check();
+        }
+
+        ymaps.ready(function () {
+            waitForVisibleContainer(120, 120, function () {
+                try {
+                    // Не делаем $mapEl.empty() до создания карты: иначе можно "стереть" внутренности при повторных вызовах.
+                    // Если карта уже создана, просто не создаём вторую.
+                    if ($mapEl.data('ymap-initialized')) {
+                        try {
+                            // Иногда помогает "пинок" после анимации
+                            $mapEl.data('ymap-instance')?.container.fitToViewport();
+                        } catch (e) {}
+                        return;
+                    }
+
+                    var iconContent = "<div class='icon-styled text-main h3'><i class='fa-solid fa-location-dot'></i></div>";
+                    var iconSize = [36, 41];
+
+                    var first = branches[0];
+                    var center = [Number(first.lat) || 59.976569378119905, Number(first.lon) || 30.4160871289825];
+
+                    var myMap = new ymaps.Map('map', {
+                        center: center,
+                        zoom: 12,
+                        controls: ['zoomControl']
+                    }, {
+                        searchControlProvider: 'yandex#search'
+                    });
+
+                    var geoObjects = new ymaps.GeoObjectCollection();
+
+                    branches.forEach(function (b) {
+                        var lat = Number(b.lat);
+                        var lon = Number(b.lon);
+                        if (!isFinite(lat) || !isFinite(lon)) return;
+
+                        var hint = b.address || b.name || '';
+                        var balloon =
+                            "<div style='padding:6px 8px;'>" +
+                            (b.name ? ("<div><b>" + b.name + "</b></div>") : "") +
+                            (b.address ? ("<div>" + b.address + "</div>") : "") +
+                            (b.phone ? ("<div><a href=\"tel:" + String(b.phone).replace(/[^0-9+]/g,'') + "\">" + b.phone + "</a></div>") : "") +
+                            "</div>";
+
+                        var placemark = new ymaps.Placemark([lat, lon], {
+                            iconContent: iconContent,
+                            hintContent: hint,
+                            balloonContent: balloon
+                        }, {
+                            iconLayout: 'default#imageWithContent',
+                            iconImageHref: '',
+                            iconImageSize: iconSize,
+                            iconContentSize: iconSize
+                        });
+
+                        geoObjects.add(placemark);
+                    });
+
+                    myMap.geoObjects.add(geoObjects);
+
+                    // Подгоняем карту под метки
+                    if (branches.length === 1) {
+                        var b0 = branches[0];
+                        var oneLat = Number(b0.lat);
+                        var oneLon = Number(b0.lon);
+                        if (isFinite(oneLat) && isFinite(oneLon)) {
+                            myMap.setCenter([oneLat, oneLon], 15);
+                        }
+                    } else {
+                        var bounds = geoObjects.getBounds();
+                        if (bounds) {
+                            myMap.setBounds(bounds, { checkZoomRange: true, zoomMargin: 40 });
+                        }
+                    }
+
+                    myMap.behaviors.disable('scrollZoom');
+
+                    // "Пинок" после анимаций/layout
+                    setTimeout(function () {
+                        try { myMap.container.fitToViewport(); } catch (e) {}
+                    }, 150);
+                    setTimeout(function () {
+                        try { myMap.container.fitToViewport(); } catch (e) {}
+                    }, 450);
+
+                    // помечаем как инициализированную
+                    $mapEl.data('ymap-initialized', true);
+                    $mapEl.data('ymap-instance', myMap);
+
+                } catch (e) {
+                    console.log('Yandex map init failed', e);
+                }
+            });
         });
     }
+
 
     function inputsMask() {
         var elements = document.querySelectorAll('input[name="phone"]');
         var maskOptions = {
-            mask: '+{7} (000) 000 - 00 - 00',
+            mask: '+{7} (900) 000 - 00 - 00',
             lazy: false,
             placeholderChar: '_'
         };
@@ -977,12 +1048,21 @@
 
         var choices = [];
         for (var i = 0; i < filterSelects.length; i++) {
-            choices[i] = new Choices(filterSelects[i].querySelector('select'), {
+            var selectEl = filterSelects[i].querySelector('select');
+
+            // ВАЖНО: если select отсутствует (например, филиал один и мы скрыли выбор),
+            // то Choices инициализировать нельзя, иначе падает весь documentReadyInit()
+            if (!selectEl) {
+                continue;
+            }
+
+            choices.push(new Choices(selectEl, {
                 searchEnabled: false,
                 shouldSort: false,
-            });
+            }));
         }
         window.choices = choices;
+
 
         //datetime picker init
         var inline = false;
@@ -1707,28 +1787,103 @@
 
     $(document).ready(function() {
         documentReadyInit();
+
+        var $mapEl = $('#map');
+        if (!$mapEl.length) return;
+
+        var $mapScript = $('#mapScript');
+        var apiUrl = ($mapScript.length && $mapScript.data('url'))
+            ? String($mapScript.data('url') || '').replace(/&amp;/g, '&')
+            : null;
+
         var yaMapsStartedDownload = false;
+        var initRequested = false;
 
-        $(window).scroll(function() {
-            if (!yaMapsStartedDownload) {
-                if ($(window).scrollTop() + $(window).height() > $(document).height() - 700) {
-                    console.log('Callind showYaMaps');
-                    yaMapsStartedDownload = true;
-                    $.ajax({
-                        url: $('#mapScript').data('url'),
-                        dataType: "script",
-                        success: function() {
-                            initYandexMap();
-                        },
-                        error: function() {
-                            console.log('Failed to initialize yandex map');
-                        }
-                    });
-                }
+        function requestMapInit() {
+            if (initRequested) return;
+            initRequested = true;
+
+            if (typeof ymaps !== 'undefined') {
+                initYandexMap();
+                return;
             }
-        });
 
+            if (!apiUrl) {
+                console.log('No #mapScript URL to load ymaps');
+                return;
+            }
+
+            if (yaMapsStartedDownload) return;
+            yaMapsStartedDownload = true;
+
+            $.ajax({
+                url: apiUrl,
+                dataType: "script",
+                cache: true,
+                success: function() {
+                    var tries = 0;
+                    (function waitYmaps(){
+                        if (typeof ymaps !== 'undefined') {
+                            initYandexMap();
+                            return;
+                        }
+                        tries++;
+                        if (tries > 120) { // 120 * 50ms = 6s
+                            console.log('ymaps did not become available after script load');
+                            return;
+                        }
+                        setTimeout(waitYmaps, 50);
+                    })();
+                },
+                error: function(xhr, status, err) {
+                    console.log('Failed to load yandex map script', status, err, apiUrl);
+                }
+            });
+        }
+
+        if ($().appear) {
+            $mapEl.appear();
+
+            if ($mapEl.is(':appeared')) {
+                requestMapInit();
+            }
+
+            $('body').on('appear', '#map', function() {
+                requestMapInit();
+            });
+
+            setTimeout(function () {
+                if (!initRequested) {
+                    requestMapInit();
+                }
+            }, 1200);
+
+        } else {
+            var tryLoad = function () {
+                if (initRequested) return;
+
+                var off = $mapEl.offset();
+                if (!off) {
+                    requestMapInit();
+                    return;
+                }
+
+                var triggerOffset = 400;
+                var mapTop = off.top;
+                var viewportBottom = $(window).scrollTop() + $(window).height();
+
+                if (viewportBottom > mapTop - triggerOffset) {
+                    requestMapInit();
+                }
+            };
+
+            $(window).on('scroll', tryLoad);
+            tryLoad();
+
+            setTimeout(function(){ if (!initRequested) requestMapInit(); }, 1200);
+        }
     });
+
 
     $window.on('load', function() {
         windowLoadInit();

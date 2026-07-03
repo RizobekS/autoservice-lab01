@@ -1,0 +1,190 @@
+/* ================================= Padding Css Start =========================== */
+@each $property, $value in $spaces {
+  .tw-p-#{$property} {
+    padding: var(--size-#{$property});
+  }
+}
+
+@each $property, $value in $spaces {
+  .tw-px-#{$property} {
+    padding-inline: var(--size-#{$property});
+  }
+}
+
+@each $property, $value in $spaces {
+  .tw-py-#{$property} {
+    padding-block: var(--size-#{$property});
+  }
+}
+
+@each $property, $value in $spaces {
+  .tw-ps-#{$property} {
+    padding-inline-start: var(--size-#{$property});
+  }
+}
+
+@each $property, $value in $spaces {
+  .tw-pe-#{$property} {
+    padding-inline-end: var(--size-#{$property});
+  }
+}
+
+@each $property, $value in $spaces {
+  .tw-pt-#{$property} {
+    padding-block-start: var(--size-#{$property});
+  }
+}
+
+@each $property, $value in $spaces {
+  .tw-pb-#{$property} {
+    padding-block-end: var(--size-#{$property});
+  }
+}
+
+.tw {
+  &-p {
+    &-30-px {
+      padding: clamp(1rem, -2.7917rem + 4.6667vw, 1.875rem);
+    }
+    &-32-px {
+      padding: clamp(1rem, -6.1013rem + 9.4763vw, 2rem);
+    }
+
+    &-36-px {
+      padding: clamp(1rem, -6.1013rem + 9.4763vw, 2.25rem);
+    }
+
+    &-24-px {
+      padding: clamp(1rem, -6.1013rem + 9.4763vw, 1.5rem);
+    }
+
+    &-48-px {
+      padding: clamp(1.5rem, -12.1677rem + 32.9177vw, 3rem);
+    }
+
+    &-60-px {
+      padding: clamp(2rem, 0.3846rem + 3.3654vw, 3.75rem);
+    }
+  }
+
+  &-px-50-px {
+    padding-inline: clamp(1.5rem, -12.1677rem + 32.9177vw, 3.125rem);
+  }
+
+  &-px-32-px {
+    padding-inline: clamp(1.5rem, -6.1013rem + 9.4763vw, 2rem);
+  }
+  &-px-36-px {
+    padding-inline: clamp(1.5rem, -6.1013rem + 9.4763vw, 2.25rem);
+  }
+  &-px-40-px {
+    padding-inline: clamp(1.5rem, -6.1013rem + 9.4763vw, 2.5rem);
+  }
+}
+
+
+
+.lg-tw-pe-200-px {
+  padding-inline-end: 90px;
+
+  @media (min-width: 768px) {
+    padding-inline-end: 200px;
+  }
+}
+
+
+.py-80-px {
+  padding-block-start: 80px;
+  padding-block-end: 80px;
+}
+
+.pb-80-px {
+  padding-block-end: 80px;
+}
+
+.pt-80-px {
+  padding-block-start: 80px;
+}
+
+
+.py-120 {
+  padding-block-start: 60px;
+  padding-block-end: 60px;
+
+  @media (min-width: 576px) {
+    padding-block-start: 80px;
+    padding-block-end: 80px;
+  }
+
+  @media (min-width: 992px) {
+    padding-block-start: 120px;
+    padding-block-end: 120px;
+  }
+}
+
+.pt-120 {
+  padding-block-start: 60px;
+
+  @media (min-width: 576px) {
+    padding-block-start: 80px;
+  }
+
+  @media (min-width: 992px) {
+    padding-block-start: 120px;
+  }
+}
+
+.pb-120 {
+  padding-block-end: 60px;
+
+  @media (min-width: 576px) {
+    padding-block-end: 80px;
+  }
+
+  @media (min-width: 992px) {
+    padding-block-end: 120px;
+  }
+}
+
+
+
+.py-110 {
+  padding-block-start: 60px;
+  padding-block-end: 60px;
+
+  @media (min-width: 576px) {
+    padding-block-start: 80px;
+    padding-block-end: 80px;
+  }
+
+  @media (min-width: 992px) {
+    padding-block-start: 110px;
+    padding-block-end: 110px;
+  }
+}
+
+.pb-110 {
+  padding-block-end: 60px;
+
+  @media (min-width: 576px) {
+    padding-block-end: 80px;
+  }
+
+  @media (min-width: 992px) {
+    padding-block-end: 110px;
+  }
+}
+
+.pt-110 {
+  padding-block-start: 60px;
+
+  @media (min-width: 576px) {
+    padding-block-start: 80px;
+  }
+
+  @media (min-width: 992px) {
+    padding-block-start: 110px;
+  }
+}
+
+/* ================================= Padding Css End =========================== */

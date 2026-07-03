@@ -4,13 +4,13 @@ from django.contrib import messages
 from django.db.models import Q
 from django.http import Http404
 from django.utils.html import strip_tags
-from django.views.generic import CreateView, DetailView, TemplateView
+from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
 from apps.knowledge_base.forms import AskQuestionForm
 from apps.knowledge_base.models import FaqEntry, Symptom
 from apps.knowledge_base.utils.mixins import FaqEntryListMixin, SymptomListMixin
 from apps.news.models import Article
-from apps.news.utils.mixins import LatestArticlesMixin
+from apps.news.utils.mixins import LatestArticlesMixin, InfoMaterialsSidebarMixin
 from apps.tags.models import Tag
 from utils.breadcrumbs.utils import reverse_bc
 from utils.mixins import PageSettingsMixin
@@ -37,14 +37,43 @@ class KnowledgeBaseView(TemplateView, PageSettingsMixin, FaqEntryListMixin, Symp
         return context
 
 
-class AnsweredQuestionView(CreateView, PageSettingsMixin, FaqEntryListMixin):
-    template_name = 'knowledge_base/answered-question.html'
+class FaqListView(ListView, PageSettingsMixin, InfoMaterialsSidebarMixin):
+    template_name = 'knowledge_base/new_faq.html'
+    queryset = FaqEntry.objects.filter(answered=True)
+    context_object_name = 'news'
+    paginate_by = 10
+    info_material_type = 'faq'
+    viewname = 'knowledge_base:faq'
+
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['page_heading'] = 'Вопрос-ответ'
+        return context
+
+
+class SymptomListView(ListView, PageSettingsMixin, InfoMaterialsSidebarMixin):
+    template_name = 'knowledge_base/new_symptom.html'
+    queryset = Symptom.objects.filter(active=True)
+    context_object_name = 'news'
+    paginate_by = 10
+    info_material_type = 'symptom'
+    viewname = 'knowledge_base:symptom-list'
+
+    def get_context_data(self, **kwargs) -> Dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context['page_heading'] = 'Симптомы'
+        return context
+
+
+class AnsweredQuestionView(CreateView, PageSettingsMixin, FaqEntryListMixin, InfoMaterialsSidebarMixin):
+    template_name = 'knowledge_base/new_answered_question.html'
     model = FaqEntry
     form_class = AskQuestionForm
     faq_entry = None
 
     viewname = 'knowledge_base:answered-question'
     initial_breadcrumbs = [reverse_bc(viewname=KnowledgeBaseView.viewname)]
+    info_material_type = 'faq'
 
     def get_ceo_context(self, **kwargs) -> Dict[str, Any]:
         kwargs.update({'title': self.faq_entry.title, 'answer': strip_tags(self.faq_entry.answer)})
@@ -84,8 +113,8 @@ class AnsweredQuestionView(CreateView, PageSettingsMixin, FaqEntryListMixin):
         return faq_entry
 
 
-class SymptomView(DetailView, PageSettingsMixin, SymptomListMixin):
-    template_name = 'knowledge_base/symptom.html'
+class SymptomView(DetailView, PageSettingsMixin, SymptomListMixin, InfoMaterialsSidebarMixin):
+    template_name = 'knowledge_base/new_symptom_detail.html'
     queryset = Symptom.objects.filter(active=True)
 
     slug_field = 'url'
@@ -94,6 +123,7 @@ class SymptomView(DetailView, PageSettingsMixin, SymptomListMixin):
 
     viewname = 'knowledge_base:symptom'
     initial_breadcrumbs = [reverse_bc(viewname=KnowledgeBaseView.viewname)]
+    info_material_type = 'symptom'
 
     def get_ceo_context(self, **kwargs) -> Dict[str, Any]:
         kwargs.update({'title': self.object.title, 'answer': strip_tags(self.object.answer)})

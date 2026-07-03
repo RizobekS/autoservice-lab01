@@ -1,0 +1,61 @@
+{% load field_tags %}
+{% load errors %}
+<form method="post" id="commentform" class="row gx-20 gy-20">
+  {% csrf_token %}
+  {% hidden_fields form %}
+  {% non_field_errors form %}
+
+  {% if request.user.is_authenticated %}
+  <p class="form-text">
+    Ваш адрес электронной почты не будет опубликован. Обязательные поля отмечены *
+  </p>
+  <div class="col-12 form-group">
+    <textarea class="form-control"
+              name="{{ form.text.name }}"
+              id="{{ form.text.auto_id }}"
+              placeholder="{{ form.text.label }} *"
+              rows="8"
+              required>{{ form.text.value|default_if_none:'' }}</textarea>
+    {% field_errors form.text %}
+    <small id="answer_to" class="text-success"></small>
+  </div>
+
+  <div class="col-12 form-group">
+    <input type="text" class="form-control" placeholder="Ваше имя *" value="{{ request.user.get_full_name }}">
+  </div>
+  <div class="col-12 form-group mb-0">
+    <button type="submit"
+            class="btn btn-main hover-style-one button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-neutral-light tw-tracking-2-percent tw-mt-4"
+            data-block="button">
+      <span class="button__flair"></span>
+      <span class="button__label">
+        Отправить
+      </span>
+    </button>
+  </div>
+
+  {% else %}
+  <p class="mb-4">Для того, чтобы оставлять комментарии, необходимо войти</p>
+  <div class="d-flex justify-content-around">
+    <a href="{% url 'accounts:login' %}?next={{ article.get_absolute_url }}"
+       class="btn btn-main hover-style-one button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-neutral-light tw-tracking-2-percent tw-mt-4"
+    >
+      <span class="button__flair"></span>
+      <span class="button__label">
+        Войти
+      </span>
+    </a>
+    <a href="{% url 'accounts:register' %}?next={{ article.get_absolute_url }}"
+       class="btn btn-main hover-style-one button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-neutral-light tw-tracking-2-percent tw-mt-4"
+    >
+      <span class="button__flair"></span>
+      <span class="button__label">
+        Зарегистрироваться
+      </span>
+    </a>
+  </div>
+  {% endif %}
+</form>
+<p class="form-messages my-3"></p>
+
+

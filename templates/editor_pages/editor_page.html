@@ -1,29 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'new_base.html' %}
 {% load deferred_static %}
 {% load static errors strings %}
 
 
-{% block links %}
-  {% deferred_style 'css/shop.css' 'color-switcher-link' %}
-  {% deferred_style 'css/utils.css' 'color-switcher-link' %}
-  <link rel="stylesheet" href="{% static 'css/main.css' %}" class="color-switcher-link">
-{% endblock %}
 
-
-{% block header %}
-  {% include 'chunks/header/title.html' %}
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
 {% endblock %}
 
 
 
 {% block main %}
-  <section class="s-pt-60 s-pb-15 s-py-lg-90 ls">
-    <div class="container">
-      <div class="row c-mb-40 c-mb-lg-0">
 
         {{ object.content|safe }}
 
-      </div>
-    </div>
-  </section>
 {% endblock %}

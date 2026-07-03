@@ -1,0 +1,13 @@
+/* project css start */
+.project-two-item {
+    &__content {
+        transform: translateY(102%);
+    }
+    &:hover {
+        .project-two-item__content {
+            transform: translateY(0);
+        }
+    }
+}
+
+/* project css end */

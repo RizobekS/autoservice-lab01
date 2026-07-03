@@ -1,0 +1,51 @@
+{% extends 'new_base.html' %}
+{% load deferred_static %}
+{% load static %}
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+
+{% block main %}
+
+<!-- =========================== Personal area section start ====================================== -->
+<section class="service-details py-110">
+    <div class="container">
+        <div class="row gy-5">
+            <div class="col-lg-8">
+                <div class="pe-xl-4">
+                    <figure
+                        class="hover-animation-white split-reveal position-relative overflow-hidden group-item group tw-rounded-xl d-inline-flex">
+                        <div class="split-reveal-element origin-left">
+                            <h1 class="text-heading">Личный кабинет</h1>
+                        </div>
+                    </figure>
+                    <div class="tw-mt-11">
+                      <span class="">
+                        Добро пожаловать, <span class="fw-bold text-uppercase text-main tw-mb-1">{{ user.get_short_name }}</span>.
+                      </span>
+                      <p>
+                        В личном кабинете вы можете просматривать свои <a href="shop-account-orders.html" class="text-main">последние заказы</a>,
+                        а также изменять свой <a href="shop-account-details.html" class="text-main">пароль и данные учетной записи</a>.
+                      </p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="d-flex flex-column tw-gap-8">
+
+                    {% include 'accounts/personal_area/chunks/new_sidebar.html' %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- =========================== Personal area section end ====================================== -->
+
+{% endblock %}
+
+

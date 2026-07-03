@@ -1,0 +1,41 @@
+/* Colors class start */
+@each $color, $shades in $colors {
+  @each $shade, $value in $shades {
+    .text-#{$color}-#{$shade} {
+      color: var(--#{$color}-#{$shade});
+    }
+  }
+}
+
+
+.text {
+  &-main {
+    color: var(--vs-theme-color1);
+  }
+
+  &-main-two {
+    color: var(--vs-theme-color2);
+  }
+
+  &--white {
+    color: hsl(var(--white));
+  }
+
+  &-heading {
+    color: hsl(var(--heading-color));
+  }
+
+  &-body {
+    color: var(--body-color) !important;
+  }
+
+  &-body-two {
+    color: #C9C9C9;
+  }
+
+  &-dark-light {
+    color: #989797;
+  }
+}
+
+/* Colors class End */

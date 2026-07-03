@@ -3,14 +3,15 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
+from apps.contacts.models import ContactMessage
 from apps.site_settings.models import StaticInformation
 from utils.calltouch import send_calltouch_request
 
 
-class ContactForm(forms.Form):
-    name = forms.CharField(label='Имя', max_length=256, required=True)
-    email = forms.EmailField(label='Email', required=True)
-    text = forms.CharField(label='Сообщение', widget=forms.Textarea, required=True)
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = ContactMessage
+        fields = ('name', 'email', 'text')
 
     def send_mail(self, request):
         if not self.is_valid():
@@ -31,7 +32,7 @@ class ContactForm(forms.Form):
     def send_calltouch_request(self, request):
         send_calltouch_request(
             request=request,
-            subject=f'Сообщение из раздела "Контакты"',
+            subject='Сообщение из раздела "Контакты"',
             full_name=self.cleaned_data['name'],
             email=self.cleaned_data['email'],
             text=self.cleaned_data['text'],

@@ -28,6 +28,8 @@ class Section(SortableMixin):
     parent_section = models.ForeignKey(verbose_name='Родительский раздел', to='Section', help_text='Оставьте поле пустым, если данный раздел - корневой',
                                        on_delete=models.SET_NULL, null=True, blank=True)
 
+    icon = models.ImageField('Иконка', upload_to='services/sections/icons', max_length=256, null=True, blank=True)
+
     image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to='services/sections', max_length=256)
     thumbnail_1960x600 = ImageRatioField(verbose_name='Обрезка изображения (1920x600)', help_text='Для фона заголовка страницы', image_field='image', size='1920x600')
     thumbnail_960x585 = ImageRatioField(verbose_name='Обрезка изображения (960x585)', help_text=VENDOR_PAGE_THUMBNAIL_HELP_TEXT, image_field='image', size='960x585')
@@ -149,6 +151,8 @@ class Product(SortableMixin):
     similar_products = models.ManyToManyField(verbose_name='Похожие услуги', help_text='Выводятся когда пользователь попал на услугу, которая не поддерживается его авто.',
                                               to='self', blank=True)
 
+    icon = models.ImageField('Иконка', upload_to='services/products/icons', max_length=256, null=True, blank=True)
+
     image = models.ImageField('Изображение', help_text='Возможность обрезки появится после сохранения', upload_to='services/products', max_length=256)
     thumbnail_1960x600 = ImageRatioField(verbose_name='Обрезка изображения (1920x600)', help_text='Для фона заголовка страницы', image_field='image', size='1920x600')
     thumbnail_960x585 = ImageRatioField(verbose_name='Обрезка изображения (960x585)', image_field='image', size='960x585')
@@ -163,6 +167,7 @@ class Product(SortableMixin):
     meta_title = models.CharField('Заголовок <title>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
     meta_header = models.CharField('Заголовок <h1>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
     meta_description = models.TextField('Meta description', help_text=CEO_HELP_TEXT, null=True, blank=True)
+    master_advise = models.TextField('Мастер советует', help_text='Для страницы услуги', null=True, blank=True)
     meta_keywords = models.TextField('Meta keywords', help_text=CEO_HELP_TEXT, null=True, blank=True)
     meta_robots = models.TextField('Meta robots', help_text=CEO_HELP_TEXT, null=True, blank=True)
     canonical_to_original = models.BooleanField('Каноничная ссылка', help_text='Каноничная ссылка на страницу без ММП фильтра', default=False)

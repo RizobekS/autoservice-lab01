@@ -1,0 +1,467 @@
+{% extends 'new_base.html' %}
+{% load deferred_static %}
+
+{% load static cropping %}
+{% load iterables service_url %}
+{% load shortcuts %}
+{% load errors %}
+
+
+{% block language_head_scripts %}
+  <script>
+    var Hyphenopoly = {
+      require: {
+        "ru": "FORCEHYPHENOPOLY",
+      },
+    };
+  </script>
+  <script src="/static/js/vendor/Hyphenopoly_Loader.js" defer></script>
+{% endblock %}
+
+{% block extra_styles %}
+  <style>
+    .home-blog-card {
+      height: 100%;
+    }
+
+    .home-blog-image {
+      width: 100%;
+      height: 240px;
+      flex: 0 0 auto;
+    }
+
+    .home-blog-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (min-width: 576px) {
+      .home-blog-image {
+        width: 220px;
+        min-width: 220px;
+        height: 332px;
+      }
+    }
+
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+      .home-blog-image {
+        width: 100%;
+        min-width: 0;
+        height: 260px;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block main %}
+<section class="banner-one position-relative bg-img background-img overflow-hidden z-1"
+         data-background-image="{% static 'assets/images/bg/banner-bg-img.png' %}">
+    <div class="swiper banner-slider container">
+        <div class="swiper-wrapper">
+          {% for obj in main_slides %}
+          <div class="swiper-slide banner-padding">
+            <div class="banner-contents tw-px-4">
+                <div class="max-w-780-px">
+                    <div class="banner-item">
+                        <span class="animate-left-right animation-delay-08 tw-text-505 fw-bold text-uppercase text-main tw-mb-2">
+                          {{ obj.static_text }}
+                        </span>
+                        <h1
+                            class="animate-left-right animation-delay-1 text-white splitTextStyleOne text-uppercase line-height-95-px">
+                            {{ obj.animated_text }}
+                        </h1>
+                        <p
+                            class="text-white text-capitalize max-w-530-px tw-text-lg tw-mt-6 animate-left-right animation-delay-12">
+                            {{ obj.description|safe }}
+                        </p>
+                      {% if obj.button_text and obj.link %}
+                        <div
+                            class="animate-left-right animation-delay-12 tw-mt-14 d-flex align-items-center tw-gap-4 res-margin">
+                            <a href="{{ obj.link }}"
+                                class="btn btn-main hover-style-two button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-black tw-tracking-2-percent"
+                                data-block="button">
+                                <span class="button__flair"></span>
+                                <span class="button__label">
+                                    {{ obj.button_text }}
+                                    <span class="tw-ps-2 tw-text-sm d-sm-inline-flex d-none"><i
+                                            class="fa-solid fa-plus"></i></span>
+                                </span>
+                            </a>
+                        </div>
+                      {% endif %}
+                    </div>
+                </div>
+                <div
+                    class="position-absolute bottom-0 banner-img d-lg-block d-none animate-bottom-top animation-delay-15">
+                    <div class="">
+                        <img src="{{ obj.background_image.url }}" alt="{{ obj.static_text }}">
+                    </div>
+                </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="banner-pagination-wrapper pagination-absolute-bottom w-100 tw-mt-150-px z-3 tw-px-4">
+            <div class="container">
+                <div class="banner-slider-pagination z-3"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ========================== Banner One section end ============================= -->
+
+<!-- ========================== brand section start ============================== -->
+<div class="brand-one bg-main-two overflow-hidden position-relative">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4">
+                <div class="tw-gap-4 tw-py-6 h-100 d-flex align-items-center" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                    <div class="d-flex align-items-center tw-gap-2 col-12">
+                        <div class="col-2"><h2 class="text-white">33</h2></div>
+                        <div class="col-10">
+                            <span class="d-block fw-bolder text-uppercase text-white">года обслуживаем</span>
+                            <h2 class="h3 text-white tw-leading-none">автобренды</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-8">
+                <div class="h-100 xl-bg-main-two">
+                    <div class="swiper brand-one-slider tw-py-705 left-right-gradient gradient-width-200 height-90-percent h-100">
+                        <div class="swiper-wrapper h-100">
+                          {% for item in vendors %}
+
+                            <div class="swiper-slide h-100 d-flex align-items-center justify-content-xl-center justify-content-start">
+                                <div class="text-center" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                                  <a href="{% url 'cars:car' item.url %}">
+                                    <img src="{% if item.logo %}{{ item.logo.url }}{% endif %}" alt="Ремонт и обслуживание автомобилей {{ item.name }}">
+                                  </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ========================== brand section end ============================== -->
+
+{% include "chunks/new_about.html" %}
+
+<!-- =========================== Service three section start ============================ -->
+<section class="service-three py-110 overflow-hidden">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between tw-gap-6 tw-mb-13 flex-wrap">
+            <div class="section-heading max-w-645-px">
+                <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2" data-aos="fade-up"
+                    data-aos-duration="800" data-aos-delay="100">
+                    <span class="text-main fw-semibold tw-text-lg text-uppercase">Наши услуги</span>
+                    <span class="tw-w-10 tw-h-05 bg-main triangle-right"></span>
+                </div>
+                <h2 class="splitTextStyleOne" data-aos="fade-up">Предлагаем лучший сервис по низким ценам</h2>
+            </div>
+        </div>
+
+        <div class="swiper service-three-slider">
+          <div class="swiper-wrapper">
+            {% for item in sections|merge:products %}
+            <div class="swiper-slide">
+              {% if item.tag %}
+              <div class="tagcloud">
+                <a href="{% url 'tags:single' item.tag.url %}" class="tag-cloud-link">
+                  <span>{{ item.tag.name }}</span>
+                </a>
+              </div>
+              {% endif %}
+              <div class="" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                <div class="service-three-item bg-dark-light tw-p-5 group group-item animation-item">
+                  <div
+                    class="d-block hover-animation-white scale-up-wrapper position-relative overflow-hidden z-1">
+                    <a href="{% service_url item %}" class="w-100 h-100 d-block">
+                      <img src="{% cropped_thumbnail item 'thumbnail_348x236' %}"
+                           class="object-fit-cover scale-up__img w-100 h-100" alt="{{ item.title }}">
+                    </a>
+                  </div>
+                  <div class="tw-pt-705 position-relative">
+                    <h2 class="h4 text-white text-capitalize tw-mt-4">{{ item.title }}</h2>
+                    {% if item.short_description %}
+                    <p class="text-body-two tw-mt-3">{{ item.short_description }}</p>
+                    {% endif %}
+                    <div class="tw-mt-8">
+                      <a href="{% service_url item %}"
+                         class="tw-text-lg text-white bg-main-two font-heading fw-bold text-capitalize tw-py-305 tw-px-6 w-100 tw-duration-500 group-hover-bg-main position-relative overflow-hidden">
+                        Узнать больше
+                        <span
+                          class="bg-main text-white tw-text-lg tw-h-100 position-absolute tw-end-0 top-50 translate-middle-y d-flex justify-content-center align-items-center tw-w-110-px btn-shape group-hover-bg-main-two tw-duration-500">
+                                            <i class="fa-regular fa-arrow-right-long tw-ms-405"></i>
+                                        </span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <div class="text-center tw-mt-13">
+            <div class="service-three-slider-pagination style-dark"></div>
+          </div>
+        </div>
+    </div>
+</section>
+<!-- =========================== Service three section end ============================ -->
+
+<!-- ===================== Book Appointment section start ========================= -->
+<section class="book-appointment bg-main-two py-110 position-relative z-1 overflow-hidden">
+  <img src="{% static 'assets/images/thumbs/book-appointment-light-img.png' %}" alt="Image"
+        class="position-absolute bottom-0 tw-start-0 z-n1">
+
+  <div class="container">
+      <div class="row">
+          <div class="col-lg-7">
+              <div class="">
+                  <div class="section-heading tw-mb-12">
+                      <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2" data-aos="fade-up"
+                          data-aos-duration="800" data-aos-delay="100">
+                          <span class="tw-w-10 tw-h-05 bg-main triangle-left"></span>
+                          <span class="text-main fw-semibold tw-text-lg text-uppercase">Профессиональный сервис</span>
+                      </div>
+                      <h2 class="splitTextStyleOne text-white" data-aos="fade-up">Записаться онлайн</h2>
+                  </div>
+                  <form id="home-appointment-form" action="{% url 'accounts:pa:appointment:new' %}" class="{% if form.errors or messages %}scroll-to{% endif %} form-submit" method="POST" novalidate>
+                    {% csrf_token %}
+                    {% non_field_errors appointment_form %}
+
+                      <div class="row g-3">
+                          <div class="col-sm-6">
+                              <div class="">
+                                  <input type="text" value="{% firstof appointment_form.full_name.value %}"
+                                         name="{{ appointment_form.full_name.name }}" id="nameReg"
+                                         class="placeholder-text-light bg-dark-light border border-neutral-800 tw-py-5 tw-px-505 tw-rounded-lg shadow-none outline-0 text-white focus-border-main w-100"
+                                         placeholder="Ваше имя *" {% choose appointment_form.datetime.field.required 'required' %}>
+                                {% field_errors appointment_form.full_name %}
+                              </div>
+                          </div>
+                          <div class="col-sm-6">
+                              <div class="">
+                                <input type="hidden" class="form-control" placeholder="Ваш телефон" name="{{ appointment_form.phone1.name }}"
+                                       value="{% firstof appointment_form.phone1.value %}">
+                                  <input type="text" aria-required="true" value="{% firstof appointment_form.phone.value %}"
+                                         name="{{ appointment_form.phone.name }}" id="phoneReg"
+                                         class="placeholder-text-light bg-dark-light border border-neutral-800 tw-py-5 tw-px-505 tw-rounded-lg shadow-none outline-0 text-white focus-border-main w-100"
+                                         placeholder="Ваш телефон *" {% choose appointment_form.datetime.field.required 'required' %}>
+                                {% field_errors appointment_form.phone %}
+                              </div>
+                          </div>
+                          <div class="col-sm-6">
+                              <div class="">
+                                {{ appointment_form.branch }}
+                                {% field_errors appointment_form.branch %}
+                              </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="">
+                              <input type="text"
+                                     name="{{ appointment_form.car.name }}"
+                                     value="{{ appointment_form.car.value|default:'' }}"
+                                     class="placeholder-text-light bg-dark-light border border-neutral-800 tw-py-5 tw-px-505 tw-rounded-lg shadow-none outline-0 text-white focus-border-main w-100"
+                                     placeholder="Модель машины *" {% choose appointment_form.car.field.required 'required' %}>
+                            </div>
+                          </div>
+                          <div class="col-sm-12">
+                              <div class="">
+                                  <input type="text"
+                                         name="{{ appointment_form.datetime.name }}"
+                                         id="homeDatetimepickerRegister"
+                                         placeholder="Удобная дата и время"
+                                         autocomplete="off"
+                                         class="placeholder-text-light bg-dark-light border border-neutral-800 tw-py-5 tw-px-505 tw-rounded-lg shadow-none outline-0 focus-border-main w-100 text-dark-light js-appointment-datetime"
+                                         {% if appointment_form.datetime.field.required %} required{% endif %}>
+                              </div>
+                            {% field_errors appointment_form.datetime %}
+                          </div>
+                          <div class="col-sm-12">
+                              <div class="">
+                                  <textarea name="{{ appointment_form.text.name }}"
+                                            id="message"
+                                            aria-required="true"
+                                      class="placeholder-text-light bg-dark-light border border-neutral-800 tw-py-5 tw-px-505 tw-rounded-lg shadow-none outline-0 text-white focus-border-main w-100 tw-h-130-px"
+                                      placeholder="Что требуется сделать">{{ appointment_form.text.value|default_if_none:'' }}</textarea>
+                                {% field_errors appointment_form.text %}
+                              </div>
+
+                            <div class="col-sm-12 tw-my-2">
+                              {{ appointment_form.captcha }}
+                              {% field_errors appointment_form.captcha %}
+                            </div>
+                            <p class="col-sm-12 privacy-policy mb-2 mt-2 small-text text-white">Отправляя данные, я соглашаюсь с
+                              <a class="link privacy-policy-trigger text-white hover-text-main" style="text-decoration: underline;" href="#" data-toggle="modal" data-target="#modalPrivacyPolicy">
+                                политикой конфиденциальности
+                              </a>
+                            </p>
+
+                          </div>
+                          <div class="col-12">
+                              <div class="tw-mt-4">
+                                  <button type="submit"
+                                      class="btn btn-main hover-style-two button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-black tw-tracking-2-percent"
+                                      data-block="button">
+                                      <span class="button__flair"></span>
+                                      <span class="button__label">
+                                          Отправить заявку
+                                          <span class="tw-ps-2 tw-text-sm d-sm-inline-flex d-none"><i
+                                                  class="fa-solid fa-plus"></i></span>
+                                      </span>
+                                  </button>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="book-appointment__thumb w-40-percent position-absolute tw-end-0 top-0 h-100 d-lg-block d-none">
+        <div class="hover-animation-white scale-up-wrapper position-relative overflow-hidden h-100">
+            <img src="{% static 'assets/images/thumbs/book-appointment-img.png' %}" class="object-fit-cover scale-up__img w-100 h-100 object-fit-cover"
+                alt="Form Image">
+        </div>
+    </div>
+</section>
+<!-- ===================== Book Appointment section end ========================= -->
+
+{% include "home/chunks/lets-talk.html" %}
+
+{% include "home/chunks/choose-us.html" %}
+
+<!-- ============================= Gallery Three Section Start ================================== -->
+<section class="gallery overflow-hidden">
+    <div class="row row-cols-xxl-6 row-cols-md-3 row-cols-sm-2 row-cols-1 g-0">
+      {% for item in work_gallery_queryset %}{% with image=item.get_main_image %}
+        <div class="col p-0 z-2" data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ forloop.counter }}00">
+            <div class="gallery-item position-relative group group-item">
+                <div class="d-block scale-up-wrapper position-relative overflow-hidden z-1">
+                    <div class="w-100 h-100 d-block">
+                        <img src="{% cropped_thumbnail image 'page_thumbnail_384x550' %}"
+                             class="object-fit-cover scale-up__img w-100 h-100"
+                             alt="{% if image.alt %}{{ image.alt }}{% else %}{{ image.image.name }}{% endif %}">
+                    </div>
+                </div>
+                <div class="gallery-content bg-main tw-py-11 tw-px-36-px d-flex flex-column tw-gap-6 justify-content-between position-absolute top-0 tw-start-0 w-100 h-100 z-1 tw-invisible opacity-0 tw-scale-08 group-hover-item-scale-1 group-hover-item-visible group-hover-item-opacity-1 tw-duration-500">
+                    <div class="">
+                      {% for category in item.categories.all %}
+                        <span class="d-block fw-bold text-white text-uppercase">{{ category.name }}</span>
+                      {% endfor %}
+                        <h2 class="h3 text-white text-uppercase tw-mb-6">
+                            <a href="{% url 'work_gallery:single' item.url %}" class="text-white hover-underline">{{ item.title }}</a>
+                        </h2>
+                        <a href="{% url 'work_gallery:single' item.url %}" class="text-uppercase fw-bold tw-text-base text-white d-flex flex-column tw-gap-1 hover-underline">
+                            <span class="">Подробнее</span>
+                            <span class="tw-w-9 tw-h-1 rounded-pill bg-white"></span>
+                        </a>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <h2 class="text-140-px text-black text-opacity-25 tw-leading-none font-body">0{{ forloop.counter }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+      {% endwith %}{% endfor %}
+    </div>
+</section>
+<!-- ============================= Gallery Three Section End ================================== -->
+
+{% include 'chunks/new_masters.html' %}
+
+{% include 'chunks/new_testimonials.html' %}
+
+<!-- ========================= Blog section start ========================== -->
+<section class="blog py-110 section-bg">
+    <div class="container">
+        <div class="section-heading tw-mb-11 text-center">
+            <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2" data-aos="fade-up" data-aos-duration="800"
+                data-aos-delay="100">
+                <span class="tw-w-10 tw-h-05 bg-main triangle-left"></span>
+                <span class="text-main fw-semibold tw-text-lg text-uppercase">Наш блог</span>
+                <span class="tw-w-10 tw-h-05 bg-main triangle-right"></span>
+            </div>
+            <h2 class="splitTextStyleOne">Последние записи</h2>
+        </div>
+
+        <div class="swiper blog-slider">
+            <div class="swiper-wrapper">
+              {% for item in latest_articles_queryset %}
+                 <div class="swiper-slide">
+                    <div
+                        class="home-blog-card bg-white tw-rounded-xl tw-p-4 d-flex flex-sm-row flex-column flex-lg-column flex-xl-row common-shadow-three">
+                        <a href="{{ item.url }}" class="home-blog-image d-flex tw-rounded-xl overflow-hidden hover-animation-white scale-up-wrapper hover-bg-main-light">
+                            <img src="{{ item.image.url }}"
+                                class="object-fit-cover scale-up__img" alt="{{ item.title }}">
+                            <div
+                                class="bg-main border border-white border-3 tw-px-4 tw-py-3 tw-rounded-xl text-center position-absolute top-0 tw-start-0 tw-mt-505 tw-ms-505">
+                                <span class="d-block h3 text-white">{{ item.date|date:"d" }}</span>
+                                <span class="d-block h6 text-white text-uppercase">{{ item.date|date:"M" }}</span>
+                            </div>
+                        </a>
+                        <div class="blog-content align-self-center">
+                            <div class="tw-my-5">
+                                <div class="d-flex align-items-center tw-gap-205 tw-mb-6">
+                                    <span class="fw-bold text-uppercase tw-text-base tw-px-4 tw-py-05 border border-neutral-200 tw-rounded text-main">
+                                      Автор
+                                    </span>
+                                    <span class="text-body fw-normal">
+                                      {{ item.author.name }}
+                                    </span>
+                                </div>
+                                <h3 class="h4">
+                                    <a href="{{ item.url }}" class="hover-text-main">{{ item.title }}</a>
+                                </h3>
+                                <p class="text-body tw-mt-6 para-style">{{ item.short_description|safe }}</p>
+                                <div class="link-res-gap">
+                                    <a href="{{ item.url }}"
+                                        class="text-capitalize fw-bold tw-text-xl text-heading hover-text-main group group-item d-flex align-items-center tw-gap-205 font-heading">
+                                        Читать далее
+                                        <span
+                                            class="tw-w-8 tw-h-8 d-flex align-items-center justify-content-center rounded-circle text-white bg-main-two tw-duration-300 group-hover-bg-main tw-text-sm">
+                                            <i class="fa-solid fa-arrow-up-right"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="text-center tw-mt-13">
+                <div class="blog-slider-pagination style-dark"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ========================= Blog section end ========================== -->
+
+{% endblock %}
+
+{% block body_scripts %}
+<script>
+  $(function () {
+    const $homeDatetime = $('#homeDatetimepickerRegister');
+
+    if ($homeDatetime.length && $.fn.datetimepicker) {
+      $homeDatetime.datetimepicker({
+        format: 'd.m.Y H:i',
+        step: 30,
+        minDate: 0,
+        lang: 'ru',
+        scrollInput: false
+      });
+    }
+  });
+</script>
+{% endblock %}

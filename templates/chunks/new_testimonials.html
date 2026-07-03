@@ -1,0 +1,60 @@
+{% load static %}
+
+<!-- ============================= Testimonials section start ========================= -->
+<section class="testi-four bg-main-two py-110 position-relative z-1">
+
+
+<!--    <div class="position-absolute tw-end-0 bottom-0 tw-me-15 tw-pe-14 tw-mb-15 tw-pb-7 d-md-block d-none">-->
+<!--        <img src="{% static 'assets/images/thumbs/wheel-small-image.png' %}" alt="wheel Image" class="animation-rotate-right">-->
+<!--    </div>-->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="">
+                    <div class="section-heading tw-mb-14">
+                        <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2" data-aos="fade-up"
+                            data-aos-duration="800" data-aos-delay="100">
+                            <span class="text-white fw-semibold tw-text-lg text-uppercase">Честно и открыто</span>
+                            <span class="tw-w-10 tw-h-05 bg-main triangle-right"></span>
+                        </div>
+                        <h2 class="text-white max-w-480-px">
+                          <span class="text-main">Отзывы</span> клиентов
+                        </h2>
+                    </div>
+
+                    <div style="display: flex; justify-content: center;margin-top: 20px;border-radius: 20px;">
+                        <iframe title="Виджет с отзывами «Карусель» от MyReviews" style="width: 100%; height: 100%; max-width: 1170px; border: none; outline: none; padding: 0; margin: 0" id="myReviews__block-widget">
+                        </iframe>
+                    </div>
+
+
+
+                    <script src="https://myreviews.dev/widget/dist/index.js" defer></script>
+                    <script>
+                        (function (){
+                          var myReviewsInit = function () {
+                            new window.myReviews.BlockWidget({
+                            uuid: "3bc83efc-e988-4277-8290-bdb8d5601fe3",
+                            name: "g70943848",
+                            additionalFrame:"none",
+                            lang:"ru",
+                            widgetId: "1"
+                            }).init();
+
+                          };
+                        if (document.readyState === "loading") {
+                          document.addEventListener('DOMContentLoaded', function () {
+                              myReviewsInit()
+                          })
+                        } else {
+                          myReviewsInit()
+                        }
+                        })()
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ============================= Testimonials section end ========================= -->

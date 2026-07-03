@@ -29,7 +29,7 @@ class SectionAdmin(ImageCroppingMixin, SortableAdmin):
         }),
         ('Текст', {'fields': ('short_description', 'description'), 'classes': ('wide',)}),
         ('Изображения', {
-            'fields': ('image', 'thumbnail_1960x600', 'thumbnail_960x585', 'thumbnail_455x200', 'thumbnail_348x236', 'thumbnail_268x118', 'thumbnail_80x80'),
+            'fields': ('icon', 'image', 'thumbnail_1960x600', 'thumbnail_960x585', 'thumbnail_455x200', 'thumbnail_348x236', 'thumbnail_268x118', 'thumbnail_80x80'),
         }),
         ('CEO настройки', {'fields': ('canonical_to_original', 'meta_title', 'meta_header', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
     )
@@ -108,9 +108,9 @@ class ProductAdmin(ImageCroppingMixin, SortableAdmin):
         ('Текст', {'fields': ('short_description', 'description'), 'classes': ('wide',)}),
         ('Главная страница (Список акций)', {'fields': ('show_in_promotions', 'homepage_description'), 'classes': ['wide', 'collapse']}),
         ('Изображения', {
-            'fields': ('image', 'thumbnail_1960x600', 'thumbnail_960x585', 'thumbnail_455x200', 'thumbnail_348x236', 'thumbnail_268x118', 'thumbnail_80x80')
+            'fields': ('icon', 'image', 'thumbnail_1960x600', 'thumbnail_960x585', 'thumbnail_455x200', 'thumbnail_348x236', 'thumbnail_268x118', 'thumbnail_80x80')
         }),
-        ('CEO настройки', {'fields': ('canonical_to_original', 'meta_title', 'meta_header', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
+        ('CEO настройки', {'fields': ('canonical_to_original', 'master_advise', 'meta_title', 'meta_header', 'meta_description', 'meta_keywords', 'meta_robots'), 'classes': ['wide', 'collapse']})
     )
 
     form = ProductAdminForm

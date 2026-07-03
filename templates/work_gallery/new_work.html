@@ -1,0 +1,131 @@
+{% extends 'new_base.html' %}
+{% load deferred_static %}
+{% load cropping %}
+{% load static %}
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+{% block main %}
+<!-- =============================== Product Details section start ============================= -->
+<section class="product-details pt-110">
+  <div class="container">
+    <div class="d-flex tw-gap-56-px flex-xl-row flex-column">
+
+      <div class="flex-grow-1 overflow-hidden">
+        <div class="d-flex tw-gap-6 flex-sm-row flex-column flex-column-reverse">
+          <div class="overflow-hidden small-images-wrapper">
+            <div class="swiper mySwiper small-images-height">
+              <div class="swiper-wrapper">
+                {% for image in work.image_set.all %}
+                  <div class="swiper-slide">
+                      <div
+                          class="small-images-item bg-neutral-100 tw-h-110-px border border-neutral-100 hover-border-neutral-400 tw-duration-500 d-flex justify-content-center align-items-center">
+                          <img src="{% cropped_thumbnail image 'page_thumbnail' %}" alt="{{ image.image.get_alt }}"
+                              class="tw-w-78-px tw-h-78-px object-fit-contain">
+                      </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="overflow-hidden big-images-wrapper">
+            <div class="swiper mySwiper2 big-images-height">
+              <div class="swiper-wrapper">
+                {% for image in work.image_set.all %}
+                  <div class="swiper-slide">
+                      <div
+                          class="bg-neutral-100 d-flex justify-content-center align-items-center h-100 tw-p-8">
+                          <img src="{% cropped_thumbnail image 'page_thumbnail' %}"
+                              alt="{{ image.image.get_alt }}">
+                      </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-576-px flex-grow-1 w-100 flex-shrink-0">
+
+        <div class="mt-res-20-px">
+          <p class="tw-mt-5 text-capitalize">
+            {{ work.text|safe }}
+          </p>
+
+          <div class="border-bottom-black-main tw-pb-5 tw-mt-8 border-neutral-300 style-black"></div>
+          <div class="tw-mt-6 d-flex flex-column tw-gap-105">
+            {% if work.cost_of_work %}
+            <p class="text-heading fw-semibold text-uppercase font-heading">Работы - <span
+                    class="text-uppercase fw-semibold text-body"> {{ work.cost_of_work }} рублей</span>
+            </p>
+            {% endif %}
+            {% if work.spare_part_of_work %}
+            <p class="text-heading fw-semibold text-uppercase font-heading">Запчасти - <span
+                    class="text-uppercase fw-semibold text-body"> {{ work.spare_part_of_work }} рублей</span>
+            </p>
+            {% endif %}
+          </div>
+          <div class="tw-mt-705 d-flex align-items-center tw-gap-4 flex-sm-nowrap flex-wrap">
+            <button type="button"
+                class="btn btn-black hover-style-three button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder tw-tracking-2-percent"
+                data-block="button"
+                data-toggle="modal"
+                data-target="#modalRegisterForm" title="Онлайн запись">
+                <span class="button__flair"></span>
+                <span class="button__label">
+                    Хочу также
+                </span>
+            </button>
+          </div>
+          <div class="tw-mt-8">
+              <script src="https://yastatic.net/share2/share.js"></script>
+              <div class="ya-share2 share__buttons text-center" data-curtain data-bare data-services="vkontakte,facebook,odnoklassniki,telegram,viber,whatsapp"></div>
+          </div>
+        </div>
+    </div>
+    </div>
+  </div>
+</section>
+<!-- =============================== Product Details section end ============================= -->
+
+
+{% if related_works %}
+<!-- =============================== Related Product section start ============================= -->
+<section class="tw-pt-15 pb-110">
+  <div class="container">
+      <div class="tw-mb-7">
+          <h2 class="h3">Другие случаи обслуживания</h2>
+      </div>
+      <div class="row gy-4">
+          {% for item in related_works %}{% with image=item.get_main_image %}
+            <div class="col-xl-3 col-sm-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ forloop.counter }}00">
+                <div class="product-item group group-item z-1 overflow-hidden">
+                    <div
+                        class="d-block hover-animation-white scale-up-wrapper position-relative tw-rounded-md overflow-hidden z-1 bg-light-dark tw-h-320-px bg-neutral-200">
+                        <a href="{% url 'work_gallery:single' item.url %}"
+                            class="w-100 h-100 d-block tw-rounded-md overflow-hidden  d-flex justify-content-center align-items-center">
+                            <img src="{% cropped_thumbnail image 'list_thumbnail' max_size=image.max_size %}" class=""
+                                 alt="{% if image.alt %}{{ image.alt }}{% else %}{{ image.image.name }}{% endif %}">
+                        </a>
+                    </div>
+                    <div class="tw-mt-505">
+                        <div class="d-flex align-items-center justify-content-start tw-gap-4">
+                          {% for category in item.categories.all %}
+                            <span class="tw-text-sm fw-bold text-uppercase text-neutral-600">{{ category.name }}</span>
+                          {% endfor %}
+                        </div>
+                        <h2 class="tw-text-lg">
+                            <a href="{% url 'work_gallery:single' item.url %}" class="text-uppercase group-hover-text-main">{{ item.title }}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+          {% endwith %}{% endfor %}
+      </div>
+  </div>
+</section>
+<!-- =============================== Related Product section end ============================= -->
+{% endif %}
+{% endblock %}

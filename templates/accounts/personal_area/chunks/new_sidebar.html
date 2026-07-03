@@ -1,0 +1,52 @@
+{% load menu_utils %}
+
+<div class="tw-rounded-xl overflow-hidden bg-neutral-200">
+  <div class="tw-px-32-px tw-py-8 d-flex flex-column tw-gap-205">
+
+    <a href="{% url 'accounts:pa:index' %}"
+       class="pa-sidebar-link common-shadow-four tw-px-505 tw-py-4 d-flex align-items-center tw-gap-4 {% if request.resolver_match.view_name == 'accounts:pa:index' %} bg-main-two text-white {% else %}bg-white hover-bg-main-two tw-duration-500 hover-text-white group group-item{% endif %} text-heading">
+      <span class="text-main d-flex tw-text-lg">
+        <i class="fa-solid fa-angles-right"></i>
+      </span>
+      <span class="pa-sidebar-link__divider tw-w-px tw-h-7 bg-neutral-200"></span>
+      <span class="h5 tw-text-lg fw-bold tw-duration-500 text-capitalize {% if request.resolver_match.view_name == 'accounts:pa:index' %} text-white {% else %}group-hover-text-white {% endif %}">Главная</span>
+    </a>
+
+    <a href="{% url 'accounts:pa:appointment:list' %}"
+       class="pa-sidebar-link common-shadow-four tw-px-505 tw-py-4 d-flex align-items-center tw-gap-4 {% if request.resolver_match.view_name == 'accounts:pa:appointment:list' %}bg-main-two text-white {% else %}bg-white hover-bg-main-two tw-duration-500 hover-text-white group group-item{% endif %} text-heading">
+      <span class="text-main d-flex tw-text-lg">
+        <i class="fa-solid fa-angles-right"></i>
+      </span>
+      <span class="pa-sidebar-link__divider tw-w-px tw-h-7 bg-neutral-200"></span>
+      <span class="h5 tw-text-lg fw-bold tw-duration-500 text-capitalize {% if request.resolver_match.view_name == 'accounts:pa:appointment:list' %} text-white {% else %}group-hover-text-white {% endif %}">Записи на сервис</span>
+    </a>
+
+    <a href="{% url 'accounts:pa:garage' %}"
+       class="pa-sidebar-link common-shadow-four tw-px-505 tw-py-4 d-flex align-items-center tw-gap-4 {% if request.resolver_match.view_name == 'accounts:pa:garage' or request.resolver_match.view_name == 'accounts:pa:remove_from_garage' %}bg-main-two text-white {% else %}bg-white hover-bg-main-two tw-duration-500 hover-text-white group group-item{% endif %} text-heading">
+      <span class="text-main d-flex tw-text-lg">
+        <i class="fa-solid fa-angles-right"></i>
+      </span>
+      <span class="pa-sidebar-link__divider tw-w-px tw-h-7 bg-neutral-200"></span>
+      <span class="h5 tw-text-lg fw-bold tw-duration-500 text-capitalize {% if request.resolver_match.view_name == 'accounts:pa:garage' %} text-white {% else %}group-hover-text-white {% endif %}">Мой гараж</span>
+    </a>
+
+    <a href="{% url 'accounts:pa:edit' %}"
+       class="pa-sidebar-link common-shadow-four tw-px-505 tw-py-4 d-flex align-items-center tw-gap-4 {% if request.resolver_match.view_name == 'accounts:pa:edit' %}bg-main-two text-white {% else %}bg-white hover-bg-main-two tw-duration-500 hover-text-white group group-item{% endif %} text-heading">
+      <span class="text-main d-flex tw-text-lg">
+        <i class="fa-solid fa-angles-right"></i>
+      </span>
+      <span class="pa-sidebar-link__divider tw-w-px tw-h-7 bg-neutral-200"></span>
+      <span class="h5 tw-text-lg fw-bold tw-duration-500 text-capitalize {% if request.resolver_match.view_name == 'accounts:pa:edit' %} text-white {% else %}group-hover-text-white {% endif %}">Личные данные</span>
+    </a>
+
+    <a href="{% url 'accounts:logout' %}"
+       class="pa-sidebar-link bg-white common-shadow-four tw-px-505 tw-py-4 d-flex align-items-center tw-gap-4 hover-bg-main-two tw-duration-500 hover-text-white text-heading group group-item">
+      <span class="text-main d-flex tw-text-lg">
+        <i class="fa-solid fa-angles-right"></i>
+      </span>
+      <span class="pa-sidebar-link__divider tw-w-px tw-h-7 bg-neutral-200"></span>
+      <span class="h5 tw-text-lg fw-bold tw-duration-500 text-capitalize group-hover-text-white">Выйти</span>
+    </a>
+
+  </div>
+</div>

@@ -11,12 +11,13 @@ from utils.mixins import PageSettingsMixin
 
 
 class AboutView(TemplateView, PromotionsMixin, MastersMixin, PageSettingsMixin):
-    template_name = 'about/about.html'
+    template_name = 'about/new_about.html'
     viewname = 'about:about'
 
     promotions_max = 4
     promotions_queryset = Promotion.objects.filter(show_at_homepage=True)
 
+    masters_max = 4
     masters_additional_kwargs = {'show_at_homepage': True}
 
     def get_context_data(self, **kwargs) -> Dict[str, Any]:

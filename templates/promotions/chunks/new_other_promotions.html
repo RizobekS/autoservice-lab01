@@ -1,0 +1,40 @@
+{% load promotions %}
+{% load cropping %}
+{% if other_promotions %}
+
+{% load string_time_delta %}
+
+<div class="widget">
+  <h3 class="wp-block-heading border-bottom-black-main text-heading border-neutral-300 tw-pb-5">
+    Другие акции
+  </h3>
+  <div class="recent-post-wrap">
+    {% for item in other_promotions %}
+    <div class="recent-post">
+      <div class="media-img">
+        <a href="{% get_promotion_url item %}">
+          <img src="{% cropped_thumbnail item 'icon_thumbnail' %}" alt="{{ item.title }}">
+        </a>
+      </div>
+      <div class="media-body">
+        <h4 class="post-title">
+          <a href="{% get_promotion_url item %}">{{ item.title }}</a>
+        </h4>
+        <div class="recent-post-meta">
+          {% if item.category %}
+          <span>
+            <a href="{% url 'promotions:category' item.category.url %}" class="tag-cloud-link"><span>{{ item.category.name }}</span></a>
+          </span>
+          {% endif %}
+          <span>
+            <i class="fa-regular fa-clock text-main"></i>
+            Действует до: {{ item.get_active_before }}
+          </span>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endif %}

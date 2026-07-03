@@ -1,0 +1,94 @@
+{% extends 'new_base.html' %}
+{% load deferred_static %}
+{% load static %}
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+
+{% block main %}
+
+<!-- =========================== Personal area Garage start ====================================== -->
+<section class="service-details py-110">
+    <div class="container">
+        <div class="row gy-5">
+            <div class="col-lg-8">
+                <div class="pe-xl-4">
+                    <figure
+                        class="hover-animation-white split-reveal position-relative overflow-hidden group-item group tw-rounded-xl d-inline-flex">
+                        <div class="split-reveal-element origin-left">
+                          <h1 class="text-heading">Мой гараж</h1>
+                          {% for message in messages %}<p class="{{ message.extra_tags }}">{{ message| safe }}</p>{% endfor %}
+                        </div>
+                    </figure>
+                    <div class="tw-mt-11">
+
+                      <table class="shop_table shop_table_responsive cart">
+                        <thead>
+                        <tr>
+                          <th class="product-remove">&nbsp;</th>
+                          <th>&nbsp;</th>
+                          <th class="product-name">Автомобиль</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for car_filter in car_filters %}
+                        <tr class="cart_item">
+
+                          <td class="tw-px-5 tw-py-5">
+                            <a href="{% url 'accounts:pa:remove_from_garage' car_filter.id %}" class="text-main-two hover-text-main tw-duration-300 tw-text-8"
+                               aria-label="Удалить этот автомобиль из гаража" title="Удалить">×</a>
+                          </td>
+
+                          <td class="product-thumbnail tw-px-5 tw-py-5">
+                            <a href="{% url 'cars:car' car_filter.vendor.url_args %}">
+                              <img width="180" height="180" src="{{ car_filter.vendor.logo.url }}"
+                                   alt="{{ car_filter.vendor.name }}">
+                            </a>
+                          </td>
+
+                          <td class="product-name tw-px-5 tw-py-5" data-title="Product">
+                            <a href="{% url 'cars:car' car_filter.url_args %}" class="text-main-two hover-text-main tw-duration-300"><b>{{ car_filter.model }}</b><br>
+                              {{ car_filter.modification.name }}
+                            </a>
+                          </td>
+
+                        </tr>
+                        {% endfor %}
+
+
+                        <tr>
+                          <td colspan="4" class="actions">
+                            <button type="button" class="btn btn-small btn-outline-maincolor" data-toggle="modal"
+                                    data-target="#modalChangeForm">Добавить
+                            </button>
+                          </td>
+                        </tr>
+
+                        </tbody>
+                      </table>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="d-flex flex-column tw-gap-8">
+
+                    {% include 'accounts/personal_area/chunks/new_sidebar.html' %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- =========================== Personal area Garage end ====================================== -->
+
+{% endblock %}
+
+{% block body_scripts %}
+  <script src="{% static 'js/custom/ajax-filter.js' %}"></script>
+  <script src="{% static 'js/custom/ajax-remove-car-garage.js' %}"></script>
+{% endblock %}

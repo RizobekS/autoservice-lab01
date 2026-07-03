@@ -1,0 +1,28 @@
+{% if is_paginated %}
+  <ul class="list-unstyled vs-pagination mt-res-60-px d-flex tw-gap-3 flex-wrap">
+    {% if page_obj.has_previous %}
+      <li>
+        <a href="?page={{ page_obj.previous_page_number }}"
+           class="tw-h-12 tw-w-13 bg-neutral-200 hover-bg-main hover-text-white tw-duration-300 text-heading tw-text-xl d-flex justify-content-center align-items-center tw-rounded-md fw-bold">
+          <i class="fa-solid fa-angles-left"></i>
+        </a>
+      </li>
+    {% endif %}
+    {% for page_number in paginator.page_range %}
+      <li>
+        <a href="?page={{ page_number }}"
+           class="tw-h-12 tw-w-13 {% if page_obj.number == page_number %}bg-main text-white{% else %}bg-neutral-200 hover-bg-main hover-text-white text-heading{% endif %} tw-duration-300 tw-text-xl d-flex justify-content-center align-items-center tw-rounded-md fw-bold">
+          {{ page_number }}
+        </a>
+      </li>
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li>
+        <a href="?page={{ page_obj.next_page_number }}"
+           class="tw-h-12 tw-w-13 bg-neutral-200 hover-bg-main hover-text-white tw-duration-300 text-heading tw-text-xl d-flex justify-content-center align-items-center tw-rounded-md fw-bold">
+          <i class="fa-solid fa-angles-right"></i>
+        </a>
+      </li>
+    {% endif %}
+  </ul>
+{% endif %}

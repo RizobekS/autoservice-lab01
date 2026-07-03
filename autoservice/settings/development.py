@@ -1,3 +1,4 @@
+import os
 import environ
 
 # Python imports
@@ -9,6 +10,8 @@ from .common import *
 # Initialise environment variables
 env = environ.Env()
 environ.Env.read_env()
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "autoservice.settings.development")
 
 DEBUG = True
 
@@ -34,9 +37,9 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'autoservice_development',
-        'USER': 'dabud',
-        'PASSWORD': '8ghgVa7k_5Y7LK*',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
@@ -46,7 +49,7 @@ DATABASES = {
 LOGGING = {
     'version': 1,
     'filters': {
-        'slow_sql': {'()': 'autoservice.logging.filters.SlowSQLQueryFilter'},
+        'slow_sql': {'()': 'autoservice.my_logging.filters.SlowSQLQueryFilter'},
         'require_debug_true': {'()': 'django.utils.log.RequireDebugTrue'}
     },
     'handlers': {
@@ -70,5 +73,3 @@ LOGGING = {
     }
 }
 
-RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY')
-RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY')

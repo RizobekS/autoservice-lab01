@@ -1,0 +1,36 @@
+/* ===================== Book Appointment section css start ========================= */
+.w-40-percent {
+    width: 40%;
+}
+
+.border-lg-end {
+    @media (min-width: 992px) {
+        margin-inline-end: 24px;
+        padding-inline-end: 16px;
+        &::before {
+            position: absolute;
+            content: "";
+            width: 1px;
+            height: calc(100% - 40px);
+            inset-inline-end: 0;
+            inset-block-start: 50%;
+            transform: translateY(-50%);
+            background-color: var(--neutral-700);
+        }
+    }
+}
+
+.before-right-bg {
+    &::before {
+        position: absolute;
+        content: "";
+        width: calc(100% - 20px);
+        height: calc(100% - 20px);
+        background-color: var(--vs-theme-color1);
+        inset-inline-end: -10px;
+        inset-block-end: -10px;
+        border-radius: inherit;
+        z-index: -1;
+    }
+}
+/* ===================== Book Appointment section css end ========================= */

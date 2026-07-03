@@ -1,4 +1,5 @@
 import json
+import re
 from random import randint
 from typing import List
 
@@ -46,6 +47,28 @@ def _branches_to_map_payload(qs):
         })
     return payload
 
+
+def _duration_to_minutes(value):
+    if not value:
+        return 0
+
+    total = 0
+    value = value.replace(',', '.').lower()
+    matches = re.findall(r'(\d+(?:\.\d+)?)(?:\s*[-–]\s*(\d+(?:\.\d+)?))?\s*([а-яa-z.]*)', value)
+    for number_from, number_to, unit in matches:
+        amount = float(number_to or number_from)
+        if unit.startswith(('ч', 'h')):
+            total += amount * 60
+        else:
+            total += amount
+    return total
+
+
+def _percent_of_max(value, max_value):
+    if not value or not max_value:
+        return 0
+    return max(1, min(100, round(value / max_value * 100)))
+
 class RedirectOldSectionCarUrls(RedirectView):
     permanent = True
 
@@ -59,7 +82,7 @@ class RedirectOldSectionCarUrls(RedirectView):
 
 class SectionView(DetailView, SectionsMixin, ProductsMixin, AdvantagesContextMixin, CarFilterPageSettingsMixin, OpengraphMixin):
     # #### DetailView ####
-    template_name = 'services/section.html'
+    template_name = 'services/new_section.html'
     queryset = Section.objects.filter(active=True)
     slug_field = 'url'
     slug_url_kwarg = 'section_url'
@@ -145,7 +168,7 @@ class SectionView(DetailView, SectionsMixin, ProductsMixin, AdvantagesContextMix
 
 class ProductView(DetailView, FormDetailView, SingleSectionMixin, AdvantagesContextMixin, CarFilterPageSettingsMixin, ShortAppointmentMixin, OpengraphMixin):
     # #### DetailView ####
-    template_name = 'services/product.html'
+    template_name = 'services/new_product.html'
     queryset = Product.objects.filter(active=True)
     slug_field = 'url'
     slug_url_kwarg = 'product_url'
@@ -255,9 +278,18 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, AdvantagesCont
 
         # branches for this product
         branches_qs = self.object.branches.filter(active=True)
+        section_products = list(self.object.section.active_product_set())
+        max_price = max([product.price for product in section_products if product.price is not None] or [self.object.price])
+        current_duration = _duration_to_minutes(self.object.time_duration)
+        max_duration = max([_duration_to_minutes(product.time_duration) for product in section_products] or [current_duration])
+
         context.update({
             'image_url': cropped_thumbnail(None, self.object, 'thumbnail_1960x600'),
             'image_alt': self.object.title,
+            'product_price': self.object.verbose_price(),
+            'product_price_percent': _percent_of_max(self.object.price, max_price),
+            'product_duration': self.object.time_duration,
+            'product_duration_percent': _percent_of_max(current_duration, max_duration),
             'call_request_form': CallRequestForm(self.request.POST) if self.request.method == 'post' else CallRequestForm(),
             'promotions': self.get_promotions(),
             'articles': self.get_articles(),
@@ -345,7 +377,7 @@ class ProductView(DetailView, FormDetailView, SingleSectionMixin, AdvantagesCont
 
 
 class SparePartsView(TemplateView, SparePartAppointmentMixin, PageSettingsMixin):
-    template_name = 'services/spare_parts.html'
+    template_name = 'services/new_spare_parts.html'
     viewname = 'services:spare_parts'
 
 

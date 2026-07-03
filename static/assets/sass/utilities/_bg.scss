@@ -1,0 +1,89 @@
+/* hover bg class start */
+@each $color, $shades in $colors {
+  @each $shade, $value in $shades {
+    .bg-#{$color}-#{$shade} {
+      background-color: var(--#{$color}-#{$shade});
+    }
+  }
+}
+
+// hover background
+@each $color, $shades in $colors {
+  @each $shade, $value in $shades {
+    .hover-bg-#{$color}-#{$shade} {
+      &:hover {
+        background-color: var(--#{$color}-#{$shade});
+      }
+    }
+  }
+}
+
+.hover-bg-white {
+  &:hover {
+    background-color: hsl(var(--white));
+  }
+}
+
+.bg {
+  &-main {
+    background-color: var(--vs-theme-color1);
+  }
+
+  &-main-two {
+    background-color: var(--vs-theme-color2);
+  }
+  &-yellow-deep {
+    background-color: #FFB800;
+  }
+  &-danger-600 {
+    background-color: #FF450C;
+  }
+  &-neutral-light {
+    background-color: #07070712;
+  }
+}
+
+.hover-bg {
+  &-main {
+    &:hover {
+      background-color: var(--vs-theme-color1) !important;
+    }
+  }
+
+  &-main-two {
+    &:hover {
+      background-color: var(--vs-theme-color2) !important;
+    }
+  }
+}
+
+.section-bg {
+  background-color: var(--section-bg);
+}
+
+.bg-dark-light {
+    background-color: #1F1F1F;
+}
+
+.bg-dark-light-two {
+    background-color: #171717;
+}
+.bg-dark-light-three {
+    background-color: #070707;
+}
+
+.bg-white {
+  &-08 {
+    background-color: hsl(var(--white) / 0.08);
+  }
+  &-13 {
+    background-color: hsl(var(--white) / 0.13);
+  }
+  &-7 {
+    background-color: hsl(var(--white) / 0.7);
+  }
+  &-50 {
+    background-color: hsl(var(--white) / 0.50);
+  }
+}
+/* hover bg class end */

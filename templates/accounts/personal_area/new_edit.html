@@ -1,0 +1,103 @@
+{% extends 'new_base.html' %}
+{% load deferred_static %}
+{% load static field_tags errors %}
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+
+{% block main %}
+
+<!-- =========================== Personal area Edit start ====================================== -->
+<section class="service-details py-110">
+    <div class="container">
+        <div class="row gy-5">
+            <div class="col-lg-8">
+                <div class="pe-xl-4">
+                    <figure
+                        class="hover-animation-white split-reveal position-relative overflow-hidden group-item group tw-rounded-xl d-inline-flex">
+                        <div class="split-reveal-element origin-left">
+                          <h1 class="text-heading">Личные данные</h1>
+                        </div>
+                    </figure>
+                    <div class="tw-mt-11">
+
+                      <form class="woocommerce-EditAccountForm edit-account" method="POST">
+
+                        {% csrf_token %}
+                        {% hidden_fields profile_form %}
+                        {% non_field_errors profile_form %}
+
+                        {% for message in messages %}{% if 'edit-profile' in message.extra_tags %}<p class="{{ message.extra_tags }}">{{ message| safe }}</p>{% endif %}{% endfor %}
+
+                        {% for field in profile_form.visible_fields %}
+                          <p class="woocommerce-form-row woocommerce-form-row--first form-row form-row-first">
+                            <label for="account_first_name">{{ field.label }} {% if field.field.required %}<span class="required">*</span>{% endif %}</label>
+                            {{ field }}
+                          </p>
+                        {% endfor %}
+                        <p>
+                          <button type="submit"
+                                  class="btn btn-main hover-style-two button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-black tw-tracking-2-percent"
+                                  data-block="button"
+                                  name="save_account_details">
+                            <span class="button__flair"></span>
+                            <span class="button__label">
+                              Сохранить изменения
+                            </span>
+                          </button>
+                        </p>
+
+                      </form>
+                      <form class="woocommerce-EditAccountForm edit-account mt-5" method="POST">
+
+                        <fieldset>
+                          <legend>Сменить пароль</legend>
+                          {% for message in messages %}{% if 'change-password' in message.extra_tags %}<p class="{{ message.extra_tags }}">{{ message| safe }}</p>
+                          {% endif %}{% endfor %}
+
+                          {% csrf_token %}
+                          {% hidden_fields password_form %}
+                          {% non_field_errors password_form %}
+
+                          {% for field in password_form.visible_fields %}
+                            <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
+                              <label for="password_current">{{ field.label }}</label>
+                              {{ field }}
+                              {% field_errors field %}
+                            </p>
+                          {% endfor %}
+                        </fieldset>
+                        <div class="clear"></div>
+                        <div class="divider-20"></div>
+                        <p>
+                          <button type="submit"
+                                  class="btn btn-main hover-style-two button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-black tw-tracking-2-percent"
+                                  data-block="button"
+                                  name="save_account_details">
+                            <span class="button__flair"></span>
+                            <span class="button__label">
+                              Сменить пароль
+                            </span>
+                          </button>
+                        </p>
+                      </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="d-flex flex-column tw-gap-8">
+
+                    {% include 'accounts/personal_area/chunks/new_sidebar.html' %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- =========================== Personal area Edit end ====================================== -->
+
+{% endblock %}

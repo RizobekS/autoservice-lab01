@@ -1,0 +1,110 @@
+/* Font Family*/
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+$colors: (
+  "neutral": (
+    "50": #f9fafb,
+    "100": #f3f4f6,
+    "200": #e5e7eb,
+    "300": #d1d5db,
+    "400": #9ca3af,
+    "500": #6b7280,
+    "600": #4b5563,
+    "700": #374151,
+    "800": #1f2937,
+    "900": #111827,
+    "950": #030712,
+  ),
+);
+
+// Space
+$spaces: (
+  "05": #{rem(2px)},
+  "1": #{rem(4px)},
+  "105": #{rem(6px)},
+  "2": #{rem(8px)},
+  "205": #{rem(10px)},
+  "3": #{rem(12px)},
+  "305": #{rem(14px)},
+  "4": #{rem(16px)},
+  "405": #{rem(18px)},
+  "5": #{rem(20px)},
+  "505": #{rem(22px)},
+  "6": #{rem(24px)},
+  "605": #{rem(26px)},
+  "7": #{rem(28px)},
+  "705": #{rem(30px)},
+  "8": #{rem(32px)},
+  "9": #{rem(36px)},
+  "10": #{rem(40px)},
+  "11": #{rem(44px)},
+  "1105": #{rem(46px)},
+  "12": #{rem(48px)},
+  "13": #{rem(52px)},
+  "14": #{rem(56px)},
+  "15": #{rem(60px)},
+  "16": #{rem(64px)},
+);
+
+$font-sizes: (
+  "xs": #{rem(12px)},
+  "sm": #{rem(14px)},
+  "base": #{rem(16px)},
+  "lg": #{rem(18px)},
+  "xl": #{rem(20px)},
+  "2xl": #{rem(24px)},
+  "3xl": #{rem(30px)},
+);
+
+/* ========================= Variable Css Start ======================== */
+:root {
+  /* Font Family Variable */
+  --heading-font: "Barlow", sans-serif;
+  --body-font: "Roboto", sans-serif;
+
+  /* Font Size Variable Start */
+  --heading-one: clamp(2.75rem, 0.0962rem + 5.5288vw, 5.625rem); // Min:40px - Max:90px
+  --heading-two: clamp(2rem, 0.9615rem + 2.1635vw, 3.125rem); // Min: 32px - Max: 50px
+  --heading-three: clamp(1.625rem, 1.1538rem + 0.7212vw, 1.875rem); // Min: 24px - Max: 30px
+  --heading-four: clamp(1.625rem, 1.1442rem + 0.4808vw, 1.625rem); // Min: 24px - Max: 26px
+  --heading-five: clamp(1.5rem, 1.0192rem + 0.4808vw, 1.5rem); // Min: 24px - Max: 24px
+  --heading-six: 1rem // 16px
+  /* Font Size End */
+
+  /* template main color */
+  // --vs-theme-color1: #DB3705;
+  --vs-theme-color1: #f25000;
+  --vs-theme-color2: #0C0C0C;
+  /* template main color ennd */
+
+  /* White Color */
+  --white: 0 0% 100%;
+  --black: 0 0% 3%;
+  --body: #4C4C4C;
+  --section-bg: #F5F4EE;
+
+  --heading-color: var(--black);
+  --body-color: var(--body);
+
+  --translate-x-50: translateX(-50%);
+  --translate-y-50: translateY(-50%);
+
+  // spacing
+  @each $property, $value in $spaces {
+    --size-#{$property}: #{$value};
+  }
+
+  // Colors
+  @each $color, $shades in $colors {
+    @each $shade, $value in $shades {
+      --#{$color}-#{$shade}: #{$value};
+    }
+  }
+
+  // font sizes
+  @each $property, $value in $font-sizes {
+    --font-#{$property}: #{$value};
+  }
+}
+
+/* ========================= Variable Css End ======================== */

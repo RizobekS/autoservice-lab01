@@ -1,0 +1,36 @@
+{% if info_material_categories %}
+  <div class="widget">
+    <div class="widget_categories">
+      <h3 class="wp-block-heading border-bottom-black-main text-heading border-neutral-300 tw-pb-5">
+        Категории
+      </h3>
+      <ul class="list-unstyled">
+        {% for item in info_material_categories %}
+          <li>
+            {% if item.active %}
+              <a class="">
+                <span class="text-main">
+                  <span class="icon">
+                    <i class="fa-solid fa-angles-right"></i>
+                  </span>
+                  {{ item.title }}
+                </span>
+                <span class="number text-main">{{ item.count|stringformat:"02d" }}</span>
+              </a>
+            {% else %}
+              <a href="{{ item.url }}">
+                <span class="">
+                  <span class="icon">
+                    <i class="fa-solid fa-angles-right"></i>
+                  </span>
+                  {{ item.title }}
+                </span>
+                <span class="number">{{ item.count|stringformat:"02d" }}</span>
+              </a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endif %}

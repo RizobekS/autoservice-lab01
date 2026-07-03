@@ -1,0 +1,155 @@
+{% extends 'new_base.html' %}
+{% load render_with_context %}
+{% load iterables %}
+{% load car_filter_context %}
+{% load deferred_static %}
+{% load service_url %}
+{% load cropping %}
+{% load static %}
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+
+{% block main %}
+<!-- =========================== Service details section start ====================================== -->
+<section class="service-details py-110">
+    <div class="container">
+        <div class="row gy-5">
+            <div class="col-lg-8">
+                <div class="pe-xl-4">
+                    <figure
+                        class="hover-animation-white split-reveal position-relative overflow-hidden group-item group tw-rounded-xl d-inline-flex">
+                        <div class="split-reveal-element origin-left">
+                            <div
+                                class="hover-animation-white scale-up-wrapper position-relative overflow-hidden">
+                                <img src="{% cropped_thumbnail current_section 'thumbnail_960x585' %}"
+                                    class="object-fit-cover scale-up__img w-100 h-100"
+                                    alt="{{ current_section.title }}">
+                            </div>
+                        </div>
+                    </figure>
+                    <div class="tw-mt-11">
+<!--                        <span class="fw-bold text-uppercase text-main d-block tw-mb-1">{{ current_section.title }}</span>-->
+                        {% get_car_filter_context as car_filter_context %} {# Get car_filter context #}
+                        {% render_with_context current_section.description car_filter_context %}
+
+                        <div class="tw-mt-15 tw-pt-5">
+                            <div class="tw-h-05 w-100 bg-neutral-400"></div>
+                            <div class="tw-h-px w-100 bg-neutral-400 tw-mt-05"></div>
+                            <div
+                                class="d-flex align-items-center justify-content-between tw-gap-4 flex-wrap tw-mt-5">
+                                <ul class="list-unstyled d-flex align-items-center tw-gap-4">
+                                  {% if facebook %}
+                                    <li>
+                                        <a href="{{ facebook }}" target="_blank"
+                                            class="tw-text-base text-body hover-text-main hover-scale-20">
+                                            <i class="fa-brands fa-facebook-f"></i>
+                                        </a>
+                                    </li>
+                                  {% endif %}
+                                  {% if twitter %}
+                                    <li>
+                                        <a href="{{ twitter }}" target="_blank"
+                                            class="tw-text-base text-body hover-text-main hover-scale-20">
+                                            <i class="fa-brands fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                  {% endif %}
+                                  {% if vk %}
+                                    <li>
+                                        <a href="{{ vk }}" target="_blank"
+                                            class="tw-text-base text-body hover-text-main hover-scale-20">
+                                            <i class="fa-brands fa-vk"></i>
+                                        </a>
+                                    </li>
+                                  {% endif %}
+                                  {% if whatsapp %}
+                                    <li>
+                                        <a href="{{ whatsapp }}"
+                                            class="tw-text-base text-body hover-text-main hover-scale-20">
+                                            <i class="fa-brands fa-whatsapp"></i>
+                                        </a>
+                                    </li>
+                                  {% endif %}
+                                  {% if telegram %}
+                                    <li>
+                                        <a href="{{ telegram }}"
+                                            class="tw-text-base text-body hover-text-main hover-scale-20">
+                                            <i class="fa-brands fa-telegram"></i>
+                                        </a>
+                                    </li>
+                                  {% endif %}
+                                  {% if instagram %}
+                                    <li>
+                                        <a href="{{ instagram }}"
+                                            class="tw-text-base text-body hover-text-main hover-scale-20">
+                                            <i class="fa-brands fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                  {% endif %}
+                                  {% if youtube %}
+                                    <li>
+                                        <a href="{{ youtube }}"
+                                            class="tw-text-base text-body hover-text-main hover-scale-20">
+                                            <i class="fa-brands fa-youtube"></i>
+                                        </a>
+                                    </li>
+                                  {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="d-flex flex-column tw-gap-8">
+                  {% if child_products %}
+                    <div class="tw-rounded-xl overflow-hidden bg-neutral-200">
+                        <div class="bg-main tw-px-32-px tw-py-4">
+                            <h3 class="h4 text-white fw-semibold">Виды работ</h3>
+                        </div>
+                        <div class="tw-px-32-px tw-py-8 d-flex flex-column tw-gap-205">
+                          {% for item in child_products %}
+                            <a href="{% service_url item %}"
+                                class="bg-white common-shadow-four tw-px-505 tw-py-4 d-flex align-items-center tw-gap-4 hover-bg-main-two tw-duration-500 hover-text-white text-heading group group-item">
+                                <span class="text-main d-flex tw-text-lg">
+                                    <i class="fa-solid fa-angles-right"></i>
+                                </span>
+                                <span class="tw-w-px tw-h-7 bg-neutral-200"></span>
+                                <span
+                                    class="h5 tw-text-lg fw-bold tw-duration-500 text-capitalize group-hover-text-white">{{ item.title }}</span>
+                            </a>
+                          {% endfor %}
+                        </div>
+                    </div>
+                  {% endif %}
+                    <div class="tw-rounded-xl tw-pt-14 tw-px-36-px bg-img background-img overflow-hidden z-1" data-background-image="{% static 'assets/images/bg/service-details-promo-img.png' %}">
+                        <div class="tw-mb-15 tw-pb-15">
+                            <div class="tw-pb-15 tw-mb-6">
+                                <span class="fw-bold text-uppercase text-main d-block tw-mb-205">Auto service</span>
+                                <h3 class="h4 text-white text-uppercase max-w-310-px">Получить консультацию</h3>
+                                <div class="tw-mt-405">
+                                    <a href="#!"
+                                        class="btn btn-main hover-style-two button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder tw-tracking-2-percent"
+                                        data-block="button"
+                                        data-toggle="modal"
+                                        data-target="#modalRegisterForm" title="Онлайн запись">
+                                        <span class="button__flair"></span>
+                                        <span class="button__label">
+                                            Онлайн запись
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- =========================== Service details section end ====================================== -->
+{% endblock %}

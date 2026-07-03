@@ -1,0 +1,71 @@
+{% load static %}
+{% load service_url %}
+{% load iterables %}
+{% load cropping %}
+
+<section class="pricing py-110 section-bg position-relative overflow-hidden z-1">
+    <div class="arrow-curve-shape position-absolute top-0 tw-end-0 z-n1 d-lg-block d-none">
+        <img src="{% static 'assets/images/shapes/arrow-curve-shape.png' %}" alt="shape" class="animated-upDown">
+    </div>
+    <div class="rounded-glob-shape position-absolute bottom-0 tw-start-0 z-n1 d-xxl-block d-none">
+        <img src="{% static 'assets/images/shapes/rounded-glob-shape.png' %}" alt="shape" class="animation-rotate-right">
+    </div>
+
+    <div class="container">
+         <div class="section-heading tw-mb-11 text-center">
+            <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2" data-aos="fade-up" data-aos-duration="800"
+                data-aos-delay="100">
+                <span class="tw-w-10 tw-h-05 bg-main triangle-left"></span>
+                <span class="text-main fw-semibold tw-text-lg text-uppercase">Перечень ремонтных работ</span>
+                <span class="tw-w-10 tw-h-05 bg-main triangle-right"></span>
+            </div>
+            <h2 class="">Ремонтируем {{ car.full_name }} с 1993 года</h2>
+        </div>
+
+        <div class="row gy-4">
+          {% for section in repair_pricing_sections %}
+            <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ forloop.counter }}00">
+                <div class="pricing-item">
+                    <div class="tw-py-11 tw-px-32-px bg-white tw-rounded-30-px common-shadow-four">
+                        <div class="d-flex align-items-center tw-gap-2 justify-content-between">
+                            <div class="">
+                                <span class="tw-text-lg fw-bold text-heading text-capitalize">{{ section.title }}</span>
+                                {% if section.pricing_min_price %}
+                                  <h2 class="">{{ section.pricing_min_price }}</h2>
+                                {% endif %}
+                            </div>
+                            <span
+                                class="d-flex justify-content-center align-items-center bg-main rounded-circle tw-w-72-px tw-h-72-px">
+                              {% if section.icon %}
+                                <img src="{{ section.icon.url }}" alt="{{ section.title }}">
+                              {% else %}
+                              <img src="{% cropped_thumbnail section 'thumbnail_80x80'  %}" alt="{{ section.title }}">
+                              {% endif %}
+                            </span>
+                        </div>
+                        <div class="tw-py-10 d-flex">
+                            <span class="border tw-border-dashed border-neutral-300 w-100"></span>
+                        </div>
+                        <ul class="list-unstyled d-flex flex-column tw-gap-4 pricing-products-list">
+                          {% for product in section.pricing_products %}
+                            <li class="d-flex align-items-center tw-gap-3 {% if forloop.counter > 6 %}pricing-product-extra d-none{% endif %}">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <a href="{% service_url product %}" class="fw-bold text-capitalize text-black hover-text-main">{{ product.title }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                        {% if section.pricing_has_hidden_products %}
+                          <button type="button" class="pricing-products-toggle tw-mt-6" data-expanded="false" data-show-text="Показать все услуги" data-hide-text="Свернуть список">
+                            Показать все услуги
+                          </button>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+        </div>
+    </div>
+</section>

@@ -9,7 +9,7 @@ from utils.mixins import PageSettingsMixin
 
 
 class AboutMastersView(TemplateView, MastersMixin, PageSettingsMixin):
-    template_name = 'masters/about.html'
+    template_name = 'masters/new_about.html'
     viewname = 'masters:about'
 
     @staticmethod

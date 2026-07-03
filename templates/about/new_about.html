@@ -1,0 +1,23 @@
+{% extends 'new_base.html' %}
+{% load deferred_static %}
+{% load static %}
+
+
+
+{% block page_title %}
+  {% include 'chunks/header/new_title.html' %}
+{% endblock %}
+
+{% block main %}
+
+{# {% if founder %} {% include 'about/chunks/new_founder.html' %}{% endif %} #}
+
+{% include 'chunks/new_about.html' %}
+
+{% include 'about/chunks/new_promotions.html' %}
+
+{% include 'chunks/new_testimonials.html' %}
+
+{% include 'chunks/new_masters.html' %}
+
+{% endblock %}

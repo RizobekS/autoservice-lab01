@@ -1,0 +1,26 @@
+/* choose us one css start */
+.choose-us-item__icon {
+    width: 94px;
+    height: 100px;
+    border-bottom-right-radius: 10px;
+
+    &::before {
+        position: absolute;
+        content: "";
+        width: calc(100% + 20px);
+        height: 18px;
+        background-color: inherit;
+        inset-block-end: -11px;
+        transform: rotate(-12deg);
+        border-radius: inherit;
+        inset-inline-end: 0;
+    }
+}
+
+.item-visible-in-big-screen {
+    display: none;
+    @media (min-width: 1750px) {
+        display: flex;
+    }
+}
+/* choose us one css end */

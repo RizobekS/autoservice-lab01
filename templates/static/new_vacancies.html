@@ -1,0 +1,902 @@
+{% extends 'static/base.html' %}
+{% load deferred_static %}
+{% load static %}
+
+
+{% block main %}
+<!-- ============================== Pricing plan two section start ===========================  -->
+<section class="pricing py-110 section-bg position-relative overflow-hidden z-1">
+    <div class="arrow-curve-shape position-absolute top-0 tw-end-0 z-n1 d-lg-block d-none">
+        <img src="{% static 'assets/images/shapes/arrow-curve-shape.png' %}" alt="shape" class="animated-upDown">
+    </div>
+    <div class="rounded-glob-shape position-absolute bottom-0 tw-start-0 z-n1 d-xxl-block d-none">
+        <img src="{% static 'assets/images/shapes/rounded-glob-shape.png' %}" alt="shape" class="animation-rotate-right">
+    </div>
+
+    <div class="container">
+         <div class="section-heading tw-mb-11 text-center">
+            <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2" data-aos="fade-up" data-aos-duration="800"
+                data-aos-delay="100">
+                <span class="tw-w-10 tw-h-05 bg-main triangle-left"></span>
+                <span class="text-main fw-semibold tw-text-lg text-uppercase">Наши вакансии</span>
+                <span class="tw-w-10 tw-h-05 bg-main triangle-right"></span>
+            </div>
+        </div>
+
+        <div class="row gy-4">
+          <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                <div class="pricing-item">
+                    <div class="tw-py-11 tw-px-32-px bg-white tw-rounded-30-px common-shadow-four">
+                        <div class="d-flex align-items-center tw-gap-2 justify-content-between">
+                            <div class="">
+                                <span class="tw-text-lg fw-bold text-heading text-capitalize">Автомеханик (Автослесарь)</span>
+                            </div>
+                        </div>
+                        <div class="tw-py-10 d-flex">
+                            <span class="border tw-border-dashed border-neutral-300 w-100"></span>
+                        </div>
+                      <span class="tw-text-lg text-heading text-grey">График работы 3/3 | 70 000 - 90 000 рублей</span>
+                      <span class="tw-text-lg text-heading">Обязанности</span>
+                        <ul class="list-unstyled d-flex flex-column tw-gap-4">
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Техническое обслуживание и ремонт автомобилей (выполнение ремонта ходовой части‚ агрегатов‚ КПП‚ двигателей‚ ТО)
+                                </p>
+                            </li>
+                        </ul>
+                      <span class="tw-text-lg text-heading">Требования</span>
+                        <ul>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Опыт работы у дилера или на СТО по техническому обслуживанию и слесарному ремонту автомобилей от 2 лет;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Техническая грамотность;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Ответственный подход к работе, обучаемость, трудовая дисциплина;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Стаж вождения от 2 лет;
+                                </p>
+                            </li>
+                          <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Желание работать и профессионально развиваться
+                                </p>
+                            </li>
+                        </ul>
+                      <span class="tw-text-lg text-heading">Условия</span>
+                      <ul>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  График работы 3/3 с 09.00 до 21.00;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Стабильная заработная плата 70000 - 90000 (оклад в зависимости от разряда + выработка), есть возможность подработки и увеличения заработка;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Оформление по ТК РФ, полный соц. пакет;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Льготное питание, спецодежда;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Возможность профессионального роста, повышение разряда, квалификации и, как следствие, повышение ЗП;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Комфортные условия труда и лояльное руководство;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Корпоративные скидки на покупку и обслуживание а/м всех брендов ГК «Авто Премиум»;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Для кандидатов из Ленинградской области компенсируются затраты на проезд до места работы
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Дилерский центр SKODA "Авто Премиум" на пр. Энгельса, 35 (м. Удельная)
+                                </p>
+                            </li>
+
+                      </ul>
+                    </div>
+                </div>
+            </div>
+          <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
+                <div class="pricing-item">
+                    <div class="tw-py-11 tw-px-32-px bg-white tw-rounded-30-px common-shadow-four">
+                        <div class="d-flex align-items-center tw-gap-2 justify-content-between">
+                            <div class="">
+                                <span class="tw-text-lg fw-bold text-heading text-capitalize">Автомеханик (Автослесарь)</span>
+                            </div>
+                        </div>
+                        <div class="tw-py-10 d-flex">
+                            <span class="border tw-border-dashed border-neutral-300 w-100"></span>
+                        </div>
+                      <span class="tw-text-lg text-heading text-grey">График работы 3/3 | 70 000 - 90 000 рублей</span>
+                      <span class="tw-text-lg text-heading">Обязанности</span>
+                        <ul class="list-unstyled d-flex flex-column tw-gap-4">
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Техническое обслуживание и ремонт автомобилей (выполнение ремонта ходовой части‚ агрегатов‚ КПП‚ двигателей‚ ТО)
+                                </p>
+                            </li>
+                        </ul>
+                      <span class="tw-text-lg text-heading">Требования</span>
+                        <ul>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Опыт работы у дилера или на СТО по техническому обслуживанию и слесарному ремонту автомобилей от 2 лет;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Техническая грамотность;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Ответственный подход к работе, обучаемость, трудовая дисциплина;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Стаж вождения от 2 лет;
+                                </p>
+                            </li>
+                          <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Желание работать и профессионально развиваться
+                                </p>
+                            </li>
+                        </ul>
+                      <span class="tw-text-lg text-heading">Условия</span>
+                      <ul>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  График работы 3/3 с 09.00 до 21.00;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Стабильная заработная плата 70000 - 90000 (оклад в зависимости от разряда + выработка), есть возможность подработки и увеличения заработка;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Оформление по ТК РФ, полный соц. пакет;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Льготное питание, спецодежда;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Возможность профессионального роста, повышение разряда, квалификации и, как следствие, повышение ЗП;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Комфортные условия труда и лояльное руководство;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Корпоративные скидки на покупку и обслуживание а/м всех брендов ГК «Авто Премиум»;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Для кандидатов из Ленинградской области компенсируются затраты на проезд до места работы
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Дилерский центр SKODA "Авто Премиум" на пр. Энгельса, 35 (м. Удельная)
+                                </p>
+                            </li>
+
+                      </ul>
+                    </div>
+                </div>
+            </div>
+          <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
+                <div class="pricing-item">
+                    <div class="tw-py-11 tw-px-32-px bg-white tw-rounded-30-px common-shadow-four">
+                        <div class="d-flex align-items-center tw-gap-2 justify-content-between">
+                            <div class="">
+                                <span class="tw-text-lg fw-bold text-heading text-capitalize">Автомеханик (Автослесарь)</span>
+                            </div>
+                        </div>
+                        <div class="tw-py-10 d-flex">
+                            <span class="border tw-border-dashed border-neutral-300 w-100"></span>
+                        </div>
+                      <span class="tw-text-lg text-heading text-grey">График работы 3/3 | 70 000 - 90 000 рублей</span>
+                      <span class="tw-text-lg text-heading">Обязанности</span>
+                        <ul class="list-unstyled d-flex flex-column tw-gap-4">
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Техническое обслуживание и ремонт автомобилей (выполнение ремонта ходовой части‚ агрегатов‚ КПП‚ двигателей‚ ТО)
+                                </p>
+                            </li>
+                        </ul>
+                      <span class="tw-text-lg text-heading">Требования</span>
+                        <ul>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Опыт работы у дилера или на СТО по техническому обслуживанию и слесарному ремонту автомобилей от 2 лет;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Техническая грамотность;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Ответственный подход к работе, обучаемость, трудовая дисциплина;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Стаж вождения от 2 лет;
+                                </p>
+                            </li>
+                          <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Желание работать и профессионально развиваться
+                                </p>
+                            </li>
+                        </ul>
+                      <span class="tw-text-lg text-heading">Условия</span>
+                      <ul>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  График работы 3/3 с 09.00 до 21.00;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Стабильная заработная плата 70000 - 90000 (оклад в зависимости от разряда + выработка), есть возможность подработки и увеличения заработка;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Оформление по ТК РФ, полный соц. пакет;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Льготное питание, спецодежда;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Возможность профессионального роста, повышение разряда, квалификации и, как следствие, повышение ЗП;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Комфортные условия труда и лояльное руководство;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Корпоративные скидки на покупку и обслуживание а/м всех брендов ГК «Авто Премиум»;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Для кандидатов из Ленинградской области компенсируются затраты на проезд до места работы
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Дилерский центр SKODA "Авто Премиум" на пр. Энгельса, 35 (м. Удельная)
+                                </p>
+                            </li>
+
+                      </ul>
+                    </div>
+                </div>
+            </div>
+          <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="700">
+                <div class="pricing-item">
+                    <div class="tw-py-11 tw-px-32-px bg-white tw-rounded-30-px common-shadow-four">
+                        <div class="d-flex align-items-center tw-gap-2 justify-content-between">
+                            <div class="">
+                                <span class="tw-text-lg fw-bold text-heading text-capitalize">Автомеханик (Автослесарь)</span>
+                            </div>
+                        </div>
+                        <div class="tw-py-10 d-flex">
+                            <span class="border tw-border-dashed border-neutral-300 w-100"></span>
+                        </div>
+                      <span class="tw-text-lg text-heading text-grey">График работы 3/3 | 70 000 - 90 000 рублей</span>
+                      <span class="tw-text-lg text-heading">Обязанности</span>
+                        <ul class="list-unstyled d-flex flex-column tw-gap-4">
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Техническое обслуживание и ремонт автомобилей (выполнение ремонта ходовой части‚ агрегатов‚ КПП‚ двигателей‚ ТО)
+                                </p>
+                            </li>
+                        </ul>
+                      <span class="tw-text-lg text-heading">Требования</span>
+                        <ul>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Опыт работы у дилера или на СТО по техническому обслуживанию и слесарному ремонту автомобилей от 2 лет;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Техническая грамотность;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Ответственный подход к работе, обучаемость, трудовая дисциплина;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Стаж вождения от 2 лет;
+                                </p>
+                            </li>
+                          <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Желание работать и профессионально развиваться
+                                </p>
+                            </li>
+                        </ul>
+                      <span class="tw-text-lg text-heading">Условия</span>
+                      <ul>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  График работы 3/3 с 09.00 до 21.00;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Стабильная заработная плата 70000 - 90000 (оклад в зависимости от разряда + выработка), есть возможность подработки и увеличения заработка;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Оформление по ТК РФ, полный соц. пакет;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Льготное питание, спецодежда;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Возможность профессионального роста, повышение разряда, квалификации и, как следствие, повышение ЗП;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Комфортные условия труда и лояльное руководство;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Корпоративные скидки на покупку и обслуживание а/м всех брендов ГК «Авто Премиум»;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Для кандидатов из Ленинградской области компенсируются затраты на проезд до места работы
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Дилерский центр SKODA "Авто Премиум" на пр. Энгельса, 35 (м. Удельная)
+                                </p>
+                            </li>
+
+                      </ul>
+                    </div>
+                </div>
+            </div>
+          <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="900">
+                <div class="pricing-item">
+                    <div class="tw-py-11 tw-px-32-px bg-white tw-rounded-30-px common-shadow-four">
+                        <div class="d-flex align-items-center tw-gap-2 justify-content-between">
+                            <div class="">
+                                <span class="tw-text-lg fw-bold text-heading text-capitalize">Автомеханик (Автослесарь)</span>
+                            </div>
+                        </div>
+                        <div class="tw-py-10 d-flex">
+                            <span class="border tw-border-dashed border-neutral-300 w-100"></span>
+                        </div>
+                      <span class="tw-text-lg text-heading text-grey">График работы 3/3 | 70 000 - 90 000 рублей</span>
+                      <span class="tw-text-lg text-heading">Обязанности</span>
+                        <ul class="list-unstyled d-flex flex-column tw-gap-4">
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Техническое обслуживание и ремонт автомобилей (выполнение ремонта ходовой части‚ агрегатов‚ КПП‚ двигателей‚ ТО)
+                                </p>
+                            </li>
+                        </ul>
+                      <span class="tw-text-lg text-heading">Требования</span>
+                        <ul>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Опыт работы у дилера или на СТО по техническому обслуживанию и слесарному ремонту автомобилей от 2 лет;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Техническая грамотность;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Ответственный подход к работе, обучаемость, трудовая дисциплина;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Стаж вождения от 2 лет;
+                                </p>
+                            </li>
+                          <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Желание работать и профессионально развиваться
+                                </p>
+                            </li>
+                        </ul>
+                      <span class="tw-text-lg text-heading">Условия</span>
+                      <ul>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  График работы 3/3 с 09.00 до 21.00;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Стабильная заработная плата 70000 - 90000 (оклад в зависимости от разряда + выработка), есть возможность подработки и увеличения заработка;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Оформление по ТК РФ, полный соц. пакет;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Льготное питание, спецодежда;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Возможность профессионального роста, повышение разряда, квалификации и, как следствие, повышение ЗП;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Комфортные условия труда и лояльное руководство;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Корпоративные скидки на покупку и обслуживание а/м всех брендов ГК «Авто Премиум»;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Для кандидатов из Ленинградской области компенсируются затраты на проезд до места работы
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Дилерский центр SKODA "Авто Премиум" на пр. Энгельса, 35 (м. Удельная)
+                                </p>
+                            </li>
+
+                      </ul>
+                    </div>
+                </div>
+            </div>
+          <div class="col-xl-4 col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="1100">
+                <div class="pricing-item">
+                    <div class="tw-py-11 tw-px-32-px bg-white tw-rounded-30-px common-shadow-four">
+                        <div class="d-flex align-items-center tw-gap-2 justify-content-between">
+                            <div class="">
+                                <span class="tw-text-lg fw-bold text-heading text-capitalize">Автомеханик (Автослесарь)</span>
+                            </div>
+                        </div>
+                        <div class="tw-py-10 d-flex">
+                            <span class="border tw-border-dashed border-neutral-300 w-100"></span>
+                        </div>
+                      <span class="tw-text-lg text-heading text-grey">График работы 3/3 | 70 000 - 90 000 рублей</span>
+                      <span class="tw-text-lg text-heading">Обязанности</span>
+                        <ul class="list-unstyled d-flex flex-column tw-gap-4">
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Техническое обслуживание и ремонт автомобилей (выполнение ремонта ходовой части‚ агрегатов‚ КПП‚ двигателей‚ ТО)
+                                </p>
+                            </li>
+                        </ul>
+                      <span class="tw-text-lg text-heading">Требования</span>
+                        <ul>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Опыт работы у дилера или на СТО по техническому обслуживанию и слесарному ремонту автомобилей от 2 лет;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Техническая грамотность;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Ответственный подход к работе, обучаемость, трудовая дисциплина;
+                                </p>
+                            </li>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Стаж вождения от 2 лет;
+                                </p>
+                            </li>
+                          <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-neutral-300">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Желание работать и профессионально развиваться
+                                </p>
+                            </li>
+                        </ul>
+                      <span class="tw-text-lg text-heading">Условия</span>
+                      <ul>
+                            <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  График работы 3/3 с 09.00 до 21.00;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Стабильная заработная плата 70000 - 90000 (оклад в зависимости от разряда + выработка), есть возможность подработки и увеличения заработка;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Оформление по ТК РФ, полный соц. пакет;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Льготное питание, спецодежда;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Возможность профессионального роста, повышение разряда, квалификации и, как следствие, повышение ЗП;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Комфортные условия труда и лояльное руководство;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Корпоративные скидки на покупку и обслуживание а/м всех брендов ГК «Авто Премиум»;
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Для кандидатов из Ленинградской области компенсируются затраты на проезд до места работы
+                                </p>
+                            </li>
+                        <li class="d-flex align-items-center tw-gap-3">
+                                <span class="d-flex text-main">
+                                    <i class="fa-solid fa-badge-check"></i>
+                                </span>
+                                <p class="fw-bold text-capitalize">
+                                  Дилерский центр SKODA "Авто Премиум" на пр. Энгельса, 35 (м. Удельная)
+                                </p>
+                            </li>
+
+                      </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- ============================== Pricing plan two section end ===========================  -->
+{% endblock %}

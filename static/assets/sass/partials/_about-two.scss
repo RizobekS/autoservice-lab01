@@ -1,0 +1,49 @@
+/* About Two section start */
+.border-rounded-before {
+    padding-left: 30px;
+    padding-top: 24px;
+
+    &::before {
+        position: absolute;
+        content: "";
+        width: 65%;
+        height: calc(100% - 56px);
+        border: 5px solid var(--vs-theme-color1);
+        inset-inline-start: 0;
+        inset-block-start: 0;
+        border-radius: 24px;
+    }
+}
+
+.statistics-style-two {
+    position: absolute;
+    bottom: 0;
+    inset-inline-end: 0;
+    max-width: 370px;
+    width: 100%;
+    margin-block-end: 36px;
+    background-color: #fff;
+    border-radius: 30px;
+    padding: 10px;
+    padding-inline-end: 0 !important;
+
+    @media (min-width: 1200px) {
+        padding: 20px;
+    }
+}
+
+.line-left::before {
+    position: absolute;
+    content: "";
+    width: 16px;
+    height: 132px;
+    background-color: var(--vs-theme-color1);
+    inset-inline-start: -32px;
+    inset-block-start: 0;
+}
+
+.border-rounded-before {
+    height: 76%;
+}
+
+/* About Two section end */

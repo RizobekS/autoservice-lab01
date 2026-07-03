@@ -1,7 +1,7 @@
 from typing import Any, Dict
 
 from django.contrib import messages
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils import timezone
@@ -13,6 +13,7 @@ from apps.accounts.forms import BodyRepairAppointmentForm, BodyRepairAppointment
 from apps.accounts.utils.mixins import ShortAppointmentMixin
 from apps.promotions.models import Promotion, Category
 from apps.promotions.utils.mixins import PromotionsMixin
+from unicodedata import category
 from utils.breadcrumbs.types import Breadcrumb
 from utils.breadcrumbs.utils import reverse_bc
 from utils.mixins import PageSettingsMixin
@@ -22,12 +23,12 @@ from utils.views import FormDetailView
 
 
 class PromotionListView(TemplateView, PromotionsMixin, PageSettingsMixin):
-    template_name = 'promotions/promotions.html'
+    template_name = 'promotions/new_promotions.html'
     viewname = 'promotions:list'
 
 
 class PromotionCategoryView(DetailView, PromotionsMixin, PageSettingsMixin):
-    template_name = 'promotions/promotions.html'
+    template_name = 'promotions/new_promotions.html'
     viewname = 'promotions:category'
     initial_breadcrumbs = [reverse_bc(view=PromotionListView)]
 
@@ -49,7 +50,7 @@ class PromotionCategoryView(DetailView, PromotionsMixin, PageSettingsMixin):
 
 class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMixin, ShortAppointmentMixin, OpengraphMixin):
     # DetailView
-    template_name = 'promotions/promotion.html'
+    template_name = 'promotions/new_promotion.html'
     queryset = Promotion.objects.select_related('category').filter(active=True)
     slug_field = 'url'
     slug_url_kwarg = 'promotion_url'
@@ -112,7 +113,9 @@ class PromotionView(DetailView, FormDetailView, PromotionsMixin, PageSettingsMix
         return super().get_promotions_queryset().exclude(id=self.object.id)
 
     def get_context_data(self, **kwargs):
-        return super().get_context_data(categories=Category.objects.all(), **kwargs)
+        return super().get_context_data(categories=Category.objects.annotate(
+            promotions_count=Count('promotion', filter=Q(promotion__active=True))
+        ).filter(promotions_count__gt=0), **kwargs)
 
 
 def get_archived_promotions(request):
@@ -121,7 +124,7 @@ def get_archived_promotions(request):
         Q(active=False) |
         Q(active_before__isnull=False, active_before__lt=today)
     )
-    return render(request, 'promotions/chunks/promotions_list.html', {'promotions': promotions, 'archived': True})
+    return render(request, 'promotions/chunks/new_promotions_list.html', {'promotions': promotions, 'archived': True})
 
 
 class BodyRepairAppointmentView(View, PageSettingsMixin):

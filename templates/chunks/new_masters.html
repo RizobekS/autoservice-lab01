@@ -1,0 +1,44 @@
+{% load static cropping %}
+<!-- ===================== Team section start ========================= -->
+<section class="team py-110 position-relative z-1">
+    <div class="position-absolute tw-start-0 bottom-0 z-n1">
+        <img src="{% static 'assets/images/shapes/team-shape.png' %}" alt="Team BG">
+    </div>
+
+    <div class="container">
+        <div class="section-heading tw-mb-11 text-center small-left-align">
+            <div class="d-inline-flex align-items-center tw-gap-205 tw-mb-2" data-aos="fade-up" data-aos-duration="800"
+                data-aos-delay="100">
+                <span class="tw-w-10 tw-h-05 bg-main triangle-left"></span>
+                <span class="text-main fw-semibold tw-text-lg text-uppercase">Наша команда</span>
+                <span class="tw-w-10 tw-h-05 bg-main triangle-right"></span>
+            </div>
+            <h2 class="">Сертифицированные мастера</h2>
+        </div>
+
+        <div class="row gy-4">
+          {% for master in masters %}
+            <div class="col-lg-3 col-sm-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ forloop.counter }}00">
+                <div class="team-item group group-item social-icon-hover">
+                    <div
+                        class="d-block hover-animation-white scale-up-wrapper position-relative overflow-hidden z-1 hover-bg-main-light tw-h-290-px">
+                        <a href="javascript:void(0);" class="w-100 h-100 d-block">
+                            <img src="{% cropped_thumbnail master 'thumbnail' %}"
+                                class="object-fit-cover scale-up__img w-100 h-100" alt="{{ master.name }}">
+                        </a>
+                    </div>
+                    <div class="tw-mt-2 bg-main-two tw-duration-300 tw-p-6 group-hover-bg-main">
+                        <h2 class="h5">
+                            <span class="text--white hover-text-white">
+                              {{ master.name }}
+                            </span>
+                        </h2>
+                        <span class="d-block text-neutral-200 tw-mt-2">{{ master.position_string }}</span>
+                    </div>
+                </div>
+            </div>
+          {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- ===================== Team section end ========================= -->

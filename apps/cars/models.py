@@ -48,9 +48,22 @@ class CarFilter(models.Model, CarFilterUtilsMixin):
 
 
 class Vendor(models.Model):
+    CATALOG_EUROPEAN = 'european'
+    CATALOG_CHINESE = 'chinese'
+    CATALOG_JAPANESE = 'japanese'
+    CATALOG_AMERICAN = 'american'
+
+    CATALOG_CHOICES = (
+        (CATALOG_EUROPEAN, 'Европейские'),
+        (CATALOG_CHINESE, 'Китайские'),
+        (CATALOG_JAPANESE, 'Японские'),
+        (CATALOG_AMERICAN, 'Американские'),
+    )
+
     name = models.CharField('Название', max_length=200)
     url = AutoSlugField(verbose_name='URL марки', validators=[validate_double_slash_url], help_text='Заполняется на основе поля "Название"', populate_from='name',
                         unique=True, editable=True, max_length=120)
+    catalog = models.CharField('Каталог марки', max_length=20, choices=CATALOG_CHOICES, null=True, blank=True)
     header_image = models.ImageField('Изображение в заголовке', help_text='Возможность обрезки появится после сохранения', null=True, blank=True)
     header_crop = ImageRatioField(verbose_name='Обрезка изображения заголовка (1920x600)', image_field='header_image', size='1920x600')
     logo = models.ImageField('Логотип', help_text='Возможность обрезки появится после сохранения', upload_to='vendor_logos', max_length=256)
@@ -72,6 +85,9 @@ class Vendor(models.Model):
 
     def active_model_set(self):
         return self.model_set.filter(active=True)
+
+    def catalog_title(self):
+        return dict(self.CATALOG_CHOICES).get(self.catalog, '')
 
     class Meta:
         ordering = ('name',)

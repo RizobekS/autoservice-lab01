@@ -52,7 +52,7 @@ class TagsListView(View, PageSettingsMixin):
             'canonical_link': request.build_absolute_uri(request.path),
         })
 
-        return render(request, 'tags/tags.html', context)
+        return render(request, 'tags/new_tags.html', context)
 
     # #### OVERRIDDEN MIXIN METHODS ####
 

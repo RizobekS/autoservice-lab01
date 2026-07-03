@@ -1,0 +1,46 @@
+/* Brand One css start */
+.brand-one {
+    position: relative;
+    z-index: 1;
+
+    &::before,
+    &::after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        height: 55%;
+        background-color: var(--vs-theme-color1);
+        z-index: -1;
+    }
+
+    &::after {
+        background-color: transparent;
+        opacity: 1;
+    }
+
+    &::before,
+    &::after {
+        @media (min-width: 1200px) {
+            height: 100%;
+            width: calc(35% + 3px);
+        }
+
+        @media (min-width: 1600px) {
+            height: 100%;
+            width: calc(39% + 3px);
+        }
+    }
+}
+
+.border-right-none-not-last .swiper-slide:nth-last-of-type(n + 2) {
+    border-right: 0 !important;
+}
+
+.xl-bg-main-two {
+    @media (min-width: 1200px) {
+        background-color: var(--vs-theme-color2);
+    }
+}
+/* Brand One css end */

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.template.context_processors',
     'django.contrib.sitemaps',
+    'django.forms',
 
     # Custom apps
     'apps.home',
@@ -68,10 +69,9 @@ INSTALLED_APPS = [
     'ckeditor',  # Ckeditor
     'ckeditor_uploader',  # Ckeditor with file upload
     'django_cleanup.apps.CleanupConfig',  # Deletes old images
-    # 'haystack',  # Search API
+    'haystack',  # Search API
     'clear_cache',  # manage.py command to clear all caches
     'adminsortable',  # Sorting admin records
-    'captcha',
 ]
 
 # Middlewares
@@ -129,7 +129,7 @@ SECRET_FILE = normpath(join(PROJECT_ROOT, 'run', 'SECRET.key'))
 
 # Error notification emails
 ADMINS = (
-    ('Алкамян Давид', 'bydev2001@gmail.com'),
+    ('Соибов Ризобек', 'rizobeksaibov@gmail.com'),
 )
 MANAGERS = ADMINS
 
@@ -182,7 +182,7 @@ except IOError:
 LOGGING = {
     'version': 1,
     'filters': {
-        'slow_sql': {'()': 'autoservice.logging.filters.SlowSQLQueryFilter'},
+        'slow_sql': {'()': 'autoservice.my_logging.filters.SlowSQLQueryFilter'},
         'require_debug_true': {'()': 'django.utils.log.RequireDebugTrue'}
     },
     'handlers': {
@@ -252,6 +252,10 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+#yandex_captcha
+SMARTCAPTCHA_SERVER_KEY = env.str('SMARTCAPTCHA_SERVER_KEY')
+SMARTCAPTCHA_CLIENT_KEY = env.str('SMARTCAPTCHA_CLIENT_KEY')
 
 # Calltouch
 CALLTOUCH_SITE_ID = env.int('CALLTOUCH_SITE_ID')
