@@ -1,5 +1,3 @@
-from lib2to3.patcomp import pattern_convert
-
 from django.urls import path, register_converter
 
 from .utils.urlconverters import CarPathConverter, OldCarPathConverter
