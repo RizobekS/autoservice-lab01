@@ -132,8 +132,10 @@ class Product(SortableMixin):
     fixed_price = models.BooleanField('Фиксированная цена', help_text='Не фикскированная цена будет отображаться как "от 990₽"', default=False)
     price = models.FloatField('Цена за работу (₽)')
 
-    short_description = models.CharField('Краткое описание', max_length=255, blank=True)
+    short_description = models.CharField('Краткое описание', help_text='Используется для карточек Товара/Услуги', max_length=255, blank=True)
+    anons = models.CharField('Анонс', help_text='Краткий текст для детальной страницы Товара/Услуги', max_length=255, blank=True)
     description = models.TextField('Содержание страницы', help_text=' '.join((SUPPORTS_CAR_CONTEXT_HELP_TEXT, SUPPORTS_WORKS_MACROS_HELP_TEXT)))
+    master_advise = models.TextField('Мастер советует', help_text='Для страницы Товара/Услуги', null=True, blank=True)
 
     active = models.BooleanField('Активно', help_text=ACTIVE_HELP_TEXT, default=True)
     section = models.ForeignKey(verbose_name='Родительский раздел', to='Section', on_delete=models.RESTRICT, related_name='child_product_set')
@@ -167,7 +169,6 @@ class Product(SortableMixin):
     meta_title = models.CharField('Заголовок <title>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
     meta_header = models.CharField('Заголовок <h1>', help_text=CEO_HELP_TEXT, max_length=200, blank=True)
     meta_description = models.TextField('Meta description', help_text=CEO_HELP_TEXT, null=True, blank=True)
-    master_advise = models.TextField('Мастер советует', help_text='Для страницы услуги', null=True, blank=True)
     meta_keywords = models.TextField('Meta keywords', help_text=CEO_HELP_TEXT, null=True, blank=True)
     meta_robots = models.TextField('Meta robots', help_text=CEO_HELP_TEXT, null=True, blank=True)
     canonical_to_original = models.BooleanField('Каноничная ссылка', help_text='Каноничная ссылка на страницу без ММП фильтра', default=False)
