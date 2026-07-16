@@ -17,7 +17,9 @@ from autoservice.settings.common import SMARTCAPTCHA_CLIENT_KEY
 def static_info(request):
     context = {item.key: item.value for item in StaticInformation.objects.filter(add_to_context=True)}
     branches = list(Branch.objects.filter(active=True).order_by('-id'))
+    main_branch = Branch.objects.filter(active=True, main=True).first()
     context['navbar_branches'] = branches
+    context['main_branch'] = main_branch
 
     # NEW: map payload for pages that don't override it (home, contacts)
     payload = []

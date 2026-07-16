@@ -42,6 +42,7 @@ class BodyRepairEmailReceiver(BaseEmailReceiver):
 class Branch(models.Model):
     name = models.CharField('Название', max_length=120)
     active = models.BooleanField('Активно', help_text=ACTIVE_HELP_TEXT, default=True)
+    main = models.BooleanField('Главный', help_text='Применится как главный филиал', default=False)
     address = models.CharField('Адрес', max_length=240)
     phone = models.CharField('Тел. номер', max_length=20)
     latitude = models.DecimalField('Широта', max_digits=18, decimal_places=14, null=True, blank=True)

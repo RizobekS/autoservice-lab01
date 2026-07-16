@@ -5,35 +5,31 @@
         <div class="row gy-5">
             <div class="col-lg-7">
                 <div class="d-flex align-items-center flex-sm-nowrap flex-wrap tw-gap-10 border-lg-end position-relative">
-                    <div class="before-right-bg position-relative tw-rounded-2xl z-1 flex-shrink-0">
-                        <img src="{% static 'assets/images/thumbs/cta-img.png' %}" alt="CTA Image">
-                    </div>
                     <div class="">
-                        <h2 class="text-white fw-medium">Let's Talk Now</h2>
-                        <p class="text-neutral-200 tw-mt-5 text-capitalize">We're more are many variations of passages of Lorem</p>
+                        <h2 class="text-white fw-medium">Хотите позвонить?</h2>
+                        <p class="text-neutral-200 tw-mt-5">Наши консультанты ответят на ваши вопросы по телефону ежедневно с 09:00 до 21:00</p>
                         <div class="d-flex align-items-center tw-gap-3 tw-mt-5">
+                          {% if main_branch.phone %}
                             <span class="text-main h3 tw-pe-1">
                                 <i class="fa-regular fa-phone-volume"></i>
                             </span>
                             <span class="tw-h-10 tw-w-05 bg-neutral-700"></span>
-                            <a href="tel:+1885965845" class="text--white fw-semibold h3 hover-text-main">+1 885 965 845</a>
+                            <a href="tel:+1885965845" class="text--white fw-semibold h3 hover-text-main">{{ main_branch.phone }}</a>
+                          {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-5">
                 <div class="">
-                    <p class="text-neutral-200 fst-italic tw-text-lg">Aenean lectus diam, mattis ut venenatis ac, <span
-                            class="text-white fw-semibold">sagittis sed</span> Etiam commodo urna in mollis
-                        sollicitudin. Suspendisse id mattis, rutrum <span class="text-white fw-semibold">tincidunt
-                            sapien.</span></p>
+                    <p class="text-neutral-200 fst-italic tw-text-lg">Адреса и телефоны наших СТО вы сможете найти на странице контактов. Также вы можете подписаться на наши соцсети.</p>
                     <div class="tw-mt-6">
-                        <a href="contact.html"
+                        <a href="/contacts/"
                             class="btn btn-main hover-style-two button--stroke active-scale-094 tw-duration-100 d-inline-flex align-items-center justify-content-center tw-gap-5 group active--translate-y-2 text-uppercase fw-bolder button-shape shape-bg-black tw-tracking-2-percent"
                             data-block="button">
                             <span class="button__flair"></span>
                             <span class="button__label">
-                                contact us
+                                Адреса СТО
                                 <span class="tw-ps-2 tw-text-sm d-sm-inline-flex d-none"><i
                                         class="fa-solid fa-plus"></i></span>
                             </span>

@@ -33,9 +33,9 @@ class BranchAdmin(admin.ModelAdmin):
         extra = 1
         model = BodyRepairEmailReceiver
 
-    list_display = ('name', 'active', 'address', 'phone', 'latitude', 'longitude', 'receivers_string')
+    list_display = ('name', 'active', 'main', 'address', 'phone', 'latitude', 'longitude', 'receivers_string')
     list_filter = ('active',)
-    list_editable = ('latitude', 'longitude',)
+    list_editable = ('latitude', 'longitude', 'main',)
     actions = (activate, deactivate, clone)
 
     inlines = (EmailReceiverInlineAdmin, BodyRepairEmailReceiverInlineAdmin)
