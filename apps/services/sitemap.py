@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from apps.services.models import Product, Section
 from apps.services.utils.cached_cars import create_cached_car_url_list
+from apps.services.utils.helpers import SECTIONS_WITHOUT_CAR_LINKS
 
 
 class ProductSitemap(Sitemap):
@@ -37,7 +38,12 @@ def service_sitemaps() -> Dict[str, type]:
     try:
         cached_car_packs = {}  # All cached car_packs are stored here (item which includes all cars is also)
 
-        for section in Section.objects.filter(active=True, canonical_to_original=False):
+        sections = Section.objects.filter(
+            active=True,
+            canonical_to_original=False,
+        ).exclude(url__in=SECTIONS_WITHOUT_CAR_LINKS)
+
+        for section in sections:
             if None not in cached_car_packs:  # Sections support all cars, so car_pack is always None
                 cached_car_packs[None] = create_cached_car_url_list(None)
 
