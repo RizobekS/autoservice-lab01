@@ -139,10 +139,9 @@
                                         <div class="testimonials-item" data-aos="fade-up" data-aos-duration="1000"
                                             data-aos-delay="100">
                                           {% if product.master_advise %}
-                                            <p
-                                                class="animate-left-right animation-delay-1 h3 text-white fw-normal line-height-15">
-                                              {{ product.master_advise }}
-                                            </p>
+                                            <div class="animate-left-right animation-delay-1 h3 text-white fw-normal line-height-15">
+                                              {{ product.master_advise|safe }}
+                                            </div>
                                           {% endif %}
                                         </div>
                                     </div>
